@@ -220,7 +220,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
                 <svg width="14" height="12" viewBox="0 0 10 8" fill="none">
                   <path d="M4 1L1 4M1 4L4 7M1 4H9" stroke="#584dff" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-                <span className="text-sm font-medium text-[#584dff]/90 uppercase tracking-wider">Drag</span>
+                <span className="text-sm font-medium text-[#584dff]/90 tracking-tight">Drag</span>
                 <svg width="14" height="12" viewBox="0 0 10 8" fill="none">
                   <path d="M6 1L9 4M9 4L6 7M9 4H1" stroke="#584dff" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -257,7 +257,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
             }}
           >
              <div 
-               className="w-[260px] h-[325px] lg:w-[420px] lg:h-[520px] shrink-0 snap-center overflow-hidden rounded-lg lg:rounded-none"
+               className="w-[260px] h-[325px] lg:w-[420px] lg:h-[520px] shrink-0 snap-center overflow-hidden rounded-none"
                onClick={(e) => {
                  e.stopPropagation();
                  const card = e.currentTarget;
@@ -273,7 +273,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
                <ImageWithFallback src={imgApp1} className="w-full h-full object-cover" />
              </div>
              <div 
-               className="w-[260px] h-[260px] lg:w-[520px] lg:h-[415px] shrink-0 snap-center overflow-hidden rounded-lg lg:rounded-none"
+               className="w-[260px] h-[260px] lg:w-[520px] lg:h-[415px] shrink-0 snap-center overflow-hidden rounded-none"
                onClick={(e) => {
                  e.stopPropagation();
                  const card = e.currentTarget;
@@ -289,7 +289,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
                <ImageWithFallback src={imgApp2} className="w-full h-full object-cover" />
              </div>
              <div 
-               className="w-[260px] h-[325px] lg:w-[420px] lg:h-[520px] shrink-0 snap-center overflow-hidden rounded-lg lg:rounded-none"
+               className="w-[260px] h-[325px] lg:w-[420px] lg:h-[520px] shrink-0 snap-center overflow-hidden rounded-none"
                onClick={(e) => {
                  e.stopPropagation();
                  const card = e.currentTarget;
@@ -305,7 +305,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
                <ImageWithFallback src={imgApp3} className="w-full h-full object-cover" />
              </div>
              <div 
-               className="w-[260px] h-[260px] lg:w-[520px] lg:h-[415px] shrink-0 snap-center overflow-hidden rounded-lg lg:rounded-none"
+               className="w-[260px] h-[260px] lg:w-[520px] lg:h-[415px] shrink-0 snap-center overflow-hidden rounded-none"
                onClick={(e) => {
                  e.stopPropagation();
                  const card = e.currentTarget;
@@ -321,7 +321,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
                <ImageWithFallback src={imgApp2} className="w-full h-full object-cover" />
              </div>
              <div 
-               className="w-[260px] h-[325px] lg:w-[420px] lg:h-[520px] shrink-0 snap-center overflow-hidden rounded-lg lg:rounded-none"
+               className="w-[260px] h-[325px] lg:w-[420px] lg:h-[520px] shrink-0 snap-center overflow-hidden rounded-none"
                onClick={(e) => {
                  e.stopPropagation();
                  const card = e.currentTarget;
