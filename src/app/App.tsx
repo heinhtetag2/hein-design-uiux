@@ -76,7 +76,7 @@ export default function App() {
       
       <PageTransitionOverlay isTransitioning={isTransitioning} />
 
-      <div className="relative mx-auto w-full max-w-[1920px] h-full z-10 px-6">
+      <div className="relative mx-auto w-full max-w-[1920px] h-full z-10 px-4 md:px-6">
         <TopNav 
           onLogoClick={() => handleNavigate("home")} 
           onNavigate={handleNavigate}

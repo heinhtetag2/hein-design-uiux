@@ -254,7 +254,7 @@ export function BlogDetail({ postId, onBack, onPostClick }: BlogDetailProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3, ease: [0.23, 1, 0.32, 1] }}
-          className={`w-[calc(100%+48px)] -ml-6 aspect-[1392/835] rounded-xl bg-gradient-to-br ${article.heroColor} border border-foreground/[0.06] overflow-hidden relative`}
+          className={`w-[calc(100%+32px)] md:w-[calc(100%+48px)] -ml-4 md:-ml-6 aspect-[1392/835] rounded-xl bg-gradient-to-br ${article.heroColor} border border-foreground/[0.06] overflow-hidden relative`}
         >
           <div className="absolute inset-0 flex items-center justify-center">
             <svg viewBox="0 0 400 200" fill="none" className="w-[60%] max-w-[500px] opacity-40">
@@ -366,12 +366,12 @@ export function BlogDetail({ postId, onBack, onPostClick }: BlogDetailProps) {
       </motion.div>
 
       {/* Related Articles */}
-      <div className="mt-44 w-[calc(100%+48px)] -ml-6">
-        <h3 className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[22px] leading-[28px] tracking-[-0.2px] text-foreground mb-8 px-6">
+      <div className="mt-44 w-[calc(100%+32px)] md:w-[calc(100%+48px)] -ml-4 md:-ml-6">
+        <h3 className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[22px] leading-[28px] tracking-[-0.2px] text-foreground mb-8 px-4 md:px-6">
           Related Articles
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-6">
           {getRelatedPosts(postId).map((relatedId) => {
             const related = getArticle(relatedId);
             return (
@@ -414,8 +414,8 @@ export function BlogDetail({ postId, onBack, onPostClick }: BlogDetailProps) {
       </div>
 
       {/* How can we help */}
-      <section className="w-[calc(100%+48px)] -ml-6 py-[180px] border-t border-foreground/10 mt-32">
-        <div className="px-6 flex flex-col lg:flex-row items-start justify-between">
+      <section className="w-[calc(100%+32px)] md:w-[calc(100%+48px)] -ml-4 md:-ml-6 py-[180px] border-t border-foreground/10 mt-32">
+        <div className="px-4 md:px-6 flex flex-col lg:flex-row items-start justify-between">
           <h2 className="font-['Cormorant',serif] text-[clamp(48px,6vw,88px)] font-light leading-[1.1] tracking-tight">How can<br />we help?</h2>
           <div className="w-full lg:w-[600px] flex flex-col pt-12 lg:pt-0">
             {["Work together", "Join our team", "Ask anything"].map((item, i) => (
@@ -429,8 +429,8 @@ export function BlogDetail({ postId, onBack, onPostClick }: BlogDetailProps) {
       </section>
 
       {/* Footer */}
-      <footer className="w-[calc(100%+48px)] -ml-6 py-20 border-t border-foreground/10">
-        <div className="px-6 flex flex-wrap gap-x-32 gap-y-12 items-start">
+      <footer className="w-[calc(100%+32px)] md:w-[calc(100%+48px)] -ml-4 md:-ml-6 py-20 border-t border-foreground/10">
+        <div className="px-4 md:px-6 flex flex-wrap gap-x-32 gap-y-12 items-start">
           <div className="flex flex-col gap-4">
             <span className="text-[12px] uppercase tracking-[0.2em] text-foreground/60 font-light">Social</span>
             <div className="flex gap-6">

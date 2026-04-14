@@ -25,7 +25,7 @@ export function WhatIDo() {
     offset: ["start start", "end start"]
   });
 
-  const bannerWidth = useTransform(heroScroll, [0, 0.5], ["min(454px, calc(100vw - 48px))", "100%"]);
+  const bannerWidth = useTransform(heroScroll, [0, 0.5], ["min(454px, calc(100vw - 32px))", "100%"]);
   const bannerRadius = useTransform(heroScroll, [0, 0.3, 0.5], ["20px", "20px", "0px"]);
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-60%"]);
 
@@ -35,7 +35,7 @@ export function WhatIDo() {
       <div 
         ref={heroRef} 
         style={{ position: 'relative' }} 
-        className="flex flex-col items-center w-full relative px-6"
+        className="flex flex-col items-center w-full relative px-4 md:px-6"
       >
         <h1 className="font-['Cormorant',serif] font-light text-[clamp(48px,10vw,140px)] text-center leading-none tracking-tight mb-8">
           Designing experiences powered by AI thinking
@@ -56,7 +56,7 @@ export function WhatIDo() {
       </div>
 
       {/* Breakthrough Products Section */}
-      <div className="w-full py-[60px] md:py-[90px] relative px-6">
+      <div className="w-full py-[60px] md:py-[90px] relative px-4 md:px-6">
         <div className="max-w-[866px] relative">
           <h2 className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-foreground leading-tight tracking-tight text-[clamp(32px,5vw,64px)] relative">
             I combine UI/UX craft with AI-driven workflows to design products that feel intuitive and ship faster
@@ -102,7 +102,7 @@ export function WhatIDo() {
       </div>
 
       {/* What I Do Headline */}
-      <div className="w-full py-[32px] px-6">
+      <div className="w-full py-[32px] px-4 md:px-6">
                 <h3 className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[32px] md:text-[40px] text-foreground tracking-[-1px]">
           What I do
         </h3>
@@ -128,7 +128,7 @@ export function WhatIDo() {
       </div>
 
       {/* Categories List */}
-      <div className="w-full py-[90px] grid grid-cols-1 md:grid-cols-3 gap-[24px] px-6">
+      <div className="w-full py-[48px] md:py-[90px] grid grid-cols-1 md:grid-cols-3 gap-[24px] px-4 md:px-6">
         <CategorySection
           title="Design & UX"
           items={["UI/UX Design", "Design Systems", "Interaction Design", "UX Research & Testing", "Wireframing & Prototyping"]}
@@ -144,9 +144,9 @@ export function WhatIDo() {
       </div>
 
       {/* Help Section */}
-      <div className="w-full py-[100px] lg:py-[178px] px-6">
+      <div className="w-full py-[60px] md:py-[100px] lg:py-[178px] px-4 md:px-6">
         <div className="flex flex-col lg:flex-row justify-between items-start gap-12">
-          <h2 className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[64px] lg:text-[88px] text-foreground leading-tight tracking-[-1.76px]">
+          <h2 className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[42px] md:text-[64px] lg:text-[88px] text-foreground leading-tight tracking-[-1.76px]">
             How can<br />I help?
           </h2>
           <div className="w-full lg:w-[448px] flex flex-col">
@@ -158,8 +158,8 @@ export function WhatIDo() {
       </div>
 
       {/* Footer Links */}
-      <div className="w-full border-t border-foreground/10 mt-auto px-6">
-        <div className="py-[50px] flex flex-col md:flex-row justify-between items-end gap-12">
+      <div className="w-full border-t border-foreground/10 mt-auto px-4 md:px-6">
+        <div className="py-[32px] md:py-[50px] flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-12">
           <div className="flex gap-[24px] flex-wrap">
             <div className="flex flex-col gap-2 min-w-[120px]">
               <FooterLink label="Linkedin" />
@@ -195,7 +195,7 @@ function ServiceRow({ title, description, image }: { title: string; description:
       whileHover="hovered"
       className="w-full border-b border-foreground/10 relative group cursor-pointer overflow-hidden"
     >
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-10 lg:gap-0 py-[50px] px-6 lg:min-h-[280px] hover:bg-white/5 transition-colors duration-300">
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 lg:gap-0 py-[32px] md:py-[50px] px-4 md:px-6 lg:min-h-[280px] hover:bg-white/5 transition-colors duration-300">
         {/* Heading */}
         <motion.div
           className="w-full lg:w-[405px]"

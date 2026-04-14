@@ -26,7 +26,7 @@ import imgMapImage from "figma:asset/a69c8495dcaf009e877f7edc68539b20116054e3.pn
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
 function Container({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <div className={`w-full max-w-[1800px] px-4 2xl:px-0 ${className}`}>{children}</div>;
+  return <div className={`w-full max-w-[1800px] ${className}`}>{children}</div>;
 }
 
 function SectionHeading({ text }: { text: string }) {
@@ -160,7 +160,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       </div>
 
       {/* 5. Mindset Section */}
-      <Container className="mb-40">
+      <Container className="mb-16 md:mb-28 lg:mb-40">
         <div className="lg:pl-[260px] lg:pr-[460px]">
           <SectionHeading text="The system mindset" />
           <LargeText size="medium" text="A structured learning platform that balances administrative control with flexibility while keeping the experience simple for those who learn and teach every day." />
@@ -168,12 +168,12 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       </Container>
 
       {/* 6. Image Grid (Posters) */}
-      <div className="w-full mb-32 max-w-[1800px] flex flex-col gap-6">
-        <div className="w-full h-[400px] lg:h-[778px] overflow-hidden">
+      <div className="w-full mb-16 md:mb-32 max-w-[1800px] flex flex-col gap-4 md:gap-6">
+        <div className="w-full h-[250px] md:h-[400px] lg:h-[778px] overflow-hidden">
           <RevealImage src={imgFrame78} className="w-full h-full" />
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-           <div className="h-[400px] lg:h-[782px] overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+           <div className="h-[250px] md:h-[400px] lg:h-[782px] overflow-hidden">
              <RevealImage src={imgFrame79} className="w-full h-full" />
            </div>
            <div className="flex flex-col gap-6">
@@ -191,7 +191,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       {/* 7. Image Grid 1 (Horizontal Strip) */}
       <div className="w-full mb-32">
         <div 
-          className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [scrollbar-width:none] snap-x snap-mandatory relative px-4 lg:px-0" 
+          className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [scrollbar-width:none] snap-x snap-mandatory relative" 
           style={{ scrollBehavior: isDragging ? 'auto' : 'smooth' }}
           ref={scrollContainerRef}
           onMouseEnter={() => setShowCursor(true)}
@@ -340,7 +340,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
         </div>
         
         {/* Description below cards - mobile centered, desktop left aligned */}
-        <div className="w-full px-4 mt-10 lg:mt-12">
+        <div className="w-full mt-10 lg:mt-12">
           <div className="max-w-[1800px] mx-auto lg:pl-[260px]">
             <p className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[16px] text-foreground max-w-[212px] mx-auto lg:mx-0 lg:text-left text-left">
               By balancing structure and flexibility, EduSync creates a system that feels both controlled and human. Administrators gain oversight, teachers gain freedom, and learning becomes accessible without unnecessary complexity.
@@ -368,8 +368,8 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       </Container>
 
       {/* 11. App Detail Mosaic Grid */}
-      <div className="w-full mb-32 max-w-[1800px] flex flex-col lg:flex-row gap-6">
-        <div className="flex flex-col gap-6 justify-between lg:w-[617px] h-[782px]">
+      <div className="w-full mb-16 md:mb-32 max-w-[1800px] flex flex-col lg:flex-row gap-6">
+        <div className="flex flex-col gap-6 justify-between lg:w-[617px] h-[400px] md:h-[600px] lg:h-[782px]">
            <div className="max-w-[400px]">
               <p className="font-['Clash_Grotesk_Variable',sans-serif] text-[16px] text-foreground">Create a course, assign teachers, and manage lessons in one place. Content moves from draft to review to published ensuring quality without slowing down teaching.</p>
            </div>
@@ -377,13 +377,13 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
               <RevealImage src={imgFrame81} className="w-full h-full" />
            </div>
         </div>
-        <div className="flex-1 h-[782px] overflow-hidden">
+        <div className="flex-1 h-[300px] md:h-[500px] lg:h-[782px] overflow-hidden">
            <RevealImage src={imgApp1} className="w-full h-full" />
         </div>
       </div>
 
       {/* 11.5 Wide Image Grid Section */}
-      <div className="w-full mb-32 max-w-[1800px] grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="w-full mb-16 md:mb-32 max-w-[1800px] grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-10 h-[400px] lg:h-[748px] overflow-hidden">
            <RevealImage src={imgImage3} className="w-full h-full" />
         </div>
@@ -393,8 +393,8 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       </div>
 
       {/* 11.6 Grid Layout with Text + Images */}
-      <div className="w-full mb-32 max-w-[1800px] flex flex-col lg:flex-row gap-6">
-        <div className="flex flex-col gap-4 lg:w-[600px] h-[782px]">
+      <div className="w-full mb-16 md:mb-32 max-w-[1800px] flex flex-col lg:flex-row gap-6">
+        <div className="flex flex-col gap-4 lg:w-[600px] h-[400px] md:h-[600px] lg:h-[782px]">
            <div className="max-w-[400px]">
               <p className="font-['Clash_Grotesk_Variable',sans-serif] text-[16px] text-foreground leading-[24px]">Record a beat or hum a tune using the audio prompt and watch it turn into your new favourite song.</p>
            </div>
@@ -402,13 +402,13 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
               <RevealImage src={imgImage4} className="w-full h-full" />
            </div>
         </div>
-        <div className="flex-1 h-[782px] overflow-hidden">
+        <div className="flex-1 h-[300px] md:h-[500px] lg:h-[782px] overflow-hidden">
            <RevealImage src={imgImage5} className="w-full h-full" />
         </div>
       </div>
 
       {/* 11.9 — Discovery Image Grid */}
-      <div className="w-full max-w-[1800px] px-4 2xl:px-0 py-[90px]">
+      <div className="w-full max-w-[1800px] py-[90px]">
         <div className="flex flex-col lg:flex-row gap-[24px] items-start w-full">
           <div className="flex flex-col gap-[24px] flex-1 min-w-0 items-start justify-center self-stretch">
             <div className="w-full">
@@ -429,14 +429,14 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
               <RevealImage src={imgFrame82} className="w-full h-full" />
             </div>
           </div>
-          <div className="shrink-0 w-[944px] h-[900px] overflow-hidden">
+          <div className="shrink-0 w-full lg:w-[944px] h-[400px] md:h-[600px] lg:h-[900px] overflow-hidden">
             <RevealImage src={imgFrame83} className="w-full h-full" />
           </div>
         </div>
       </div>
 
       {/* 11.9c — Full Width Image */}
-      <div className="w-full py-[90px] max-w-[1800px] px-4 2xl:px-0">
+      <div className="w-full py-[90px] max-w-[1800px]">
         <div className="w-full h-[600px] lg:h-[840px] overflow-hidden">
           <RevealImage src={imgImage2} className="w-full h-full" />
         </div>
@@ -451,7 +451,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       </Container>
 
       {/* 11.9e — Scale Image Grid */}
-      <div className="w-full mb-32 max-w-[1800px] px-4 2xl:px-0">
+      <div className="w-full mb-32 max-w-[1800px]">
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="flex-1 min-w-0 h-[500px] lg:h-[748px] overflow-hidden">
             <RevealImage src={imgImage6} className="w-full h-full" />
@@ -468,7 +468,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       </div>
 
       {/* 12. Think Different Section */}
-      <Container className="mb-[140px]">
+      <Container className="mb-[60px] md:mb-[100px] lg:mb-[140px]">
         <div className="lg:pl-[260px] lg:pr-[460px]">
           <SectionHeading text="Think Different" />
           <LargeText size="medium" text="The ability to surface the right learning at the right time turns an LMS into a place students return to—not just log into." />
@@ -476,8 +476,8 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       </Container>
 
       {/* 12.5 Grid Layout with Text + Images */}
-      <div className="w-full mb-32 max-w-[1800px] flex flex-col lg:flex-row gap-6">
-        <div className="flex flex-col gap-4 lg:w-[600px] h-[782px]">
+      <div className="w-full mb-16 md:mb-32 max-w-[1800px] flex flex-col lg:flex-row gap-6">
+        <div className="flex flex-col gap-4 lg:w-[600px] h-[400px] md:h-[600px] lg:h-[782px]">
            <div className="max-w-[400px]">
               <p className="font-['Clash_Grotesk_Variable',sans-serif] text-[16px] text-foreground leading-[24px]">Create a course, assign teachers, and manage lessons in one place. Content moves from draft to review to published ensuring quality without slowing down teaching.</p>
            </div>
@@ -485,14 +485,14 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
               <RevealImage src={imgImage8} className="w-full h-full" />
            </div>
         </div>
-        <div className="flex-1 h-[782px] overflow-hidden">
+        <div className="flex-1 h-[300px] md:h-[500px] lg:h-[782px] overflow-hidden">
            <RevealImage src={imgImage9} className="w-full h-full" />
         </div>
       </div>
 
       {/* 15. Impact Stats Section */}
-      <Container className="mb-40">
-        <h2 className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[56px] text-foreground tracking-[-1px] leading-tight mb-20">
+      <Container className="mb-16 md:mb-28 lg:mb-40">
+        <h2 className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[32px] md:text-[44px] lg:text-[56px] text-foreground tracking-[-1px] leading-tight mb-10 md:mb-20">
           Immediate disruption
         </h2>
         <div className="flex flex-col lg:flex-row justify-between gap-10 border-b border-foreground/10 pb-20">
@@ -508,8 +508,8 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
             { value: "43K", label: "Ratings on App Store" },
             { value: "T10", label: "Top performing apps in Education" }
           ].map((stat) => (
-            <div key={stat.label} className="py-20 flex flex-col lg:flex-row items-baseline lg:justify-end gap-10">
-              <span className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[80px] lg:text-[120px] text-foreground leading-none tracking-tight">{stat.value}</span>
+            <div key={stat.label} className="py-10 md:py-16 lg:py-20 flex flex-col lg:flex-row items-baseline lg:justify-end gap-4 md:gap-10">
+              <span className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[48px] md:text-[80px] lg:text-[120px] text-foreground leading-none tracking-tight">{stat.value}</span>
               <span className="font-['Clash_Grotesk_Variable',sans-serif] text-[20px] text-foreground/60 w-[300px]">{stat.label}</span>
             </div>
           ))}
@@ -548,8 +548,8 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       </Container>
 
       {/* 17. Footer Help Section */}
-      <Container className="py-40 border-t border-foreground/10 flex flex-col lg:flex-row justify-between gap-20">
-        <h2 className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[60px] lg:text-[88px] text-foreground leading-tight tracking-tight">
+      <Container className="py-16 md:py-24 lg:py-40 border-t border-foreground/10 flex flex-col lg:flex-row justify-between gap-10 md:gap-20">
+        <h2 className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[36px] md:text-[60px] lg:text-[88px] text-foreground leading-tight tracking-tight">
           How can<br />we help?
         </h2>
         <div className="flex flex-col w-full lg:w-[448px] divide-y divide-foreground/10">

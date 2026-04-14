@@ -222,13 +222,13 @@ export function Blogs({ onPostClick }: { onPostClick?: (postId: string) => void 
     : BLOG_POSTS.filter(post => post.category === filter);
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-foreground selection:text-background font-['Clash_Grotesk_Variable',sans-serif] pt-[160px] pb-20 max-w-[1100px] mx-auto px-6">
+    <div className="min-h-screen bg-background text-foreground selection:bg-foreground selection:text-background font-['Clash_Grotesk_Variable',sans-serif] pt-[120px] md:pt-[160px] pb-20 max-w-[1100px] mx-auto">
       {/* Header */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-        className="mb-[100px]"
+        className="mb-[48px] md:mb-[100px]"
       >
         <h1 className="font-['Cormorant',serif] font-light text-[clamp(60px,6vw,86px)] leading-[1.05] tracking-[-0.04em]">
           Thoughts &<br />insights
@@ -260,7 +260,7 @@ export function Blogs({ onPostClick }: { onPostClick?: (postId: string) => void 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: idx * 0.05 }}
-            className="group border-b border-foreground/10 py-[80px] flex items-center justify-between gap-8 relative overflow-hidden cursor-pointer"
+            className="group border-b border-foreground/10 py-[40px] md:py-[60px] lg:py-[80px] flex items-center justify-between gap-8 relative overflow-hidden cursor-pointer"
             onClick={() => onPostClick?.(post.id)}
           >
             <div className="relative z-10 flex flex-col gap-3 flex-1 min-w-0 max-w-[700px]">
@@ -291,7 +291,7 @@ export function Blogs({ onPostClick }: { onPostClick?: (postId: string) => void 
       </div>
 
       {/* Show More Section */}
-      <div className="w-full flex flex-col items-center py-[100px] gap-6">
+      <div className="w-full flex flex-col items-center py-[48px] md:py-[80px] lg:py-[100px] gap-6">
         <button className="backdrop-blur-[7px] bg-foreground/10 px-[17px] py-[4px] rounded-[50px] font-['Clash_Grotesk_Variable',sans-serif] font-light text-[16px] text-foreground tracking-tight hover:opacity-80 transition-opacity cursor-pointer">
           Show more
         </button>
@@ -313,12 +313,12 @@ export function Blogs({ onPostClick }: { onPostClick?: (postId: string) => void 
         className="mt-[40px] md:mt-[60px] border-t border-foreground/10 pt-[60px] md:pt-[80px] flex flex-col items-center text-center max-w-[600px] mx-auto pb-[80px] md:pb-[100px] w-full"
       >
         <span className="font-['Clash_Grotesk_Variable',sans-serif] font-normal text-[12px] text-foreground/40 uppercase tracking-widest mb-4">Connect</span>
-        <h3 className="font-['Cormorant',serif] font-normal text-[32px] md:text-[48px] mb-4 px-4">Stay in the loop</h3>
-        <p className="font-['Clash_Grotesk_Variable',sans-serif] font-normal text-foreground/60 text-[14px] md:text-[16px] tracking-tight mb-8 md:mb-12 px-6">
+        <h3 className="font-['Cormorant',serif] font-normal text-[32px] md:text-[48px] mb-4">Stay in the loop</h3>
+        <p className="font-['Clash_Grotesk_Variable',sans-serif] font-normal text-foreground/60 text-[14px] md:text-[16px] tracking-tight mb-8 md:mb-12">
           Sign up to our newsletter and keep up with the cool kids.
         </p>
         
-        <div className="w-full flex flex-col items-start px-6 md:px-0">
+        <div className="w-full flex flex-col items-start">
           <div className="w-full border-b border-foreground focus-within:border-foreground transition-all duration-500 pb-2 mb-8">
             <input 
               type="email" 

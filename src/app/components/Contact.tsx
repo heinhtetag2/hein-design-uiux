@@ -57,7 +57,7 @@ export function Contact() {
 
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-foreground selection:text-background font-['Clash_Grotesk_Variable',sans-serif] pt-[120px] pb-20 w-screen ml-[calc(-50vw+50%)]">
-      <div className="max-w-[1800px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-20 lg:gap-24 px-6">
+      <div className="max-w-[1800px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-24 px-4 md:px-6">
         {/* Left Side */}
         <div className="flex flex-col items-start pt-10">
           <motion.h1
@@ -85,7 +85,7 @@ export function Contact() {
           </div>
 
           {/* Social Links Bottom Left */}
-          <div className="mt-auto pt-40 flex flex-row gap-6 text-[16px] text-white font-light lowercase">
+          <div className="mt-auto pt-16 md:pt-40 flex flex-row gap-6 text-[16px] text-white font-light lowercase">
             <a href="#" className="hover:text-foreground transition-colors">Linkedin</a>
             <a href="#" className="hover:text-foreground transition-colors">Instagram</a>
             <a href="#" className="hover:text-foreground transition-colors">X</a>
