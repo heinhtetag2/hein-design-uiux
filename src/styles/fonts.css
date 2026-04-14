@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Inter:wght@100..900&display=swap');
+
+/* Fallbacks for custom fonts if not available */
+@font-face {
+  font-family: 'Clash Grotesk Variable';
+  src: local('sans-serif');
+}
+
+@font-face {
+  font-family: 'Basis Grotesque Arabic Pro';
+  src: local('sans-serif');
+}
