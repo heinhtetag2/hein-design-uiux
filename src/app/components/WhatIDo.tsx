@@ -26,7 +26,7 @@ export function WhatIDo() {
   });
 
   const bannerWidth = useTransform(heroScroll, [0, 0.5], ["min(454px, calc(100vw - 48px))", "100%"]);
-  const bannerRadius = useTransform(heroScroll, [0, 0.5], ["10px", "0px"]);
+  const bannerRadius = useTransform(heroScroll, [0, 0.3, 0.5], ["20px", "20px", "0px"]);
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-60%"]);
 
   return (
@@ -38,12 +38,17 @@ export function WhatIDo() {
         className="flex flex-col items-center w-full relative px-6"
       >
         <h1 className="font-['Cormorant',serif] font-light text-[clamp(48px,10vw,140px)] text-center leading-none tracking-tight mb-8">
-          Odds are you've used a product we've built
+          Designing experiences powered by AI thinking
         </h1>
         <div className="mt-12 md:mt-[90px] mb-12 md:mb-[90px] w-full max-w-[1800px] flex justify-center relative">
-          <motion.div 
-            style={{ width: bannerWidth, borderRadius: bannerRadius, position: 'relative' }}
-            className="aspect-video bg-foreground/20 overflow-hidden relative"
+          <motion.div
+            style={{
+              width: bannerWidth,
+              borderRadius: bannerRadius,
+              position: 'relative',
+              overflow: 'hidden'
+            }}
+            className="aspect-video bg-foreground/20 relative"
           >
             <ImageWithFallback src={imgHeadspaceHero} className="w-full h-full object-cover" />
           </motion.div>
@@ -54,7 +59,7 @@ export function WhatIDo() {
       <div className="w-full py-[60px] md:py-[90px] relative px-6">
         <div className="max-w-[866px] relative">
           <h2 className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-foreground leading-tight tracking-tight text-[clamp(32px,5vw,64px)] relative">
-            Since 2024, we've helped shape the technology landscape by building breakthrough products
+            I combine UI/UX craft with AI-driven workflows to design products that feel intuitive and ship faster
           </h2>
         </div>
       </div>
@@ -75,22 +80,22 @@ export function WhatIDo() {
           className="flex gap-[16px] md:gap-[24px] lg:pl-[clamp(100px,20vw,260px)] min-w-max items-start relative"
           transition={{ type: "spring", stiffness: 100, damping: 30, mass: 0.5 }}
         >
-          <div className="w-[236px] h-[187px] shrink-0 overflow-hidden rounded-lg bg-foreground/10">
+          <div className="w-[236px] h-[187px] shrink-0 overflow-hidden rounded-none bg-foreground/10">
             <ImageWithFallback src={imgALaptop} className="w-full h-full object-cover" />
           </div>
-          <div className="w-[449px] h-[295px] shrink-0 overflow-hidden rounded-lg bg-foreground/10">
+          <div className="w-[449px] h-[295px] shrink-0 overflow-hidden rounded-none bg-foreground/10">
             <ImageWithFallback src={imgStadium} className="w-full h-full object-cover" />
           </div>
-          <div className="w-[213px] h-[213px] shrink-0 overflow-hidden rounded-lg bg-foreground/10">
+          <div className="w-[213px] h-[213px] shrink-0 overflow-hidden rounded-none bg-foreground/10">
             <ImageWithFallback src={imgWomanWatermelon} className="w-full h-full object-cover" />
           </div>
-          <div className="w-[449px] h-[317px] shrink-0 overflow-hidden rounded-lg bg-foreground/10">
+          <div className="w-[449px] h-[317px] shrink-0 overflow-hidden rounded-none bg-foreground/10">
             <ImageWithFallback src={imgFearlessGirl} className="w-full h-full object-cover" />
           </div>
-          <div className="w-[343px] h-[351px] shrink-0 overflow-hidden rounded-lg bg-foreground/10">
+          <div className="w-[343px] h-[351px] shrink-0 overflow-hidden rounded-none bg-foreground/10">
             <ImageWithFallback src={imgModular} className="w-full h-full object-cover" />
           </div>
-          <div className="w-[213px] h-[351px] shrink-0 overflow-hidden rounded-lg bg-foreground/10">
+          <div className="w-[213px] h-[351px] shrink-0 overflow-hidden rounded-none bg-foreground/10">
             <ImageWithFallback src={imgHeadspace} className="w-full h-full object-cover" />
           </div>
         </motion.div>
@@ -104,37 +109,37 @@ export function WhatIDo() {
       </div>
 
       {/* Services Grid */}
-      <div className="w-full border-t border-foreground/10 px-6">
-        <ServiceRow 
-          title="Define a clear vision for the future"
-          description="Whether you’re an R&D team at a Fortune 500 or a founder with a paper napkin sketch, we shape, ideate, prototype, and conceive beloved products for your users."
+      <div className="w-full border-t border-foreground/10 px-0">
+        <ServiceRow
+          title="AI-enhanced UX research & strategy"
+          description="I use AI tools to accelerate user research, synthesize insights, and define product direction — turning weeks of discovery into days without losing depth."
           image={imgWomanWatermelon}
         />
-        <ServiceRow 
-          title="Set the bar for category defining design"
-          description="If you’ve proven product market fit and want to ensure your user experience is best-in-class, performant, and scalable by design, we can help you make it pixel-perfect."
+        <ServiceRow
+          title="Design systems & pixel-perfect interfaces"
+          description="From design tokens to production-ready components, I craft scalable design systems and high-fidelity interfaces that maintain consistency across every touchpoint."
           image={imgFearlessGirl}
         />
-        <ServiceRow 
-          title="Ship new products from zero-to-one"
-          description="When you need to design and build software from the ground up with a high-powered product team, we’re ready to help you ship a lovable MVP built for today and tomorrow."
+        <ServiceRow
+          title="Rapid prototyping with AI workflows"
+          description="I leverage AI-powered design and development tools to go from concept to interactive prototype fast — validating ideas early and iterating with real user feedback."
           image={imgStadium}
         />
       </div>
 
       {/* Categories List */}
       <div className="w-full py-[90px] grid grid-cols-1 md:grid-cols-3 gap-[24px] px-6">
-        <CategorySection 
-          title="Design & UX Research"
-          items={["UX/UI Design", "Design Systems", "Brand", "UX Research & Testing", "Ideation & Prototyping"]}
+        <CategorySection
+          title="Design & UX"
+          items={["UI/UX Design", "Design Systems", "Interaction Design", "UX Research & Testing", "Wireframing & Prototyping"]}
         />
-        <CategorySection 
-          title="Engineering"
-          items={["Full Stack Engineering", "Frontend Development", "Backend Development", "Mobile Developement"]}
+        <CategorySection
+          title="AI Workflow"
+          items={["AI-Assisted Design", "Prompt Engineering for Design", "AI Prototyping Tools", "Generative UI Exploration"]}
         />
-        <CategorySection 
-          title="Product & Strategy"
-          items={["Product Management", "Product Strategy & Vision", "User Engagement & Retention"]}
+        <CategorySection
+          title="Strategy & Delivery"
+          items={["Product Thinking", "Design Sprint Facilitation", "Design-to-Dev Handoff", "Usability Audits"]}
         />
       </div>
 
@@ -190,13 +195,20 @@ function ServiceRow({ title, description, image }: { title: string; description:
       whileHover="hovered"
       className="w-full border-b border-foreground/10 relative group cursor-pointer overflow-hidden"
     >
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-10 lg:gap-0 py-[50px] lg:min-h-[280px] hover:bg-white/5 transition-colors duration-300 rounded-lg lg:px-6">
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-10 lg:gap-0 py-[50px] px-6 lg:min-h-[280px] hover:bg-white/5 transition-colors duration-300">
         {/* Heading */}
-        <div className="w-full lg:w-[405px]">
-          <h4 className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[28px] md:text-[40px] text-foreground leading-tight tracking-[-1px]">
+        <motion.div
+          className="w-full lg:w-[405px]"
+          variants={{
+            initial: { x: 0 },
+            hovered: { x: -8 }
+          }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <h4 className="font-['Cormorant',serif] font-light text-[32px] md:text-[48px] text-foreground leading-tight tracking-[-1px]">
             {title}
           </h4>
-        </div>
+        </motion.div>
 
         {/* Center/Right Content Group */}
         <div className="flex flex-col md:flex-row items-start md:items-center gap-[40px] relative">
@@ -207,19 +219,19 @@ function ServiceRow({ title, description, image }: { title: string; description:
               hovered: { opacity: 1 }
             }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="hidden lg:block w-[clamp(200px,20vw,308px)] h-[180px] shrink-0 overflow-hidden rounded-sm relative"
+            className="hidden lg:block w-[clamp(200px,20vw,308px)] h-[180px] shrink-0 overflow-hidden rounded-none relative"
           >
             <motion.div
               variants={{
-                initial: { y: "100%" },
-                hovered: { y: 0 }
+                initial: { y: "100%", scale: 1.15, opacity: 0 },
+                hovered: { y: 0, scale: 1, opacity: 1 }
               }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="w-full h-full"
             >
-              <ImageWithFallback 
-                src={image} 
-                className="w-full h-full object-cover" 
+              <ImageWithFallback
+                src={image}
+                className="w-full h-full object-cover"
               />
             </motion.div>
           </motion.div>
@@ -242,7 +254,7 @@ function ServiceRow({ title, description, image }: { title: string; description:
         transition={{ duration: 0.4 }}
         className="lg:hidden w-full overflow-hidden"
       >
-        <div className="w-full aspect-video rounded-lg overflow-hidden mb-6">
+        <div className="w-full aspect-video rounded-none overflow-hidden mb-6">
           <ImageWithFallback src={image} className="w-full h-full object-cover" />
         </div>
       </motion.div>
