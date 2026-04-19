@@ -56,7 +56,7 @@ export function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-foreground selection:text-background font-['Clash_Grotesk_Variable',sans-serif] pt-[120px] pb-20 w-screen ml-[calc(-50vw+50%)]">
+    <div className="min-h-screen bg-background text-foreground selection:bg-[#584dff] selection:text-white font-['Clash_Grotesk_Variable',sans-serif] pt-[120px] pb-20 w-screen ml-[calc(-50vw+50%)]">
       <div className="max-w-[1800px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-24 px-4 md:px-6">
         {/* Left Side */}
         <div className="flex flex-col items-start pt-10">

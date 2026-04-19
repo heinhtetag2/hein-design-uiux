@@ -91,7 +91,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
   }, []);
 
   return (
-    <div style={{ position: 'relative' }} className="bg-background min-h-screen w-full flex flex-col items-center pb-20 selection:bg-foreground selection:text-background relative">
+    <div style={{ position: 'relative' }} className="bg-background min-h-screen w-full flex flex-col items-center pb-20 selection:bg-[#584dff] selection:text-white relative">
       
       {/* 1. Header Section */}
       <Container className="pt-24 lg:pt-32 mb-20">
@@ -216,13 +216,13 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
                 transform: `translate(-50%, -50%) scale(${isDragging ? 1.2 : 1})`
               }}
             >
-              <div className="flex items-center gap-2.5 border border-[#584dff]/70 rounded-full px-5 py-2.5">
-                <svg width="14" height="12" viewBox="0 0 10 8" fill="none">
-                  <path d="M4 1L1 4M1 4L4 7M1 4H9" stroke="#584dff" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+              <div className="flex items-center gap-3 border border-white/80 rounded-full px-5 py-2.5">
+                <svg width="12" height="10" viewBox="0 0 10 8" fill="none">
+                  <path d="M4 1L1 4M1 4L4 7M1 4H9" stroke="white" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-                <span className="text-sm font-medium text-[#584dff]/90 tracking-tight">Drag</span>
-                <svg width="14" height="12" viewBox="0 0 10 8" fill="none">
-                  <path d="M6 1L9 4M9 4L6 7M9 4H1" stroke="#584dff" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                <span className="text-sm font-medium text-white tracking-tight">Drag</span>
+                <svg width="12" height="10" viewBox="0 0 10 8" fill="none">
+                  <path d="M6 1L9 4M9 4L6 7M9 4H1" stroke="white" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
             </div>

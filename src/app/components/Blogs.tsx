@@ -222,7 +222,7 @@ export function Blogs({ onPostClick }: { onPostClick?: (postId: string) => void 
     : BLOG_POSTS.filter(post => post.category === filter);
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-foreground selection:text-background font-['Clash_Grotesk_Variable',sans-serif] pt-[120px] md:pt-[160px] pb-20 max-w-[1100px] mx-auto">
+    <div className="min-h-screen bg-background text-foreground selection:bg-[#584dff] selection:text-white font-['Clash_Grotesk_Variable',sans-serif] pt-[120px] md:pt-[160px] pb-20 max-w-[1100px] mx-auto">
       {/* Header */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
