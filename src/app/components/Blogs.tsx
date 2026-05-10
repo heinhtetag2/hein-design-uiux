@@ -99,110 +99,110 @@ function BlogThumbnail({ type }: { type: string }) {
   const thumbnails: Record<string, React.ReactNode> = {
     "systems-1": (
       <svg viewBox="0 0 280 180" fill="none" className="w-full h-full">
-        <rect x="30" y="30" width="60" height="60" rx="12" stroke="rgba(88,77,255,0.4)" strokeWidth="1.5" />
-        <rect x="110" y="30" width="60" height="60" rx="12" stroke="rgba(88,77,255,0.4)" strokeWidth="1.5" />
-        <rect x="190" y="30" width="60" height="60" rx="12" stroke="rgba(88,77,255,0.4)" strokeWidth="1.5" />
-        <rect x="70" y="90" width="60" height="60" rx="12" stroke="rgba(88,77,255,0.6)" strokeWidth="1.5" />
-        <rect x="150" y="90" width="60" height="60" rx="12" stroke="rgba(88,77,255,0.6)" strokeWidth="1.5" />
-        <line x1="90" y1="60" x2="110" y2="60" stroke="rgba(88,77,255,0.3)" strokeWidth="1" />
-        <line x1="170" y1="60" x2="190" y2="60" stroke="rgba(88,77,255,0.3)" strokeWidth="1" />
-        <circle cx="60" cy="60" r="8" fill="rgba(88,77,255,0.15)" />
-        <circle cx="140" cy="60" r="8" fill="rgba(88,77,255,0.15)" />
-        <circle cx="220" cy="60" r="8" fill="rgba(88,77,255,0.15)" />
+        <rect x="30" y="30" width="60" height="60" rx="12" stroke="rgb(var(--brand-rgb) /0.4)" strokeWidth="1.5" />
+        <rect x="110" y="30" width="60" height="60" rx="12" stroke="rgb(var(--brand-rgb) /0.4)" strokeWidth="1.5" />
+        <rect x="190" y="30" width="60" height="60" rx="12" stroke="rgb(var(--brand-rgb) /0.4)" strokeWidth="1.5" />
+        <rect x="70" y="90" width="60" height="60" rx="12" stroke="rgb(var(--brand-rgb) /0.6)" strokeWidth="1.5" />
+        <rect x="150" y="90" width="60" height="60" rx="12" stroke="rgb(var(--brand-rgb) /0.6)" strokeWidth="1.5" />
+        <line x1="90" y1="60" x2="110" y2="60" stroke="rgb(var(--brand-rgb) /0.3)" strokeWidth="1" />
+        <line x1="170" y1="60" x2="190" y2="60" stroke="rgb(var(--brand-rgb) /0.3)" strokeWidth="1" />
+        <circle cx="60" cy="60" r="8" fill="rgb(var(--brand-rgb) /0.15)" />
+        <circle cx="140" cy="60" r="8" fill="rgb(var(--brand-rgb) /0.15)" />
+        <circle cx="220" cy="60" r="8" fill="rgb(var(--brand-rgb) /0.15)" />
       </svg>
     ),
     "systems-2": (
       <svg viewBox="0 0 280 180" fill="none" className="w-full h-full">
-        <circle cx="140" cy="90" r="50" stroke="rgba(88,77,255,0.3)" strokeWidth="1" />
-        <circle cx="140" cy="90" r="35" stroke="rgba(88,77,255,0.4)" strokeWidth="1" />
-        <circle cx="140" cy="90" r="20" stroke="rgba(88,77,255,0.6)" strokeWidth="1.5" />
-        <circle cx="140" cy="90" r="5" fill="rgba(88,77,255,0.8)" />
-        <line x1="140" y1="40" x2="140" y2="55" stroke="rgba(88,77,255,0.3)" strokeWidth="1" />
-        <line x1="140" y1="125" x2="140" y2="140" stroke="rgba(88,77,255,0.3)" strokeWidth="1" />
-        <line x1="90" y1="90" x2="105" y2="90" stroke="rgba(88,77,255,0.3)" strokeWidth="1" />
-        <line x1="175" y1="90" x2="190" y2="90" stroke="rgba(88,77,255,0.3)" strokeWidth="1" />
+        <circle cx="140" cy="90" r="50" stroke="rgb(var(--brand-rgb) /0.3)" strokeWidth="1" />
+        <circle cx="140" cy="90" r="35" stroke="rgb(var(--brand-rgb) /0.4)" strokeWidth="1" />
+        <circle cx="140" cy="90" r="20" stroke="rgb(var(--brand-rgb) /0.6)" strokeWidth="1.5" />
+        <circle cx="140" cy="90" r="5" fill="rgb(var(--brand-rgb) /0.8)" />
+        <line x1="140" y1="40" x2="140" y2="55" stroke="rgb(var(--brand-rgb) /0.3)" strokeWidth="1" />
+        <line x1="140" y1="125" x2="140" y2="140" stroke="rgb(var(--brand-rgb) /0.3)" strokeWidth="1" />
+        <line x1="90" y1="90" x2="105" y2="90" stroke="rgb(var(--brand-rgb) /0.3)" strokeWidth="1" />
+        <line x1="175" y1="90" x2="190" y2="90" stroke="rgb(var(--brand-rgb) /0.3)" strokeWidth="1" />
       </svg>
     ),
     "engineering-1": (
       <svg viewBox="0 0 280 180" fill="none" className="w-full h-full">
-        <text x="60" y="70" fontFamily="monospace" fontSize="14" fill="rgba(88,77,255,0.5)">&lt;Component</text>
-        <text x="80" y="90" fontFamily="monospace" fontSize="14" fill="rgba(88,77,255,0.35)">props=&#123;...&#125;</text>
-        <text x="60" y="110" fontFamily="monospace" fontSize="14" fill="rgba(88,77,255,0.5)">/&gt;</text>
-        <rect x="170" y="50" width="70" height="70" rx="8" stroke="rgba(88,77,255,0.3)" strokeWidth="1" strokeDasharray="4 4" />
-        <path d="M195 75 L215 85 L195 95" stroke="rgba(88,77,255,0.6)" strokeWidth="1.5" fill="none" />
+        <text x="60" y="70" fontFamily="monospace" fontSize="14" fill="rgb(var(--brand-rgb) /0.5)">&lt;Component</text>
+        <text x="80" y="90" fontFamily="monospace" fontSize="14" fill="rgb(var(--brand-rgb) /0.35)">props=&#123;...&#125;</text>
+        <text x="60" y="110" fontFamily="monospace" fontSize="14" fill="rgb(var(--brand-rgb) /0.5)">/&gt;</text>
+        <rect x="170" y="50" width="70" height="70" rx="8" stroke="rgb(var(--brand-rgb) /0.3)" strokeWidth="1" strokeDasharray="4 4" />
+        <path d="M195 75 L215 85 L195 95" stroke="rgb(var(--brand-rgb) /0.6)" strokeWidth="1.5" fill="none" />
       </svg>
     ),
     "engineering-2": (
       <svg viewBox="0 0 280 180" fill="none" className="w-full h-full">
-        <rect x="40" y="40" width="80" height="40" rx="6" stroke="rgba(88,77,255,0.4)" strokeWidth="1" />
-        <rect x="160" y="40" width="80" height="40" rx="6" stroke="rgba(88,77,255,0.4)" strokeWidth="1" />
-        <rect x="40" y="100" width="80" height="40" rx="6" stroke="rgba(88,77,255,0.4)" strokeWidth="1" />
-        <rect x="160" y="100" width="80" height="40" rx="6" stroke="rgba(88,77,255,0.4)" strokeWidth="1" />
-        <line x1="120" y1="60" x2="160" y2="60" stroke="rgba(88,77,255,0.3)" strokeWidth="1" />
-        <line x1="80" y1="80" x2="80" y2="100" stroke="rgba(88,77,255,0.3)" strokeWidth="1" />
-        <line x1="200" y1="80" x2="200" y2="100" stroke="rgba(88,77,255,0.3)" strokeWidth="1" />
-        <circle cx="80" cy="60" r="4" fill="rgba(88,77,255,0.3)" />
-        <circle cx="200" cy="60" r="4" fill="rgba(88,77,255,0.3)" />
+        <rect x="40" y="40" width="80" height="40" rx="6" stroke="rgb(var(--brand-rgb) /0.4)" strokeWidth="1" />
+        <rect x="160" y="40" width="80" height="40" rx="6" stroke="rgb(var(--brand-rgb) /0.4)" strokeWidth="1" />
+        <rect x="40" y="100" width="80" height="40" rx="6" stroke="rgb(var(--brand-rgb) /0.4)" strokeWidth="1" />
+        <rect x="160" y="100" width="80" height="40" rx="6" stroke="rgb(var(--brand-rgb) /0.4)" strokeWidth="1" />
+        <line x1="120" y1="60" x2="160" y2="60" stroke="rgb(var(--brand-rgb) /0.3)" strokeWidth="1" />
+        <line x1="80" y1="80" x2="80" y2="100" stroke="rgb(var(--brand-rgb) /0.3)" strokeWidth="1" />
+        <line x1="200" y1="80" x2="200" y2="100" stroke="rgb(var(--brand-rgb) /0.3)" strokeWidth="1" />
+        <circle cx="80" cy="60" r="4" fill="rgb(var(--brand-rgb) /0.3)" />
+        <circle cx="200" cy="60" r="4" fill="rgb(var(--brand-rgb) /0.3)" />
       </svg>
     ),
     "product-1": (
       <svg viewBox="0 0 280 180" fill="none" className="w-full h-full">
-        <rect x="60" y="30" width="160" height="120" rx="10" stroke="rgba(88,77,255,0.3)" strokeWidth="1" />
-        <line x1="60" y1="60" x2="220" y2="60" stroke="rgba(88,77,255,0.2)" strokeWidth="1" />
-        <circle cx="80" cy="45" r="4" fill="rgba(88,77,255,0.3)" />
-        <circle cx="95" cy="45" r="4" fill="rgba(88,77,255,0.2)" />
-        <circle cx="110" cy="45" r="4" fill="rgba(88,77,255,0.15)" />
-        <rect x="80" y="75" width="120" height="8" rx="4" fill="rgba(88,77,255,0.12)" />
-        <rect x="80" y="95" width="80" height="8" rx="4" fill="rgba(88,77,255,0.08)" />
-        <rect x="80" y="115" width="100" height="8" rx="4" fill="rgba(88,77,255,0.06)" />
+        <rect x="60" y="30" width="160" height="120" rx="10" stroke="rgb(var(--brand-rgb) /0.3)" strokeWidth="1" />
+        <line x1="60" y1="60" x2="220" y2="60" stroke="rgb(var(--brand-rgb) /0.2)" strokeWidth="1" />
+        <circle cx="80" cy="45" r="4" fill="rgb(var(--brand-rgb) /0.3)" />
+        <circle cx="95" cy="45" r="4" fill="rgb(var(--brand-rgb) /0.2)" />
+        <circle cx="110" cy="45" r="4" fill="rgb(var(--brand-rgb) /0.15)" />
+        <rect x="80" y="75" width="120" height="8" rx="4" fill="rgb(var(--brand-rgb) /0.12)" />
+        <rect x="80" y="95" width="80" height="8" rx="4" fill="rgb(var(--brand-rgb) /0.08)" />
+        <rect x="80" y="115" width="100" height="8" rx="4" fill="rgb(var(--brand-rgb) /0.06)" />
       </svg>
     ),
     "product-2": (
       <svg viewBox="0 0 280 180" fill="none" className="w-full h-full">
-        <path d="M60 140 L100 80 L140 100 L180 50 L220 70" stroke="rgba(88,77,255,0.5)" strokeWidth="1.5" fill="none" />
-        <circle cx="100" cy="80" r="4" fill="rgba(88,77,255,0.4)" />
-        <circle cx="140" cy="100" r="4" fill="rgba(88,77,255,0.4)" />
-        <circle cx="180" cy="50" r="4" fill="rgba(88,77,255,0.4)" />
-        <circle cx="220" cy="70" r="4" fill="rgba(88,77,255,0.4)" />
-        <path d="M60 140 L100 80 L140 100 L180 50 L220 70 L220 140 Z" fill="rgba(88,77,255,0.05)" />
+        <path d="M60 140 L100 80 L140 100 L180 50 L220 70" stroke="rgb(var(--brand-rgb) /0.5)" strokeWidth="1.5" fill="none" />
+        <circle cx="100" cy="80" r="4" fill="rgb(var(--brand-rgb) /0.4)" />
+        <circle cx="140" cy="100" r="4" fill="rgb(var(--brand-rgb) /0.4)" />
+        <circle cx="180" cy="50" r="4" fill="rgb(var(--brand-rgb) /0.4)" />
+        <circle cx="220" cy="70" r="4" fill="rgb(var(--brand-rgb) /0.4)" />
+        <path d="M60 140 L100 80 L140 100 L180 50 L220 70 L220 140 Z" fill="rgb(var(--brand-rgb) /0.05)" />
       </svg>
     ),
     "design-1": (
       <svg viewBox="0 0 280 180" fill="none" className="w-full h-full">
-        <rect x="70" y="40" width="140" height="100" rx="12" stroke="rgba(88,77,255,0.3)" strokeWidth="1" />
-        <circle cx="140" cy="90" r="25" stroke="rgba(88,77,255,0.5)" strokeWidth="1.5" />
-        <path d="M128 90 L136 98 L152 82" stroke="rgba(88,77,255,0.7)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        <rect x="90" y="50" width="20" height="3" rx="1.5" fill="rgba(88,77,255,0.2)" />
+        <rect x="70" y="40" width="140" height="100" rx="12" stroke="rgb(var(--brand-rgb) /0.3)" strokeWidth="1" />
+        <circle cx="140" cy="90" r="25" stroke="rgb(var(--brand-rgb) /0.5)" strokeWidth="1.5" />
+        <path d="M128 90 L136 98 L152 82" stroke="rgb(var(--brand-rgb) /0.7)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <rect x="90" y="50" width="20" height="3" rx="1.5" fill="rgb(var(--brand-rgb) /0.2)" />
       </svg>
     ),
     "design-2": (
       <svg viewBox="0 0 280 180" fill="none" className="w-full h-full">
-        <rect x="90" y="55" width="40" height="40" rx="8" fill="rgba(88,77,255,0.1)" stroke="rgba(88,77,255,0.3)" strokeWidth="1" />
-        <rect x="145" y="55" width="40" height="40" rx="8" fill="rgba(88,77,255,0.1)" stroke="rgba(88,77,255,0.3)" strokeWidth="1" />
-        <rect x="90" y="105" width="40" height="40" rx="8" fill="rgba(88,77,255,0.1)" stroke="rgba(88,77,255,0.3)" strokeWidth="1" />
-        <rect x="145" y="105" width="40" height="40" rx="8" fill="rgba(88,77,255,0.1)" stroke="rgba(88,77,255,0.3)" strokeWidth="1" />
-        <circle cx="110" cy="75" r="6" fill="rgba(88,77,255,0.25)" />
-        <path d="M158 68 L172 82" stroke="rgba(88,77,255,0.4)" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M172 68 L158 82" stroke="rgba(88,77,255,0.4)" strokeWidth="1.5" strokeLinecap="round" />
+        <rect x="90" y="55" width="40" height="40" rx="8" fill="rgb(var(--brand-rgb) /0.1)" stroke="rgb(var(--brand-rgb) /0.3)" strokeWidth="1" />
+        <rect x="145" y="55" width="40" height="40" rx="8" fill="rgb(var(--brand-rgb) /0.1)" stroke="rgb(var(--brand-rgb) /0.3)" strokeWidth="1" />
+        <rect x="90" y="105" width="40" height="40" rx="8" fill="rgb(var(--brand-rgb) /0.1)" stroke="rgb(var(--brand-rgb) /0.3)" strokeWidth="1" />
+        <rect x="145" y="105" width="40" height="40" rx="8" fill="rgb(var(--brand-rgb) /0.1)" stroke="rgb(var(--brand-rgb) /0.3)" strokeWidth="1" />
+        <circle cx="110" cy="75" r="6" fill="rgb(var(--brand-rgb) /0.25)" />
+        <path d="M158 68 L172 82" stroke="rgb(var(--brand-rgb) /0.4)" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M172 68 L158 82" stroke="rgb(var(--brand-rgb) /0.4)" strokeWidth="1.5" strokeLinecap="round" />
       </svg>
     ),
     "process-1": (
       <svg viewBox="0 0 280 180" fill="none" className="w-full h-full">
-        <circle cx="80" cy="90" r="20" stroke="rgba(88,77,255,0.4)" strokeWidth="1" />
-        <circle cx="140" cy="90" r="20" stroke="rgba(88,77,255,0.4)" strokeWidth="1" />
-        <circle cx="200" cy="90" r="20" stroke="rgba(88,77,255,0.4)" strokeWidth="1" />
-        <line x1="100" y1="90" x2="120" y2="90" stroke="rgba(88,77,255,0.3)" strokeWidth="1" />
-        <line x1="160" y1="90" x2="180" y2="90" stroke="rgba(88,77,255,0.3)" strokeWidth="1" />
-        <path d="M75 85 L80 90 L85 85" stroke="rgba(88,77,255,0.6)" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-        <circle cx="140" cy="90" r="5" fill="rgba(88,77,255,0.3)" />
-        <path d="M195 85 L205 85 L200 95 Z" fill="rgba(88,77,255,0.4)" />
+        <circle cx="80" cy="90" r="20" stroke="rgb(var(--brand-rgb) /0.4)" strokeWidth="1" />
+        <circle cx="140" cy="90" r="20" stroke="rgb(var(--brand-rgb) /0.4)" strokeWidth="1" />
+        <circle cx="200" cy="90" r="20" stroke="rgb(var(--brand-rgb) /0.4)" strokeWidth="1" />
+        <line x1="100" y1="90" x2="120" y2="90" stroke="rgb(var(--brand-rgb) /0.3)" strokeWidth="1" />
+        <line x1="160" y1="90" x2="180" y2="90" stroke="rgb(var(--brand-rgb) /0.3)" strokeWidth="1" />
+        <path d="M75 85 L80 90 L85 85" stroke="rgb(var(--brand-rgb) /0.6)" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+        <circle cx="140" cy="90" r="5" fill="rgb(var(--brand-rgb) /0.3)" />
+        <path d="M195 85 L205 85 L200 95 Z" fill="rgb(var(--brand-rgb) /0.4)" />
       </svg>
     ),
     "process-2": (
       <svg viewBox="0 0 280 180" fill="none" className="w-full h-full">
-        <rect x="50" y="50" width="80" height="80" rx="40" stroke="rgba(88,77,255,0.3)" strokeWidth="1" />
-        <rect x="150" y="50" width="80" height="80" rx="40" stroke="rgba(88,77,255,0.3)" strokeWidth="1" />
-        <ellipse cx="140" cy="90" rx="30" ry="40" fill="rgba(88,77,255,0.08)" stroke="rgba(88,77,255,0.4)" strokeWidth="1" strokeDasharray="3 3" />
+        <rect x="50" y="50" width="80" height="80" rx="40" stroke="rgb(var(--brand-rgb) /0.3)" strokeWidth="1" />
+        <rect x="150" y="50" width="80" height="80" rx="40" stroke="rgb(var(--brand-rgb) /0.3)" strokeWidth="1" />
+        <ellipse cx="140" cy="90" rx="30" ry="40" fill="rgb(var(--brand-rgb) /0.08)" stroke="rgb(var(--brand-rgb) /0.4)" strokeWidth="1" strokeDasharray="3 3" />
       </svg>
     ),
   };
@@ -215,14 +215,27 @@ function BlogThumbnail({ type }: { type: string }) {
 }
 
 export function Blogs({ onPostClick }: { onPostClick?: (postId: string) => void }) {
-  const [filter, setFilter] = React.useState<string>("All");
+  const [filters, setFilters] = React.useState<Set<string>>(new Set());
 
-  const filteredPosts = filter === "All" 
+  const toggleFilter = (cat: string) => {
+    if (cat === "All") {
+      setFilters(new Set());
+      return;
+    }
+    setFilters((prev) => {
+      const next = new Set(prev);
+      if (next.has(cat)) next.delete(cat);
+      else next.add(cat);
+      return next;
+    });
+  };
+
+  const filteredPosts = filters.size === 0
     ? BLOG_POSTS
-    : BLOG_POSTS.filter(post => post.category === filter);
+    : BLOG_POSTS.filter((post) => filters.has(post.category));
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-[#584dff] selection:text-white font-['Clash_Grotesk_Variable',sans-serif] pt-[120px] md:pt-[160px] pb-20 max-w-[1100px] mx-auto">
+    <div className="min-h-screen bg-background text-foreground font-display pt-page pb-20 max-w-[1100px] mx-auto">
       {/* Header */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
@@ -230,26 +243,43 @@ export function Blogs({ onPostClick }: { onPostClick?: (postId: string) => void 
         transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
         className="mb-[48px] md:mb-[100px]"
       >
-        <h1 className="font-['Cormorant',serif] font-light text-[clamp(60px,6vw,86px)] leading-[1.05] tracking-[-0.04em]">
+        <h1 className="font-serif font-light text-display-lg">
           Thoughts &<br />insights
         </h1>
       </motion.div>
 
       {/* Filters */}
       <div className="flex flex-wrap gap-2 mb-[50px]">
-        {CATEGORIES.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setFilter(cat)}
-            className={`px-5 py-1 rounded-full border transition-all duration-300 text-[15px] font-normal tracking-tight cursor-pointer ${
-              filter === cat && cat !== "All"
-                ? "bg-[#584dff] text-white border-[#584dff]"
-                : "bg-foreground/10 text-foreground/60 border-transparent hover:border-foreground/20 hover:text-foreground backdrop-blur-md"
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
+        {CATEGORIES.map((cat) => {
+          const isAll = cat === "All";
+          const isActive = isAll ? filters.size === 0 : filters.has(cat);
+          return (
+            <button
+              key={cat}
+              onClick={() => toggleFilter(cat)}
+              aria-pressed={isActive}
+              className={`flex items-center gap-1.5 h-8 rounded-full border transition-all duration-300 text-body-sm font-normal tracking-tight cursor-pointer ${
+                isActive && !isAll
+                  ? "bg-brand text-brand-foreground border-brand pl-4 pr-2"
+                  : isActive && isAll
+                  ? "bg-foreground text-background border-foreground px-5"
+                  : "bg-foreground/10 text-foreground/60 border-transparent hover:border-foreground/20 hover:text-foreground backdrop-blur-md px-5"
+              }`}
+            >
+              <span>{cat}</span>
+              {isActive && !isAll && (
+                <span
+                  aria-hidden
+                  className="flex items-center justify-center size-4 rounded-full bg-brand-foreground/15"
+                >
+                  <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+                    <path d="M1 1L7 7M1 7L7 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+                  </svg>
+                </span>
+              )}
+            </button>
+          );
+        })}
       </div>
 
       {/* Blog List */}
@@ -264,19 +294,19 @@ export function Blogs({ onPostClick }: { onPostClick?: (postId: string) => void 
             onClick={() => onPostClick?.(post.id)}
           >
             <div className="relative z-10 flex flex-col gap-3 flex-1 min-w-0 max-w-[700px]">
-              <span className="font-['Clash_Grotesk_Variable',sans-serif] font-normal text-[15px] tracking-tight text-foreground/50">
+              <span className="font-display font-normal text-body-sm text-foreground/50">
                 {post.excerpt}
               </span>
 
-              <h2 className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[clamp(28px,4vw,48px)] leading-[1.1] tracking-[-0.01em]">
+              <h2 className="font-display font-light text-h1">
                 {post.title}
               </h2>
 
               <div className="flex gap-8 items-center pt-2">
-                <span className="font-['Clash_Grotesk_Variable',sans-serif] font-normal text-[14px] text-foreground/40 tracking-tight">
+                <span className="font-display font-normal text-body-sm text-foreground/40">
                   {post.category}
                 </span>
-                <span className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[14px] text-foreground/40">
+                <span className="font-display font-light text-body-sm text-foreground/40">
                   {post.date}
                 </span>
               </div>
@@ -292,15 +322,15 @@ export function Blogs({ onPostClick }: { onPostClick?: (postId: string) => void 
 
       {/* Show More Section */}
       <div className="w-full flex flex-col items-center py-[48px] md:py-[80px] lg:py-[100px] gap-6">
-        <button className="backdrop-blur-[7px] bg-foreground/10 px-[17px] py-[4px] rounded-[50px] font-['Clash_Grotesk_Variable',sans-serif] font-light text-[16px] text-foreground tracking-tight hover:opacity-80 transition-opacity cursor-pointer">
+        <button className="backdrop-blur-[7px] bg-foreground/10 px-[17px] py-[4px] rounded-[50px] font-display font-light text-body text-foreground hover:opacity-80 transition-opacity cursor-pointer">
           Show more
         </button>
-        
+
         <div className="w-[248px] h-px bg-foreground/20 relative">
-          <div className="absolute top-0 left-0 h-full w-[83.33%] bg-[#584dff]" />
+          <div className="absolute top-0 left-0 h-full w-[83.33%] bg-brand" />
         </div>
-        
-        <span className="font-['Clash_Grotesk_Variable',sans-serif] font-normal text-foreground/60 text-[15px]">
+
+        <span className="font-display font-normal text-foreground/60 text-body-sm">
           You've seen {filteredPosts.length} of {BLOG_POSTS.length}
         </span>
       </div>
@@ -312,9 +342,9 @@ export function Blogs({ onPostClick }: { onPostClick?: (postId: string) => void 
         viewport={{ once: true }}
         className="mt-[40px] md:mt-[60px] border-t border-foreground/10 pt-[60px] md:pt-[80px] flex flex-col items-center text-center max-w-[600px] mx-auto pb-[80px] md:pb-[100px] w-full"
       >
-        <span className="font-['Clash_Grotesk_Variable',sans-serif] font-normal text-[12px] text-foreground/40 uppercase tracking-widest mb-4">Connect</span>
-        <h3 className="font-['Cormorant',serif] font-normal text-[32px] md:text-[48px] mb-4">Stay in the loop</h3>
-        <p className="font-['Clash_Grotesk_Variable',sans-serif] font-normal text-foreground/60 text-[14px] md:text-[16px] tracking-tight mb-8 md:mb-12">
+        <span className="font-display font-normal text-eyebrow text-foreground/40 mb-4">Connect</span>
+        <h3 className="font-serif font-normal text-h1 mb-4">Stay in the loop</h3>
+        <p className="font-display font-normal text-foreground/60 text-body-sm md:text-body mb-8 md:mb-12">
           Sign up to our newsletter and keep up with the cool kids.
         </p>
         
@@ -323,10 +353,10 @@ export function Blogs({ onPostClick }: { onPostClick?: (postId: string) => void 
             <input 
               type="email" 
               placeholder="yourbest@email.com" 
-              className="bg-transparent border-none outline-none w-full font-['Cormorant',serif] text-[24px] md:text-[38px] text-foreground placeholder:text-foreground/60"
+              className="bg-transparent border-none outline-none w-full font-serif text-h2 text-foreground placeholder:text-foreground/60"
             />
           </div>
-          <button className="backdrop-blur-[7px] bg-foreground/10 rounded-[50px] font-['Clash_Grotesk_Variable',sans-serif] font-light text-[16px] text-foreground tracking-tight hover:opacity-80 transition-opacity cursor-pointer px-[24px] py-[4px]">
+          <button className="backdrop-blur-[7px] bg-foreground/10 rounded-[50px] font-display font-light text-body text-foreground hover:opacity-80 transition-opacity cursor-pointer px-[24px] py-[4px]">
             Send
           </button>
         </div>
@@ -365,7 +395,7 @@ export function Blogs({ onPostClick }: { onPostClick?: (postId: string) => void 
 
 function FooterLink({ label }: { label: string }) {
   return (
-    <button className="font-['Clash_Grotesk_Variable',sans-serif] font-normal text-[16px] text-foreground hover:text-foreground/60 transition-colors cursor-pointer text-left leading-normal">
+    <button className="font-display font-normal text-body text-foreground hover:text-foreground/60 transition-colors cursor-pointer text-left leading-normal">
       {label}
     </button>
   );

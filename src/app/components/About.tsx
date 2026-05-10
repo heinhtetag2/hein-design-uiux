@@ -83,18 +83,18 @@ export function About() {
   const [roleFilter, setRoleFilter] = useState("All");
 
   return (
-    <div className="bg-background text-foreground selection:bg-[#584dff] selection:text-white font-['Clash_Grotesk_Variable',sans-serif]">
+    <div className="bg-background text-foreground font-display">
       {/* Hero Section */}
-      <section className="pt-[120px] md:pt-[180px] pb-[60px] md:pb-[140px]">
+      <section className="pt-page pb-[60px] md:pb-[140px]">
         <div className="max-w-[1200px] mx-auto text-center flex flex-col items-center">
-          <div className="flex items-center justify-center gap-2 md:gap-3 font-['Cormorant',serif] font-light text-[clamp(40px,11vw,180px)] leading-[1.05] tracking-[-0.03em]">
+          <div className="flex items-center justify-center gap-2 md:gap-3 font-serif font-light text-display-2xl">
             <span>Global</span>
             <div className="w-[50px] h-[65px] md:w-[120px] md:h-[150px] bg-foreground/5 overflow-hidden shrink-0">
               <ImageWithFallback src={imgHero1} alt="" className="w-full h-full object-cover" />
             </div>
             <span>talent,</span>
           </div>
-          <div className="flex items-center justify-center gap-2 md:gap-3 font-['Cormorant',serif] font-light text-[clamp(40px,11vw,180px)] leading-[1.05] tracking-[-0.03em]">
+          <div className="flex items-center justify-center gap-2 md:gap-3 font-serif font-light text-display-2xl">
             <div className="w-[50px] h-[65px] md:w-[120px] md:h-[150px] bg-foreground/5 overflow-hidden shrink-0">
               <ImageWithFallback src={imgHero2} alt="" className="w-full h-full object-cover" />
             </div>
@@ -105,7 +105,7 @@ export function About() {
             <span>home</span>
           </div>
 
-          <button className="mt-8 md:mt-12 border-b border-foreground pb-px text-[16px] hover:opacity-60 transition-opacity cursor-pointer font-light">
+          <button className="mt-8 md:mt-12 border-b border-foreground pb-px text-body hover:opacity-60 transition-opacity cursor-pointer font-light">
             View open roles
           </button>
 
@@ -120,7 +120,7 @@ export function About() {
       {/* Founded Statement & Mini Stats */}
       <section className="py-[80px] md:py-[140px] lg:py-[220px]">
         <div className="max-w-[1200px] mx-auto">
-          <h2 className="font-['Cormorant',serif] text-[clamp(32px,5vw,80px)] font-light leading-[1.15] tracking-[-0.02em] max-w-[1000px] mb-16 md:mb-32">
+          <h2 className="font-serif text-display-md font-light max-w-[1000px] mb-16 md:mb-32">
             Design lives where empathy meets craft. I build for the people who use it, down to the details that feel effortless.
           </h2>
 
@@ -131,8 +131,8 @@ export function About() {
               { label: "Time zones", value: "14" }
             ].map((stat, i) => (
               <div key={i} className="flex items-center justify-between py-[16px] border-b border-foreground/10 group relative">
-                <p className="text-[20px] text-foreground/80 font-normal">{stat.label}</p>
-                <p className="text-[20px] text-foreground font-normal">{stat.value}</p>
+                <p className="text-h3 text-foreground/80 font-normal">{stat.label}</p>
+                <p className="text-h3 text-foreground font-normal">{stat.value}</p>
               </div>
             ))}
           </div>
@@ -161,13 +161,13 @@ export function About() {
                 <ImageWithFallback src={item.img} alt="" className="w-full h-full object-cover" />
               </div>
               <div className="flex flex-col gap-6 pb-4">
-                <p className="text-[16px] leading-relaxed text-foreground relative">
+                <p className="text-body text-foreground relative">
                   <span className="absolute -left-4 top-0">"</span>
                   {item.quote}
                 </p>
                 <div>
-                  <p className="text-[16px] font-medium text-foreground">{item.name}</p>
-                  <p className="text-[16px] text-foreground/60">{item.role}</p>
+                  <p className="text-body font-medium text-foreground">{item.name}</p>
+                  <p className="text-body text-foreground/60">{item.role}</p>
                 </div>
               </div>
             </div>
@@ -191,19 +191,19 @@ export function About() {
           </div>
           
           <div className="relative z-10">
-            <h2 className="text-[32px] md:text-[56px] lg:text-[88px] font-light leading-[1.1] tracking-tight mb-6 md:mb-12">
+            <h2 className="font-display text-display-md font-light mb-6 md:mb-12">
               Diverse perspectives,<br />world-class work
             </h2>
           </div>
         </div>
 
         <div className="max-w-[1200px] mx-auto flex flex-col lg:flex-row gap-10 md:gap-20 justify-end mt-10 md:mt-20 pr-0 md:pr-40">
-          <p className="max-w-[212px] text-[16px] text-foreground/80 leading-relaxed">
+          <p className="max-w-[212px] text-body text-foreground/80">
             It takes the best talent to build the best products. That means working with smart and skilled people regardless of who they are, who they love, or where they came from.
           </p>
           <div className="max-w-[212px]">
-            <p className="text-[16px] text-foreground/80 mb-2">Our commitment to</p>
-            <button className="flex items-center gap-2 border-b border-foreground pb-px text-[16px] hover:gap-4 transition-all cursor-pointer font-normal">
+            <p className="text-body text-foreground/80 mb-2">Our commitment to</p>
+            <button className="flex items-center gap-2 border-b border-foreground pb-px text-body hover:gap-4 transition-all cursor-pointer font-normal">
               Diversity, Equity, & Inclusion <ArrowRight className="size-4" />
             </button>
           </div>
@@ -226,16 +226,16 @@ export function About() {
               transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="relative h-[200px] md:h-[390px] flex flex-col justify-between pl-3 md:pl-6 group"
             >
-              <div className="absolute left-0 top-0 bottom-0 w-px bg-[#584dff]" />
-              <div className="flex flex-col gap-1 text-[16px] md:text-[20px] text-foreground/80 leading-tight pt-4">
+              <div className="absolute left-0 top-0 bottom-0 w-px bg-brand" />
+              <div className="flex flex-col gap-1 text-body md:text-h3 text-foreground/80 leading-tight pt-4">
                 {stat.label.map((l, j) => <span key={j}>{l}</span>)}
               </div>
               <div className="flex items-baseline gap-1 pb-4">
-                <span className="text-[40px] md:text-[84px] font-light leading-none tabular-nums">
+                <span className="font-display text-display-md font-light leading-none tabular-nums">
                   <CountUp to={stat.val} />
                 </span>
                 {stat.suffix && (
-                  <span className="text-[24px] md:text-[40px] font-normal">{stat.suffix}</span>
+                  <span className="font-display text-h2 font-normal">{stat.suffix}</span>
                 )}
               </div>
             </motion.div>
@@ -247,7 +247,7 @@ export function About() {
       <section className="py-[60px] md:py-[90px] lg:py-[120px]">
         <div className="max-w-[1200px] mx-auto flex flex-col lg:flex-row items-start justify-between border-t border-foreground/10 pt-10 md:pt-20">
           <div className="lg:w-[464px]">
-            <h2 className="text-[36px] md:text-[48px] lg:text-[64px] font-light leading-tight tracking-tight">My Carrier —<br />Experiences</h2>
+            <h2 className="font-display text-h1 font-light">My Carrier —<br />Experiences</h2>
           </div>
           <div className="lg:w-[812px] pt-4">
             <div className="flex gap-2 mb-16">
@@ -255,7 +255,7 @@ export function About() {
                 <button 
                   key={c}
                   onClick={() => setExpFilter(c)}
-                  className={`px-5 py-1 rounded-full text-[15px] font-normal tracking-tight transition-all cursor-pointer ${expFilter === c ? "bg-[#584dff] text-white" : "bg-foreground/10 text-foreground/60 hover:bg-foreground/20"}`}
+                  className={`px-5 py-1 rounded-full text-body-sm font-normal transition-all cursor-pointer ${expFilter === c ? "bg-brand text-brand-foreground" : "bg-foreground/10 text-foreground/60 hover:bg-foreground/20"}`}
                 >
                   {c}
                 </button>
@@ -264,12 +264,12 @@ export function About() {
             <div className="space-y-0">
               {EXPERIENCES.filter(e => expFilter === "All" || e.categories.includes(expFilter)).map((exp, i) => (
                 <div key={i} className="border-t border-foreground/10 py-10">
-                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2 md:gap-0 mb-6 text-[20px] text-foreground tracking-tight">
+                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2 md:gap-0 mb-6 text-h3 text-foreground">
                     <h3 className="font-normal">{exp.role}</h3>
-                    <span className="text-foreground/60 text-[16px] font-normal">{exp.company}</span>
-                    <span className="text-foreground text-[16px] font-normal">{exp.type}</span>
+                    <span className="text-foreground/60 text-body font-normal">{exp.company}</span>
+                    <span className="text-foreground text-body font-normal">{exp.type}</span>
                   </div>
-                  <p className="text-foreground/60 text-[16px] leading-relaxed max-w-[700px]">
+                  <p className="text-foreground/60 text-body max-w-[700px]">
                     {exp.description}
                   </p>
                 </div>
@@ -283,11 +283,11 @@ export function About() {
       {/* FAQ */}
       <section className="py-[60px] md:py-[90px] lg:py-[120px] border-t border-foreground/10">
         <div className="max-w-[1200px] mx-auto flex flex-col lg:flex-row items-start justify-between">
-          <h2 className="text-[42px] md:text-[64px] lg:text-[88px] font-light leading-[1.1] tracking-tight">How can<br />we help?</h2>
+          <h2 className="font-display text-display-md font-light">How can<br />we help?</h2>
           <div className="w-full lg:w-[600px] flex flex-col pt-12 lg:pt-0">
             {["Work together", "Join our team", "Ask anything"].map((item, i) => (
               <button key={i} className="w-full flex items-center justify-between py-10 border-b border-foreground/10 group cursor-pointer first:border-t first:border-foreground/10">
-                <span className="text-[24px] font-light text-foreground">{item}</span>
+                <span className="text-h3 font-light text-foreground">{item}</span>
                 <Plus className="size-6 text-foreground group-hover:rotate-45 transition-transform" />
               </button>
             ))}
@@ -299,18 +299,18 @@ export function About() {
       <footer className="py-12 md:py-20 border-t border-foreground/10">
         <div className="max-w-[1200px] mx-auto flex flex-wrap gap-x-16 md:gap-x-32 gap-y-8 md:gap-y-12 items-start">
           <div className="flex flex-col gap-4">
-            <span className="text-[12px] uppercase tracking-[0.2em] text-foreground/60">Social</span>
+            <span className="text-eyebrow text-foreground/60">Social</span>
             <div className="flex gap-6">
-              {["IG", "TW", "LI"].map(s => <a key={s} href="#" className="text-[16px] text-foreground hover:opacity-60 transition-opacity">{s}</a>)}
+              {["IG", "TW", "LI"].map(s => <a key={s} href="#" className="text-body text-foreground hover:opacity-60 transition-opacity">{s}</a>)}
             </div>
           </div>
           <div className="flex flex-col gap-4">
-            <span className="text-[12px] uppercase tracking-[0.2em] text-foreground/60">Office</span>
-            <p className="text-[16px] text-foreground">Victoria, BC Canada</p>
+            <span className="text-eyebrow text-foreground/60">Office</span>
+            <p className="text-body text-foreground">Victoria, BC Canada</p>
           </div>
           <div className="flex flex-col gap-4">
-            <span className="text-[12px] uppercase tracking-[0.2em] text-foreground/60">Contact</span>
-            <p className="text-[16px] text-foreground">hello@metalab.com</p>
+            <span className="text-eyebrow text-foreground/60">Contact</span>
+            <p className="text-body text-foreground">hello@metalab.com</p>
           </div>
         </div>
       </footer>

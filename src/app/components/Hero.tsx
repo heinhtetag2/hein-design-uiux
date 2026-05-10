@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
 
-export function Hero() {
+interface HeroProps {
+  isStudyHovered?: boolean;
+}
+
+export function Hero({ isStudyHovered = false }: HeroProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -30,21 +34,24 @@ export function Hero() {
         animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       >
-        <h1 className="font-['Cormorant',serif] font-light text-[48px] sm:text-[64px] text-foreground leading-tight tracking-tight">
+        <h1 className="font-serif font-light text-display-sm text-foreground tracking-tight">
           Experience, intentionally
         </h1>
-        <p className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[14px] sm:text-[16px] text-foreground/70 leading-relaxed max-w-[400px]">
+        <p className="font-display font-light text-body-sm sm:text-body text-foreground/70 max-w-[400px]">
           Since 2024, I've helped the most innovative startups and reputable
           brands design, build, and ship products worth talking about.
         </p>
       </motion.div>
 
       {/* Desktop Layout - Fluid flex-based positioning for responsiveness */}
-      <div className="hidden lg:flex flex-col items-start lg:pl-[clamp(240px,18vw,360px)] lg:pr-[clamp(220px,16vw,340px)] pt-[120px] xl:pt-[160px] 2xl:pt-[180px] h-full w-full pointer-events-none select-none">
+      <div
+        className="hidden lg:flex flex-col items-start lg:pl-[clamp(240px,18vw,360px)] lg:pr-[clamp(100px,9vw,200px)] pt-[120px] xl:pt-[160px] 2xl:pt-[180px] h-full w-full pointer-events-none select-none transition-opacity duration-500 ease-out"
+        style={{ opacity: isStudyHovered ? 0 : 1 }}
+      >
         
         {/* Description - Positioned to the right of the container */}
-        <motion.div 
-          className="self-end w-full max-w-[250px] xl:max-w-[280px] flex flex-col font-['Clash_Grotesk_Variable',sans-serif] font-light leading-relaxed text-[15px] xl:text-[16px] 2xl:text-[17px] text-foreground tracking-[-0.01em] pointer-events-auto"
+        <motion.div
+          className="self-end mt-[clamp(40px,6vh,100px)] w-full max-w-[380px] xl:max-w-[440px] flex flex-col font-display font-normal text-body xl:text-body-lg text-foreground tracking-[-0.01em] pointer-events-auto"
           initial={{ opacity: 0, y: 15 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
           transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
@@ -56,8 +63,8 @@ export function Hero() {
         </motion.div>
 
         {/* Experience, intentionally - Positioned below and to the left */}
-        <motion.div 
-          className="mt-[clamp(60px,8vh,120px)] font-['Cormorant',serif] font-light leading-[1.05] text-[clamp(64px,6vw,112px)] text-foreground tracking-[-0.02em] whitespace-nowrap pointer-events-auto"
+        <motion.div
+          className="mt-[clamp(156px,18vh,236px)] ml-[clamp(180px,16vw,320px)] font-serif font-light text-display-lg text-foreground whitespace-nowrap pointer-events-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}

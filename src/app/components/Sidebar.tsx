@@ -14,11 +14,12 @@ const caseStudies = [
 
 interface SidebarProps {
   onCaseStudyClick?: (view: "home" | "edusync" | "what-i-do" | "blogs" | "about" | "contact") => void;
+  onCaseStudyHover?: (study: string | null) => void;
   isMenuOpen?: boolean;
   activeView?: string;
 }
 
-export function Sidebar({ onCaseStudyClick, isMenuOpen, activeView }: SidebarProps) {
+export function Sidebar({ onCaseStudyClick, onCaseStudyHover, isMenuOpen, activeView }: SidebarProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -45,7 +46,7 @@ export function Sidebar({ onCaseStudyClick, isMenuOpen, activeView }: SidebarPro
       transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
     >
       {/* Navigation Links */}
-      <div className={`hidden lg:flex flex-col items-start w-full transition-all duration-500 ease-in-out ${isMenuOpen ? 'opacity-0 -translate-x-4 pointer-events-none' : 'opacity-100 translate-x-0'}`}>
+      <div className={`hidden lg:flex flex-col items-start gap-[6px] w-full transition-all duration-500 ease-in-out ${isMenuOpen ? 'opacity-0 -translate-x-4 pointer-events-none' : 'opacity-100 translate-x-0'}`}>
         {navItems.map((item) => {
           const view = 
             item === "What I Do" ? "what-i-do" : 
@@ -63,7 +64,7 @@ export function Sidebar({ onCaseStudyClick, isMenuOpen, activeView }: SidebarPro
                 if (item === "My Blogs") onCaseStudyClick?.("blogs");
                 if (item === "Get in Touch") onCaseStudyClick?.("contact");
               }}
-              className={`py-[6px] font-['Cormorant',serif] font-light text-[clamp(20px,2vh,24px)] transition-all duration-300 cursor-pointer text-left leading-tight ${
+              className={`py-[2px] font-serif font-light text-[20px] leading-[1.3] transition-all duration-300 cursor-pointer text-left ${
                 isActive ? "text-foreground opacity-100 translate-x-1" : "text-foreground/80 hover:text-foreground hover:opacity-100"
               }`}
             >
@@ -75,7 +76,7 @@ export function Sidebar({ onCaseStudyClick, isMenuOpen, activeView }: SidebarPro
 
       {/* Case Studies */}
       <div className="flex flex-col gap-[8px] items-start w-full relative">
-        <div className="py-[6px] font-['Clash_Grotesk_Variable',sans-serif] text-muted-foreground text-[12px] leading-none uppercase tracking-wider">
+        <div className="py-[6px] font-display text-body-sm text-muted-foreground">
           Case Studies
         </div>
         
@@ -85,7 +86,9 @@ export function Sidebar({ onCaseStudyClick, isMenuOpen, activeView }: SidebarPro
               key={study}
               whileTap={{ scale: 0.95 }}
               onClick={() => study === "EduSync" && onCaseStudyClick?.("edusync")}
-              className="bg-foreground/10 h-[clamp(30px,4vh,34px)] w-fit flex items-center justify-center px-[16px] rounded-full font-['Clash_Grotesk_Variable',sans-serif] font-light text-[clamp(13px,2vh,14px)] text-foreground tracking-tight border border-transparent hover:border-foreground/30 hover:bg-foreground/5 transition-all cursor-pointer relative z-10"
+              onMouseEnter={() => onCaseStudyHover?.(study)}
+              onMouseLeave={() => onCaseStudyHover?.(null)}
+              className="bg-foreground/10 h-[clamp(30px,4vh,34px)] w-fit flex items-center justify-center px-[16px] rounded-full font-display font-light text-body-sm text-foreground tracking-tight border border-transparent hover:border-foreground/30 hover:bg-foreground/5 transition-all cursor-pointer relative z-10"
             >
               {study}
             </motion.button>

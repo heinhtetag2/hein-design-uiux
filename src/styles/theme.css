@@ -2,6 +2,8 @@
 
 :root {
   --font-size: 16px;
+
+  /* Surface + content */
   --background: #ffffff;
   --foreground: oklch(0.145 0 0);
   --card: #ffffff;
@@ -22,15 +24,22 @@
   --input: transparent;
   --input-background: #f3f3f5;
   --switch-background: #e8eaee;
-  --font-weight-medium: 500;
-  --font-weight-normal: 400;
   --ring: oklch(0.708 0 0);
+
+  /* Brand (single source of truth — replaces hardcoded #584dff) */
+  --brand: #584dff;
+  --brand-rgb: 88 77 255;
+  --brand-foreground: #ffffff;
+
+  /* Charts */
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
   --radius: 0.625rem;
+
+  /* Sidebar */
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: #030213;
@@ -39,6 +48,19 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Typography weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+
+  /* Font families */
+  --font-display: 'Clash Grotesk Variable', 'Clash Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Cormorant', 'Georgia', ui-serif, serif;
+
+  /* Page spacing tokens (used as the standard top-padding for pages with the fixed TopNav) */
+  --page-pt-mobile: 120px;
+  --page-pt-desktop: 160px;
 }
 
 .dark {
@@ -61,8 +83,6 @@
   --border: oklch(0.269 0 0);
   --input: oklch(0.269 0 0);
   --ring: oklch(0.439 0 0);
-  --font-weight-medium: 500;
-  --font-weight-normal: 400;
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
@@ -100,6 +120,8 @@
   --color-input-background: var(--input-background);
   --color-switch-background: var(--switch-background);
   --color-ring: var(--ring);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -117,6 +139,11 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Font family utilities — `font-display`, `font-sans`, `font-serif` */
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
 }
 
 @layer base {
@@ -126,6 +153,7 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-sans);
     transition: background-color 0.7s cubic-bezier(0.4, 0, 0.2, 1), color 0.7s cubic-bezier(0.4, 0, 0.2, 1);
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -142,11 +170,6 @@
     display: none;
   }
 
-  /**
-  * Default typography styles for HTML elements (h1-h4, p, label, button, input).
-  * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.
-  */
-
   html {
     font-size: var(--font-size);
     scrollbar-width: none;
@@ -158,25 +181,30 @@
     display: none;
   }
 
+  /* Default HTML element typography — Tailwind utilities (text-sm, text-display-xl, etc.) override these. */
   h1 {
+    font-family: var(--font-display);
     font-size: var(--text-2xl);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
   }
 
   h2 {
+    font-family: var(--font-display);
     font-size: var(--text-xl);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
   }
 
   h3 {
+    font-family: var(--font-display);
     font-size: var(--text-lg);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
   }
 
   h4 {
+    font-family: var(--font-display);
     font-size: var(--text-base);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
@@ -200,7 +228,6 @@
     line-height: 1.5;
   }
 
-  /* Smooth fade-in animation for video background */
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -222,9 +249,9 @@
     }
   }
 
-  /* Special behavior: On home page in light mode, keep everything dark except AskAnything */
+  /* Home page is intentionally always dark, even in light mode (cinematic video hero).
+     AskAnything opts out via [data-theme-exempt="true"] so it follows the actual mode. */
   [data-page="home"]:not(.dark) {
-    /* Force dark background and foreground for home page elements */
     --background: oklch(0.145 0 0);
     --foreground: oklch(0.985 0 0);
     --card: oklch(0.145 0 0);
@@ -243,9 +270,7 @@
     --input: oklch(0.269 0 0);
   }
 
-  /* AskAnything component should use light mode colors when light mode is active */
   :not(.dark) [data-theme-exempt="true"] {
-    /* Force light mode colors for AskAnything */
     --background: #ffffff !important;
     --foreground: oklch(0.145 0 0) !important;
     --card: #ffffff !important;
@@ -264,9 +289,7 @@
     --input: transparent !important;
   }
 
-  /* AskAnything component should use dark mode colors when dark mode is active */
   .dark [data-theme-exempt="true"] {
-    /* Force dark mode colors for AskAnything */
     --background: oklch(0.145 0 0) !important;
     --foreground: oklch(0.985 0 0) !important;
     --card: oklch(0.145 0 0) !important;
@@ -283,5 +306,100 @@
     --accent-foreground: oklch(0.985 0 0) !important;
     --border: oklch(0.269 0 0) !important;
     --input: oklch(0.269 0 0) !important;
+  }
+}
+
+/* ============================================================
+   Semantic type scale.
+   Each utility bundles size + line-height + letter-spacing.
+   Font family is NOT set here — compose with `font-display`,
+   `font-sans`, or `font-serif` to choose the family.
+   ============================================================ */
+@layer utilities {
+  /* Display — cinematic / oversized type */
+  .text-display-2xl {
+    font-size: clamp(80px, 12vw, 160px);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+  }
+  .text-display-xl {
+    font-size: clamp(64px, 10vw, 140px);
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+  }
+  .text-display-lg {
+    font-size: clamp(56px, 8vw, 112px);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+  }
+  .text-display-md {
+    font-size: clamp(40px, 6vw, 88px);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+  }
+  .text-display-sm {
+    font-size: clamp(32px, 5vw, 64px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  /* Headings */
+  .text-h1 {
+    font-size: clamp(32px, 3.5vw, 48px);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  .text-h2 {
+    font-size: clamp(24px, 2.5vw, 36px);
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+  }
+  .text-h3 {
+    font-size: clamp(20px, 2vw, 24px);
+    line-height: 1.3;
+  }
+  .text-h4 {
+    font-size: 18px;
+    line-height: 1.4;
+  }
+
+  /* Eyebrow / small caps — used for navigation labels, section pre-titles */
+  .text-eyebrow {
+    font-size: 10px;
+    line-height: 1.2;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  /* Body */
+  .text-body-lg {
+    font-size: 18px;
+    line-height: 1.55;
+  }
+  .text-body {
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  .text-body-sm {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .text-caption {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .text-micro {
+    font-size: 10px;
+    line-height: 1.2;
+  }
+
+  /* Page-level top padding for pages with the fixed TopNav */
+  .pt-page {
+    padding-top: var(--page-pt-mobile);
+  }
+  @media (min-width: 768px) {
+    .pt-page {
+      padding-top: var(--page-pt-desktop);
+    }
   }
 }

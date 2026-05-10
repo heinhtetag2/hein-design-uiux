@@ -34,7 +34,7 @@ const ARTICLES: Record<string, BlogArticle> = {
     subtitle: "The gap between design intent and production reality — and how to close it",
     category: "Systems",
     date: "March 15, 2026",
-    heroColor: "from-[#584dff]/20 to-[#584dff]/5",
+    heroColor: "from-brand/20 to-brand/5",
     sections: [
       { type: "paragraph", text: "Design systems are often celebrated as the bridge between design and engineering. But too often, they become a bridge that only designers walk across." },
       { type: "paragraph", text: "After working on multiple design systems across different organizations, I've seen the same pattern repeat: a design team builds a beautiful, well-documented system — and engineering quietly builds their own components from scratch." },
@@ -45,7 +45,7 @@ const ARTICLES: Record<string, BlogArticle> = {
       { type: "bigword", text: "Alignment" },
       { type: "paragraph", text: "The most successful design systems I've seen share a common trait: engineering was at the table from day one. Not as reviewers, but as co-authors." },
       { type: "paragraph", text: "This doesn't mean engineers need to approve every color token. It means the system's architecture — how components compose, how tokens cascade, how variants are structured — reflects both design intent and engineering reality." },
-      { type: "image", alt: "Component architecture diagram showing shared mental model", color: "from-[#584dff]/10 to-[#584dff]/5" },
+      { type: "image", alt: "Component architecture diagram showing shared mental model", color: "from-brand/10 to-brand/5" },
       { type: "caption", text: "A shared component architecture creates alignment between design and engineering teams." },
       { type: "heading2", text: "Three patterns that work" },
       { type: "heading3", text: "1. Shared component contracts" },
@@ -55,7 +55,7 @@ const ARTICLES: Record<string, BlogArticle> = {
       { type: "paragraph", text: "Design tokens should be the first thing you build, not the last. When both Figma and code reference the same token layer, changes propagate consistently. The token layer becomes the single source of truth that both sides trust." },
       { type: "heading3", text: "3. Embedded collaboration" },
       { type: "paragraph", text: "Put a designer in the engineering standup. Put an engineer in the design critique. The overhead is minimal; the shared understanding is enormous." },
-      { type: "image-full", alt: "Collaboration workflow between design and engineering", color: "from-[#584dff]/8 to-transparent" },
+      { type: "image-full", alt: "Collaboration workflow between design and engineering", color: "from-brand/8 to-transparent" },
       { type: "heading2", text: "The measure of success" },
       { type: "paragraph", text: "A design system succeeds when engineers reach for it voluntarily — not because they're told to, but because it's genuinely the fastest path to a good outcome." },
       { type: "paragraph", text: "That only happens when the system was built with them, not for them." },
@@ -68,7 +68,7 @@ const ARTICLES: Record<string, BlogArticle> = {
     subtitle: "Practical workflows for tighter handoff and fewer surprises",
     category: "Engineering",
     date: "February 20, 2026",
-    heroColor: "from-[#584dff]/15 to-[#2a1f9e]/10",
+    heroColor: "from-brand/15 to-[#2a1f9e]/10",
     sections: [
       { type: "paragraph", text: "The handoff between design and development remains one of the most friction-filled moments in product work. Despite better tooling, the gap between what's designed and what ships is often wider than we'd like to admit." },
       { type: "paragraph", text: "This isn't a tools problem. It's a workflow problem." },
@@ -76,7 +76,7 @@ const ARTICLES: Record<string, BlogArticle> = {
       { type: "paragraph", text: "Most handoff issues stem from a fundamental mismatch: designers think in visual relationships, developers think in component hierarchies. A design that looks simple can hide enormous complexity in its responsive behavior, state management, and edge cases." },
       { type: "bigword", text: "Clarity" },
       { type: "paragraph", text: "The solution isn't more documentation — it's shared language. When designers understand how components compose in code, and developers understand design intent beyond pixels, the handoff becomes a conversation rather than a throw-over-the-wall moment." },
-      { type: "image", alt: "Figma to code workflow diagram", color: "from-[#584dff]/10 to-[#2a1f9e]/5" },
+      { type: "image", alt: "Figma to code workflow diagram", color: "from-brand/10 to-[#2a1f9e]/5" },
       { type: "caption", text: "A bidirectional workflow reduces the gap between design intent and production output." },
       { type: "heading2", text: "Workflows that actually work" },
       { type: "heading3", text: "Design with component APIs in mind" },
@@ -97,7 +97,7 @@ const ARTICLES: Record<string, BlogArticle> = {
     subtitle: "Moving beyond feature requests to measurable user outcomes",
     category: "Product",
     date: "January 10, 2026",
-    heroColor: "from-[#584dff]/15 to-[#1a1145]/10",
+    heroColor: "from-brand/15 to-[#1a1145]/10",
     sections: [
       { type: "paragraph", text: "Most product teams ship features. The best product teams ship outcomes. The difference sounds semantic, but it fundamentally changes how you design, prioritize, and measure success." },
       { type: "paragraph", text: "Feature-driven design asks: what should we build? Outcome-driven design asks: what should change for the user?" },
@@ -105,7 +105,7 @@ const ARTICLES: Record<string, BlogArticle> = {
       { type: "heading2", text: "The feature trap" },
       { type: "paragraph", text: "Features are easy to ship and easy to measure — did we build it? Yes or no. But they don't tell you whether the user's life improved. A feature can ship on time, under budget, and still fail completely if it doesn't solve the right problem." },
       { type: "paragraph", text: "I've watched teams celebrate shipping a feature that nobody asked for, while ignoring the workflow friction that was costing users hours every week." },
-      { type: "image", alt: "Feature vs outcome comparison", color: "from-[#584dff]/10 to-[#1a1145]/5" },
+      { type: "image", alt: "Feature vs outcome comparison", color: "from-brand/10 to-[#1a1145]/5" },
       { type: "caption", text: "Features are outputs. Outcomes are the changes those outputs create." },
       { type: "heading2", text: "Designing for change" },
       { type: "heading3", text: "Start with the behavior you want to see" },
@@ -143,7 +143,7 @@ function getArticle(postId: string): BlogArticle {
       subtitle: "How to bake accessibility into your component library from day one",
       category: "Design",
       date: "December 5, 2025",
-      heroColor: "from-[#584dff]/15 to-[#3d2e99]/10",
+      heroColor: "from-brand/15 to-[#3d2e99]/10",
       sections: [
         { type: "paragraph", text: "Accessibility is often treated as a final checklist item — something to address after the 'real' design work is done. This approach guarantees that accessibility will always feel like an afterthought, because it literally is one." },
         { type: "paragraph", text: "The best accessible components I've built started with accessibility as a design constraint, not a compliance requirement." },
@@ -151,7 +151,7 @@ function getArticle(postId: string): BlogArticle {
         { type: "heading2", text: "Accessibility is a design decision" },
         { type: "paragraph", text: "Every visual hierarchy, every interaction pattern, every color choice is an accessibility decision whether you frame it that way or not. The question isn't whether to design for accessibility — it's whether to do it intentionally or accidentally." },
         { type: "paragraph", text: "Intentional accessibility starts with understanding that your users navigate your product in more ways than you use it yourself. Keyboard, screen reader, voice control, switch access — each reveals different strengths and weaknesses in your components." },
-        { type: "image", alt: "Accessibility testing across different input methods", color: "from-[#584dff]/10 to-[#3d2e99]/5" },
+        { type: "image", alt: "Accessibility testing across different input methods", color: "from-brand/10 to-[#3d2e99]/5" },
         { type: "caption", text: "Testing across input methods reveals design issues that visual review alone misses." },
         { type: "heading2", text: "Patterns that scale" },
         { type: "heading3", text: "Focus management as a first-class concern" },
@@ -172,14 +172,14 @@ function getArticle(postId: string): BlogArticle {
       subtitle: "A naming and architecture strategy that scales with your product",
       category: "Systems",
       date: "November 18, 2025",
-      heroColor: "from-[#584dff]/18 to-[#2a1f9e]/8",
+      heroColor: "from-brand/18 to-[#2a1f9e]/8",
       sections: [
         { type: "paragraph", text: "Design tokens are the atoms of a design system — the smallest decisions that cascade into every component, every screen, every platform. Get the token architecture right, and the system almost maintains itself. Get it wrong, and you'll spend more time managing tokens than designing." },
         { type: "bigword", text: "Tokens" },
         { type: "heading2", text: "The three-tier model" },
         { type: "paragraph", text: "I structure tokens in three tiers: global, semantic, and component. Global tokens define the raw values — every color, every spacing unit. Semantic tokens give those values meaning — 'surface-primary', not 'gray-100'. Component tokens bind semantic tokens to specific use cases." },
         { type: "paragraph", text: "This layering means a brand refresh touches only the global tier. A theme switch touches only the semantic tier. A component redesign touches only the component tier. Each change is scoped exactly where it belongs." },
-        { type: "image", alt: "Three-tier token architecture diagram", color: "from-[#584dff]/10 to-[#2a1f9e]/5" },
+        { type: "image", alt: "Three-tier token architecture diagram", color: "from-brand/10 to-[#2a1f9e]/5" },
         { type: "caption", text: "Three-tier token architecture: global values, semantic meaning, component binding." },
         { type: "heading2", text: "Naming that scales" },
         { type: "heading3", text: "Be descriptive, not clever" },
@@ -203,7 +203,7 @@ function getArticle(postId: string): BlogArticle {
     subtitle: "Coming soon",
     category: "Design",
     date: "2025",
-    heroColor: "from-[#584dff]/15 to-[#584dff]/5",
+    heroColor: "from-brand/15 to-brand/5",
     sections: [
       { type: "paragraph", text: "This article is coming soon. Check back later for the full content." },
     ],
@@ -214,7 +214,7 @@ export function BlogDetail({ postId, onBack, onPostClick }: BlogDetailProps) {
   const article = getArticle(postId);
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-['Clash_Grotesk_Variable',sans-serif] pt-[200px] pb-32">
+    <div className="min-h-screen bg-background text-foreground font-display pt-page pb-32">
       {/* Hero Section */}
       <div className="mb-10">
         {/* Title — full width, light weight, large like Figma reference */}
@@ -222,7 +222,7 @@ export function BlogDetail({ postId, onBack, onPostClick }: BlogDetailProps) {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-          className="font-['Cormorant',serif] font-light text-[clamp(48px,6vw,85px)] leading-[1.25] tracking-[-1.8px] mb-10"
+          className="font-serif font-light text-display-md mb-10"
         >
           {article.title}
         </motion.h1>
@@ -232,7 +232,7 @@ export function BlogDetail({ postId, onBack, onPostClick }: BlogDetailProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
-          className="text-[clamp(18px,1.6vw,23px)] text-foreground/50 font-light leading-[1.2] tracking-[0.2px] mb-12"
+          className="text-h3 text-foreground/50 font-light mb-12"
         >
           {article.subtitle}
         </motion.p>
@@ -242,7 +242,7 @@ export function BlogDetail({ postId, onBack, onPostClick }: BlogDetailProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="flex items-center text-[15px] tracking-[-0.16px] font-light mb-10"
+          className="flex items-center text-body-sm font-light mb-10"
         >
           <span className="text-foreground">Hein Htet<span className="text-foreground/50">, Product Designer</span></span>
           <span className="text-foreground/50 ml-auto mr-auto">{article.category}</span>
@@ -280,7 +280,7 @@ export function BlogDetail({ postId, onBack, onPostClick }: BlogDetailProps) {
               return (
                 <p
                   key={idx}
-                  className="text-[19px] text-foreground/[0.78] font-light leading-[32px] tracking-[0.2px] mb-8"
+                  className="text-body-lg text-foreground/[0.78] font-light mb-8"
                 >
                   {section.text}
                 </p>
@@ -289,7 +289,7 @@ export function BlogDetail({ postId, onBack, onPostClick }: BlogDetailProps) {
               return (
                 <h2
                   key={idx}
-                  className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[32px] leading-[1.25] tracking-[-0.5px] text-foreground mt-20 mb-8"
+                  className="font-display font-light text-h2 text-foreground mt-20 mb-8"
                 >
                   {section.text}
                 </h2>
@@ -298,7 +298,7 @@ export function BlogDetail({ postId, onBack, onPostClick }: BlogDetailProps) {
               return (
                 <h3
                   key={idx}
-                  className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[22px] leading-[28px] tracking-[-0.2px] text-foreground mt-12 mb-4"
+                  className="font-display font-light text-h3 text-foreground mt-12 mb-4"
                 >
                   {section.text}
                 </h3>
@@ -306,7 +306,7 @@ export function BlogDetail({ postId, onBack, onPostClick }: BlogDetailProps) {
             case "bigword":
               return (
                 <div key={idx} className="w-[calc(100%+200px)] -ml-[100px] my-20 md:my-32 flex items-center justify-center">
-                  <span className="font-['Cormorant',serif] font-light text-[clamp(80px,12vw,160px)] leading-[1] tracking-[-0.04em] text-foreground/[0.06] select-none">
+                  <span className="font-serif font-light text-display-2xl text-foreground/[0.06] select-none">
                     {section.text}
                   </span>
                 </div>
@@ -345,7 +345,7 @@ export function BlogDetail({ postId, onBack, onPostClick }: BlogDetailProps) {
               return (
                 <p
                   key={idx}
-                  className="text-[13px] text-foreground/35 font-light tracking-[-0.1px] mb-10 -mt-8"
+                  className="text-caption text-foreground/35 font-light mb-10 -mt-8"
                 >
                   {section.text}
                 </p>
@@ -354,7 +354,7 @@ export function BlogDetail({ postId, onBack, onPostClick }: BlogDetailProps) {
               return (
                 <blockquote
                   key={idx}
-                  className="border-l border-foreground/10 pl-6 my-12 text-[22px] font-light text-foreground/50 leading-[32px] italic"
+                  className="border-l border-foreground/10 pl-6 my-12 text-h3 font-light text-foreground/50 italic"
                 >
                   {section.text}
                 </blockquote>
@@ -367,11 +367,11 @@ export function BlogDetail({ postId, onBack, onPostClick }: BlogDetailProps) {
 
       {/* Related Articles */}
       <div className="mt-44 w-[calc(100%+32px)] md:w-[calc(100%+48px)] -ml-4 md:-ml-6">
-        <h3 className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[22px] leading-[28px] tracking-[-0.2px] text-foreground mb-8 px-4 md:px-6">
+        <h3 className="font-display font-light text-h3 text-foreground mb-8 px-6">
           Related Articles
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-6">
           {getRelatedPosts(postId).map((relatedId) => {
             const related = getArticle(relatedId);
             return (
@@ -393,17 +393,17 @@ export function BlogDetail({ postId, onBack, onPostClick }: BlogDetailProps) {
                 </div>
 
                 {/* Excerpt */}
-                <span className="text-[15px] text-foreground/40 font-light leading-[24px] tracking-[-0.16px] mb-1">
+                <span className="text-body-sm text-foreground/40 font-light mb-1">
                   {related.subtitle.length > 50 ? related.subtitle.slice(0, 50) + "…" : related.subtitle}
                 </span>
 
                 {/* Title */}
-                <h4 className="text-[19px] text-foreground font-light leading-[26px] tracking-[-0.2px] group-hover:text-foreground/70 transition-colors mb-4">
+                <h4 className="text-body-lg text-foreground font-light group-hover:text-foreground/70 transition-colors mb-4">
                   {related.title}
                 </h4>
 
                 {/* Category + Date */}
-                <div className="flex items-center gap-4 text-[15px] text-foreground/40 font-light tracking-[-0.16px] leading-[22px]">
+                <div className="flex items-center gap-4 text-body-sm text-foreground/40 font-light">
                   <span>{related.category}</span>
                   <span>{related.date}</span>
                 </div>
@@ -415,12 +415,12 @@ export function BlogDetail({ postId, onBack, onPostClick }: BlogDetailProps) {
 
       {/* How can we help */}
       <section className="w-[calc(100%+32px)] md:w-[calc(100%+48px)] -ml-4 md:-ml-6 py-[180px] border-t border-foreground/10 mt-32">
-        <div className="px-4 md:px-6 flex flex-col lg:flex-row items-start justify-between">
-          <h2 className="font-['Cormorant',serif] text-[clamp(48px,6vw,88px)] font-light leading-[1.1] tracking-tight">How can<br />we help?</h2>
+        <div className="px-6 flex flex-col lg:flex-row items-start justify-between">
+          <h2 className="font-serif text-display-md font-light">How can<br />we help?</h2>
           <div className="w-full lg:w-[600px] flex flex-col pt-12 lg:pt-0">
             {["Work together", "Join our team", "Ask anything"].map((item, i) => (
               <button key={i} className="w-full flex items-center justify-between py-10 border-b border-foreground/10 group cursor-pointer first:border-t first:border-foreground/10">
-                <span className="text-[24px] font-light text-foreground">{item}</span>
+                <span className="text-h3 font-light text-foreground">{item}</span>
                 <Plus className="size-6 text-foreground group-hover:rotate-45 transition-transform" />
               </button>
             ))}
@@ -430,20 +430,20 @@ export function BlogDetail({ postId, onBack, onPostClick }: BlogDetailProps) {
 
       {/* Footer */}
       <footer className="w-[calc(100%+32px)] md:w-[calc(100%+48px)] -ml-4 md:-ml-6 py-20 border-t border-foreground/10">
-        <div className="px-4 md:px-6 flex flex-wrap gap-x-32 gap-y-12 items-start">
+        <div className="px-6 flex flex-wrap gap-x-32 gap-y-12 items-start">
           <div className="flex flex-col gap-4">
-            <span className="text-[12px] uppercase tracking-[0.2em] text-foreground/60 font-light">Social</span>
+            <span className="text-eyebrow text-foreground/60 font-light">Social</span>
             <div className="flex gap-6">
-              {["IG", "TW", "LI"].map(s => <a key={s} href="#" className="text-[16px] text-foreground font-light hover:opacity-60 transition-opacity">{s}</a>)}
+              {["IG", "TW", "LI"].map(s => <a key={s} href="#" className="text-body text-foreground font-light hover:opacity-60 transition-opacity">{s}</a>)}
             </div>
           </div>
           <div className="flex flex-col gap-4">
-            <span className="text-[12px] uppercase tracking-[0.2em] text-foreground/60 font-light">Office</span>
-            <p className="text-[16px] text-foreground font-light">Victoria, BC Canada</p>
+            <span className="text-eyebrow text-foreground/60 font-light">Office</span>
+            <p className="text-body text-foreground font-light">Victoria, BC Canada</p>
           </div>
           <div className="flex flex-col gap-4">
-            <span className="text-[12px] uppercase tracking-[0.2em] text-foreground/60 font-light">Contact</span>
-            <p className="text-[16px] text-foreground font-light">heindsgn@gmail.com</p>
+            <span className="text-eyebrow text-foreground/60 font-light">Contact</span>
+            <p className="text-body text-foreground font-light">heindsgn@gmail.com</p>
           </div>
         </div>
       </footer>

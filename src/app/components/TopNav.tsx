@@ -1,4 +1,5 @@
 import React from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { Music } from "lucide-react";
 import svgPaths from "../../imports/svg-lb0wh4b8mk";
@@ -19,23 +20,24 @@ function Menu({ isOpen, setIsOpen, onNavigate, currentView }: { isOpen: boolean;
         className="flex h-[22px] items-center justify-center px-[16px] relative rounded-full hover:bg-foreground/10 transition-colors cursor-pointer group shrink-0 z-[101]"
       >
         <div className="absolute border border-solid border-foreground/30 group-hover:border-foreground inset-0 rounded-full transition-colors" />
-        <span className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[12px] text-foreground tracking-tight leading-none">
+        <span className="font-display font-light text-caption text-foreground tracking-tight leading-none">
           Menu
         </span>
       </button>
 
-      <AnimatePresence>
+      {createPortal(
+        <AnimatePresence>
         {isOpen && (
           <>
             {/* Backdrop */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-background/40 z-[150]"
+              className="fixed inset-0 bg-background/30 z-[150]"
             />
-            
+
             {/* Floating Menu Card */}
             <motion.div
               initial={{ opacity: 0, y: -10, scale: 0.98 }}
@@ -47,14 +49,14 @@ function Menu({ isOpen, setIsOpen, onNavigate, currentView }: { isOpen: boolean;
               <div className="p-8 sm:p-12">
                 <div className="flex justify-between items-start mb-16">
                   <div className="space-y-1">
-                    <p className="font-['Clash_Grotesk_Variable',sans-serif] text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Navigation</p>
-                    <h2 className="font-['Cormorant',serif] text-[32px] font-normal leading-tight text-foreground">Select a destination</h2>
+                    <p className="font-display text-eyebrow text-muted-foreground">Navigation</p>
+                    <h2 className="font-serif text-h2 font-normal leading-tight text-foreground">Select a destination</h2>
                   </div>
                   <button 
                     onClick={() => setIsOpen(false)}
                     className="group relative flex items-center justify-center size-8 rounded-full border border-foreground/10 hover:border-foreground transition-colors cursor-pointer"
                   >
-                    <span className="font-['Clash_Grotesk_Variable',sans-serif] text-[10px] uppercase">✕</span>
+                    <span className="font-display text-eyebrow">✕</span>
                   </button>
                 </div>
 
@@ -80,8 +82,8 @@ function Menu({ isOpen, setIsOpen, onNavigate, currentView }: { isOpen: boolean;
                           }}
                           className="group flex items-center gap-3 text-left cursor-pointer"
                         >
-                          <span className={`font-['Clash_Grotesk_Variable',sans-serif] text-[10px] transition-colors ${isActive ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'}`}>0{idx + 1}</span>
-                          <span className={`font-['Clash_Grotesk_Variable',sans-serif] text-[18px] font-light transition-all ${isActive ? 'text-foreground/40' : 'text-foreground group-hover:translate-x-1'}`}>{item.label}</span>
+                          <span className={`font-display text-micro transition-colors ${isActive ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'}`}>0{idx + 1}</span>
+                          <span className={`font-display text-h4 font-light transition-all ${isActive ? 'text-foreground/40' : 'text-foreground group-hover:translate-x-1'}`}>{item.label}</span>
                           {isActive && <span className="size-1.5 rounded-full bg-foreground/40" />}
                         </motion.button>
                       );
@@ -91,14 +93,14 @@ function Menu({ isOpen, setIsOpen, onNavigate, currentView }: { isOpen: boolean;
                   <div className="flex flex-col justify-between pt-2 border-t sm:border-t-0 sm:border-l border-foreground/5 sm:pl-12">
                     <div className="space-y-6">
                       <div className="space-y-2">
-                        <p className="font-['Clash_Grotesk_Variable',sans-serif] text-[10px] uppercase tracking-[0.1em] text-muted-foreground">Contact</p>
-                        <p className="font-['Clash_Grotesk_Variable',sans-serif] text-[14px] text-foreground">heindsgn@gmail.com</p>
+                        <p className="font-display text-eyebrow text-muted-foreground">Contact</p>
+                        <p className="font-display text-body-sm text-foreground">heindsgn@gmail.com</p>
                       </div>
                       <div className="space-y-2">
-                        <p className="font-['Clash_Grotesk_Variable',sans-serif] text-[10px] uppercase tracking-[0.1em] text-muted-foreground">Follow</p>
+                        <p className="font-display text-eyebrow text-muted-foreground">Follow</p>
                         <div className="flex gap-4">
                           {['IG', 'TW', 'LI'].map(s => (
-                            <a key={s} href="#" className="font-['Clash_Grotesk_Variable',sans-serif] text-[12px] text-foreground hover:opacity-50 transition-opacity">{s}</a>
+                            <a key={s} href="#" className="font-display text-caption text-foreground hover:opacity-50 transition-opacity">{s}</a>
                           ))}
                         </div>
                       </div>
@@ -106,7 +108,7 @@ function Menu({ isOpen, setIsOpen, onNavigate, currentView }: { isOpen: boolean;
                     
                     <div className="mt-8 sm:mt-0">
                       <div className="h-px w-full bg-foreground/5 mb-4" />
-                      <p className="font-['Clash_Grotesk_Variable',sans-serif] text-[10px] text-muted-foreground italic">
+                      <p className="font-display text-caption text-muted-foreground italic">
                         Intentional design since 2024
                       </p>
                     </div>
@@ -116,7 +118,9 @@ function Menu({ isOpen, setIsOpen, onNavigate, currentView }: { isOpen: boolean;
             </motion.div>
           </>
         )}
-      </AnimatePresence>
+        </AnimatePresence>,
+        document.body
+      )}
     </>
   );
 }
@@ -142,7 +146,7 @@ function TimeInfo() {
   }, []);
 
   return (
-    <div className="hidden sm:flex font-['Clash_Grotesk_Variable',sans-serif] font-light gap-[2px] items-center text-[12px] text-right text-foreground tracking-tight whitespace-nowrap">
+    <div className="hidden sm:flex font-display font-light gap-[2px] items-center text-caption text-right text-foreground tracking-tight whitespace-nowrap">
       <span className="leading-none uppercase">MMR</span>
       <span className="leading-none">{time}</span>
     </div>

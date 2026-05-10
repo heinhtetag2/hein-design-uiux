@@ -174,14 +174,11 @@ export function AskAnything({ context = "home", isMenuOpen = false }: AskAnythin
               {/* Spinning gradient border */}
               <div className="absolute inset-[-50%] animate-[spin_2.5s_linear_infinite]"
                 style={{
-                  background: 'conic-gradient(from 0deg, transparent 0%, transparent 25%, #584dff 45%, #584dff 55%, transparent 75%, transparent 100%)',
+                  background: 'conic-gradient(from 0deg, transparent 0%, transparent 25%, var(--brand) 45%, var(--brand) 55%, transparent 75%, transparent 100%)',
                 }}
               />
-              <div className="relative flex items-center gap-2 px-5 h-10 rounded-full bg-background/80 backdrop-blur-xl text-foreground/60 group-hover:text-foreground transition-colors">
-                <svg width="14" height="14" viewBox="0 0 10 10" fill="currentColor" className="opacity-70 group-hover:opacity-100 transition-opacity">
-                  <path d={svgPaths.p996def0} />
-                </svg>
-                <span className="font-['Clash_Grotesk_Variable',sans-serif] text-[12px] tracking-wide">
+              <div className="relative flex items-center px-5 h-10 rounded-full bg-background/80 backdrop-blur-xl text-foreground/60 group-hover:text-foreground transition-colors">
+                <span className="font-display font-normal text-caption tracking-wide">
                   Ask me anything
                 </span>
               </div>
@@ -200,7 +197,7 @@ export function AskAnything({ context = "home", isMenuOpen = false }: AskAnythin
               <svg width="16" height="16" viewBox="0 0 10 10" fill="currentColor">
                 <path d={svgPaths.p996def0} />
               </svg>
-              <span className="font-['Cormorant',serif] font-medium tracking-normal mt-0.5 text-[13px]">
+              <span className="font-serif font-medium mt-0.5 text-body-sm">
                 Ask anything
               </span>
             </motion.button>
@@ -245,7 +242,7 @@ export function AskAnything({ context = "home", isMenuOpen = false }: AskAnythin
                   <button
                     key={s.label}
                     onClick={() => handleRun(s.value)}
-                    className="bg-background/60 backdrop-blur-md border border-foreground/8 hover:border-foreground/20 px-3 py-1.5 rounded-full text-[11px] font-['Clash_Grotesk_Variable',sans-serif] text-foreground/80 hover:text-foreground transition-all cursor-pointer"
+                    className="bg-background/60 backdrop-blur-md border border-foreground/8 hover:border-foreground/20 px-3 py-1.5 rounded-full text-caption font-display text-foreground/80 hover:text-foreground transition-all cursor-pointer"
                   >
                     {s.label}
                   </button>
@@ -262,7 +259,7 @@ export function AskAnything({ context = "home", isMenuOpen = false }: AskAnythin
                     className="absolute bottom-full mb-12 w-full bg-background/80 backdrop-blur-md border border-foreground/10 rounded-2xl p-[20px]"
                   >
                     <div className="flex justify-between items-start mb-2">
-                      <div className="font-['Clash_Grotesk_Variable',sans-serif] text-muted-foreground text-[10px] uppercase tracking-widest">
+                      <div className="font-display text-eyebrow text-muted-foreground">
                         {context === "home" ? "Portfolio Assistant" : context === "edusync" ? "Project Assistant" : "Blog Assistant"}
                       </div>
                       <button 
@@ -278,7 +275,7 @@ export function AskAnything({ context = "home", isMenuOpen = false }: AskAnythin
                         </svg>
                       </button>
                     </div>
-                    <div className="font-['Clash_Grotesk_Variable',sans-serif] text-[15px] text-foreground leading-relaxed">
+                    <div className="font-display text-body text-foreground">
                       {isTyping ? (
                         <div className="flex gap-1 items-center h-[24px]">
                           <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1 }} className="w-1.5 h-1.5 rounded-full bg-foreground/40" />
@@ -303,11 +300,11 @@ export function AskAnything({ context = "home", isMenuOpen = false }: AskAnythin
                     onChange={(e) => setQuestion(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && handleRun()}
                     placeholder={context === "home" ? "Ask about Hein Htet" : context === "edusync" ? "Ask about EduSync" : "Ask about blogs"}
-                    className="bg-transparent border-none outline-none text-[15px] text-foreground font-['Clash_Grotesk_Variable',sans-serif] placeholder:text-foreground/40 flex-1 min-w-0"
+                    className="bg-transparent border-none outline-none text-body text-foreground font-display placeholder:text-foreground/40 flex-1 min-w-0"
                   />
                   <div className="hidden sm:flex items-center gap-1 bg-foreground/5 border border-foreground/10 rounded px-1.5 py-0.5 pointer-events-none">
-                    <span className="text-[10px] text-muted-foreground font-sans">⌘</span>
-                    <span className="text-[10px] text-muted-foreground font-sans uppercase">K</span>
+                    <span className="text-micro text-muted-foreground font-sans">⌘</span>
+                    <span className="text-micro text-muted-foreground font-sans uppercase">K</span>
                   </div>
                 </div>
                 <button
@@ -315,7 +312,7 @@ export function AskAnything({ context = "home", isMenuOpen = false }: AskAnythin
                   disabled={isTyping || !question.trim()}
                   className="bg-foreground flex gap-[4px] h-[36px] items-center justify-center px-[14px] rounded-full shrink-0 border border-transparent hover:border-background/50 active:scale-95 transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed disabled:scale-100"
                 >
-                  <span className="font-['Clash_Grotesk_Variable',sans-serif] font-medium text-background text-[14px]">
+                  <span className="font-display font-medium text-background text-body-sm">
                     Ask
                   </span>
                   <div className="flex items-center">

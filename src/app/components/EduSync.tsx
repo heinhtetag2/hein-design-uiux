@@ -26,17 +26,17 @@ import imgMapImage from "figma:asset/a69c8495dcaf009e877f7edc68539b20116054e3.pn
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
 function Container({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <div className={`w-full max-w-[1800px] ${className}`}>{children}</div>;
+  return <div className={`w-full ${className}`}>{children}</div>;
 }
 
 function SectionHeading({ text }: { text: string }) {
-  return <div className="font-['Clash_Grotesk_Variable',sans-serif] font-normal text-[20px] text-foreground tracking-tight mb-8">{text}</div>;
+  return <div className="font-display font-normal text-h3 text-foreground mb-8">{text}</div>;
 }
 
 function LargeText({ text, size = "large" }: { text: string, size?: "large" | "medium" }) {
-  const classes = size === "large" 
-    ? "text-[32px] lg:text-[56px] tracking-[-1px] leading-tight" 
-    : "text-[24px] lg:text-[40px] tracking-[-1.2px] leading-tight";
+  const classes = size === "large"
+    ? "text-display-sm"
+    : "text-h2";
   return (
     <motion.p 
       initial={{ opacity: 0, y: 20 }}
@@ -49,7 +49,7 @@ function LargeText({ text, size = "large" }: { text: string, size?: "large" | "m
         stiffness: 80,
         restDelta: 0.001
       }}
-      className={`font-['Clash_Grotesk_Variable',sans-serif] font-light text-foreground ${classes}`}
+      className={`font-display font-light text-foreground ${classes}`}
     >
       {text}
     </motion.p>
@@ -91,31 +91,31 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
   }, []);
 
   return (
-    <div style={{ position: 'relative' }} className="bg-background min-h-screen w-full flex flex-col items-center pb-20 selection:bg-[#584dff] selection:text-white relative">
+    <div style={{ position: 'relative' }} className="bg-background min-h-screen w-full flex flex-col items-center pb-20 relative">
       
       {/* 1. Header Section */}
       <Container className="pt-24 lg:pt-32 mb-20">
-        <h1 className="font-['Cormorant',serif] font-normal text-[80px] lg:text-[160px] text-foreground tracking-[-2px] leading-none mb-10 text-left">
+        <h1 className="font-serif font-normal text-display-2xl text-foreground mb-10 text-left">
           EduSync
         </h1>
         <div className="flex flex-col lg:flex-row justify-between pb-[10px] gap-8">
           <div className="flex flex-col gap-1 lg:w-[448px]">
-            <span className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[16px] text-foreground">Project Type</span>
-            <span className="font-['Clash_Grotesk_Variable',sans-serif] font-normal text-muted-foreground text-[16px]">Full Product System</span>
+            <span className="font-display font-light text-body text-foreground">Project Type</span>
+            <span className="font-display font-normal text-muted-foreground text-body">Full Product System</span>
           </div>
           <div className="flex flex-col gap-1 lg:w-[212px]">
-            <span className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[16px] text-foreground">Stage</span>
-            <span className="font-['Clash_Grotesk_Variable',sans-serif] font-normal text-muted-foreground text-[16px]">Concept · MVP-ready</span>
+            <span className="font-display font-light text-body text-foreground">Stage</span>
+            <span className="font-display font-normal text-muted-foreground text-body">Concept · MVP-ready</span>
           </div>
           <div className="flex flex-col gap-1 lg:w-[400px]">
-            <span className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[16px] text-foreground">Deliverables</span>
-            <span className="font-['Clash_Grotesk_Variable',sans-serif] font-normal text-muted-foreground text-[16px]">UX Strategy · Dashboard Design · Workflow System</span>
+            <span className="font-display font-light text-body text-foreground">Deliverables</span>
+            <span className="font-display font-normal text-muted-foreground text-body">UX Strategy · Dashboard Design · Workflow System</span>
           </div>
         </div>
       </Container>
 
       {/* 2. Hero Image */}
-      <div className="w-full mb-32 max-w-[1800px]">
+      <div className="w-auto -mx-6 mb-32">
         <div className="w-full h-[500px] lg:h-[840px] overflow-hidden">
           <ImageWithFallback src={imgHero} className="w-full h-full object-cover" />
         </div>
@@ -137,7 +137,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       </Container>
 
       {/* 4. Video Play Section */}
-      <div className="w-full mb-32 max-w-[1800px] flex flex-col items-end gap-10">
+      <div className="w-full mb-32 flex flex-col items-end gap-10">
         <div className="w-full aspect-video lg:h-[782px] relative overflow-hidden group cursor-pointer">
           <RevealImage src={imgVideo} className="w-full h-full" />
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
@@ -146,14 +146,14 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1.2, ease: [0.65, 0, 0.35, 1], delay: 0.4 }}
-              className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[60px] lg:text-[164px] text-white tracking-[-6px]"
+              className="font-display font-light text-display-2xl text-white"
             >
               Play
             </motion.span>
           </div>
         </div>
         <div className="max-w-[206px] pr-4">
-           <p className="font-['Clash_Grotesk_Variable',sans-serif] text-[16px] text-foreground leading-relaxed">
+           <p className="font-display text-body text-foreground leading-relaxed">
              EduSync was shaped through close collaboration between design, product, and engineering. In a system with many stakeholders, clarity and speed were essential—enabled by shared ownership, clear roles, and continuous feedback.
            </p>
         </div>
@@ -168,7 +168,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       </Container>
 
       {/* 6. Image Grid (Posters) */}
-      <div className="w-full mb-16 md:mb-32 max-w-[1800px] flex flex-col gap-4 md:gap-6">
+      <div className="w-full mb-16 md:mb-32 flex flex-col gap-4 md:gap-6">
         <div className="w-full h-[250px] md:h-[400px] lg:h-[778px] overflow-hidden">
           <RevealImage src={imgFrame78} className="w-full h-full" />
         </div>
@@ -180,7 +180,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
               <div className="h-[200px] lg:h-[384px] overflow-hidden">
                  <RevealImage src={imgFrame80} className="w-full h-full" />
               </div>
-              <div className="font-['Clash_Grotesk_Variable',sans-serif] text-[16px] text-foreground/80 space-y-4 max-w-[400px]">
+              <div className="font-display text-body text-foreground/80 space-y-4 max-w-[400px]">
                  <p>Education systems are becoming more complex, with more tools, more data, and more stakeholders involved. EduSync was designed to bring structure to that complexity turning scattered processes into clear, connected workflows.</p>
                  <p>To support this, I designed a flexible system that adapts across roles and scenarios, balancing control with simplicity while remaining ready for what comes next.</p>
               </div>
@@ -341,8 +341,8 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
         
         {/* Description below cards - mobile centered, desktop left aligned */}
         <div className="w-full mt-10 lg:mt-12">
-          <div className="max-w-[1800px] mx-auto lg:pl-[260px]">
-            <p className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[16px] text-foreground max-w-[212px] mx-auto lg:mx-0 lg:text-left text-left">
+          <div className="mx-auto lg:pl-[260px]">
+            <p className="font-display font-light text-body text-foreground max-w-[212px] mx-auto lg:mx-0 lg:text-left text-left">
               By balancing structure and flexibility, EduSync creates a system that feels both controlled and human. Administrators gain oversight, teachers gain freedom, and learning becomes accessible without unnecessary complexity.
             </p>
           </div>
@@ -350,7 +350,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       </div>
 
       {/* 9. Full Width Images */}
-      <div className="w-full mb-32 max-w-[1800px] flex flex-col gap-20">
+      <div className="w-full mb-32 flex flex-col gap-20">
         <div className="w-full h-[600px] lg:h-[840px] overflow-hidden">
           <RevealImage src={imgImage1} className="w-full h-full" />
         </div>
@@ -368,10 +368,10 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       </Container>
 
       {/* 11. App Detail Mosaic Grid */}
-      <div className="w-full mb-16 md:mb-32 max-w-[1800px] flex flex-col lg:flex-row gap-6">
+      <div className="w-full mb-16 md:mb-32 flex flex-col lg:flex-row gap-6">
         <div className="flex flex-col gap-6 justify-between lg:w-[617px] h-[400px] md:h-[600px] lg:h-[782px]">
            <div className="max-w-[400px]">
-              <p className="font-['Clash_Grotesk_Variable',sans-serif] text-[16px] text-foreground">Create a course, assign teachers, and manage lessons in one place. Content moves from draft to review to published ensuring quality without slowing down teaching.</p>
+              <p className="font-display text-body text-foreground">Create a course, assign teachers, and manage lessons in one place. Content moves from draft to review to published ensuring quality without slowing down teaching.</p>
            </div>
            <div className="flex-1 overflow-hidden">
               <RevealImage src={imgFrame81} className="w-full h-full" />
@@ -383,20 +383,20 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       </div>
 
       {/* 11.5 Wide Image Grid Section */}
-      <div className="w-full mb-16 md:mb-32 max-w-[1800px] grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="w-full mb-16 md:mb-32 grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-10 h-[400px] lg:h-[748px] overflow-hidden">
            <RevealImage src={imgImage3} className="w-full h-full" />
         </div>
         <div className="lg:col-span-2 flex items-start">
-           <p className="font-['Clash_Grotesk_Variable',sans-serif] text-[16px] text-foreground max-w-[197px]">Structuring learning through clear roles, reviews, and workflows.</p>
+           <p className="font-display text-body text-foreground max-w-[197px]">Structuring learning through clear roles, reviews, and workflows.</p>
         </div>
       </div>
 
       {/* 11.6 Grid Layout with Text + Images */}
-      <div className="w-full mb-16 md:mb-32 max-w-[1800px] flex flex-col lg:flex-row gap-6">
+      <div className="w-full mb-16 md:mb-32 flex flex-col lg:flex-row gap-6">
         <div className="flex flex-col gap-4 lg:w-[600px] h-[400px] md:h-[600px] lg:h-[782px]">
            <div className="max-w-[400px]">
-              <p className="font-['Clash_Grotesk_Variable',sans-serif] text-[16px] text-foreground leading-[24px]">Record a beat or hum a tune using the audio prompt and watch it turn into your new favourite song.</p>
+              <p className="font-display text-body text-foreground">Record a beat or hum a tune using the audio prompt and watch it turn into your new favourite song.</p>
            </div>
            <div className="flex-1 overflow-hidden">
               <RevealImage src={imgImage4} className="w-full h-full" />
@@ -408,11 +408,11 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       </div>
 
       {/* 11.9 — Discovery Image Grid */}
-      <div className="w-full max-w-[1800px] py-[90px]">
+      <div className="w-full py-[90px]">
         <div className="flex flex-col lg:flex-row gap-[24px] items-start w-full">
           <div className="flex flex-col gap-[24px] flex-1 min-w-0 items-start justify-center self-stretch">
             <div className="w-full">
-              <div className="flex flex-col gap-[8px] font-['Clash_Grotesk_Variable',sans-serif] font-light text-[16px] text-foreground tracking-tight">
+              <div className="flex flex-col gap-[8px] font-display font-light text-body text-foreground tracking-tight">
                 <p className="leading-relaxed">
                   Getting users into a system is one thing.<br />
                   {` Keeping them engaged is another.`}
@@ -436,7 +436,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       </div>
 
       {/* 11.9c — Full Width Image */}
-      <div className="w-full py-[90px] max-w-[1800px]">
+      <div className="w-full py-[90px]">
         <div className="w-full h-[600px] lg:h-[840px] overflow-hidden">
           <RevealImage src={imgImage2} className="w-full h-full" />
         </div>
@@ -451,16 +451,16 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       </Container>
 
       {/* 11.9e — Scale Image Grid */}
-      <div className="w-full mb-32 max-w-[1800px]">
+      <div className="w-full mb-32">
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="flex-1 min-w-0 h-[500px] lg:h-[748px] overflow-hidden">
             <RevealImage src={imgImage6} className="w-full h-full" />
           </div>
           <div className="w-full lg:w-[212px] shrink-0 flex flex-col gap-[8px]">
-            <p className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[16px] text-foreground tracking-tight leading-relaxed">
+            <p className="font-display font-light text-body text-foreground tracking-tight leading-relaxed">
               As learning platforms grow, design systems become more important than individual screens. EduSync was built around reusable components, clear content structures, and predictable states—so new features can be added without rethinking the core experience.
             </p>
-            <p className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[16px] text-foreground tracking-tight leading-relaxed">
+            <p className="font-display font-light text-body text-foreground tracking-tight leading-relaxed">
               By prioritizing consistency and adaptability, the system remains reliable for schools today while staying flexible for future needs.
             </p>
           </div>
@@ -476,10 +476,10 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       </Container>
 
       {/* 12.5 Grid Layout with Text + Images */}
-      <div className="w-full mb-16 md:mb-32 max-w-[1800px] flex flex-col lg:flex-row gap-6">
+      <div className="w-full mb-16 md:mb-32 flex flex-col lg:flex-row gap-6">
         <div className="flex flex-col gap-4 lg:w-[600px] h-[400px] md:h-[600px] lg:h-[782px]">
            <div className="max-w-[400px]">
-              <p className="font-['Clash_Grotesk_Variable',sans-serif] text-[16px] text-foreground leading-[24px]">Create a course, assign teachers, and manage lessons in one place. Content moves from draft to review to published ensuring quality without slowing down teaching.</p>
+              <p className="font-display text-body text-foreground">Create a course, assign teachers, and manage lessons in one place. Content moves from draft to review to published ensuring quality without slowing down teaching.</p>
            </div>
            <div className="flex-1 overflow-hidden">
               <RevealImage src={imgImage8} className="w-full h-full" />
@@ -492,12 +492,12 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
 
       {/* 15. Impact Stats Section */}
       <Container className="mb-16 md:mb-28 lg:mb-40">
-        <h2 className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[32px] md:text-[44px] lg:text-[56px] text-foreground tracking-[-1px] leading-tight mb-10 md:mb-20">
+        <h2 className="font-display font-light text-display-sm text-foreground mb-10 md:mb-20">
           Immediate disruption
         </h2>
         <div className="flex flex-col lg:flex-row justify-between gap-10 border-b border-foreground/10 pb-20">
-          <div className="font-['Clash_Grotesk_Variable',sans-serif] font-medium text-[16px] text-foreground">Impact</div>
-          <p className="max-w-[532px] font-['Clash_Grotesk_Variable',sans-serif] text-[16px] text-foreground/80 leading-relaxed">
+          <div className="font-display font-medium text-body text-foreground">Impact</div>
+          <p className="max-w-[532px] font-display text-body text-foreground/80">
             EduSync was designed to address real operational pain points in school environments. From early concept validation to workflow testing, the system demonstrated immediate improvements in clarity, efficiency, and confidence across roles.
           </p>
         </div>
@@ -509,8 +509,8 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
             { value: "T10", label: "Top performing apps in Education" }
           ].map((stat) => (
             <div key={stat.label} className="py-10 md:py-16 lg:py-20 flex flex-col lg:flex-row items-baseline lg:justify-end gap-4 md:gap-10">
-              <span className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[48px] md:text-[80px] lg:text-[120px] text-foreground leading-none tracking-tight">{stat.value}</span>
-              <span className="font-['Clash_Grotesk_Variable',sans-serif] text-[20px] text-foreground/60 w-[300px]">{stat.label}</span>
+              <span className="font-display font-light text-display-lg text-foreground">{stat.value}</span>
+              <span className="font-display text-h3 text-foreground/60 w-[300px]">{stat.label}</span>
             </div>
           ))}
         </div>
@@ -519,7 +519,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       {/* 16. Next Case Study */}
       <Container className="pt-0 pb-20 lg:pb-32">
         <div className="border-t border-foreground/10 pt-12 lg:pt-16">
-          <span className="font-['Clash_Grotesk_Variable',sans-serif] text-[12px] sm:text-[14px] text-foreground/40 uppercase tracking-widest block mb-6">
+          <span className="font-display text-eyebrow text-foreground/40 block mb-6">
             Next project
           </span>
           <button
@@ -528,10 +528,10 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
           >
             <div className="flex items-center justify-between gap-8">
               <div className="flex flex-col gap-3">
-                <h3 className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[48px] sm:text-[64px] lg:text-[96px] text-foreground tracking-tight leading-[1.05] group-hover:translate-x-3 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                <h3 className="font-display font-light text-display-md text-foreground group-hover:translate-x-3 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
                   Suno AI
                 </h3>
-                <p className="font-['Clash_Grotesk_Variable',sans-serif] text-[14px] sm:text-[16px] text-foreground/60 font-light max-w-[400px] group-hover:translate-x-3 transition-transform duration-500 delay-75 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                <p className="font-display text-body text-foreground/60 font-light max-w-[400px] group-hover:translate-x-3 transition-transform duration-500 delay-75 ease-[cubic-bezier(0.22,1,0.36,1)]">
                   AI-powered music creation platform
                 </p>
               </div>
@@ -549,13 +549,13 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
 
       {/* 17. Footer Help Section */}
       <Container className="py-16 md:py-24 lg:py-40 border-t border-foreground/10 flex flex-col lg:flex-row justify-between gap-10 md:gap-20">
-        <h2 className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[36px] md:text-[60px] lg:text-[88px] text-foreground leading-tight tracking-tight">
+        <h2 className="font-display font-light text-display-md text-foreground">
           How can<br />we help?
         </h2>
         <div className="flex flex-col w-full lg:w-[448px] divide-y divide-foreground/10">
           {["Work together", "Join our team", "Just say hello"].map((item) => (
             <div key={item} className="group py-8 flex items-center justify-between cursor-pointer hover:opacity-60 transition-all">
-              <span className="font-['Clash_Grotesk_Variable',sans-serif] text-[24px] text-foreground font-light">{item}</span>
+              <span className="font-display text-h3 text-foreground font-light">{item}</span>
               <svg className="size-6 transform group-hover:translate-x-1 transition-transform" viewBox="0 0 16 16" fill="currentColor">
                 <path d={svgPaths.p37f30840} className="text-foreground" />
               </svg>
@@ -567,15 +567,15 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       {/* 18. Final Footer Links */}
       <Container className="border-t border-foreground/10 py-10 flex flex-wrap gap-x-24 gap-y-12">
         <div className="flex flex-col gap-3">
-          {["Linkedin", "Instagram", "X", "Medium"].map(l => <span key={l} className="text-foreground/40 hover:text-foreground cursor-pointer transition-colors font-['Clash_Grotesk_Variable',sans-serif] text-[16px]">{l}</span>)}
+          {["Linkedin", "Instagram", "X", "Medium"].map(l => <span key={l} className="text-foreground/40 hover:text-foreground cursor-pointer transition-colors font-display text-body">{l}</span>)}
         </div>
         <div className="flex flex-col gap-3">
-          {["Careers", "Contact"].map(l => <span key={l} className="text-foreground/40 hover:text-foreground cursor-pointer transition-colors font-['Clash_Grotesk_Variable',sans-serif] text-[16px]">{l}</span>)}
+          {["Careers", "Contact"].map(l => <span key={l} className="text-foreground/40 hover:text-foreground cursor-pointer transition-colors font-display text-body">{l}</span>)}
         </div>
         <div className="flex flex-col gap-3">
-          {["Privacy", "Accessibility"].map(l => <span key={l} className="text-foreground/40 hover:text-foreground cursor-pointer transition-colors font-['Clash_Grotesk_Variable',sans-serif] text-[16px]">{l}</span>)}
+          {["Privacy", "Accessibility"].map(l => <span key={l} className="text-foreground/40 hover:text-foreground cursor-pointer transition-colors font-display text-body">{l}</span>)}
         </div>
-        <div className="ml-auto text-foreground/20 font-light font-['Clash_Grotesk_Variable',sans-serif] text-[16px]">© 2026 Hein Htet</div>
+        <div className="ml-auto text-foreground/20 font-light font-display text-body">© 2026 Hein Htet</div>
       </Container>
 
     </div>

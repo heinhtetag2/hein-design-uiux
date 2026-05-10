@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { TopNav } from "./components/TopNav";
 import { Sidebar } from "./components/Sidebar";
-import { Feed } from "./components/Feed";
 import { Hero } from "./components/Hero";
 import { EduSync } from "./components/EduSync";
 import { AskAnything } from "./components/AskAnything";
 import { PageTransitionOverlay } from "./components/PageTransitionOverlay";
 import { VideoBackground } from "./components/VideoBackground";
+import { CaseStudyHoverBackground } from "./components/CaseStudyHoverBackground";
+import { CaseStudyHoverContent } from "./components/CaseStudyHoverContent";
 import { WhatIDo } from "./components/WhatIDo";
 import { Blogs } from "./components/Blogs";
 import { About } from "./components/About";
@@ -20,6 +21,17 @@ export default function App() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
+  const [hoveredCaseStudy, setHoveredCaseStudy] = useState<string | null>(null);
+
+  useEffect(() => {
+    const lock = currentView === "home" && window.matchMedia("(min-width: 1024px)").matches;
+    document.body.style.overflow = lock ? "hidden" : "";
+    document.documentElement.style.overflow = lock ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, [currentView]);
 
   const handleBlogPostClick = (postId: string) => {
     setIsTransitioning(true);
@@ -65,7 +77,7 @@ export default function App() {
   return (
     <div
       data-page={currentView}
-      className={`bg-background text-foreground w-full selection:bg-[#584dff] selection:text-white [&::-webkit-scrollbar]:hidden [scrollbar-width:none] [-ms-overflow-style:none] ${ 
+      className={`bg-background text-foreground w-full selection:bg-brand selection:text-brand-foreground [&::-webkit-scrollbar]:hidden [scrollbar-width:none] [-ms-overflow-style:none] ${
         currentView === "home"
           ? "min-h-screen lg:h-screen lg:overflow-hidden"
           : "overflow-x-hidden"
@@ -73,10 +85,12 @@ export default function App() {
     >
       {/* Video Background - Only on Home */}
       {currentView === "home" && <VideoBackground />}
+      {currentView === "home" && <CaseStudyHoverBackground hoveredStudy={hoveredCaseStudy} />}
+      {currentView === "home" && <CaseStudyHoverContent hoveredStudy={hoveredCaseStudy} />}
       
       <PageTransitionOverlay isTransitioning={isTransitioning} />
 
-      <div className="relative mx-auto w-full max-w-[1920px] h-full z-10 px-4 md:px-6">
+      <div className="relative mx-auto w-full max-w-[1920px] h-full z-10 px-6">
         <TopNav 
           onLogoClick={() => handleNavigate("home")} 
           onNavigate={handleNavigate}
@@ -99,26 +113,26 @@ export default function App() {
                 {/* Mobile/Tablet Content */}
                 <div className="lg:hidden flex flex-col pt-[100px] pb-40 gap-12">
                   <div className="flex flex-col gap-[26px]">
-                    <Hero />
+                    <Hero isStudyHovered={!!hoveredCaseStudy} />
                     <div className="w-[20px] h-[1px] bg-foreground/20" />
-                    <Sidebar 
-                      onCaseStudyClick={handleNavigate} 
+                    <Sidebar
+                      onCaseStudyClick={handleNavigate}
+                      onCaseStudyHover={setHoveredCaseStudy}
                       isMenuOpen={isMenuOpen}
                       activeView={currentView}
                     />
                   </div>
-                  <Feed />
                 </div>
 
                 {/* Desktop Absolute Content (lg and up) */}
                 <div className="hidden lg:block">
-                  <Sidebar 
-                    onCaseStudyClick={handleNavigate} 
+                  <Sidebar
+                    onCaseStudyClick={handleNavigate}
+                    onCaseStudyHover={setHoveredCaseStudy}
                     isMenuOpen={isMenuOpen}
                     activeView={currentView}
                   />
-                  <Hero />
-                  <Feed />
+                  <Hero isStudyHovered={!!hoveredCaseStudy} />
                 </div>
               </>
             ) : currentView === "edusync" ? (
@@ -140,7 +154,7 @@ export default function App() {
         </AnimatePresence>
       </div>
       
-      <AskAnything context={currentView === "home" ? "home" : currentView === "edusync" ? "edusync" : "blogs"} isMenuOpen={isMenuOpen} />
+      {/* <AskAnything context={currentView === "home" ? "home" : currentView === "edusync" ? "edusync" : "blogs"} isMenuOpen={isMenuOpen} /> */}
     </div>
   );
 }

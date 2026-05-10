@@ -13,8 +13,7 @@ export function VideoBackground() {
 
   return (
     <div className="fixed inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
-      {/* Black background placeholder - shows immediately while video loads */}
-      <div className="absolute inset-0 bg-black" />
+      <div className="absolute inset-0 bg-background" />
 
       {/* Local Background Video - Full Screen */}
       <video

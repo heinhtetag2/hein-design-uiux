@@ -1,6 +1,107 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Check } from "lucide-react";
+
+type SelectFieldProps = {
+  label: string;
+  name: string;
+  value: string;
+  onChange: (name: string, value: string) => void;
+  options: string[];
+  placeholder?: string;
+  required?: boolean;
+};
+
+function SelectField({ label, name, value, onChange, options, placeholder = "Select one", required }: SelectFieldProps) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const handleClick = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", handleClick);
+    document.addEventListener("keydown", handleKey);
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+      document.removeEventListener("keydown", handleKey);
+    };
+  }, [open]);
+
+  return (
+    <div className="flex flex-col gap-4 group" ref={ref}>
+      <label className="text-eyebrow text-foreground/80 font-light">{label}</label>
+      <div className="relative">
+        <button
+          type="button"
+          onClick={() => setOpen((o) => !o)}
+          aria-haspopup="listbox"
+          aria-expanded={open}
+          className={`w-full flex items-center justify-between bg-transparent border-b py-2 text-left text-body-lg font-light outline-none cursor-pointer transition-colors ${
+            open ? "border-foreground" : "border-foreground/10 group-hover:border-foreground/40"
+          } ${value ? "text-foreground" : "text-foreground/40"}`}
+        >
+          <span className="truncate pr-4">{value || placeholder}</span>
+          <ChevronDown className={`size-4 text-foreground/40 transition-transform duration-200 ${open ? "rotate-180 text-foreground/70" : ""}`} />
+        </button>
+
+        {/* Hidden native input for form validation */}
+        {required && (
+          <input
+            tabIndex={-1}
+            aria-hidden
+            className="absolute left-0 bottom-0 w-px h-px opacity-0 pointer-events-none"
+            value={value}
+            onChange={() => {}}
+            required
+          />
+        )}
+
+        <AnimatePresence>
+          {open && (
+            <motion.ul
+              role="listbox"
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute z-50 left-0 right-0 top-[calc(100%+8px)] max-h-[280px] overflow-y-auto rounded-2xl border border-foreground/10 bg-background/80 backdrop-blur-xl shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] py-1.5"
+            >
+              {options.map((opt) => {
+                const selected = opt === value;
+                return (
+                  <li key={opt}>
+                    <button
+                      type="button"
+                      role="option"
+                      aria-selected={selected}
+                      onClick={() => {
+                        onChange(name, opt);
+                        setOpen(false);
+                      }}
+                      className={`w-full flex items-center justify-between gap-4 px-4 py-2.5 text-left text-body-sm font-light transition-colors cursor-pointer ${
+                        selected
+                          ? "text-foreground bg-foreground/[0.04]"
+                          : "text-foreground/70 hover:text-foreground hover:bg-foreground/[0.04]"
+                      }`}
+                    >
+                      <span className="truncate">{opt}</span>
+                      {selected && <Check className="size-3.5 text-brand shrink-0" />}
+                    </button>
+                  </li>
+                );
+              })}
+            </motion.ul>
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
 
 // Get your free access key at https://web3forms.com (enter heindsgn@gmail.com)
 const WEB3FORMS_KEY = "944603d9-98d2-4a2e-b037-25ed4e107fb0";
@@ -17,6 +118,10 @@ export function Contact() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSelect = (name: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const isValid = formData.name.trim() && formData.email.trim() && formData.service && formData.message.trim();
@@ -56,40 +161,40 @@ export function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-[#584dff] selection:text-white font-['Clash_Grotesk_Variable',sans-serif] pt-[120px] pb-20 w-screen ml-[calc(-50vw+50%)]">
-      <div className="max-w-[1800px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-24 px-4 md:px-6">
+    <div className="min-h-screen bg-background text-foreground font-display pt-page pb-20 w-screen ml-[calc(-50vw+50%)]">
+      <div className="mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-24 px-6">
         {/* Left Side */}
         <div className="flex flex-col items-start pt-10">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="font-['Cormorant',serif] font-light text-[clamp(60px,10vw,120px)] leading-[0.9] tracking-tight mb-16"
+            className="font-serif font-light text-display-lg mb-16"
           >
             Let's talk.
           </motion.h1>
 
           <div className="flex flex-col gap-8 max-w-[400px]">
             <div className="flex flex-col gap-4">
-              <h3 className="text-[20px] font-normal text-foreground">Have a project in mind?</h3>
-              <p className="text-[18px] text-foreground/60 font-light leading-relaxed">
+              <h3 className="text-h3 font-normal text-foreground">Have a project in mind?</h3>
+              <p className="text-body-lg text-foreground/60 font-light">
                 Tell me about your product, the problem you're solving, and where you need design support — from early concepts to full product experiences.
               </p>
-              <p className="text-[18px] text-foreground/60 font-light leading-relaxed">
+              <p className="text-body-lg text-foreground/60 font-light">
                 I read every message and typically reply within 24 hours.
               </p>
             </div>
 
-            <a href="mailto:heindsgn@gmail.com" className="text-[18px] text-foreground/80 border-b border-foreground/40 pb-px w-fit hover:border-foreground transition-colors cursor-pointer font-light">
+            <a href="mailto:heindsgn@gmail.com" className="text-body-lg text-foreground/80 border-b border-foreground/40 pb-px w-fit hover:border-foreground transition-colors cursor-pointer font-light">
               heindsgn@gmail.com
             </a>
           </div>
 
           {/* Social Links Bottom Left */}
-          <div className="mt-auto pt-16 md:pt-40 flex flex-row gap-6 text-[16px] text-white font-light lowercase">
-            <a href="#" className="hover:text-foreground transition-colors">Linkedin</a>
-            <a href="#" className="hover:text-foreground transition-colors">Instagram</a>
-            <a href="#" className="hover:text-foreground transition-colors">X</a>
-            <a href="#" className="hover:text-foreground transition-colors">Medium</a>
+          <div className="mt-auto pt-16 md:pt-40 flex flex-row gap-6 text-body text-foreground font-light lowercase">
+            <a href="#" className="hover:opacity-60 transition-opacity">Linkedin</a>
+            <a href="#" className="hover:opacity-60 transition-opacity">Instagram</a>
+            <a href="#" className="hover:opacity-60 transition-opacity">X</a>
+            <a href="#" className="hover:opacity-60 transition-opacity">Medium</a>
           </div>
         </div>
 
@@ -110,15 +215,15 @@ export function Contact() {
                     <path d="M20 6L9 17l-5-5" />
                   </svg>
                 </div>
-                <h2 className="font-['Cormorant',serif] font-light text-[48px] leading-tight tracking-tight">
+                <h2 className="font-serif font-light text-h1">
                   Message sent.
                 </h2>
-                <p className="text-[18px] text-foreground/60 font-light max-w-[360px]">
+                <p className="text-body-lg text-foreground/60 font-light max-w-[360px]">
                   Thanks for reaching out — I'll get back to you soon.
                 </p>
                 <button
                   onClick={() => setStatus("idle")}
-                  className="mt-4 text-[14px] text-foreground/60 border-b border-foreground/20 pb-px hover:text-foreground hover:border-foreground transition-colors cursor-pointer font-light"
+                  className="mt-4 text-body-sm text-foreground/60 border-b border-foreground/20 pb-px hover:text-foreground hover:border-foreground transition-colors cursor-pointer font-light"
                 >
                   Send another message
                 </button>
@@ -133,7 +238,7 @@ export function Contact() {
                 className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 w-full"
               >
                 <div className="flex flex-col gap-4 group">
-                  <label className="text-[14px] text-foreground/80 uppercase tracking-widest font-light">Name*</label>
+                  <label className="text-eyebrow text-foreground/80 font-light">Name*</label>
                   <input
                     type="text"
                     name="name"
@@ -141,12 +246,12 @@ export function Contact() {
                     onChange={handleChange}
                     required
                     placeholder="Enter your name"
-                    className="bg-transparent border-b border-foreground/10 py-2 focus:border-foreground outline-none transition-colors text-[18px] font-light placeholder:text-foreground/40"
+                    className="bg-transparent border-b border-foreground/10 py-2 focus:border-foreground outline-none transition-colors text-body-lg font-light placeholder:text-foreground/40"
                   />
                 </div>
 
                 <div className="flex flex-col gap-4 group">
-                  <label className="text-[14px] text-foreground/80 uppercase tracking-widest font-light">Email*</label>
+                  <label className="text-eyebrow text-foreground/80 font-light">Email*</label>
                   <input
                     type="email"
                     name="email"
@@ -154,57 +259,36 @@ export function Contact() {
                     onChange={handleChange}
                     required
                     placeholder="Enter your email"
-                    className="bg-transparent border-b border-foreground/10 py-2 focus:border-foreground outline-none transition-colors text-[18px] font-light placeholder:text-foreground/40"
+                    className="bg-transparent border-b border-foreground/10 py-2 focus:border-foreground outline-none transition-colors text-body-lg font-light placeholder:text-foreground/40"
                   />
                 </div>
 
-                <div className="flex flex-col gap-4 group">
-                  <label className="text-[14px] text-foreground/80 uppercase tracking-widest font-light">What do you need help with?*</label>
-                  <div className="relative border-b border-foreground/10 py-2 cursor-pointer group-hover:border-foreground transition-colors">
-                    <select
-                      name="service"
-                      value={formData.service}
-                      onChange={handleChange}
-                      required
-                      className="bg-transparent w-full appearance-none outline-none text-[18px] font-light cursor-pointer pr-8 text-foreground"
-                    >
-                      <option value="" className="bg-background text-foreground">Select one</option>
-                      <option className="bg-background text-foreground" value="Product Design">Product Design</option>
-                      <option className="bg-background text-foreground" value="UX/UI Design">UX/UI Design</option>
-                      <option className="bg-background text-foreground" value="Design System">Design System</option>
-                      <option className="bg-background text-foreground" value="App Design">App Design</option>
-                      <option className="bg-background text-foreground" value="Brand & Visual Design">Brand & Visual Design</option>
-                      <option className="bg-background text-foreground" value="Other">Other</option>
-                    </select>
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-foreground/40">
-                      <ChevronDown className="size-4" />
-                    </div>
-                  </div>
-                </div>
+                <SelectField
+                  label="What do you need help with?*"
+                  name="service"
+                  value={formData.service}
+                  onChange={handleSelect}
+                  required
+                  options={[
+                    "Product Design",
+                    "UX/UI Design",
+                    "Design System",
+                    "App Design",
+                    "Brand & Visual Design",
+                    "Other",
+                  ]}
+                />
 
-                <div className="flex flex-col gap-4 group">
-                  <label className="text-[14px] text-foreground/80 uppercase tracking-widest font-light">Budget range</label>
-                  <div className="relative border-b border-foreground/10 py-2 cursor-pointer group-hover:border-foreground transition-colors">
-                    <select
-                      name="budget"
-                      value={formData.budget}
-                      onChange={handleChange}
-                      className="bg-transparent w-full appearance-none outline-none text-[18px] font-light cursor-pointer pr-8 text-foreground"
-                    >
-                      <option value="" className="bg-background text-foreground">Select one</option>
-                      <option className="bg-background text-foreground" value="Under $5k">Under $5k</option>
-                      <option className="bg-background text-foreground" value="$5k – $15k">$5k – $15k</option>
-                      <option className="bg-background text-foreground" value="$15k – $50k">$15k – $50k</option>
-                      <option className="bg-background text-foreground" value="$50k+">$50k+</option>
-                    </select>
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-foreground/40">
-                      <ChevronDown className="size-4" />
-                    </div>
-                  </div>
-                </div>
+                <SelectField
+                  label="Budget range"
+                  name="budget"
+                  value={formData.budget}
+                  onChange={handleSelect}
+                  options={["Under $5k", "$5k – $15k", "$15k – $50k", "$50k+"]}
+                />
 
                 <div className="flex flex-col gap-4 group md:col-span-2">
-                  <label className="text-[14px] text-foreground/80 uppercase tracking-widest font-light">Message*</label>
+                  <label className="text-eyebrow text-foreground/80 font-light">Message*</label>
                   <textarea
                     name="message"
                     value={formData.message}
@@ -212,13 +296,13 @@ export function Contact() {
                     required
                     placeholder="Tell me about your project..."
                     rows={4}
-                    className="bg-transparent border-b border-foreground/10 py-2 focus:border-foreground outline-none transition-colors text-[18px] font-light placeholder:text-foreground/40 resize-none"
+                    className="bg-transparent border-b border-foreground/10 py-2 focus:border-foreground outline-none transition-colors text-body-lg font-light placeholder:text-foreground/40 resize-none"
                   />
                 </div>
 
                 <div className="md:col-span-2 flex flex-row items-center justify-between pt-8">
                   {status === "error" && (
-                    <p className="text-[14px] text-red-400 font-light">
+                    <p className="text-body-sm text-destructive font-light">
                       Something went wrong — try again or email me directly.
                     </p>
                   )}
@@ -226,7 +310,7 @@ export function Contact() {
                     <button
                       type="submit"
                       disabled={!isValid || status === "sending"}
-                      className="bg-[#584dff] text-white px-8 h-[40px] rounded-full font-light text-[14px] hover:opacity-85 transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-30 disabled:cursor-not-allowed"
+                      className="bg-brand text-brand-foreground px-8 h-[40px] rounded-full font-light text-body-sm hover:opacity-85 transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-30 disabled:cursor-not-allowed"
                     >
                       {status === "sending" ? (
                         <>

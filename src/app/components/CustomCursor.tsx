@@ -70,7 +70,7 @@ export function CustomCursor() {
       }}
     >
       <div
-        className="rounded-full bg-white"
+        className="rounded-full bg-foreground"
         style={{
           width: clicking ? "10px" : "14px",
           height: clicking ? "10px" : "14px",

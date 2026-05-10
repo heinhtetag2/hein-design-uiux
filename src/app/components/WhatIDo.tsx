@@ -30,17 +30,17 @@ export function WhatIDo() {
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-60%"]);
 
   return (
-    <div style={{ position: 'relative' }} className="bg-background text-foreground flex flex-col items-start pt-[100px] md:pt-[140px] w-screen min-h-screen relative overflow-x-hidden ml-[calc(-50vw+50%)]">
+    <div style={{ position: 'relative' }} className="bg-background text-foreground flex flex-col items-start pt-page w-screen min-h-screen relative overflow-x-hidden ml-[calc(-50vw+50%)]">
       {/* Hero Section */}
       <div 
         ref={heroRef} 
         style={{ position: 'relative' }} 
-        className="flex flex-col items-center w-full relative px-4 md:px-6"
+        className="flex flex-col items-center w-full relative px-6"
       >
-        <h1 className="font-['Cormorant',serif] font-light text-[clamp(48px,10vw,140px)] text-center leading-none tracking-tight mb-8">
+        <h1 className="font-serif font-light text-display-xl text-center mb-8">
           Designing experiences powered by AI thinking
         </h1>
-        <div className="mt-12 md:mt-[90px] mb-12 md:mb-[90px] w-full max-w-[1800px] flex justify-center relative">
+        <div className="mt-12 md:mt-[90px] mb-12 md:mb-[90px] w-full flex justify-center relative">
           <motion.div
             style={{
               width: bannerWidth,
@@ -56,9 +56,9 @@ export function WhatIDo() {
       </div>
 
       {/* Breakthrough Products Section */}
-      <div className="w-full py-[60px] md:py-[90px] relative px-4 md:px-6">
+      <div className="w-full py-[60px] md:py-[90px] relative px-6">
         <div className="max-w-[866px] relative">
-          <h2 className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-foreground leading-tight tracking-tight text-[clamp(32px,5vw,64px)] relative">
+          <h2 className="font-display font-light text-foreground text-display-sm relative">
             I combine UI/UX craft with AI-driven workflows to design products that feel intuitive and ship faster
           </h2>
         </div>
@@ -102,8 +102,8 @@ export function WhatIDo() {
       </div>
 
       {/* What I Do Headline */}
-      <div className="w-full py-[32px] px-4 md:px-6">
-                <h3 className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[32px] md:text-[40px] text-foreground tracking-[-1px]">
+      <div className="w-full py-[32px] px-6">
+                <h3 className="font-display font-light text-h2 text-foreground">
           What I do
         </h3>
       </div>
@@ -128,7 +128,7 @@ export function WhatIDo() {
       </div>
 
       {/* Categories List */}
-      <div className="w-full py-[48px] md:py-[90px] grid grid-cols-1 md:grid-cols-3 gap-[24px] px-4 md:px-6">
+      <div className="w-full py-[48px] md:py-[90px] grid grid-cols-1 md:grid-cols-3 gap-[24px] px-6">
         <CategorySection
           title="Design & UX"
           items={["UI/UX Design", "Design Systems", "Interaction Design", "UX Research & Testing", "Wireframing & Prototyping"]}
@@ -144,9 +144,9 @@ export function WhatIDo() {
       </div>
 
       {/* Help Section */}
-      <div className="w-full py-[60px] md:py-[100px] lg:py-[178px] px-4 md:px-6">
+      <div className="w-full py-[60px] md:py-[100px] lg:py-[178px] px-6">
         <div className="flex flex-col lg:flex-row justify-between items-start gap-12">
-          <h2 className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[42px] md:text-[64px] lg:text-[88px] text-foreground leading-tight tracking-[-1.76px]">
+          <h2 className="font-display font-light text-display-md text-foreground">
             How can<br />I help?
           </h2>
           <div className="w-full lg:w-[448px] flex flex-col">
@@ -158,7 +158,7 @@ export function WhatIDo() {
       </div>
 
       {/* Footer Links */}
-      <div className="w-full border-t border-foreground/10 mt-auto px-4 md:px-6">
+      <div className="w-full border-t border-foreground/10 mt-auto px-6">
         <div className="py-[32px] md:py-[50px] flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-12">
           <div className="flex gap-[24px] flex-wrap">
             <div className="flex flex-col gap-2 min-w-[120px]">
@@ -195,17 +195,17 @@ function ServiceRow({ title, description, image }: { title: string; description:
       whileHover="hovered"
       className="w-full border-b border-foreground/10 relative group cursor-pointer overflow-hidden"
     >
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 lg:gap-0 py-[32px] md:py-[50px] px-4 md:px-6 lg:min-h-[280px] hover:bg-white/5 transition-colors duration-300">
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 lg:gap-0 py-[32px] md:py-[50px] px-6 lg:min-h-[280px] hover:bg-foreground/5 transition-colors duration-300">
         {/* Heading */}
         <motion.div
-          className="w-full lg:w-[405px]"
+          className="w-full lg:w-[460px] xl:w-[640px] 2xl:w-[760px]"
           variants={{
             initial: { x: 0 },
             hovered: { x: -8 }
           }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         >
-          <h4 className="font-['Cormorant',serif] font-light text-[32px] md:text-[48px] text-foreground leading-tight tracking-[-1px]">
+          <h4 className="font-serif font-light text-display-sm text-foreground">
             {title}
           </h4>
         </motion.div>
@@ -238,7 +238,7 @@ function ServiceRow({ title, description, image }: { title: string; description:
 
           {/* Paragraph */}
           <div className="w-full lg:w-[418px]">
-            <p className="font-['Clash_Grotesk_Variable',sans-serif] font-normal text-muted-foreground text-[18px] md:text-[20px] leading-snug tracking-tight">
+            <p className="font-display font-normal text-muted-foreground text-body-lg">
               {description}
             </p>
           </div>
@@ -265,13 +265,13 @@ function ServiceRow({ title, description, image }: { title: string; description:
 function CategorySection({ title, items }: { title: string; items: string[] }) {
   return (
     <div className="flex flex-col gap-[15px]">
-      <h5 className="font-['Clash_Grotesk_Variable',sans-serif] font-normal text-[16px] text-foreground tracking-tight">
+      <h5 className="font-display font-normal text-body text-foreground">
         {title}
       </h5>
       <div className="w-[24px] h-[1px] bg-foreground/10" />
       <div className="flex flex-col gap-[12px]">
         {items.map((item) => (
-          <span key={item} className="font-['Clash_Grotesk_Variable',sans-serif] font-normal text-[16px] text-foreground/80 tracking-tight">
+          <span key={item} className="font-display font-normal text-body text-foreground/80">
             {item}
           </span>
         ))}
@@ -283,7 +283,7 @@ function CategorySection({ title, items }: { title: string; items: string[] }) {
 function HelpLink({ label }: { label: string }) {
   return (
     <button className="w-full h-[80px] border-b border-foreground/10 flex items-center justify-between group cursor-pointer text-left">
-      <span className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[18px] md:text-[20px] text-foreground group-hover:opacity-60 transition-opacity">
+      <span className="font-display font-light text-h3 text-foreground group-hover:opacity-60 transition-opacity">
         {label}
       </span>
       <svg className="size-[16px] text-foreground group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" viewBox="0 0 16 16" fill="none">
@@ -295,7 +295,7 @@ function HelpLink({ label }: { label: string }) {
 
 function FooterLink({ label }: { label: string }) {
   return (
-    <button className="font-['Clash_Grotesk_Variable',sans-serif] font-normal text-[14px] md:text-[16px] text-foreground hover:opacity-60 transition-opacity cursor-pointer text-left">
+    <button className="font-display font-normal text-body-sm md:text-body text-foreground hover:opacity-60 transition-opacity cursor-pointer text-left">
       {label}
     </button>
   );

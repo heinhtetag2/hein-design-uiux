@@ -33,7 +33,7 @@ function FeedCard({ date, title, image, type, height }: CardProps) {
     >
       <div className="flex flex-col items-start w-full h-full">
         {date && (
-          <div className="pb-[12px] font-['Clash_Grotesk_Variable',sans-serif] font-light text-[12px] text-foreground tracking-tight">
+          <div className="pb-[12px] font-display font-light text-caption text-foreground tracking-tight">
             {date}
           </div>
         )}
@@ -44,7 +44,7 @@ function FeedCard({ date, title, image, type, height }: CardProps) {
             </div>
           )}
           {title && (
-            <h3 className="font-['Clash_Grotesk_Variable',sans-serif] font-light text-[12px] leading-[14px] text-foreground tracking-tight flex-1">
+            <h3 className="font-display font-light text-caption text-foreground tracking-tight flex-1">
               {title}
             </h3>
           )}
@@ -86,7 +86,7 @@ export function Feed() {
       animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
       transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="lg:hidden py-[6px] font-['Clash_Grotesk_Variable',sans-serif] text-muted-foreground text-[12px] leading-none">
+      <div className="lg:hidden py-[6px] font-display text-eyebrow text-muted-foreground">
         Latest Activity
       </div>
       <div className="flex flex-col sm:grid sm:grid-cols-2 lg:flex lg:flex-col gap-3 lg:gap-[clamp(8px,1vh,12px)] w-full">
