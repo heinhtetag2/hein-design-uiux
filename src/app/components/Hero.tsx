@@ -34,10 +34,10 @@ export function Hero({ isStudyHovered = false }: HeroProps) {
         animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       >
-        <h1 className="font-serif font-light text-display-sm text-foreground tracking-tight">
-          Experience, intentionally
+        <h1 className="font-serif font-light text-display-sm text-foreground tracking-tight leading-[1.05]">
+          Experience,<br />intentionally
         </h1>
-        <p className="font-display font-light text-body-sm sm:text-body text-foreground/70 max-w-[400px]">
+        <p className="font-display font-light text-body-sm sm:text-body text-foreground/70 max-w-[300px]">
           Since 2024, I've helped the most innovative startups and reputable
           brands design, build, and ship products worth talking about.
         </p>

@@ -60,9 +60,11 @@ export default function App() {
   const handleNavigate = (view: "home" | "edusync" | "what-i-do" | "blogs" | "about" | "contact") => {
     if (view === currentView) return;
 
-    // Lock the case-study hover state so the closing panels cover the hover
-    // backdrop/content (not the home Hero) when navigating from home into a study
-    if (view === "edusync" && currentView === "home") {
+    // Lock the case-study hover state on desktop only so the closing panels
+    // cover the hover backdrop/content (not the home Hero) when navigating
+    // from home into a study. On mobile we keep the home background instead.
+    const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+    if (isDesktop && view === "edusync" && currentView === "home") {
       setHoveredCaseStudy("EduSync");
     }
 
