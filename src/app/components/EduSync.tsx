@@ -191,8 +191,9 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
 
       {/* 7. Image Grid 1 (Horizontal Strip) */}
       <div className="w-full mb-32">
-        <div 
-          className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [scrollbar-width:none] snap-x snap-mandatory relative" 
+        <div
+          data-cursor-hide="true"
+          className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [scrollbar-width:none] snap-x snap-mandatory relative"
           style={{ scrollBehavior: isDragging ? 'auto' : 'smooth' }}
           ref={scrollContainerRef}
           onMouseEnter={() => setShowCursor(true)}
@@ -210,23 +211,21 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
           {/* Custom Drag Cursor */}
           {showCursor && (
             <div 
-              className="fixed pointer-events-none z-50 mix-blend-difference transition-transform duration-150 ease-out"
+              className="fixed pointer-events-none z-50 transition-transform duration-150 ease-out"
               style={{ 
                 left: `${cursorPos.x}px`, 
                 top: `${cursorPos.y}px`,
                 transform: `translate(-50%, -50%) scale(${isDragging ? 1.2 : 1})`
               }}
             >
-              <div className="flex flex-col items-center justify-center gap-1 border border-white/90 rounded-full w-[88px] h-[88px]">
-                <div className="flex items-center gap-2.5">
-                  <svg width="14" height="10" viewBox="0 0 10 8" fill="none">
-                    <path d="M4 1L1 4M1 4L4 7M1 4H9" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  <svg width="14" height="10" viewBox="0 0 10 8" fill="none">
-                    <path d="M6 1L9 4M9 4L6 7M9 4H1" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                <span className="text-[13px] font-medium tracking-tight text-white">Drag</span>
+              <div className="flex items-center gap-3 rounded-full px-5 py-2.5 bg-black/20 backdrop-blur-sm" style={{ border: "1.5px solid var(--brand)" }}>
+                <svg width="12" height="10" viewBox="0 0 10 8" fill="none">
+                  <path d="M4 1L1 4M1 4L4 7M1 4H9" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <span className="text-[13px] font-medium text-white tracking-tight">Drag</span>
+                <svg width="12" height="10" viewBox="0 0 10 8" fill="none">
+                  <path d="M6 1L9 4M9 4L6 7M9 4H1" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
               </div>
             </div>
           )}

@@ -15,6 +15,7 @@ import { Blogs } from "./components/Blogs";
 import { About } from "./components/About";
 import { Contact } from "./components/Contact";
 import { BlogDetail } from "./components/BlogDetail";
+import { CustomCursor } from "./components/CustomCursor";
 
 // Force rebuild
 export default function App() {
@@ -126,6 +127,7 @@ export default function App() {
       {currentView === "home" && <CaseStudyHoverContent hoveredStudy={hoveredCaseStudy} />}
       
       <PageTransitionOverlay isTransitioning={isTransitioning} />
+      <CustomCursor />
 
       <div className="relative mx-auto w-full max-w-[1920px] h-full z-10 px-6">
         <TopNav 
