@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import Lenis from "lenis";
 import { TopNav } from "./components/TopNav";
 import { Sidebar } from "./components/Sidebar";
 import { Hero } from "./components/Hero";
@@ -30,6 +31,33 @@ export default function App() {
     return () => {
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
+    };
+  }, [currentView]);
+
+  // Subtle smooth-scroll easing on scrollable pages (everywhere except locked home desktop)
+  useEffect(() => {
+    const isHomeLocked =
+      currentView === "home" && window.matchMedia("(min-width: 1024px)").matches;
+    if (isHomeLocked) return;
+
+    const lenis = new Lenis({
+      duration: 0.9,
+      easing: (t: number) => 1 - Math.pow(1 - t, 3),
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 1.2,
+    });
+
+    let rafId = 0;
+    const raf = (time: number) => {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    };
+    rafId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
     };
   }, [currentView]);
 
