@@ -83,9 +83,10 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       const container = scrollContainerRef.current;
       const containerWidth = container.offsetWidth;
       const firstCardWidth = 460;
-      const gap = 184;
-      // Scroll to position where second card is centered
-      const scrollPosition = firstCardWidth + gap - (containerWidth / 2) + (576 / 2);
+      const gap = 160;
+      const secondCardWidth = 940;
+      // Scroll to position where second card (the wide landscape one) is centered
+      const scrollPosition = firstCardWidth + gap - (containerWidth / 2) + (secondCardWidth / 2);
       container.scrollLeft = scrollPosition;
     }
   }, []);
@@ -115,7 +116,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       </Container>
 
       {/* 2. Hero Image */}
-      <div className="w-auto -mx-6 mb-32">
+      <div className="relative left-1/2 right-1/2 -translate-x-1/2 w-screen mb-32">
         <div className="w-full h-[500px] lg:h-[840px] overflow-hidden">
           <ImageWithFallback src={imgHero} className="w-full h-full object-cover" />
         </div>
@@ -170,7 +171,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       {/* 6. Image Grid (Posters) */}
       <div className="w-full mb-16 md:mb-32 flex flex-col gap-4 md:gap-6">
         <div className="w-full h-[250px] md:h-[400px] lg:h-[778px] overflow-hidden">
-          <RevealImage src={imgFrame78} className="w-full h-full" />
+          <ImageWithFallback src={imgFrame78} className="block w-full h-full object-cover" />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
            <div className="h-[250px] md:h-[400px] lg:h-[782px] overflow-hidden">
@@ -229,7 +230,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
           )}
 
           <div 
-            className="flex gap-4 lg:gap-[120px] items-center min-w-max cursor-none select-none" 
+            className="flex gap-4 lg:gap-[160px] items-center min-w-max cursor-none select-none"
             onMouseDown={(e) => {
               if (e.button !== 0) return; // Only left click
               e.preventDefault();
@@ -256,8 +257,8 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
               document.addEventListener('mouseup', handleMouseUp);
             }}
           >
-             <div 
-               className="w-[260px] h-[325px] lg:w-[420px] lg:h-[520px] shrink-0 snap-center overflow-hidden rounded-none"
+             <div
+               className="w-[260px] h-[360px] lg:w-[460px] lg:h-[680px] shrink-0 snap-center overflow-hidden rounded-none"
                onClick={(e) => {
                  e.stopPropagation();
                  const card = e.currentTarget;
@@ -272,8 +273,8 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
              >
                <ImageWithFallback src={imgApp1} className="w-full h-full object-cover" />
              </div>
-             <div 
-               className="w-[260px] h-[260px] lg:w-[520px] lg:h-[415px] shrink-0 snap-center overflow-hidden rounded-none"
+             <div
+               className="w-[320px] h-[280px] lg:w-[940px] lg:h-[580px] shrink-0 snap-center overflow-hidden rounded-none"
                onClick={(e) => {
                  e.stopPropagation();
                  const card = e.currentTarget;
@@ -288,8 +289,8 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
              >
                <ImageWithFallback src={imgApp2} className="w-full h-full object-cover" />
              </div>
-             <div 
-               className="w-[260px] h-[325px] lg:w-[420px] lg:h-[520px] shrink-0 snap-center overflow-hidden rounded-none"
+             <div
+               className="w-[290px] h-[340px] lg:w-[540px] lg:h-[600px] shrink-0 snap-center overflow-hidden rounded-none"
                onClick={(e) => {
                  e.stopPropagation();
                  const card = e.currentTarget;
@@ -304,8 +305,8 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
              >
                <ImageWithFallback src={imgApp3} className="w-full h-full object-cover" />
              </div>
-             <div 
-               className="w-[260px] h-[260px] lg:w-[520px] lg:h-[415px] shrink-0 snap-center overflow-hidden rounded-none"
+             <div
+               className="w-[300px] h-[320px] lg:w-[820px] lg:h-[640px] shrink-0 snap-center overflow-hidden rounded-none"
                onClick={(e) => {
                  e.stopPropagation();
                  const card = e.currentTarget;
@@ -320,8 +321,8 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
              >
                <ImageWithFallback src={imgApp2} className="w-full h-full object-cover" />
              </div>
-             <div 
-               className="w-[260px] h-[325px] lg:w-[420px] lg:h-[520px] shrink-0 snap-center overflow-hidden rounded-none"
+             <div
+               className="w-[250px] h-[380px] lg:w-[420px] lg:h-[700px] shrink-0 snap-center overflow-hidden rounded-none"
                onClick={(e) => {
                  e.stopPropagation();
                  const card = e.currentTarget;
@@ -369,7 +370,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
 
       {/* 11. App Detail Mosaic Grid */}
       <div className="w-full mb-16 md:mb-32 flex flex-col lg:flex-row gap-6">
-        <div className="flex flex-col gap-6 justify-between lg:w-[617px] h-[400px] md:h-[600px] lg:h-[782px]">
+        <div className="flex flex-col gap-6 justify-between lg:w-[617px] h-[340px] md:h-[500px] lg:h-[640px]">
            <div className="max-w-[400px]">
               <p className="font-display text-body text-foreground">Create a course, assign teachers, and manage lessons in one place. Content moves from draft to review to published ensuring quality without slowing down teaching.</p>
            </div>
@@ -377,7 +378,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
               <RevealImage src={imgFrame81} className="w-full h-full" />
            </div>
         </div>
-        <div className="flex-1 h-[300px] md:h-[500px] lg:h-[782px] overflow-hidden">
+        <div className="flex-1 h-[240px] md:h-[400px] lg:h-[640px] overflow-hidden">
            <RevealImage src={imgApp1} className="w-full h-full" />
         </div>
       </div>

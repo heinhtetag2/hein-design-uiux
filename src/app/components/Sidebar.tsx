@@ -88,7 +88,7 @@ export function Sidebar({ onCaseStudyClick, onCaseStudyHover, isMenuOpen, active
               onClick={() => study === "EduSync" && onCaseStudyClick?.("edusync")}
               onMouseEnter={() => onCaseStudyHover?.(study)}
               onMouseLeave={() => onCaseStudyHover?.(null)}
-              className="bg-foreground/10 h-[clamp(30px,4vh,34px)] w-fit flex items-center justify-center px-[16px] rounded-full font-display font-light text-body-sm text-foreground tracking-tight border border-transparent hover:border-foreground/30 hover:bg-foreground/5 transition-all cursor-pointer relative z-10"
+              className="bg-foreground/10 h-[clamp(30px,3.8vh,34px)] w-fit inline-flex items-center justify-center px-[16px] pt-[2px] rounded-full font-display font-light text-body leading-none text-foreground tracking-tight border border-transparent hover:border-foreground/30 hover:bg-foreground/5 transition-all cursor-pointer relative z-10"
             >
               {study}
             </motion.button>

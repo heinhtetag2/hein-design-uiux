@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "motion/react";
-import bgEduSync from "../../assets/bgpj-1.jpg";
+import bgEduSync from "../../assets/bgp1.png";
 
 export const caseStudyBackgrounds: Record<string, string> = {
   EduSync: `url('${bgEduSync}') center/cover no-repeat`,
@@ -32,7 +32,7 @@ export function CaseStudyHoverBackground({ hoveredStudy }: Props) {
           key={study}
           initial={false}
           animate={{ opacity: hoveredStudy === study ? 1 : 0 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           className="absolute inset-0"
           style={{ background: bg, willChange: "opacity" }}
         >

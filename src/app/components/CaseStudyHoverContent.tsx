@@ -13,7 +13,7 @@ export const caseStudyContent: Record<string, StudyContent> = {
   EduSync: {
     name: "EduSync",
     tagline: "Bringing classrooms together through a unified learning workspace.",
-    categories: "Product Design, UX, Branding",
+    categories: "Product Design, Brand, Engineering",
     image: mockEduSync,
   },
   Suno: {
@@ -57,40 +57,61 @@ export function CaseStudyHoverContent({ hoveredStudy }: Props) {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[15] hidden lg:block">
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {study && (
-          <motion.div
-            key={study.name}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full h-full"
-          >
+          <div key={study.name} className="relative w-full h-full">
             {/* Tagline — top right */}
-            <div className="absolute top-[clamp(180px,22vh,260px)] right-[clamp(100px,9vw,200px)] max-w-[260px] xl:max-w-[300px] font-display font-light text-body xl:text-body-lg text-foreground tracking-[-0.01em] leading-[1.45]">
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              animate={{ opacity: 1, x: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: 0.03 } }}
+              exit={{ opacity: 0, transition: { duration: 0.14, ease: "linear" } }}
+              className="absolute top-[clamp(180px,22vh,260px)] right-[clamp(180px,15vw,320px)] max-w-[260px] xl:max-w-[300px] font-display font-light text-body xl:text-body-lg text-foreground tracking-[-0.01em] leading-[1.45]"
+            >
               {study.tagline}
-            </div>
+            </motion.div>
 
-            {/* Big study name — left side, lower */}
-            <div className="absolute bottom-[clamp(120px,18vh,220px)] left-[clamp(280px,22vw,420px)] font-serif font-light text-display-lg text-foreground whitespace-nowrap">
+            {/* Big study name — left side, upper */}
+            <motion.div
+              initial={{ opacity: 0, x: -32 }}
+              animate={{ opacity: 1, x: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }}
+              exit={{ opacity: 0, transition: { duration: 0.14, ease: "linear" } }}
+              className="absolute bottom-[calc(clamp(260px,32vh,420px)+24px)] left-[clamp(160px,14vw,260px)] font-serif font-light text-display-lg text-foreground whitespace-nowrap"
+            >
               {study.name}
-            </div>
+            </motion.div>
 
             {/* Image + Categories — bottom right */}
-            <div className="absolute bottom-[clamp(40px,5vh,80px)] right-[clamp(40px,4vw,80px)] flex items-end gap-[clamp(24px,2.5vw,48px)]">
-              <div className="font-display font-light text-body xl:text-body-lg text-foreground tracking-[-0.01em] leading-[1.45] max-w-[200px] pb-[clamp(20px,3vh,40px)]">
+            <div className="absolute bottom-[clamp(40px,5vh,80px)] right-[clamp(40px,4vw,80px)] flex items-center gap-[clamp(8px,1vw,20px)]">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: 0.06 } }}
+                exit={{ opacity: 0, transition: { duration: 0.14, ease: "linear" } }}
+                className="font-display font-light text-body xl:text-body-lg text-foreground tracking-[-0.01em] leading-[1.45] max-w-[200px]"
+              >
                 {study.categories}
-              </div>
+              </motion.div>
               {study.image && (
-                <img
+                <motion.img
                   src={study.image}
                   alt={study.name}
-                  className="w-[clamp(220px,22vw,360px)] h-auto object-contain"
+                  initial={{ clipPath: "inset(100% 0 0 0)", opacity: 0 }}
+                  animate={{
+                    clipPath: "inset(0% 0 0 0)",
+                    opacity: 1,
+                    transition: {
+                      clipPath: { duration: 0.4, ease: [0.76, 0, 0.24, 1] },
+                      opacity: { duration: 0.2, ease: "linear" },
+                    },
+                  }}
+                  exit={{
+                    opacity: 0,
+                    transition: { duration: 0.14, ease: "linear" },
+                  }}
+                  className="w-[clamp(250px,24vw,400px)] h-auto object-contain rounded-[6px]"
                 />
               )}
             </div>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </div>
