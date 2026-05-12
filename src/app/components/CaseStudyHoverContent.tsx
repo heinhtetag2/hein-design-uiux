@@ -1,6 +1,6 @@
 import React from "react";
 import { motion, AnimatePresence } from "motion/react";
-import mockEduSync from "../../assets/mock-pj1.png";
+import mockEduSync from "../../assets/bgbgbg.png";
 
 interface StudyContent {
   name: string;
@@ -65,7 +65,7 @@ export function CaseStudyHoverContent({ hoveredStudy }: Props) {
               initial={{ opacity: 0, x: 24 }}
               animate={{ opacity: 1, x: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: 0.03 } }}
               exit={{ opacity: 0, transition: { duration: 0.14, ease: "linear" } }}
-              className="absolute top-[clamp(180px,22vh,260px)] right-[clamp(180px,15vw,320px)] max-w-[260px] xl:max-w-[300px] font-display font-light text-body xl:text-body-lg text-foreground tracking-[-0.01em] leading-[1.45]"
+              className="absolute top-[clamp(240px,28vh,340px)] right-[clamp(440px,32vw,680px)] max-w-[260px] xl:max-w-[300px] font-display font-light text-body xl:text-body-lg text-foreground tracking-[-0.01em] leading-[1.45]"
             >
               {study.tagline}
             </motion.div>

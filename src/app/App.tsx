@@ -59,14 +59,21 @@ export default function App() {
 
   const handleNavigate = (view: "home" | "edusync" | "what-i-do" | "blogs" | "about" | "contact") => {
     if (view === currentView) return;
-    
+
+    // Lock the case-study hover state so the closing panels cover the hover
+    // backdrop/content (not the home Hero) when navigating from home into a study
+    if (view === "edusync" && currentView === "home") {
+      setHoveredCaseStudy("EduSync");
+    }
+
     setIsTransitioning(true);
-    
+
     // Switch content when panels meet in the middle (0.8s)
     setTimeout(() => {
       setCurrentView(view);
       window.scrollTo({ top: 0, behavior: "instant" });
-      
+      setHoveredCaseStudy(null);
+
       // Start opening panels after a tiny delay to ensure render
       setTimeout(() => {
         setIsTransitioning(false);
@@ -117,7 +124,10 @@ export default function App() {
                     <div className="w-[20px] h-[1px] bg-foreground/20" />
                     <Sidebar
                       onCaseStudyClick={handleNavigate}
-                      onCaseStudyHover={setHoveredCaseStudy}
+                      onCaseStudyHover={(study) => {
+                      if (isTransitioning) return;
+                      setHoveredCaseStudy(study);
+                    }}
                       isMenuOpen={isMenuOpen}
                       activeView={currentView}
                     />
@@ -128,7 +138,10 @@ export default function App() {
                 <div className="hidden lg:block">
                   <Sidebar
                     onCaseStudyClick={handleNavigate}
-                    onCaseStudyHover={setHoveredCaseStudy}
+                    onCaseStudyHover={(study) => {
+                      if (isTransitioning) return;
+                      setHoveredCaseStudy(study);
+                    }}
                     isMenuOpen={isMenuOpen}
                     activeView={currentView}
                   />
