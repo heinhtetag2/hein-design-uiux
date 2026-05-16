@@ -16,14 +16,44 @@ import { About } from "./components/About";
 import { Contact } from "./components/Contact";
 import { BlogDetail } from "./components/BlogDetail";
 import { CustomCursor } from "./components/CustomCursor";
+import { VisitorCard } from "./components/VisitorCard";
+import { VisitorGallery } from "./components/VisitorGallery";
+import { VISITOR_STORAGE_KEY, appendVisitor, type Visitor } from "./visitorStore";
+
+// Dev flag — show the intro on every refresh. Flip to false to gate by first visit.
+const ALWAYS_SHOW_VISITOR_INTRO = true;
+
+type View = "home" | "edusync" | "what-i-do" | "blogs" | "blog-detail" | "about" | "contact" | "visitor-gallery";
 
 // Force rebuild
 export default function App() {
-  const [currentView, setCurrentView] = useState<"home" | "edusync" | "what-i-do" | "blogs" | "blog-detail" | "about" | "contact">("home");
+  const [currentView, setCurrentView] = useState<View>("home");
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
   const [hoveredCaseStudy, setHoveredCaseStudy] = useState<string | null>(null);
+  const [homeMountKey, setHomeMountKey] = useState(0);
+  const [showVisitorCard, setShowVisitorCard] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    if (ALWAYS_SHOW_VISITOR_INTRO) return true;
+    return !window.localStorage.getItem(VISITOR_STORAGE_KEY);
+  });
+
+  const handleVisitorComplete = (visitor: Visitor) => {
+    try {
+      window.localStorage.setItem(VISITOR_STORAGE_KEY, JSON.stringify(visitor));
+    } catch {
+      // ignore storage failures (private mode, etc.)
+    }
+    // Fire-and-forget — remote insert resolves in the background; local list updates synchronously.
+    void appendVisitor(visitor);
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setShowVisitorCard(false);
+      setHomeMountKey((k) => k + 1);
+      setTimeout(() => setIsTransitioning(false), 100);
+    }, 800);
+  };
 
   useEffect(() => {
     const lock = currentView === "home" && window.matchMedia("(min-width: 1024px)").matches;
@@ -86,7 +116,7 @@ export default function App() {
     }, 800);
   };
 
-  const handleNavigate = (view: "home" | "edusync" | "what-i-do" | "blogs" | "about" | "contact") => {
+  const handleNavigate = (view: Exclude<View, "blog-detail">) => {
     if (view === currentView) return;
 
     // Lock the case-study hover state on desktop only so the closing panels
@@ -122,16 +152,19 @@ export default function App() {
       }`}
     >
       {/* Video Background - Only on Home */}
-      {currentView === "home" && <VideoBackground />}
+      {currentView === "home" && <VideoBackground key={`bg-${homeMountKey}`} />}
       {currentView === "home" && <CaseStudyHoverBackground hoveredStudy={hoveredCaseStudy} />}
       {currentView === "home" && <CaseStudyHoverContent hoveredStudy={hoveredCaseStudy} />}
       
       <PageTransitionOverlay isTransitioning={isTransitioning} />
       <CustomCursor />
 
+      {showVisitorCard && <VisitorCard onComplete={handleVisitorComplete} />}
+
       <div className="relative mx-auto w-full max-w-[1920px] h-full z-10 px-6">
-        <TopNav 
-          onLogoClick={() => handleNavigate("home")} 
+        <TopNav
+          key={`topnav-${homeMountKey}`}
+          onLogoClick={() => handleNavigate("home")}
           onNavigate={handleNavigate}
           isMenuOpen={isMenuOpen}
           onMenuOpenChange={setIsMenuOpen}
@@ -140,7 +173,7 @@ export default function App() {
 
         <AnimatePresence mode="wait">
           <motion.div
-            key={currentView}
+            key={`${currentView}-${homeMountKey}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -192,6 +225,8 @@ export default function App() {
               <Blogs onPostClick={handleBlogPostClick} />
             ) : currentView === "about" ? (
               <About />
+            ) : currentView === "visitor-gallery" ? (
+              <VisitorGallery onEditCard={() => setShowVisitorCard(true)} />
             ) : (
               <Contact />
             )}

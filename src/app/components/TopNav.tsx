@@ -6,13 +6,13 @@ import svgPaths from "../../imports/svg-lb0wh4b8mk";
 
 interface TopNavProps {
   onLogoClick?: () => void;
-  onNavigate?: (view: "home" | "edusync" | "what-i-do" | "blogs" | "about" | "contact") => void;
+  onNavigate?: (view: "home" | "edusync" | "what-i-do" | "blogs" | "about" | "contact" | "visitor-gallery") => void;
   isMenuOpen: boolean;
   onMenuOpenChange: (open: boolean) => void;
-  currentView?: "home" | "edusync" | "what-i-do" | "blogs" | "about" | "contact";
+  currentView?: "home" | "edusync" | "what-i-do" | "blogs" | "about" | "contact" | "visitor-gallery";
 }
 
-function Menu({ isOpen, setIsOpen, onNavigate, currentView }: { isOpen: boolean; setIsOpen: (open: boolean) => void; onNavigate?: (view: "home" | "edusync" | "what-i-do" | "blogs" | "about" | "contact") => void; currentView?: "home" | "edusync" | "what-i-do" | "blogs" | "about" | "contact" }) {
+function Menu({ isOpen, setIsOpen, onNavigate, currentView }: { isOpen: boolean; setIsOpen: (open: boolean) => void; onNavigate?: (view: "home" | "edusync" | "what-i-do" | "blogs" | "about" | "contact" | "visitor-gallery") => void; currentView?: "home" | "edusync" | "what-i-do" | "blogs" | "about" | "contact" | "visitor-gallery" }) {
   return (
     <>
       <button 
@@ -67,6 +67,7 @@ function Menu({ isOpen, setIsOpen, onNavigate, currentView }: { isOpen: boolean;
                       { label: 'What I Do', view: 'what-i-do' },
                       { label: 'About Me', view: 'about' },
                       { label: 'My Blogs', view: 'blogs' },
+                      { label: 'Visitor Gallery', view: 'visitor-gallery' },
                       { label: 'Get in Touch', view: 'contact' },
                     ].map((item, idx) => {
                       const isActive = currentView === item.view;
