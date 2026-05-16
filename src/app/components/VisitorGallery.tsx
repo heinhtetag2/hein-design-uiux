@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { Pencil, Shuffle, LayoutGrid, Rows3 } from "lucide-react";
+import { Pencil, Shuffle, LayoutGrid, List, Search } from "lucide-react";
 import { VisitorCardArt } from "./VisitorCardArt";
 import { fetchVisitors, readVisitorsLocal, type Visitor } from "../visitorStore";
 import { isSupabaseConfigured } from "../supabase";
@@ -99,7 +99,7 @@ export function VisitorGallery({ onEditCard }: VisitorGalleryProps) {
                   : "text-foreground/50 hover:text-foreground"
               }`}
             >
-              <Rows3 className="size-3.5" />
+              <List className="size-3.5" />
             </button>
           </div>
 

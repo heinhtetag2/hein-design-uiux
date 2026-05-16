@@ -265,15 +265,15 @@ function RoleSelect({ value, onChange }: { value: string; onChange: (v: string) 
   }, [open]);
 
   return (
-    <div ref={ref} className="relative">
+    <div ref={ref} className="relative group">
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-haspopup="listbox"
         aria-expanded={open}
-        className={`w-full flex items-center justify-between bg-transparent border-b py-2 text-left text-body-lg font-display font-light outline-none cursor-pointer transition-colors ${
-          open ? "border-foreground" : "border-foreground/15 hover:border-foreground/40"
-        } ${value ? "text-foreground" : "text-foreground/30"}`}
+        className={`w-full flex items-center justify-between bg-transparent border-b py-2 text-left text-body-lg font-light outline-none cursor-pointer transition-colors ${
+          open ? "border-foreground" : "border-foreground/10 group-hover:border-foreground/40"
+        } ${value ? "text-foreground" : "text-foreground/40"}`}
       >
         <span className="truncate pr-4">{value || "Pick one"}</span>
         <ChevronDown
@@ -291,7 +291,7 @@ function RoleSelect({ value, onChange }: { value: string; onChange: (v: string) 
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute z-50 left-0 right-0 top-[calc(100%+8px)] max-h-[280px] overflow-y-auto rounded-2xl border border-foreground/10 bg-background/80 backdrop-blur-xl shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] py-1.5"
+            className="absolute z-50 left-0 right-0 top-[calc(100%+8px)] max-h-[280px] overflow-y-auto rounded-2xl border border-foreground/10 bg-background/80 backdrop-blur-xl shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] py-1.5 [scrollbar-width:thin] [scrollbar-color:rgba(127,127,127,0.3)_transparent] [&::-webkit-scrollbar]:w-[6px] [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-foreground/25 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-foreground/40"
           >
             {ROLE_OPTIONS.map((opt) => {
               const selected = opt === value;
@@ -305,7 +305,7 @@ function RoleSelect({ value, onChange }: { value: string; onChange: (v: string) 
                       onChange(opt);
                       setOpen(false);
                     }}
-                    className={`w-full flex items-center justify-between gap-4 px-4 py-2.5 text-left text-body-sm font-display font-light transition-colors cursor-pointer ${
+                    className={`w-full flex items-center justify-between gap-4 px-4 py-2.5 text-left text-body-sm font-light transition-colors cursor-pointer ${
                       selected
                         ? "text-foreground bg-foreground/[0.04]"
                         : "text-foreground/70 hover:text-foreground hover:bg-foreground/[0.04]"
