@@ -271,7 +271,7 @@ function RoleSelect({ value, onChange }: { value: string; onChange: (v: string) 
         onClick={() => setOpen((o) => !o)}
         aria-haspopup="listbox"
         aria-expanded={open}
-        className={`w-full flex items-center justify-between bg-transparent border-b py-2 text-left text-body-lg font-light outline-none cursor-pointer transition-colors ${
+        className={`w-full flex items-center justify-between bg-transparent border-b py-2 text-left text-body-lg font-display font-light outline-none cursor-pointer transition-colors ${
           open ? "border-foreground" : "border-foreground/10 group-hover:border-foreground/40"
         } ${value ? "text-foreground" : "text-foreground/40"}`}
       >

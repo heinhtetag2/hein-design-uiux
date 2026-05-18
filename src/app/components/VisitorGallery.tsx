@@ -185,12 +185,12 @@ export function VisitorGallery({ onEditCard }: VisitorGalleryProps) {
                       style={{ backgroundColor: v.color }}
                       aria-hidden
                     />
-                    <h2 className="font-serif font-light text-h2 text-foreground truncate">
+                    <p className="font-display font-light text-h2 text-foreground truncate">
                       {v.name || "Visitor"}
                       {v.role && (
-                        <span className="text-foreground/40">{"  ·  "}{v.role}</span>
+                        <span className="font-display text-body-sm text-foreground/40 ml-3">{v.role}</span>
                       )}
-                    </h2>
+                    </p>
                   </div>
                   <div className="flex items-center gap-6 md:gap-10 shrink-0">
                     <span className="font-display font-light text-body-sm text-foreground/40 hidden sm:block">
