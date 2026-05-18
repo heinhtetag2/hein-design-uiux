@@ -71,25 +71,61 @@ function RevealImage({ src, className = "" }: { src: string; className?: string 
   );
 }
 
+const DRAG_CARDS = [
+  { src: "imgApp1", variant: "portrait" as const },
+  { src: "imgApp2", variant: "landscape" as const },
+  { src: "imgApp3", variant: "portrait" as const },
+  { src: "imgApp1", variant: "landscape" as const },
+  { src: "imgApp2", variant: "portrait" as const },
+  { src: "imgApp3", variant: "landscape" as const },
+  { src: "imgApp1", variant: "portrait" as const },
+  { src: "imgApp2", variant: "landscape" as const },
+];
+const DRAG_REPS = 3;
+
 export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void }) {
   const scrollContainerRef = React.useRef<HTMLDivElement>(null);
+  const stripWidthRef = React.useRef(0);
   const [cursorPos, setCursorPos] = React.useState({ x: 0, y: 0 });
   const [showCursor, setShowCursor] = React.useState(false);
   const [isDragging, setIsDragging] = React.useState(false);
 
   React.useEffect(() => {
-    // Center the second card on mount
-    if (scrollContainerRef.current) {
-      const container = scrollContainerRef.current;
-      const containerWidth = container.offsetWidth;
-      const firstCardWidth = 460;
-      const gap = 160;
-      const secondCardWidth = 940;
-      // Scroll to position where second card (the wide landscape one) is centered
-      const scrollPosition = firstCardWidth + gap - (containerWidth / 2) + (secondCardWidth / 2);
-      container.scrollLeft = scrollPosition;
-    }
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    const measure = () => {
+      const cards = container.querySelectorAll<HTMLElement>("[data-drag-card]");
+      if (cards.length < DRAG_CARDS.length * 2) return;
+      const stripWidth = cards[DRAG_CARDS.length].offsetLeft - cards[0].offsetLeft;
+      stripWidthRef.current = stripWidth;
+
+      // Center a landscape "hero" card from the middle copy in the viewport.
+      const midpoint = Math.floor(DRAG_CARDS.length / 2);
+      let localIdx = DRAG_CARDS.findIndex((c, i) => c.variant === "landscape" && i >= midpoint);
+      if (localIdx === -1) localIdx = DRAG_CARDS.findIndex((c) => c.variant === "landscape");
+      if (localIdx === -1) localIdx = midpoint;
+      const hero = cards[DRAG_CARDS.length + localIdx];
+      const target = hero.offsetLeft - (container.offsetWidth - hero.offsetWidth) / 2;
+      container.scrollLeft = target;
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
   }, []);
+
+  const handleStripScroll = () => {
+    const container = scrollContainerRef.current;
+    const w = stripWidthRef.current;
+    if (!container || w === 0) return;
+    if (container.scrollLeft >= 2 * w) container.scrollLeft -= w;
+    else if (container.scrollLeft < w) container.scrollLeft += w;
+  };
+
+  const cardSrcMap: Record<string, string> = {
+    imgApp1,
+    imgApp2,
+    imgApp3,
+  };
 
   return (
     <div style={{ position: 'relative' }} className="bg-background min-h-screen w-full flex flex-col items-center pb-20 relative">
@@ -193,14 +229,15 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       <div className="w-full mb-32">
         <div
           data-cursor-hide="true"
-          className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [scrollbar-width:none] snap-x snap-mandatory relative"
-          style={{ scrollBehavior: isDragging ? 'auto' : 'smooth' }}
+          className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [scrollbar-width:none] relative"
+          style={{ scrollBehavior: "auto" }}
           ref={scrollContainerRef}
+          onScroll={handleStripScroll}
           onMouseEnter={() => setShowCursor(true)}
           onMouseMove={(e) => {
-            setCursorPos({ 
-              x: e.clientX, 
-              y: e.clientY 
+            setCursorPos({
+              x: e.clientX,
+              y: e.clientY
             });
           }}
           onMouseLeave={() => {
@@ -210,141 +247,78 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
         >
           {/* Custom Drag Cursor */}
           {showCursor && (
-            <div 
-              className="fixed pointer-events-none z-50 transition-transform duration-150 ease-out"
-              style={{ 
-                left: `${cursorPos.x}px`, 
+            <div
+              className="fixed pointer-events-none z-50 transition-transform duration-200 ease-out"
+              style={{
+                left: `${cursorPos.x}px`,
                 top: `${cursorPos.y}px`,
-                transform: `translate(-50%, -50%) scale(${isDragging ? 1.2 : 1})`
+                transform: `translate(-50%, -50%) scale(${isDragging ? 0.92 : 1})`,
               }}
             >
-              <div className="flex items-center gap-3 rounded-full px-5 py-2.5 bg-black/20 backdrop-blur-sm" style={{ border: "1.5px solid var(--brand)" }}>
-                <svg width="12" height="10" viewBox="0 0 10 8" fill="none">
-                  <path d="M4 1L1 4M1 4L4 7M1 4H9" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                <span className="text-[13px] font-medium text-white tracking-tight">Drag</span>
-                <svg width="12" height="10" viewBox="0 0 10 8" fill="none">
-                  <path d="M6 1L9 4M9 4L6 7M9 4H1" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+              <div
+                className="flex items-center justify-center rounded-full"
+                style={{
+                  width: 88,
+                  height: 88,
+                  border: "1.25px solid var(--brand)",
+                  background: "transparent",
+                }}
+              >
+                <span className="font-display font-light text-[13px] text-white tracking-tight leading-none">
+                  Drag
+                </span>
               </div>
             </div>
           )}
 
-          <div 
-            className="flex gap-4 lg:gap-[160px] items-center min-w-max cursor-none select-none"
+          <div
+            className="flex gap-6 lg:gap-[184px] items-center min-w-max cursor-none select-none"
             onMouseDown={(e) => {
-              if (e.button !== 0) return; // Only left click
+              if (e.button !== 0) return;
               e.preventDefault();
               setIsDragging(true);
               const slider = e.currentTarget.parentElement;
               if (!slider) return;
-              
+
               const startX = e.clientX;
               const scrollLeft = slider.scrollLeft;
-              
-              const handleMouseMove = (e: MouseEvent) => {
-                const x = e.clientX;
-                const distance = x - startX;
-                slider.scrollLeft = scrollLeft - distance;
+
+              const handleMouseMove = (ev: MouseEvent) => {
+                slider.scrollLeft = scrollLeft - (ev.clientX - startX);
               };
-              
+
               const handleMouseUp = () => {
                 setIsDragging(false);
-                document.removeEventListener('mousemove', handleMouseMove);
-                document.removeEventListener('mouseup', handleMouseUp);
+                document.removeEventListener("mousemove", handleMouseMove);
+                document.removeEventListener("mouseup", handleMouseUp);
               };
-              
-              document.addEventListener('mousemove', handleMouseMove);
-              document.addEventListener('mouseup', handleMouseUp);
+
+              document.addEventListener("mousemove", handleMouseMove);
+              document.addEventListener("mouseup", handleMouseUp);
             }}
           >
-             <div
-               className="w-[260px] h-[360px] lg:w-[460px] lg:h-[680px] shrink-0 snap-center overflow-hidden rounded-none"
-               onClick={(e) => {
-                 e.stopPropagation();
-                 const card = e.currentTarget;
-                 const container = scrollContainerRef.current;
-                 if (!container) return;
-                 const cardLeft = card.offsetLeft;
-                 const containerWidth = container.offsetWidth;
-                 const cardWidth = card.offsetWidth;
-                 const scrollPosition = cardLeft - (containerWidth / 2) + (cardWidth / 2);
-                 container.scrollTo({ left: scrollPosition, behavior: 'smooth' });
-               }}
-             >
-               <ImageWithFallback src={imgApp1} className="w-full h-full object-cover" />
-             </div>
-             <div
-               className="w-[320px] h-[280px] lg:w-[940px] lg:h-[580px] shrink-0 snap-center overflow-hidden rounded-none"
-               onClick={(e) => {
-                 e.stopPropagation();
-                 const card = e.currentTarget;
-                 const container = scrollContainerRef.current;
-                 if (!container) return;
-                 const cardLeft = card.offsetLeft;
-                 const containerWidth = container.offsetWidth;
-                 const cardWidth = card.offsetWidth;
-                 const scrollPosition = cardLeft - (containerWidth / 2) + (cardWidth / 2);
-                 container.scrollTo({ left: scrollPosition, behavior: 'smooth' });
-               }}
-             >
-               <ImageWithFallback src={imgApp2} className="w-full h-full object-cover" />
-             </div>
-             <div
-               className="w-[290px] h-[340px] lg:w-[540px] lg:h-[600px] shrink-0 snap-center overflow-hidden rounded-none"
-               onClick={(e) => {
-                 e.stopPropagation();
-                 const card = e.currentTarget;
-                 const container = scrollContainerRef.current;
-                 if (!container) return;
-                 const cardLeft = card.offsetLeft;
-                 const containerWidth = container.offsetWidth;
-                 const cardWidth = card.offsetWidth;
-                 const scrollPosition = cardLeft - (containerWidth / 2) + (cardWidth / 2);
-                 container.scrollTo({ left: scrollPosition, behavior: 'smooth' });
-               }}
-             >
-               <ImageWithFallback src={imgApp3} className="w-full h-full object-cover" />
-             </div>
-             <div
-               className="w-[300px] h-[320px] lg:w-[820px] lg:h-[640px] shrink-0 snap-center overflow-hidden rounded-none"
-               onClick={(e) => {
-                 e.stopPropagation();
-                 const card = e.currentTarget;
-                 const container = scrollContainerRef.current;
-                 if (!container) return;
-                 const cardLeft = card.offsetLeft;
-                 const containerWidth = container.offsetWidth;
-                 const cardWidth = card.offsetWidth;
-                 const scrollPosition = cardLeft - (containerWidth / 2) + (cardWidth / 2);
-                 container.scrollTo({ left: scrollPosition, behavior: 'smooth' });
-               }}
-             >
-               <ImageWithFallback src={imgApp2} className="w-full h-full object-cover" />
-             </div>
-             <div
-               className="w-[250px] h-[380px] lg:w-[420px] lg:h-[700px] shrink-0 snap-center overflow-hidden rounded-none"
-               onClick={(e) => {
-                 e.stopPropagation();
-                 const card = e.currentTarget;
-                 const container = scrollContainerRef.current;
-                 if (!container) return;
-                 const cardLeft = card.offsetLeft;
-                 const containerWidth = container.offsetWidth;
-                 const cardWidth = card.offsetWidth;
-                 const scrollPosition = cardLeft - (containerWidth / 2) + (cardWidth / 2);
-                 container.scrollTo({ left: scrollPosition, behavior: 'smooth' });
-               }}
-             >
-               <ImageWithFallback src={imgApp1} className="w-full h-full object-cover" />
-             </div>
+            {Array.from({ length: DRAG_REPS }).flatMap((_, copy) =>
+              DRAG_CARDS.map((card, i) => (
+                <div
+                  key={`${copy}-${i}`}
+                  data-drag-card
+                  className={
+                    card.variant === "portrait"
+                      ? "w-[230px] h-[285px] lg:w-[460px] lg:h-[570px] shrink-0 overflow-hidden rounded-none"
+                      : "w-[290px] h-[228px] lg:w-[580px] lg:h-[456px] shrink-0 overflow-hidden rounded-none"
+                  }
+                >
+                  <ImageWithFallback src={cardSrcMap[card.src]} className="w-full h-full object-cover" />
+                </div>
+              )),
+            )}
           </div>
         </div>
         
-        {/* Description below cards - mobile centered, desktop left aligned */}
-        <div className="w-full mt-10 lg:mt-12">
-          <div className="mx-auto lg:pl-[260px]">
-            <p className="font-display font-light text-body text-foreground max-w-[212px] mx-auto lg:mx-0 lg:text-left text-left">
+        {/* Description below cards — narrow column, left-aligned to match the gallery rhythm */}
+        <div className="w-full mt-16 lg:mt-24">
+          <div className="mx-auto lg:pl-[14vw]">
+            <p className="font-display font-light text-body text-foreground/85 max-w-[320px] mx-auto lg:mx-0 lg:text-left text-left leading-relaxed">
               By balancing structure and flexibility, EduSync creates a system that feels both controlled and human. Administrators gain oversight, teachers gain freedom, and learning becomes accessible without unnecessary complexity.
             </p>
           </div>
@@ -353,10 +327,10 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
 
       {/* 9. Full Width Images */}
       <div className="w-full mb-32 flex flex-col gap-20">
-        <div className="w-full h-[600px] lg:h-[840px] overflow-hidden">
+        <div className="w-full h-[480px] lg:h-[680px] overflow-hidden">
           <RevealImage src={imgImage1} className="w-full h-full" />
         </div>
-        <div className="w-full h-[600px] lg:h-[590px] overflow-hidden">
+        <div className="w-full h-[500px] lg:h-[590px] overflow-hidden">
           <RevealImage src={imgVideo} className="w-full h-full" />
         </div>
       </div>
@@ -396,7 +370,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
 
       {/* 11.6 Grid Layout with Text + Images */}
       <div className="w-full mb-16 md:mb-32 flex flex-col lg:flex-row gap-6">
-        <div className="flex flex-col gap-4 lg:w-[600px] h-[400px] md:h-[600px] lg:h-[782px]">
+        <div className="flex flex-col gap-4 lg:w-[430px] h-[400px] md:h-[600px] lg:h-[782px]">
            <div className="max-w-[400px]">
               <p className="font-display text-body text-foreground">Record a beat or hum a tune using the audio prompt and watch it turn into your new favourite song.</p>
            </div>
