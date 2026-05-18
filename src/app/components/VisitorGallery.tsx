@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { Pencil, Shuffle, LayoutGrid, List, Search } from "lucide-react";
+import { Pencil, Shuffle, Search, X } from "lucide-react";
 import { VisitorCardArt } from "./VisitorCardArt";
 import { fetchVisitors, readVisitorsLocal, type Visitor } from "../visitorStore";
 import { isSupabaseConfigured } from "../supabase";
@@ -16,7 +16,7 @@ export function VisitorGallery({ onEditCard }: VisitorGalleryProps) {
   const [visitors, setVisitors] = useState<Visitor[]>(() => readVisitorsLocal());
   const [shuffleSeed, setShuffleSeed] = useState(0);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     let cancelled = false;
@@ -28,15 +28,26 @@ export function VisitorGallery({ onEditCard }: VisitorGalleryProps) {
     };
   }, []);
 
-  const display = shuffleSeed === 0 ? visitors : [...visitors].sort(() => Math.random() - 0.5);
   const totalCount = visitors.length;
   const latestNo = visitors[0]?.no;
+  const q = query.trim().toLowerCase();
+  const filtered = q
+    ? visitors.filter((v) =>
+        [v.name, v.role, v.no].filter(Boolean).some((field) => String(field).toLowerCase().includes(q)),
+      )
+    : visitors;
+  const display = shuffleSeed === 0 ? filtered : [...filtered].sort(() => Math.random() - 0.5);
+  const matchedCount = filtered.length;
   const visible = display.slice(0, visibleCount);
-  const hasMore = visibleCount < totalCount;
+  const hasMore = visibleCount < matchedCount;
   const shownCount = visible.length;
-  const progress = totalCount === 0 ? 0 : Math.min(1, shownCount / totalCount);
+  const progress = matchedCount === 0 ? 0 : Math.min(1, shownCount / matchedCount);
 
-  const handleShowMore = () => setVisibleCount((n) => Math.min(n + PAGE_SIZE, totalCount));
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+  }, [query]);
+
+  const handleShowMore = () => setVisibleCount((n) => Math.min(n + PAGE_SIZE, matchedCount));
 
   return (
     <div className="pt-page pb-32 px-2 sm:px-4">
@@ -72,35 +83,27 @@ export function VisitorGallery({ onEditCard }: VisitorGalleryProps) {
           </div>
         </div>
 
-        <div className="flex items-center gap-2.5">
-          {/* View toggle */}
-          <div className="flex items-center gap-1 h-[38px] p-1 rounded-full border border-foreground/30">
-            <button
-              type="button"
-              onClick={() => setViewMode("grid")}
-              aria-pressed={viewMode === "grid"}
-              aria-label="Grid view"
-              className={`flex items-center justify-center size-[28px] rounded-full transition-colors cursor-pointer ${
-                viewMode === "grid"
-                  ? "bg-foreground/10 text-foreground"
-                  : "text-foreground/50 hover:text-foreground"
-              }`}
-            >
-              <LayoutGrid className="size-3.5" />
-            </button>
-            <button
-              type="button"
-              onClick={() => setViewMode("list")}
-              aria-pressed={viewMode === "list"}
-              aria-label="List view"
-              className={`flex items-center justify-center size-[28px] rounded-full transition-colors cursor-pointer ${
-                viewMode === "list"
-                  ? "bg-foreground/10 text-foreground"
-                  : "text-foreground/50 hover:text-foreground"
-              }`}
-            >
-              <List className="size-3.5" />
-            </button>
+        <div className="flex items-center gap-2.5 flex-wrap">
+          <div className="group flex items-center gap-2 h-[38px] pl-4 pr-2 rounded-full border border-foreground/30 focus-within:border-foreground transition-colors w-[200px] sm:w-[240px]">
+            <Search className="size-3.5 text-foreground/50 group-focus-within:text-foreground shrink-0 transition-colors" />
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search guests"
+              className="flex-1 min-w-0 bg-transparent outline-none font-display font-light text-body-sm text-foreground placeholder:text-foreground/40"
+              aria-label="Search visitors"
+            />
+            {query && (
+              <button
+                type="button"
+                onClick={() => setQuery("")}
+                aria-label="Clear search"
+                className="flex items-center justify-center size-6 rounded-full text-foreground/50 hover:text-foreground hover:bg-foreground/10 transition-colors cursor-pointer"
+              >
+                <X className="size-3" />
+              </button>
+            )}
           </div>
 
           <button
@@ -153,57 +156,40 @@ export function VisitorGallery({ onEditCard }: VisitorGalleryProps) {
             <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
           </button>
         </motion.div>
+      ) : matchedCount === 0 ? (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4, ease: EASE }}
+          className="py-20 flex flex-col items-center text-center gap-3"
+        >
+          <p className="font-serif font-light text-h2 text-foreground">No matches.</p>
+          <p className="font-display text-body-sm text-foreground/60 max-w-[420px]">
+            Nothing here for &ldquo;{query}&rdquo;. Try a different name or role.
+          </p>
+          <button
+            type="button"
+            onClick={() => setQuery("")}
+            className="mt-2 font-display text-caption text-foreground/60 hover:text-foreground transition-colors cursor-pointer"
+          >
+            Clear search
+          </button>
+        </motion.div>
       ) : (
         <>
-          {viewMode === "grid" ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 [&:has(*:hover)>*:not(:hover)]:opacity-40">
-              {visible.map((v, i) => (
-                <motion.div
-                  key={`${v.no}-${v.createdAt ?? i}-${shuffleSeed}-grid`}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: Math.min(i % PAGE_SIZE, 8) * 0.05, ease: EASE }}
-                  className="cursor-pointer transition-opacity duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
-                >
-                  <VisitorCardArt visitor={v} compact />
-                </motion.div>
-              ))}
-            </div>
-          ) : (
-            <div className="flex flex-col border-t border-foreground/10 [&:has(*:hover)>*:not(:hover)]:opacity-40">
-              {visible.map((v, i) => (
-                <motion.div
-                  key={`${v.no}-${v.createdAt ?? i}-${shuffleSeed}-list`}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: Math.min(i % PAGE_SIZE, 8) * 0.04, ease: EASE }}
-                  className="group border-b border-foreground/10 py-6 md:py-8 flex items-center justify-between gap-6 cursor-pointer transition-opacity duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
-                >
-                  <div className="flex items-center gap-5 flex-1 min-w-0">
-                    <span
-                      className="size-3 rounded-full shrink-0"
-                      style={{ backgroundColor: v.color }}
-                      aria-hidden
-                    />
-                    <p className="font-display font-light text-h2 text-foreground truncate">
-                      {v.name || "Visitor"}
-                      {v.role && (
-                        <span className="font-display text-body-sm text-foreground/40 ml-3">{v.role}</span>
-                      )}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-6 md:gap-10 shrink-0">
-                    <span className="font-display font-light text-body-sm text-foreground/40 hidden sm:block">
-                      {v.issuedAt}
-                    </span>
-                    <span className="font-display text-eyebrow text-foreground/50">
-                      No. {v.no}
-                    </span>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 [&:has(*:hover)>*:not(:hover)]:opacity-40">
+            {visible.map((v, i) => (
+              <motion.div
+                key={`${v.no}-${v.createdAt ?? i}-${shuffleSeed}-grid`}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: Math.min(i % PAGE_SIZE, 8) * 0.05, ease: EASE }}
+                className="cursor-pointer transition-opacity duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              >
+                <VisitorCardArt visitor={v} compact />
+              </motion.div>
+            ))}
+          </div>
 
           {/* Show More — same pattern as Blogs page, now interactive */}
           <div className="w-full flex flex-col items-center py-[48px] md:py-[80px] lg:py-[100px] gap-6">
@@ -226,7 +212,9 @@ export function VisitorGallery({ onEditCard }: VisitorGalleryProps) {
             </div>
 
             <span className="font-display font-normal text-foreground/60 text-body-sm">
-              You've seen {shownCount} of {totalCount}
+              {q
+                ? `Showing ${shownCount} of ${matchedCount} match${matchedCount === 1 ? "" : "es"}`
+                : `You've seen ${shownCount} of ${totalCount}`}
             </span>
           </div>
         </>

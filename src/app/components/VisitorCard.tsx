@@ -1,11 +1,13 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ChevronDown, Check } from "lucide-react";
+import { ChevronDown, Check, X } from "lucide-react";
 import { VisitorCardArt } from "./VisitorCardArt";
 import { readVisitors, type Visitor } from "../visitorStore";
 
 interface VisitorCardProps {
   onComplete: (visitor: Visitor) => void;
+  onClose?: () => void;
+  initial?: Visitor | null;
 }
 
 const ROLE_OPTIONS = [
@@ -48,12 +50,13 @@ function nextNo() {
   return String(NO_BASE + readVisitors().length + 1);
 }
 
-export function VisitorCard({ onComplete }: VisitorCardProps) {
-  const [name, setName] = useState("");
-  const [role, setRole] = useState("");
-  const [color, setColor] = useState(COLOR_OPTIONS[0].value);
-  const [no] = useState(nextNo);
-  const issuedAt = useMemo(() => formatIssuedDate(new Date()), []);
+export function VisitorCard({ onComplete, onClose, initial }: VisitorCardProps) {
+  const isEditing = !!initial;
+  const [name, setName] = useState(initial?.name && initial.name !== "Guest" ? initial.name : "");
+  const [role, setRole] = useState(initial?.role ?? "");
+  const [color, setColor] = useState(initial?.color ?? COLOR_OPTIONS[0].value);
+  const [no] = useState(() => initial?.no ?? nextNo());
+  const issuedAt = useMemo(() => initial?.issuedAt ?? formatIssuedDate(new Date()), [initial]);
   const [submitted, setSubmitted] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -61,6 +64,15 @@ export function VisitorCard({ onComplete }: VisitorCardProps) {
     const t = setTimeout(() => inputRef.current?.focus(), 900);
     return () => clearTimeout(t);
   }, []);
+
+  useEffect(() => {
+    if (!onClose) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [onClose]);
 
   const canSubmit = name.trim().length > 0;
 
@@ -76,7 +88,7 @@ export function VisitorCard({ onComplete }: VisitorCardProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, ease: EASE }}
-      className="fixed inset-0 z-[9000] bg-background text-foreground overflow-y-auto flex flex-col"
+      className="fixed inset-0 z-[9000] bg-background text-foreground overflow-hidden flex flex-col"
     >
       {/* Subtle ambient dot grid for texture */}
       <div
@@ -93,29 +105,41 @@ export function VisitorCard({ onComplete }: VisitorCardProps) {
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
-        className="relative flex items-center justify-between px-6 sm:px-10 pt-8"
+        className="relative flex items-center justify-between px-6 sm:px-10 pt-5 sm:pt-6"
       >
         <span className="font-display text-eyebrow text-foreground/60">
-          26P / Visitor Pass
+          {isEditing ? "26P / Edit Visitor Pass" : "26P / Visitor Pass"}
         </span>
-        <span className="font-display text-eyebrow text-foreground/60 hidden sm:inline">
-          Chapter 01
-        </span>
+        <div className="flex items-center gap-5">
+          <span className="font-display text-eyebrow text-foreground/60 hidden sm:inline">
+            Chapter 01
+          </span>
+          {onClose && (
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Close"
+              className="flex items-center justify-center size-8 rounded-full border border-foreground/20 text-foreground/60 hover:text-foreground hover:border-foreground/60 transition-colors cursor-pointer"
+            >
+              <X className="size-3.5" />
+            </button>
+          )}
+        </div>
       </motion.div>
 
       {/* Main content */}
-      <div className="relative flex-1 flex flex-col items-center justify-center px-6 py-10">
+      <div className="relative flex-1 min-h-0 flex flex-col items-center justify-center px-6 py-4">
         {/* Title block */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.2, ease: EASE }}
-          className="flex flex-col items-center text-center mb-10 sm:mb-12"
+          className="flex flex-col items-center text-center mb-5 sm:mb-7"
         >
           <h1 className="font-serif font-light text-display-sm sm:text-display-md text-foreground leading-[1.05]">
             Welcome, visitor.
           </h1>
-          <p className="mt-3 font-display font-light text-body-sm sm:text-body text-foreground/60 max-w-[420px]">
+          <p className="mt-2 font-display font-light text-body-sm sm:text-body text-foreground/60 max-w-[420px]">
             Issue your pass to step into the works. It only takes a name.
           </p>
         </motion.div>
@@ -135,7 +159,7 @@ export function VisitorCard({ onComplete }: VisitorCardProps) {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.55, ease: EASE }}
-          className="mt-10 w-full max-w-[440px] flex flex-col sm:flex-row gap-5 sm:gap-6"
+          className="mt-6 w-full max-w-[440px] flex flex-col sm:flex-row gap-4 sm:gap-6"
         >
           <div className="flex flex-col gap-3 flex-1 min-w-0">
             <label
@@ -153,7 +177,7 @@ export function VisitorCard({ onComplete }: VisitorCardProps) {
               onKeyDown={(e) => {
                 if (e.key === "Enter") handleSubmit();
               }}
-              placeholder="Type it as you'd like to be greeted"
+              placeholder="How you'd like to be greeted"
               className="w-full bg-transparent border-b border-foreground/15 focus:border-foreground py-2 text-body-lg font-display font-light text-foreground placeholder:text-foreground/30 outline-none transition-colors"
               autoComplete="off"
               spellCheck={false}
@@ -173,7 +197,7 @@ export function VisitorCard({ onComplete }: VisitorCardProps) {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.65, ease: EASE }}
-          className="mt-8 flex items-center justify-center flex-wrap gap-3 max-w-[440px]"
+          className="mt-5 flex items-center justify-center flex-wrap gap-3 max-w-[440px]"
         >
           {COLOR_OPTIONS.map((opt) => {
             const active = opt.value === color;
@@ -201,7 +225,7 @@ export function VisitorCard({ onComplete }: VisitorCardProps) {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8, ease: EASE }}
-          className="mt-10 flex flex-col items-center gap-3"
+          className="mt-6 flex flex-col items-center gap-2"
         >
           <button
             type="button"
@@ -214,19 +238,29 @@ export function VisitorCard({ onComplete }: VisitorCardProps) {
             }`}
           >
             <span className="font-display font-normal text-body-sm tracking-tight leading-none">
-              Enter
+              {isEditing ? "Save" : "Enter"}
             </span>
             <span className="text-body-sm leading-none transition-transform duration-300 group-hover:translate-x-1">
               →
             </span>
           </button>
-          <button
-            type="button"
-            onClick={() => onComplete({ name: "Guest", color, no, issuedAt })}
-            className="font-display text-caption text-foreground/40 hover:text-foreground/70 transition-colors cursor-pointer"
-          >
-            Skip for now
-          </button>
+          {isEditing ? (
+            <button
+              type="button"
+              onClick={onClose}
+              className="font-display text-caption text-foreground/40 hover:text-foreground/70 transition-colors cursor-pointer"
+            >
+              Cancel
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => onComplete({ name: "Guest", color, no, issuedAt })}
+              className="font-display text-caption text-foreground/40 hover:text-foreground/70 transition-colors cursor-pointer"
+            >
+              Skip for now
+            </button>
+          )}
         </motion.div>
       </div>
 
@@ -235,7 +269,7 @@ export function VisitorCard({ onComplete }: VisitorCardProps) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 1, ease: EASE }}
-        className="relative px-6 sm:px-10 pb-6 flex items-center justify-between font-display text-eyebrow text-foreground/40"
+        className="relative px-6 sm:px-10 pb-5 flex items-center justify-between font-display text-eyebrow text-foreground/40"
       >
         <span>Intentional design since 2024</span>
         <span className="hidden sm:inline">{issuedAt}</span>
@@ -305,7 +339,7 @@ function RoleSelect({ value, onChange }: { value: string; onChange: (v: string) 
                       onChange(opt);
                       setOpen(false);
                     }}
-                    className={`w-full flex items-center justify-between gap-4 px-4 py-2.5 text-left text-body-sm font-light transition-colors cursor-pointer ${
+                    className={`w-full flex items-center justify-between gap-4 px-4 py-2.5 text-left text-body-sm font-display font-extralight transition-colors cursor-pointer ${
                       selected
                         ? "text-foreground bg-foreground/[0.04]"
                         : "text-foreground/70 hover:text-foreground hover:bg-foreground/[0.04]"

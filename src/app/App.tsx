@@ -20,8 +20,8 @@ import { VisitorCard } from "./components/VisitorCard";
 import { VisitorGallery } from "./components/VisitorGallery";
 import { VISITOR_STORAGE_KEY, appendVisitor, type Visitor } from "./visitorStore";
 
-// Dev flag — show the intro on every refresh. Flip to false to gate by first visit.
-const ALWAYS_SHOW_VISITOR_INTRO = true;
+// Dev flag — show the intro on every refresh. Flip to false to gate by first visit (one pass per device).
+const ALWAYS_SHOW_VISITOR_INTRO = false;
 
 type View = "home" | "edusync" | "what-i-do" | "blogs" | "blog-detail" | "about" | "contact" | "visitor-gallery";
 
@@ -38,6 +38,7 @@ export default function App() {
     if (ALWAYS_SHOW_VISITOR_INTRO) return true;
     return !window.localStorage.getItem(VISITOR_STORAGE_KEY);
   });
+  const [editingVisitor, setEditingVisitor] = useState<Visitor | null>(null);
 
   const handleVisitorComplete = (visitor: Visitor) => {
     try {
@@ -47,12 +48,32 @@ export default function App() {
     }
     // Fire-and-forget — remote insert resolves in the background; local list updates synchronously.
     void appendVisitor(visitor);
+    if (editingVisitor) {
+      setShowVisitorCard(false);
+      setEditingVisitor(null);
+      return;
+    }
     setIsTransitioning(true);
     setTimeout(() => {
       setShowVisitorCard(false);
       setHomeMountKey((k) => k + 1);
       setTimeout(() => setIsTransitioning(false), 100);
     }, 800);
+  };
+
+  const openEditCard = () => {
+    try {
+      const raw = window.localStorage.getItem(VISITOR_STORAGE_KEY);
+      setEditingVisitor(raw ? (JSON.parse(raw) as Visitor) : null);
+    } catch {
+      setEditingVisitor(null);
+    }
+    setShowVisitorCard(true);
+  };
+
+  const closeEditCard = () => {
+    setShowVisitorCard(false);
+    setEditingVisitor(null);
   };
 
   useEffect(() => {
@@ -159,7 +180,13 @@ export default function App() {
       <PageTransitionOverlay isTransitioning={isTransitioning} />
       <CustomCursor />
 
-      {showVisitorCard && <VisitorCard onComplete={handleVisitorComplete} />}
+      {showVisitorCard && (
+        <VisitorCard
+          onComplete={handleVisitorComplete}
+          initial={editingVisitor}
+          onClose={editingVisitor ? closeEditCard : undefined}
+        />
+      )}
 
       <div className="relative mx-auto w-full max-w-[1920px] h-full z-10 px-6">
         <TopNav
@@ -226,7 +253,7 @@ export default function App() {
             ) : currentView === "about" ? (
               <About />
             ) : currentView === "visitor-gallery" ? (
-              <VisitorGallery onEditCard={() => setShowVisitorCard(true)} />
+              <VisitorGallery onEditCard={openEditCard} />
             ) : (
               <Contact />
             )}
