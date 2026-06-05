@@ -298,7 +298,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
 
       {/* 2. Hero Image */}
       <div className="relative w-screen mb-32">
-        <div className="w-full h-[500px] lg:h-[840px] overflow-hidden">
+        <div className="w-full h-[674px] lg:h-[840px] overflow-hidden">
           <ImageWithFallback src={imgHero} className="w-full h-full object-cover" />
         </div>
       </div>
