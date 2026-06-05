@@ -9,7 +9,27 @@ export function CustomCursor() {
   const [clicking, setClicking] = useState(false);
   const [hovering, setHovering] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [isLight, setIsLight] = useState(false);
   const target = useRef({ x: 0, y: 0 });
+
+  // Track the active theme by reading the rendered page background luminance.
+  // This handles both the dark/light toggle and the always-dark home page
+  // (which overrides the theme via [data-page="home"]).
+  useEffect(() => {
+    const computeTheme = () => {
+      const el = (document.querySelector("[data-page]") as HTMLElement | null) ?? document.body;
+      const m = getComputedStyle(el).backgroundColor.match(/\d+(\.\d+)?/g);
+      if (!m) return;
+      const [r, g, b] = m.map(Number);
+      setIsLight(0.299 * r + 0.587 * g + 0.114 * b > 140);
+    };
+    computeTheme();
+    const obs = new MutationObserver(computeTheme);
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    const page = document.querySelector("[data-page]");
+    if (page) obs.observe(page, { attributes: true, attributeFilter: ["data-page", "class"] });
+    return () => obs.disconnect();
+  }, []);
 
   useEffect(() => {
     if (window.matchMedia("(pointer: coarse)").matches) return;
@@ -68,6 +88,10 @@ export function CustomCursor() {
 
   const ringSize = hovering ? 30 : clicking ? 10 : 14;
   const dotSize = clicking ? 5 : 6;
+  // In dark mode, a white dot with `difference` blend adapts over the home
+  // video/images. In light mode that blend reads as near-invisible, so use a
+  // solid dark cursor instead.
+  const base = isLight ? "#262626" : "#ffffff";
 
   return (
     <div
@@ -87,21 +111,27 @@ export function CustomCursor() {
             height: `${ringSize}px`,
             top: `${-ringSize / 2}px`,
             left: `${-ringSize / 2}px`,
-            background: hovering ? "transparent" : "#fff",
+            background: hovering ? "transparent" : base,
             border: hovering ? "1.5px solid var(--brand)" : "none",
-            mixBlendMode: hovering ? "normal" : "difference",
+            boxShadow: hovering
+              ? "none"
+              : isLight
+              ? "0 0 0 1px rgba(255,255,255,0.45)"
+              : "0 0 0 1px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.55)",
             transition:
               "width 280ms cubic-bezier(0.22, 1, 0.36, 1), height 280ms cubic-bezier(0.22, 1, 0.36, 1), top 280ms cubic-bezier(0.22, 1, 0.36, 1), left 280ms cubic-bezier(0.22, 1, 0.36, 1), background 200ms ease, border 200ms ease",
           }}
         />
         {/* Inner dot (only visible when hovering interactive elements) */}
         <div
-          className="absolute rounded-full bg-white"
+          className="absolute rounded-full"
           style={{
             width: `${dotSize}px`,
             height: `${dotSize}px`,
             top: `${-dotSize / 2}px`,
             left: `${-dotSize / 2}px`,
+            background: base,
+            boxShadow: isLight ? "0 0 0 1px rgba(255,255,255,0.4)" : "0 0 4px rgba(0,0,0,0.5)",
             opacity: hovering ? 1 : 0,
             transition: "opacity 200ms ease",
           }}

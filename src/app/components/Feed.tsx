@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import imgB649 from "figma:asset/35886ff6561815df7917d466940de002809a4a3d.png";
-import imgP0B7 from "figma:asset/1b19b9b3e1077a0d4a4c4f74d6f89f35ef41eb23.png";
-import imgP4Ac from "figma:asset/1ed4c32e51a429bb934fb537ab0471678bd6b69e.png";
-import imgP2B9 from "figma:asset/1e1108f1f3f3d56bbd42fc890f551b1c0a981af9.png";
-import imgA4A8 from "figma:asset/2aea51d5f4e2f60ebbde776dd7856e2979c72149.png";
+import imgB649 from "../../assets/feed/windsurf-laptop.png";
+import imgP0B7 from "../../assets/feed/techcrunch-logo.png";
+import imgP4Ac from "../../assets/midjourney/chrome-abstract.png";
+import imgP2B9 from "../../assets/feed/fast-company-logo.png";
+import imgA4A8 from "../../assets/nike/nike-app-showcase.png";
 
 interface CardProps {
   date?: string;

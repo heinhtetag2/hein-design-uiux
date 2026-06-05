@@ -64,7 +64,7 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --background: #000000;
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.145 0 0);
   --card-foreground: oklch(0.985 0 0);
@@ -252,7 +252,7 @@
   /* Home page is intentionally always dark, even in light mode (cinematic video hero).
      AskAnything opts out via [data-theme-exempt="true"] so it follows the actual mode. */
   [data-page="home"]:not(.dark) {
-    --background: oklch(0.145 0 0);
+    --background: #000000;
     --foreground: oklch(0.985 0 0);
     --card: oklch(0.145 0 0);
     --card-foreground: oklch(0.985 0 0);
@@ -290,7 +290,7 @@
   }
 
   .dark [data-theme-exempt="true"] {
-    --background: oklch(0.145 0 0) !important;
+    --background: #000000 !important;
     --foreground: oklch(0.985 0 0) !important;
     --card: oklch(0.145 0 0) !important;
     --card-foreground: oklch(0.985 0 0) !important;
@@ -307,6 +307,15 @@
     --border: oklch(0.269 0 0) !important;
     --input: oklch(0.269 0 0) !important;
   }
+
+  /* Site logo: show the dark (black) art in light mode and the light (white)
+     art in dark mode. The home page is visually dark even in light mode, so
+     force the white logo there too. */
+  [data-logo="dark"] { display: none; }
+  .dark [data-logo="dark"] { display: block; }
+  .dark [data-logo="light"] { display: none; }
+  [data-page="home"]:not(.dark) [data-logo="light"] { display: none; }
+  [data-page="home"]:not(.dark) [data-logo="dark"] { display: block; }
 }
 
 /* ============================================================
@@ -403,3 +412,39 @@
     }
   }
 }
+
+/* ============================================================
+   Light-mode contrast lift.
+   The UI is dark-first and leans on foreground-at-low-opacity for
+   surfaces, borders, and muted text — values calibrated for white-on-
+   black. On a light background those read too faint, so when the user
+   switches to light mode we strengthen them here. These rules are
+   unlayered, so they win over Tailwind's layered utilities; scoping to
+   html.light leaves dark mode (and the always-dark home) untouched.
+   ============================================================ */
+
+/* Muted / secondary text — darken so it's comfortably readable on white */
+html.light .text-foreground\/15 { color: color-mix(in oklab, var(--foreground) 32%, transparent); }
+html.light .text-foreground\/20 { color: color-mix(in oklab, var(--foreground) 38%, transparent); }
+html.light .text-foreground\/30 { color: color-mix(in oklab, var(--foreground) 48%, transparent); }
+html.light .text-foreground\/35 { color: color-mix(in oklab, var(--foreground) 52%, transparent); }
+html.light .text-foreground\/40 { color: color-mix(in oklab, var(--foreground) 56%, transparent); }
+html.light .text-foreground\/45 { color: color-mix(in oklab, var(--foreground) 60%, transparent); }
+html.light .text-foreground\/50 { color: color-mix(in oklab, var(--foreground) 64%, transparent); }
+html.light .text-foreground\/55 { color: color-mix(in oklab, var(--foreground) 68%, transparent); }
+html.light .text-foreground\/60 { color: color-mix(in oklab, var(--foreground) 72%, transparent); }
+html.light .text-foreground\/70 { color: color-mix(in oklab, var(--foreground) 80%, transparent); }
+
+/* Borders — give cards, dividers, and inputs a defined edge on white */
+html.light .border-foreground\/5 { border-color: color-mix(in oklab, var(--foreground) 12%, transparent); }
+html.light .border-foreground\/8 { border-color: color-mix(in oklab, var(--foreground) 15%, transparent); }
+html.light .border-foreground\/10 { border-color: color-mix(in oklab, var(--foreground) 17%, transparent); }
+html.light .border-foreground\/15 { border-color: color-mix(in oklab, var(--foreground) 22%, transparent); }
+
+/* Subtle surfaces (cards, placeholders, tiles) — lift off the white page */
+html.light .bg-foreground\/\[0\.02\] { background-color: color-mix(in oklab, var(--foreground) 5%, transparent); }
+html.light .bg-foreground\/\[0\.03\] { background-color: color-mix(in oklab, var(--foreground) 5.5%, transparent); }
+html.light .bg-foreground\/\[0\.04\] { background-color: color-mix(in oklab, var(--foreground) 6%, transparent); }
+html.light .bg-foreground\/\[0\.05\] { background-color: color-mix(in oklab, var(--foreground) 7%, transparent); }
+html.light .bg-foreground\/\[0\.06\] { background-color: color-mix(in oklab, var(--foreground) 7.5%, transparent); }
+html.light .bg-foreground\/5 { background-color: color-mix(in oklab, var(--foreground) 7%, transparent); }

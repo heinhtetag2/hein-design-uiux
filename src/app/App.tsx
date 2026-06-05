@@ -11,19 +11,24 @@ import { VideoBackground } from "./components/VideoBackground";
 import { CaseStudyHoverBackground } from "./components/CaseStudyHoverBackground";
 import { CaseStudyHoverContent } from "./components/CaseStudyHoverContent";
 import { WhatIDo } from "./components/WhatIDo";
+import { AllWork } from "./components/AllWork";
 import { Blogs } from "./components/Blogs";
-import { About } from "./components/About";
 import { Contact } from "./components/Contact";
 import { BlogDetail } from "./components/BlogDetail";
 import { CustomCursor } from "./components/CustomCursor";
 import { VisitorCard } from "./components/VisitorCard";
 import { VisitorGallery } from "./components/VisitorGallery";
 import { VISITOR_STORAGE_KEY, appendVisitor, type Visitor } from "./visitorStore";
+import { Shop } from "./components/Shop";
+import { ProductDetail } from "./components/ProductDetail";
+import { Checkout } from "./components/Checkout";
+import { CartProvider } from "./shop/CartContext";
+import { CartDrawer } from "./components/CartDrawer";
 
 // Dev flag — show the intro on every refresh. Flip to false to gate by first visit (one pass per device).
 const ALWAYS_SHOW_VISITOR_INTRO = false;
 
-type View = "home" | "edusync" | "what-i-do" | "blogs" | "blog-detail" | "about" | "contact" | "visitor-gallery";
+type View = "home" | "edusync" | "what-i-do" | "blogs" | "blog-detail" | "contact" | "visitor-gallery" | "all-work" | "shop" | "product-detail" | "checkout";
 
 // Force rebuild
 export default function App() {
@@ -31,6 +36,7 @@ export default function App() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
   const [hoveredCaseStudy, setHoveredCaseStudy] = useState<string | null>(null);
   const [homeMountKey, setHomeMountKey] = useState(0);
   const [showVisitorCard, setShowVisitorCard] = useState<boolean>(() => {
@@ -137,6 +143,18 @@ export default function App() {
     }, 800);
   };
 
+  const handleProductClick = (id: string) => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setSelectedProductId(id);
+      setCurrentView("product-detail");
+      window.scrollTo({ top: 0, behavior: "instant" });
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 100);
+    }, 800);
+  };
+
   const handleNavigate = (view: Exclude<View, "blog-detail">) => {
     if (view === currentView) return;
 
@@ -164,6 +182,7 @@ export default function App() {
   };
 
   return (
+    <CartProvider>
     <div
       data-page={currentView}
       className={`bg-background text-foreground w-full selection:bg-brand selection:text-brand-foreground [&::-webkit-scrollbar]:hidden [scrollbar-width:none] [-ms-overflow-style:none] ${
@@ -188,7 +207,7 @@ export default function App() {
         />
       )}
 
-      <div className="relative mx-auto w-full max-w-[1920px] h-full z-10 px-6">
+      <div className="relative mx-auto w-full max-w-[1920px] h-full z-10 px-[14px] lg:px-6">
         <TopNav
           key={`topnav-${homeMountKey}`}
           onLogoClick={() => handleNavigate("home")}
@@ -216,10 +235,6 @@ export default function App() {
                     <div className="w-[20px] h-[1px] bg-foreground/20" />
                     <Sidebar
                       onCaseStudyClick={handleNavigate}
-                      onCaseStudyHover={(study) => {
-                      if (isTransitioning) return;
-                      setHoveredCaseStudy(study);
-                    }}
                       isMenuOpen={isMenuOpen}
                       activeView={currentView}
                     />
@@ -246,12 +261,18 @@ export default function App() {
               </div>
             ) : currentView === "what-i-do" ? (
               <WhatIDo />
+            ) : currentView === "all-work" ? (
+              <AllWork onNavigate={handleNavigate} />
+            ) : currentView === "shop" ? (
+              <Shop onOpenProduct={handleProductClick} />
+            ) : currentView === "product-detail" && selectedProductId ? (
+              <ProductDetail productId={selectedProductId} onBack={() => handleNavigate("shop")} />
+            ) : currentView === "checkout" ? (
+              <Checkout onBack={() => handleNavigate("shop")} />
             ) : currentView === "blog-detail" && selectedPostId ? (
               <BlogDetail postId={selectedPostId} onBack={handleBackToBlogs} onPostClick={handleBlogPostClick} />
             ) : currentView === "blogs" ? (
               <Blogs onPostClick={handleBlogPostClick} />
-            ) : currentView === "about" ? (
-              <About />
             ) : currentView === "visitor-gallery" ? (
               <VisitorGallery onEditCard={openEditCard} />
             ) : (
@@ -263,5 +284,10 @@ export default function App() {
       
       {/* <AskAnything context={currentView === "home" ? "home" : currentView === "edusync" ? "edusync" : "blogs"} isMenuOpen={isMenuOpen} /> */}
     </div>
+      <CartDrawer
+        onBrowseShop={() => handleNavigate("shop")}
+        onCheckout={() => handleNavigate("checkout")}
+      />
+    </CartProvider>
   );
 }

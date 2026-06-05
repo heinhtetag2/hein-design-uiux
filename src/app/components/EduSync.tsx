@@ -1,29 +1,34 @@
 import React from "react";
 import { motion } from "motion/react";
 import svgPaths from "../../imports/svg-hddcdrfc75";
-import imgHero from "figma:asset/4fee91cd6da97cd074f5f2d3688da4b21b527368.png";
-import imgVideo from "figma:asset/c0e27df19987b0111c135648261e2b7a0073d7b6.png";
-import imgFrame78 from "figma:asset/c619eef3495a0460eeae6e92bd0102cc5ef1c00b.png";
-import imgFrame79 from "figma:asset/cab647aa049a4e042e08a8d72bab02d6b13ab877.png";
-import imgFrame80 from "figma:asset/20eb2b438a61a9cd9dabc51b1c5cbac35ce60576.png";
-import imgApp1 from "figma:asset/d7e9594efbc1437a46cb4ab6ebd5249ccaa232df.png";
-import imgApp2 from "figma:asset/70ea0115732653ee767011fc986beb0c346e312a.png";
-import imgApp3 from "figma:asset/7d8e089fa8ab9cf6b7be979ec235d6faf97770ca.png";
-import imgImage1 from "figma:asset/dc6b2be9a3fe15e13443037163a086f6c25ed151.png";
-import imgFrame81 from "figma:asset/2adfbf209eadb16469e199fbca27f8b4691a513f.png";
-import imgFrame82 from "figma:asset/b1ae1dc4e5ce02ea12b387406cc8b83e659cadc5.png";
-import imgFrame83 from "figma:asset/b512a8e59c334e920f829e74c1ee398898fd445c.png";
-import imgImage2 from "figma:asset/f0ec07ca565c1a95fda88e2cb24343fa120c072c.png";
-import imgImage3 from "figma:asset/5eb982b5824319bd5a74858110b312dc486a0a1e.png";
-import imgImage4 from "figma:asset/cc9e89b25eec8b0f3759c93bcb2c54aca1db9f8a.png";
-import imgImage5 from "figma:asset/74ef61486338497c6e740f722ff2ffcc8fe76d50.png";
-import imgImage6 from "figma:asset/01e851303400652197baccefb81a6cc03bc0711c.png";
-import imgImage7 from "figma:asset/53fc9b7bd8060955d79a9cc6942052612d15a006.png";
-import imgImage8 from "figma:asset/5955ed1fe9f3dffa5dbab928308ed300787adbab.png";
-import imgImage9 from "figma:asset/b3d92bff26473a4a3c9dbf3ad55b6b18d6b7b379.png";
-import imgMapImage from "figma:asset/a69c8495dcaf009e877f7edc68539b20116054e3.png";
+import imgHero from "../../assets/edu-sync/hero.png";
+import imgVideo from "../../assets/edu-sync/video.png";
+import frame78Video from "../../assets/edu-sync/Gy4KIgdXUAAwR1D.mp4";
+import imgFrame79 from "../../assets/edu-sync/frame79.png";
+import imgFrame80 from "../../assets/edu-sync/frame80.png";
+import imgApp1 from "../../assets/edu-sync/app1.png";
+import imgApp2 from "../../assets/edu-sync/app2.png";
+import imgApp3 from "../../assets/edu-sync/app3.png";
+import imgImage1 from "../../assets/edu-sync/image1.png";
+import imgFrame81 from "../../assets/edu-sync/frame81.png";
+import imgFrame82 from "../../assets/edu-sync/frame82.png";
+import imgFrame83 from "../../assets/edu-sync/frame83.png";
+import imgImage2 from "../../assets/edu-sync/image2.png";
+import imgImage3 from "../../assets/edu-sync/image3.png";
+import imgImage6 from "../../assets/edu-sync/image6.png";
+import imgImage7 from "../../assets/edu-sync/image7.png";
+import image8Video from "../../assets/edu-sync/HIC0e5wXIAAxd49.mp4";
+import imgImage9 from "../../assets/edu-sync/image9.png";
+import imgMapImage from "../../assets/edu-sync/map-image.png";
+import eduSyncVideo from "../../assets/edu-sync/edusync-video.mp4";
+import mockNextStudy from "../../assets/suno/suno-app-mockup.png";
 
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { CaseStudyVideo } from "./CaseStudyVideo";
+import { ArrowUpRight } from "lucide-react";
+
+// EduSync interactive prototype — replace with your real Figma / live prototype URL.
+const PROTOTYPE_URL = "https://www.figma.com/proto/your-edusync-prototype";
 
 function Container({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return <div className={`w-full ${className}`}>{children}</div>;
@@ -57,17 +62,138 @@ function LargeText({ text, size = "large" }: { text: string, size?: "large" | "m
 }
 
 function RevealImage({ src, className = "" }: { src: string; className?: string }) {
+  // Clip-mask reveal from the top downward + a gentle parallax drift on the
+  // image — same easing as the All Work cards. Triggered as it scrolls into view.
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+    <motion.div
+      initial={{ clipPath: "inset(0% 0% 100% 0%)" }}
+      whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
+      viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+      transition={{ duration: 1.7, ease: [0.22, 1, 0.36, 1] }}
+      className={`relative overflow-hidden ${className}`}
+    >
       <motion.div
-        initial={{ y: 0 }}
-        whileInView={{ y: "100%" }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.5, ease: [0.65, 0, 0.35, 1] }}
-        className="absolute inset-0 bg-background z-10"
-      />
-      <ImageWithFallback src={src} className="block w-full h-full object-cover" />
-    </div>
+        initial={{ y: "-8%", scale: 1.06 }}
+        whileInView={{ y: "0%", scale: 1 }}
+        viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+        transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
+        className="w-full h-full"
+      >
+        <ImageWithFallback src={src} className="block w-full h-full object-cover" />
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function RevealVideo({ src, className = "" }: { src: string; className?: string }) {
+  // Same clip-mask reveal + parallax as RevealImage, but for an autoplaying,
+  // looping, muted video — so a video slot reveals in step with its image siblings.
+  return (
+    <motion.div
+      initial={{ clipPath: "inset(0% 0% 100% 0%)" }}
+      whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
+      viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+      transition={{ duration: 1.7, ease: [0.22, 1, 0.36, 1] }}
+      className={`relative overflow-hidden ${className}`}
+    >
+      <motion.div
+        initial={{ y: "-8%", scale: 1.06 }}
+        whileInView={{ y: "0%", scale: 1 }}
+        viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+        transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
+        className="w-full h-full"
+      >
+        <video
+          src={src}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="block w-full h-full object-cover"
+        />
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function NextCaseStudy({
+  label,
+  tagline,
+  image,
+  index = "01 / 04",
+  onClick,
+}: {
+  label: string;
+  tagline: string;
+  image: string;
+  index?: string;
+  onClick?: () => void;
+}) {
+  const [imageHovered, setImageHovered] = React.useState(false);
+  const [sectionHovered, setSectionHovered] = React.useState(false);
+  // Background text slides to white when hovering the section, but fades back
+  // while the image card itself is hovered (so the card stays the focus).
+  const bright = sectionHovered && !imageHovered;
+
+  return (
+    <section
+      className="relative w-full overflow-hidden pt-20 pb-12 lg:py-16"
+      onMouseEnter={() => setSectionHovered(true)}
+      onMouseLeave={() => setSectionHovered(false)}
+    >
+      <div className="mb-6 hidden items-center justify-between px-1 lg:mb-8">
+        <span className="font-display text-eyebrow uppercase tracking-[0.18em] text-foreground/40">Next project</span>
+        <span className="font-display text-eyebrow uppercase tracking-[0.18em] text-foreground/40">{index}</span>
+      </div>
+
+      <div className="relative flex min-h-[50vh] items-center justify-center lg:min-h-[76vh]">
+        {/* Horizontal marquee background text */}
+        <div className="pointer-events-none absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 flex items-start pt-[calc(1vh+6px)] lg:left-0 lg:w-full lg:translate-x-0 lg:items-center lg:pt-0 overflow-hidden">
+          <motion.div
+            className="flex shrink-0 flex-nowrap"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ repeat: Infinity, ease: "linear", duration: 40 }}
+          >
+            {Array.from({ length: 2 }).map((_, copy) => (
+              <div key={copy} className="flex shrink-0 items-center">
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <span
+                    key={i}
+                    className={`whitespace-nowrap font-display font-normal leading-none text-[27vw] md:text-[16vw] lg:text-[13vw] tracking-tight transition-colors duration-700 ${
+                      bright ? "text-white" : "text-white lg:text-foreground/10"
+                    }`}
+                  >
+                    Next case study
+                    <span className="px-[0.35em] opacity-60">•</span>
+                  </span>
+                ))}
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Foreground image card */}
+        <button
+          type="button"
+          onClick={onClick}
+          onMouseEnter={() => setImageHovered(true)}
+          onMouseLeave={() => setImageHovered(false)}
+          className="group relative z-10 mx-auto block w-fit cursor-pointer"
+        >
+          <div className="aspect-[450/678] w-[450px] max-w-[68vw] lg:max-w-[86vw] overflow-hidden rounded-[4px]">
+            <ImageWithFallback
+              src={image}
+              className="block h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+            />
+          </div>
+          <div className="w-[450px] max-w-[68vw] lg:max-w-[86vw] text-left">
+            <div className="mt-5 font-display text-[20px] lg:text-body text-foreground">{label}</div>
+            <div className="mt-1 hidden max-w-[320px] font-display text-eyebrow font-light text-foreground/50">{tagline}</div>
+          </div>
+        </button>
+      </div>
+
+    </section>
   );
 }
 
@@ -99,10 +225,12 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       const stripWidth = cards[DRAG_CARDS.length].offsetLeft - cards[0].offsetLeft;
       stripWidthRef.current = stripWidth;
 
-      // Center a landscape "hero" card from the middle copy in the viewport.
+      // Center the vinyl ("Luna's New Trick", imgApp1 portrait) card from the
+      // middle copy so it's the default focused card.
       const midpoint = Math.floor(DRAG_CARDS.length / 2);
-      let localIdx = DRAG_CARDS.findIndex((c, i) => c.variant === "landscape" && i >= midpoint);
-      if (localIdx === -1) localIdx = DRAG_CARDS.findIndex((c) => c.variant === "landscape");
+      let localIdx = DRAG_CARDS.findIndex((c, i) => c.src === "imgApp1" && c.variant === "portrait" && i >= midpoint);
+      if (localIdx === -1) localIdx = DRAG_CARDS.findIndex((c) => c.src === "imgApp1" && c.variant === "portrait");
+      if (localIdx === -1) localIdx = DRAG_CARDS.findIndex((c) => c.src === "imgApp1");
       if (localIdx === -1) localIdx = midpoint;
       const hero = cards[DRAG_CARDS.length + localIdx];
       const target = hero.offsetLeft - (container.offsetWidth - hero.offsetWidth) / 2;
@@ -131,28 +259,45 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
     <div style={{ position: 'relative' }} className="bg-background min-h-screen w-full flex flex-col items-center pb-20 relative">
       
       {/* 1. Header Section */}
-      <Container className="pt-24 lg:pt-32 mb-20">
-        <h1 className="font-serif font-normal text-display-2xl text-foreground mb-10 text-left">
-          EduSync
-        </h1>
-        <div className="flex flex-col lg:flex-row justify-between pb-[10px] gap-8">
+      <Container className="pt-24 lg:pt-32 mb-2 lg:mb-20">
+        <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <h1 className="font-serif font-normal text-display-2xl text-foreground text-left">
+            EduSync
+          </h1>
+          <a
+            href={PROTOTYPE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative inline-flex w-fit cursor-pointer items-center gap-3 overflow-hidden rounded-full border border-foreground/25 py-1.5 pl-6 pr-5 lg:mb-3 lg:mr-4"
+          >
+            <span className="pointer-events-none absolute inset-0 origin-left scale-x-0 rounded-full bg-foreground transition-transform duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:scale-x-100" />
+            <span className="relative font-display font-normal text-body text-foreground transition-colors duration-500 group-hover:text-background">
+              View Prototype
+            </span>
+            <ArrowUpRight
+              className="relative h-4 w-4 text-foreground transition-all duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-background"
+              strokeWidth={1.5}
+            />
+          </a>
+        </div>
+        <div className="grid grid-cols-3 gap-4 lg:flex lg:flex-row lg:justify-between pb-[10px] lg:gap-8">
           <div className="flex flex-col gap-1 lg:w-[448px]">
-            <span className="font-display font-light text-body text-foreground">Project Type</span>
-            <span className="font-display font-normal text-muted-foreground text-body">Full Product System</span>
+            <span className="font-display font-light text-body-sm lg:text-body text-foreground">Project Type</span>
+            <span className="font-display font-normal text-muted-foreground text-body-sm lg:text-body">Full Build</span>
           </div>
           <div className="flex flex-col gap-1 lg:w-[212px]">
-            <span className="font-display font-light text-body text-foreground">Stage</span>
-            <span className="font-display font-normal text-muted-foreground text-body">Concept · MVP-ready</span>
+            <span className="font-display font-light text-body-sm lg:text-body text-foreground">Stage</span>
+            <span className="font-display font-normal text-muted-foreground text-body-sm lg:text-body">MVP-ready</span>
           </div>
           <div className="flex flex-col gap-1 lg:w-[400px]">
-            <span className="font-display font-light text-body text-foreground">Deliverables</span>
-            <span className="font-display font-normal text-muted-foreground text-body">UX Strategy · Dashboard Design · Workflow System</span>
+            <span className="font-display font-light text-body-sm lg:text-body text-foreground">Deliverables</span>
+            <span className="font-display font-normal text-muted-foreground text-body-sm lg:text-body">UX, Dashboard, Systems</span>
           </div>
         </div>
       </Container>
 
       {/* 2. Hero Image */}
-      <div className="relative left-1/2 right-1/2 -translate-x-1/2 w-screen mb-32">
+      <div className="relative w-screen mb-32">
         <div className="w-full h-[500px] lg:h-[840px] overflow-hidden">
           <ImageWithFallback src={imgHero} className="w-full h-full object-cover" />
         </div>
@@ -166,7 +311,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
         </div>
       </Container>
 
-      <Container className="mb-28">
+      <Container className="mb-12 lg:mb-28">
         <div className="lg:pl-[260px] lg:pr-[496px]">
           <SectionHeading text="The vision" />
           <LargeText size="medium" text="Build a system where learning flows naturally without operational noise." />
@@ -174,22 +319,9 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       </Container>
 
       {/* 4. Video Play Section */}
-      <div className="w-full mb-32 flex flex-col items-end gap-10">
-        <div className="w-full aspect-video lg:h-[782px] relative overflow-hidden group cursor-pointer">
-          <RevealImage src={imgVideo} className="w-full h-full" />
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
-            <motion.span 
-              initial={{ y: "100%", opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, ease: [0.65, 0, 0.35, 1], delay: 0.4 }}
-              className="font-display font-light text-display-2xl text-white"
-            >
-              Play
-            </motion.span>
-          </div>
-        </div>
-        <div className="max-w-[206px] pr-4">
+      <div className="w-full mb-16 md:mb-32 flex flex-col gap-8 md:gap-10 lg:items-end">
+        <CaseStudyVideo src={eduSyncVideo} className="w-full aspect-video lg:h-[782px]" />
+        <div className="w-full lg:max-w-[206px] lg:pr-4">
            <p className="font-display text-body text-foreground leading-relaxed">
              EduSync was shaped through close collaboration between design, product, and engineering. In a system with many stakeholders, clarity and speed were essential—enabled by shared ownership, clear roles, and continuous feedback.
            </p>
@@ -205,12 +337,19 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       </Container>
 
       {/* 6. Image Grid (Posters) */}
-      <div className="w-full mb-16 md:mb-32 flex flex-col gap-4 md:gap-6">
+      <div className="w-full mb-28 md:mb-40 lg:mb-56 flex flex-col gap-4 md:gap-6">
         <div className="w-full h-[250px] md:h-[400px] lg:h-[778px] overflow-hidden">
-          <ImageWithFallback src={imgFrame78} className="block w-full h-full object-cover" />
+          <video
+            src={frame78Video}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="block w-full h-full object-cover"
+          />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
-           <div className="h-[250px] md:h-[400px] lg:h-[782px] overflow-hidden">
+           <div className="h-[360px] md:h-[460px] lg:h-[782px] overflow-hidden">
              <RevealImage src={imgFrame79} className="w-full h-full" />
            </div>
            <div className="flex flex-col gap-6">
@@ -304,8 +443,8 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
                   data-drag-card
                   className={
                     card.variant === "portrait"
-                      ? "w-[230px] h-[285px] lg:w-[460px] lg:h-[570px] shrink-0 overflow-hidden rounded-none"
-                      : "w-[290px] h-[228px] lg:w-[580px] lg:h-[456px] shrink-0 overflow-hidden rounded-none"
+                      ? "w-[285px] h-[360px] lg:w-[460px] lg:h-[570px] shrink-0 overflow-hidden rounded-none"
+                      : "w-[348px] h-[280px] lg:w-[580px] lg:h-[456px] shrink-0 overflow-hidden rounded-none"
                   }
                 >
                   <ImageWithFallback src={cardSrcMap[card.src]} className="w-full h-full object-cover" />
@@ -317,8 +456,8 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
         
         {/* Description below cards — narrow column, left-aligned to match the gallery rhythm */}
         <div className="w-full mt-16 lg:mt-24">
-          <div className="mx-auto lg:pl-[14vw]">
-            <p className="font-display font-light text-body text-foreground/85 max-w-[320px] mx-auto lg:mx-0 lg:text-left text-left leading-relaxed">
+          <div className="pl-6 lg:pl-[14vw]">
+            <p className="font-display font-light text-body text-foreground/85 max-w-[320px] lg:mx-0 lg:text-left text-left leading-relaxed">
               By balancing structure and flexibility, EduSync creates a system that feels both controlled and human. Administrators gain oversight, teachers gain freedom, and learning becomes accessible without unnecessary complexity.
             </p>
           </div>
@@ -326,17 +465,17 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       </div>
 
       {/* 9. Full Width Images */}
-      <div className="w-full mb-32 flex flex-col gap-20">
-        <div className="w-full h-[480px] lg:h-[680px] overflow-hidden">
+      <div className="w-full mb-32 flex flex-col gap-28 lg:gap-20">
+        <div className="w-full h-[200px] lg:h-[680px] overflow-hidden">
           <RevealImage src={imgImage1} className="w-full h-full" />
         </div>
-        <div className="w-full h-[500px] lg:h-[590px] overflow-hidden">
+        <div className="w-full h-[200px] lg:h-[590px] overflow-hidden">
           <RevealImage src={imgVideo} className="w-full h-full" />
         </div>
       </div>
 
       {/* 10. Course Management Section */}
-      <Container className="mb-40">
+      <Container className="mb-16 md:mb-28 lg:mb-40">
         <div className="lg:pl-[260px] lg:pr-[460px]">
           <SectionHeading text="Course Management" />
           <LargeText size="medium" text="Structuring learning through clear roles, reviews, and workflows." />
@@ -344,82 +483,83 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       </Container>
 
       {/* 11. App Detail Mosaic Grid */}
-      <div className="w-full mb-16 md:mb-32 flex flex-col lg:flex-row gap-6">
-        <div className="flex flex-col gap-6 justify-between lg:w-[617px] h-[340px] md:h-[500px] lg:h-[640px]">
-           <div className="max-w-[400px]">
+      <div className="w-full mb-28 md:mb-32 flex flex-col lg:flex-row gap-6">
+        <div className="contents lg:flex lg:flex-col lg:gap-6 lg:w-[424px] lg:h-[782px]">
+           <div className="order-3 lg:order-none pr-6 lg:pr-0 lg:max-w-[262px]">
               <p className="font-display text-body text-foreground">Create a course, assign teachers, and manage lessons in one place. Content moves from draft to review to published ensuring quality without slowing down teaching.</p>
            </div>
-           <div className="flex-1 overflow-hidden">
+           <div className="order-1 lg:order-none h-[444px] lg:flex-1 lg:min-h-0 overflow-hidden">
               <RevealImage src={imgFrame81} className="w-full h-full" />
            </div>
         </div>
-        <div className="flex-1 h-[240px] md:h-[400px] lg:h-[640px] overflow-hidden">
+        <div className="order-2 lg:order-none h-[284px] md:h-[400px] lg:flex-1 lg:h-[782px] overflow-hidden">
            <RevealImage src={imgApp1} className="w-full h-full" />
         </div>
       </div>
 
       {/* 11.5 Wide Image Grid Section */}
       <div className="w-full mb-16 md:mb-32 grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-10 h-[400px] lg:h-[748px] overflow-hidden">
+        <div className="lg:col-span-10 h-[236px] lg:h-[748px] overflow-hidden">
            <RevealImage src={imgImage3} className="w-full h-full" />
         </div>
-        <div className="lg:col-span-2 flex items-start">
-           <p className="font-display text-body text-foreground max-w-[197px]">Structuring learning through clear roles, reviews, and workflows.</p>
-        </div>
-      </div>
-
-      {/* 11.6 Grid Layout with Text + Images */}
-      <div className="w-full mb-16 md:mb-32 flex flex-col lg:flex-row gap-6">
-        <div className="flex flex-col gap-4 lg:w-[430px] h-[400px] md:h-[600px] lg:h-[782px]">
-           <div className="max-w-[400px]">
-              <p className="font-display text-body text-foreground">Record a beat or hum a tune using the audio prompt and watch it turn into your new favourite song.</p>
-           </div>
-           <div className="flex-1 overflow-hidden">
-              <RevealImage src={imgImage4} className="w-full h-full" />
-           </div>
-        </div>
-        <div className="flex-1 h-[300px] md:h-[500px] lg:h-[782px] overflow-hidden">
-           <RevealImage src={imgImage5} className="w-full h-full" />
+        <div className="lg:col-span-2 flex items-start pr-6 lg:pr-0">
+           <p className="font-display text-body text-foreground w-full lg:w-auto lg:max-w-[197px]">Structuring learning through clear roles, reviews, and workflows.</p>
         </div>
       </div>
 
       {/* 11.9 — Discovery Image Grid */}
-      <div className="w-full py-[90px]">
+      <div className="w-full py-12 md:py-16 lg:py-[90px]">
         <div className="flex flex-col lg:flex-row gap-[24px] items-start w-full">
-          <div className="flex flex-col gap-[24px] flex-1 min-w-0 items-start justify-center self-stretch">
-            <div className="w-full">
+          <div className="contents lg:flex lg:flex-col lg:gap-[24px] lg:flex-1 lg:min-w-0 lg:items-start lg:justify-center lg:self-stretch">
+            <div className="order-3 lg:order-none w-full pr-6 lg:pr-0">
               <div className="flex flex-col gap-[8px] font-display font-light text-body text-foreground tracking-tight">
                 <p className="leading-relaxed">
-                  Getting users into a system is one thing.<br />
-                  {` Keeping them engaged is another.`}
-                </p>
-                <p className="leading-relaxed">
-                  EduSync approaches discovery through clarity—highlighting relevant courses, upcoming lessons, and progress cues that help students stay oriented and motivated over time.
-                </p>
-                <p className="leading-relaxed">
-                  By surfacing what matters most, the platform supports continuity, confidence, and long-term learning habits.
+                  EduSync approaches discovery through clarity—surfacing relevant courses, lessons, and progress cues that keep students engaged over time.
                 </p>
               </div>
             </div>
-            <div className="flex-1 min-h-px w-full overflow-hidden">
+            <div className="order-1 lg:order-none w-full overflow-hidden h-[280px] md:h-[420px] lg:h-auto lg:flex-1 lg:min-h-px">
               <RevealImage src={imgFrame82} className="w-full h-full" />
             </div>
           </div>
-          <div className="shrink-0 w-full lg:w-[944px] h-[400px] md:h-[600px] lg:h-[900px] overflow-hidden">
+          <div className="order-2 lg:order-none shrink-0 w-full lg:w-[944px] h-[400px] md:h-[600px] lg:h-[900px] overflow-hidden">
             <RevealImage src={imgFrame83} className="w-full h-full" />
           </div>
         </div>
       </div>
 
+      {/* 12. Think Different Section */}
+      <Container className="mt-14 lg:mt-0 mb-[60px] md:mb-[100px] lg:mb-[140px]">
+        <div className="lg:pl-[260px] lg:pr-[460px]">
+          <SectionHeading text="Think Different" />
+          <LargeText size="medium" text="The ability to surface the right learning at the right time turns an LMS into a place students return to—not just log into." />
+        </div>
+      </Container>
+
+      {/* 12.5 Grid Layout with Text + Images */}
+      <div className="w-full mb-16 md:mb-32 flex flex-col lg:flex-row gap-6">
+        <div className="contents lg:flex lg:flex-col lg:gap-4 lg:w-[424px] lg:h-[782px]">
+           <div className="order-3 lg:order-none pr-6 lg:pr-0 lg:max-w-[262px]">
+              <p className="font-display text-body text-foreground">Create a course, assign teachers, and manage lessons in one place.</p>
+           </div>
+           <div className="order-1 lg:order-none h-[444px] lg:flex-1 lg:min-h-0 overflow-hidden">
+              <RevealVideo src={image8Video} className="w-full h-full" />
+           </div>
+        </div>
+        <div className="order-2 lg:order-none h-[284px] lg:flex-1 lg:h-[782px] overflow-hidden">
+           <RevealImage src={imgImage9} className="w-full h-full" />
+        </div>
+      </div>
+
       {/* 11.9c — Full Width Image */}
-      <div className="w-full py-[90px]">
-        <div className="w-full h-[600px] lg:h-[840px] overflow-hidden">
+      <div className="w-full pt-24 pb-12 md:py-16 lg:py-[90px]">
+        <div className="w-full h-[200px] lg:h-[840px] overflow-hidden">
           <RevealImage src={imgImage2} className="w-full h-full" />
         </div>
       </div>
 
       {/* 11.9d — A System Designed to Scale */}
-      <Container className="py-[90px]">
+      <Container className="py-12 md:py-16 lg:py-[90px]">
         <div className="lg:pl-[260px] lg:pr-[460px]">
           <SectionHeading text="A System Designed to Scale" />
           <LargeText size="medium" text="Building a stable foundation that supports growth without breaking existing workflows." />
@@ -429,102 +569,60 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       {/* 11.9e — Scale Image Grid */}
       <div className="w-full mb-32">
         <div className="flex flex-col lg:flex-row gap-6">
-          <div className="flex-1 min-w-0 h-[500px] lg:h-[748px] overflow-hidden">
+          <div className="min-w-0 h-[236px] lg:flex-1 lg:h-[748px] overflow-hidden">
             <RevealImage src={imgImage6} className="w-full h-full" />
           </div>
-          <div className="w-full lg:w-[212px] shrink-0 flex flex-col gap-[8px]">
-            <p className="font-display font-light text-body text-foreground tracking-tight leading-relaxed">
+          <div className="w-full lg:w-[212px] shrink-0 flex flex-col gap-[8px] pr-6 lg:pr-0">
+            <p className="font-display font-light text-body text-foreground tracking-tight leading-relaxed lg:hidden">
+              As platforms grow, design systems matter more than screens. EduSync is built on reusable components and predictable states—reliable today, flexible for what's next.
+            </p>
+            <p className="hidden font-display font-light text-body text-foreground tracking-tight leading-relaxed lg:block">
               As learning platforms grow, design systems become more important than individual screens. EduSync was built around reusable components, clear content structures, and predictable states—so new features can be added without rethinking the core experience.
             </p>
-            <p className="font-display font-light text-body text-foreground tracking-tight leading-relaxed">
+            <p className="hidden font-display font-light text-body text-foreground tracking-tight leading-relaxed lg:block">
               By prioritizing consistency and adaptability, the system remains reliable for schools today while staying flexible for future needs.
             </p>
           </div>
         </div>
       </div>
 
-      {/* 12. Think Different Section */}
-      <Container className="mb-[60px] md:mb-[100px] lg:mb-[140px]">
-        <div className="lg:pl-[260px] lg:pr-[460px]">
-          <SectionHeading text="Think Different" />
-          <LargeText size="medium" text="The ability to surface the right learning at the right time turns an LMS into a place students return to—not just log into." />
-        </div>
-      </Container>
-
-      {/* 12.5 Grid Layout with Text + Images */}
-      <div className="w-full mb-16 md:mb-32 flex flex-col lg:flex-row gap-6">
-        <div className="flex flex-col gap-4 lg:w-[600px] h-[400px] md:h-[600px] lg:h-[782px]">
-           <div className="max-w-[400px]">
-              <p className="font-display text-body text-foreground">Create a course, assign teachers, and manage lessons in one place. Content moves from draft to review to published ensuring quality without slowing down teaching.</p>
-           </div>
-           <div className="flex-1 overflow-hidden">
-              <RevealImage src={imgImage8} className="w-full h-full" />
-           </div>
-        </div>
-        <div className="flex-1 h-[300px] md:h-[500px] lg:h-[782px] overflow-hidden">
-           <RevealImage src={imgImage9} className="w-full h-full" />
-        </div>
-      </div>
-
       {/* 15. Impact Stats Section */}
-      <Container className="mb-16 md:mb-28 lg:mb-40">
+      <Container className="mb-6 md:mb-10 lg:mb-16">
         <h2 className="font-display font-light text-display-sm text-foreground mb-10 md:mb-20">
           Immediate disruption
         </h2>
-        <div className="flex flex-col lg:flex-row justify-between gap-10 border-b border-foreground/10 pb-20">
+        <div className="flex flex-col lg:flex-row justify-between gap-10 pb-20">
           <div className="font-display font-medium text-body text-foreground">Impact</div>
           <p className="max-w-[532px] font-display text-body text-foreground/80">
             EduSync was designed to address real operational pain points in school environments. From early concept validation to workflow testing, the system demonstrated immediate improvements in clarity, efficiency, and confidence across roles.
           </p>
         </div>
 
-        <div className="flex flex-col divide-y divide-foreground/10">
+        <div className="flex flex-col lg:flex-row">
           {[
             { value: "4.9", label: "Star rating on App Store" },
             { value: "43K", label: "Ratings on App Store" },
             { value: "T10", label: "Top performing apps in Education" }
           ].map((stat) => (
-            <div key={stat.label} className="py-10 md:py-16 lg:py-20 flex flex-col lg:flex-row items-baseline lg:justify-end gap-4 md:gap-10">
+            <div key={stat.label} className="flex-1 py-8 md:py-10 lg:py-12 lg:px-10 flex flex-col gap-4 md:gap-6">
               <span className="font-display font-light text-display-lg text-foreground">{stat.value}</span>
-              <span className="font-display text-h3 text-foreground/60 w-[300px]">{stat.label}</span>
+              <span className="font-display text-h3 text-foreground/60">{stat.label}</span>
             </div>
           ))}
         </div>
       </Container>
 
       {/* 16. Next Case Study */}
-      <Container className="pt-0 pb-20 lg:pb-32">
-        <div className="border-t border-foreground/10 pt-12 lg:pt-16">
-          <span className="font-display text-eyebrow text-foreground/40 block mb-6">
-            Next project
-          </span>
-          <button
-            onClick={() => onNavigate?.("home")}
-            className="group w-full text-left cursor-pointer"
-          >
-            <div className="flex items-center justify-between gap-8">
-              <div className="flex flex-col gap-3">
-                <h3 className="font-display font-light text-display-md text-foreground group-hover:translate-x-3 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
-                  Suno AI
-                </h3>
-                <p className="font-display text-body text-foreground/60 font-light max-w-[400px] group-hover:translate-x-3 transition-transform duration-500 delay-75 ease-[cubic-bezier(0.22,1,0.36,1)]">
-                  AI-powered music creation platform
-                </p>
-              </div>
-              <div className="flex items-center gap-4 shrink-0">
-                <div className="size-12 sm:size-16 lg:size-20 rounded-full border border-foreground/15 flex items-center justify-center group-hover:bg-foreground group-hover:border-foreground transition-all duration-500">
-                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-foreground group-hover:text-background group-hover:translate-x-1 transition-all duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </button>
-        </div>
-      </Container>
+      <NextCaseStudy
+        label="Suno AI"
+        tagline="AI-powered music creation platform"
+        image={mockNextStudy}
+        index="01 / 04"
+        onClick={() => onNavigate?.("home")}
+      />
 
       {/* 17. Footer Help Section */}
-      <Container className="py-16 md:py-24 lg:py-40 border-t border-foreground/10 flex flex-col lg:flex-row justify-between gap-10 md:gap-20">
+      <Container className="pt-10 pb-16 md:py-24 lg:py-40 border-t border-foreground/10 flex flex-col lg:flex-row justify-between gap-10 md:gap-20">
         <h2 className="font-display font-light text-display-md text-foreground">
           How can<br />we help?
         </h2>
@@ -532,7 +630,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
           {["Work together", "Join our team", "Just say hello"].map((item) => (
             <div key={item} className="group py-8 flex items-center justify-between cursor-pointer hover:opacity-60 transition-all">
               <span className="font-display text-h3 text-foreground font-light">{item}</span>
-              <svg className="size-6 transform group-hover:translate-x-1 transition-transform" viewBox="0 0 16 16" fill="currentColor">
+              <svg className="size-4 transform group-hover:translate-x-1 transition-transform" viewBox="0 0 16 16" fill="currentColor">
                 <path d={svgPaths.p37f30840} className="text-foreground" />
               </svg>
             </div>

@@ -1,20 +1,105 @@
-import React, { useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { FilterPills } from "./FilterPills";
+import { CaseStudyVideo } from "./CaseStudyVideo";
 import svgPaths from "../../imports/svg-mzksdxu5cb";
-import imgALaptop from "figma:asset/7dcf1eb305e49fd56df2eeff8def30d58bbb6d5d.png";
-import imgStadium from "figma:asset/8e1bd3beb4e3e6b53e47961132127b1fde8b63f7.png";
-import imgWomanWatermelon from "figma:asset/f8cadad5c36cf0a9e65fee88dc37fc6b99d1c9df.png";
-import imgFearlessGirl from "figma:asset/1a441e52b3c110b807b42a4823f056f49e15ab21.png";
-import imgModular from "figma:asset/239563a03addff58e7bdafc4ddfb926c074203fe.png";
-import imgHeadspace from "figma:asset/db1b2d96183e3601eeb45fce0ed3ede80cc1760c.png";
-import imgHeadspaceHero from "figma:asset/1dd5b8f086d220da8f1399bc087471b7ebacb733.png";
+import maxonVideo from "../../assets/what-i-do/maxon-video.mp4";
+import imgALaptop from "../../assets/uber/a-laptop.png";
+import imgStadium from "../../assets/what-i-do/stadium.png";
+import imgWomanWatermelon from "../../assets/what-i-do/woman-watermelon.png";
+import imgFearlessGirl from "../../assets/upwork/fearless-girl.png";
+import imgModular from "../../assets/modular/modular.png";
+import imgHeadspace from "../../assets/headspace/headspace.png";
 import { imgVector, imgVector1 } from "../../imports/svg-qglw9";
-import { useScroll, useTransform, motion } from "motion/react";
+import { useScroll, useTransform, useSpring, useInView, animate, motion } from "motion/react";
+
+const formatDuration = (startYear: number, startMonth: number) => {
+  const now = new Date();
+  const totalMonths = Math.max(
+    0,
+    (now.getFullYear() - startYear) * 12 + (now.getMonth() - (startMonth - 1))
+  );
+  const years = Math.floor(totalMonths / 12);
+  const months = totalMonths % 12;
+  const yearPart = years > 0 ? `${years}yr${years > 1 ? "s" : ""}` : "";
+  const monthPart = months > 0 ? `${months}mo` : "";
+  return [yearPart, monthPart].filter(Boolean).join(" ") || "0mo";
+};
+
+const EXPERIENCES = [
+  {
+    role: "UI/UX Designer",
+    company: "Tagoplus (Korea)",
+    type: `Full Time (${formatDuration(2024, 1)})`,
+    description: "I work across every stage of the product here, from research and prototyping to design systems, visual graphics, and illustrations, right through to shipping the software itself. I partner closely with stakeholders and developers, learning from their perspective to ship work that ties design decisions to real business outcomes.",
+    categories: ["UI/UX", "Visual", "Development"],
+  },
+  {
+    role: "Freelance Designer",
+    company: "Independent",
+    type: "Since 2024 – Present",
+    description: "Working with startups and brands across the globe on product design, branding, and motion — shipping work end-to-end, from first sketch to launch.",
+    categories: ["UI/UX", "Visual"],
+  },
+];
+
+const STATS = [
+  { label: ["Years", "designing"], val: 2, suffix: "+" },
+  { label: ["Projects", "shipped"], val: 12, suffix: "+" },
+  { label: ["Happy", "clients"], val: 10, suffix: "+" },
+  { label: ["Industries", "covered"], val: 8, suffix: "" },
+  { label: ["Countries", "reached"], val: 4, suffix: "" },
+];
+
+function CountUp({ to, duration = 1.6 }: { to: number; duration?: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "100px" });
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const controls = animate(0, to, {
+      duration,
+      ease: [0.16, 1, 0.3, 1],
+      onUpdate: (v) => setDisplay(Math.round(v)),
+    });
+    return () => controls.stop();
+  }, [inView, to, duration]);
+
+  return <span ref={ref}>{display}</span>;
+}
 
 export function WhatIDo() {
   const targetRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
-  
+  const fullWidthRef = useRef(0);
+
+  const [expFilters, setExpFilters] = useState<Set<string>>(new Set());
+  const toggleExpFilter = (cat: string) => {
+    if (cat === "All") {
+      setExpFilters(new Set());
+      return;
+    }
+    setExpFilters((prev) => {
+      const next = new Set(prev);
+      if (next.has(cat)) next.delete(cat);
+      else next.add(cat);
+      return next;
+    });
+  };
+
+  // Animate the banner width in pixels (Framer can't interpolate a motion
+  // value across mixed units). Target the full visible viewport width so the
+  // banner bleeds edge-to-edge past the page's side padding when expanded.
+  useEffect(() => {
+    const measure = () => {
+      fullWidthRef.current = document.documentElement.clientWidth;
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start end", "end start"]
@@ -25,9 +110,27 @@ export function WhatIDo() {
     offset: ["start start", "end start"]
   });
 
-  const bannerWidth = useTransform(heroScroll, [0, 0.5], ["min(454px, calc(100vw - 32px))", "100%"]);
-  const bannerRadius = useTransform(heroScroll, [0, 0.3, 0.5], ["20px", "20px", "0px"]);
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-60%"]);
+  // Banner grows from 460px to its container's full width over the first half
+  // of the hero scroll, eased (easeInOutCubic) for a soft landing.
+  const BANNER_START = 460;
+  const bannerWidth = useTransform(heroScroll, (p) => {
+    const full = fullWidthRef.current || BANNER_START;
+    const start = Math.min(BANNER_START, full);
+    const t = Math.min(1, Math.max(0, p / 0.5));
+    const eased = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    return start + (full - start) * eased;
+  });
+  const bannerRadius = useTransform(heroScroll, [0, 0.3, 0.5], ["12px", "12px", "0px"]);
+
+  // Smooth the raw scroll progress with a spring so the horizontal strip eases
+  // instead of being rigidly locked to scroll position (which reads as janky).
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    mass: 0.35,
+    restDelta: 0.0005,
+  });
+  const x = useTransform(smoothProgress, [0, 1], ["0%", "-60%"]);
 
   return (
     <div style={{ position: 'relative' }} className="bg-background text-foreground flex flex-col items-start pt-page w-screen min-h-screen relative overflow-x-hidden ml-[calc(-50vw+50%)]">
@@ -37,28 +140,31 @@ export function WhatIDo() {
         style={{ position: 'relative' }} 
         className="flex flex-col items-center w-full relative px-6"
       >
-        <h1 className="font-serif font-light text-display-xl text-center mb-8">
-          Designing experiences powered by AI thinking
+        <h1 className="font-serif font-light text-[clamp(64px,10vw,88px)] leading-[1.1] tracking-[-0.025em] text-center mb-8">
+          Designing experiences<br />powered by AI thinking
         </h1>
         <div className="mt-12 md:mt-[90px] mb-12 md:mb-[90px] w-full flex justify-center relative">
           <motion.div
             style={{
               width: bannerWidth,
-              borderRadius: bannerRadius,
+              borderTopLeftRadius: bannerRadius,
+              borderTopRightRadius: bannerRadius,
+              borderBottomLeftRadius: 12,
+              borderBottomRightRadius: 12,
               position: 'relative',
               overflow: 'hidden'
             }}
-            className="aspect-video bg-foreground/20 relative"
+            className="h-[clamp(380px,60vh,560px)] md:h-[794px] bg-foreground/20 relative"
           >
-            <ImageWithFallback src={imgHeadspaceHero} className="w-full h-full object-cover" />
+            <CaseStudyVideo src={maxonVideo} className="w-full h-full" />
           </motion.div>
         </div>
       </div>
 
       {/* Breakthrough Products Section */}
-      <div className="w-full py-[60px] md:py-[90px] relative px-6">
+      <div className="w-full py-[60px] md:py-[90px] relative px-6 md:pl-[144px]">
         <div className="max-w-[866px] relative">
-          <h2 className="font-display font-light text-foreground text-display-sm relative">
+          <h2 className="font-serif font-light text-foreground text-h1 relative">
             I combine UI/UX craft with AI-driven workflows to design products that feel intuitive and ship faster
           </h2>
         </div>
@@ -70,15 +176,13 @@ export function WhatIDo() {
         style={{ position: 'relative' }} 
         className="w-full overflow-hidden pb-[60px] md:pb-[90px] relative"
       >
-        <motion.div 
-          style={{ 
-            x, 
+        <motion.div
+          style={{
+            x,
             position: 'relative',
             willChange: 'transform',
-            transform: 'translateZ(0)'
-          }} 
+          }}
           className="flex gap-[16px] md:gap-[24px] lg:pl-[clamp(100px,20vw,260px)] min-w-max items-start relative"
-          transition={{ type: "spring", stiffness: 100, damping: 30, mass: 0.5 }}
         >
           <div className="w-[236px] h-[187px] shrink-0 overflow-hidden rounded-none bg-foreground/10">
             <ImageWithFallback src={imgALaptop} className="w-full h-full object-cover" />
@@ -103,7 +207,7 @@ export function WhatIDo() {
 
       {/* What I Do Headline */}
       <div className="w-full py-[32px] px-6">
-                <h3 className="font-display font-light text-h2 text-foreground">
+                <h3 className="font-display font-normal text-h2 text-foreground">
           What I do
         </h3>
       </div>
@@ -125,6 +229,11 @@ export function WhatIDo() {
           description="I leverage AI-powered design and development tools to go from concept to interactive prototype fast — validating ideas early and iterating with real user feedback."
           image={imgStadium}
         />
+        <ServiceRow
+          title="Usability testing & product validation"
+          description="I validate designs with real users — running usability sessions, gathering honest feedback, and tracking the outcomes that matter — then iterate until the product is one people genuinely succeed with."
+          image={imgHeadspace}
+        />
       </div>
 
       {/* Categories List */}
@@ -141,6 +250,66 @@ export function WhatIDo() {
           title="Strategy & Delivery"
           items={["Product Thinking", "Design Sprint Facilitation", "Design-to-Dev Handoff", "Usability Audits"]}
         />
+      </div>
+
+      {/* Stats Grid */}
+      <div className="w-full px-6 py-[48px] md:py-[90px]">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-0">
+          {STATS.map((stat, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="relative h-[200px] md:h-[390px] flex flex-col justify-between pl-3 md:pl-6 group"
+            >
+              <div className="absolute left-0 top-0 bottom-0 w-px bg-brand" />
+              <div className="flex flex-col gap-1 text-body md:text-h3 text-foreground/80 leading-tight pt-4">
+                {stat.label.map((l, j) => <span key={j}>{l}</span>)}
+              </div>
+              <div className="flex items-baseline gap-1 pb-4">
+                <span className="font-display text-display-md font-light leading-none tabular-nums">
+                  <CountUp to={stat.val} />
+                </span>
+                {stat.suffix && (
+                  <span className="font-display text-h2 font-normal">{stat.suffix}</span>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Career Experiences */}
+      <div className="w-full px-6 py-[60px] md:py-[90px] lg:py-[120px]">
+        <div className="mx-auto max-w-[1280px] flex flex-col lg:flex-row items-start justify-between border-t border-foreground/10 pt-10 md:pt-20">
+          <div className="lg:w-[464px]">
+            <h2 className="font-display text-h1 font-light">My Carrier —<br />Experiences</h2>
+          </div>
+          <div className="lg:w-[812px] pt-4">
+            <FilterPills
+              categories={["All", "UI/UX", "Visual", "Development"]}
+              selected={expFilters}
+              onToggle={toggleExpFilter}
+              className="mb-16"
+            />
+            <div className="space-y-0">
+              {EXPERIENCES.filter(e => expFilters.size === 0 || e.categories.some(c => expFilters.has(c))).map((exp, i) => (
+                <div key={i} className="border-t border-foreground/10 py-10">
+                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2 md:gap-0 mb-6 text-h3 text-foreground">
+                    <h3 className="font-light">{exp.role}</h3>
+                    <span className="text-foreground/60 text-body font-light">{exp.company}</span>
+                    <span className="text-foreground text-body font-light">{exp.type}</span>
+                  </div>
+                  <p className="text-foreground/60 text-body font-light max-w-[700px]">
+                    {exp.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Help Section */}
@@ -195,38 +364,38 @@ function ServiceRow({ title, description, image }: { title: string; description:
       whileHover="hovered"
       className="w-full border-b border-foreground/10 relative group cursor-pointer overflow-hidden"
     >
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 lg:gap-0 py-[32px] md:py-[50px] px-6 lg:min-h-[280px] hover:bg-foreground/5 transition-colors duration-300">
+      {/* Soft background that fades in on hover — kept clearly visible */}
+      <div className="pointer-events-none absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] bg-gradient-to-t from-foreground/[0.10] via-foreground/[0.07] to-foreground/[0.04]" />
+
+      {/* Hover expansion — opens the card upward by adding space above the content */}
+      <div className="hidden lg:block w-full h-0 group-hover:h-[64px] transition-[height] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+
+      <div className="relative z-[1] flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 lg:gap-0 px-6 py-[32px] md:py-[50px] lg:min-h-[280px]">
         {/* Heading */}
-        <motion.div
-          className="w-full lg:w-[460px] xl:w-[640px] 2xl:w-[760px]"
-          variants={{
-            initial: { x: 0 },
-            hovered: { x: -8 }
-          }}
-          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <h4 className="font-serif font-light text-display-sm text-foreground">
+        <div className="w-full lg:w-[460px] xl:w-[640px] 2xl:w-[760px]">
+          <h4 className="font-serif font-light text-h1 text-foreground">
             {title}
           </h4>
-        </motion.div>
+        </div>
 
         {/* Center/Right Content Group */}
         <div className="flex flex-col md:flex-row items-start md:items-center gap-[40px] relative">
-          {/* Animated Image Container */}
+          {/* Animated Image Container — clip-mask reveal from the bottom */}
           <motion.div
             variants={{
-              initial: { opacity: 1 },
-              hovered: { opacity: 1 }
+              initial: { clipPath: "inset(100% 0% 0% 0%)" },
+              hovered: { clipPath: "inset(0% 0% 0% 0%)" }
             }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="hidden lg:block w-[clamp(200px,20vw,308px)] h-[180px] shrink-0 overflow-hidden rounded-none relative"
           >
+            {/* Inner layer drifts up slightly as the mask reveals — gentle parallax */}
             <motion.div
               variants={{
-                initial: { y: "100%", scale: 1.15, opacity: 0 },
-                hovered: { y: 0, scale: 1, opacity: 1 }
+                initial: { y: "10%", scale: 1.06 },
+                hovered: { y: "0%", scale: 1 }
               }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               className="w-full h-full"
             >
               <ImageWithFallback

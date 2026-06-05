@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
 
-const navItems = ["What I Do", "About Me", "My Blogs", "Get in Touch"];
+const navItems = ["About Me", "My Blogs", "Shop", "Get in Touch"];
 const caseStudies = [
   "EduSync",
   "Suno",
@@ -13,7 +13,7 @@ const caseStudies = [
 ];
 
 interface SidebarProps {
-  onCaseStudyClick?: (view: "home" | "edusync" | "what-i-do" | "blogs" | "about" | "contact") => void;
+  onCaseStudyClick?: (view: "home" | "edusync" | "what-i-do" | "blogs" | "contact" | "all-work" | "shop") => void;
   onCaseStudyHover?: (study: string | null) => void;
   isMenuOpen?: boolean;
   activeView?: string;
@@ -48,10 +48,10 @@ export function Sidebar({ onCaseStudyClick, onCaseStudyHover, isMenuOpen, active
       {/* Navigation Links */}
       <div className={`hidden lg:flex flex-col items-start gap-[6px] w-full transition-all duration-500 ease-in-out ${isMenuOpen ? 'opacity-0 -translate-x-4 pointer-events-none' : 'opacity-100 translate-x-0'}`}>
         {navItems.map((item) => {
-          const view = 
-            item === "What I Do" ? "what-i-do" : 
-            item === "About Me" ? "about" : 
-            item === "My Blogs" ? "blogs" : 
+          const view =
+            item === "About Me" ? "what-i-do" :
+            item === "My Blogs" ? "blogs" :
+            item === "Shop" ? "shop" :
             item === "Get in Touch" ? "contact" : "";
           const isActive = activeView === view;
 
@@ -59,9 +59,9 @@ export function Sidebar({ onCaseStudyClick, onCaseStudyHover, isMenuOpen, active
             <button
               key={item}
               onClick={() => {
-                if (item === "What I Do") onCaseStudyClick?.("what-i-do");
-                if (item === "About Me") onCaseStudyClick?.("about");
+                if (item === "About Me") onCaseStudyClick?.("what-i-do");
                 if (item === "My Blogs") onCaseStudyClick?.("blogs");
+                if (item === "Shop") onCaseStudyClick?.("shop");
                 if (item === "Get in Touch") onCaseStudyClick?.("contact");
               }}
               className={`py-[2px] font-serif font-light text-[20px] leading-[1.3] transition-all duration-300 cursor-pointer text-left ${
@@ -86,7 +86,10 @@ export function Sidebar({ onCaseStudyClick, onCaseStudyHover, isMenuOpen, active
             <motion.button
               key={study}
               whileTap={{ scale: 0.95 }}
-              onClick={() => study === "EduSync" && onCaseStudyClick?.("edusync")}
+              onClick={() => {
+                if (study === "EduSync") onCaseStudyClick?.("edusync");
+                if (study === "All Work") onCaseStudyClick?.("all-work");
+              }}
               onMouseEnter={() => onCaseStudyHover?.(study)}
               onMouseLeave={() => onCaseStudyHover?.(null)}
               className="bg-foreground/10 h-[clamp(30px,3.8vh,34px)] w-fit inline-flex items-center justify-center px-[16px] pt-[2px] rounded-full font-display font-light text-body leading-none text-foreground tracking-tight border border-transparent hover:border-foreground/30 hover:bg-foreground/5 transition-all cursor-pointer relative z-10"

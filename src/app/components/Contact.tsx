@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ChevronDown, Check } from "lucide-react";
+import { ChevronDown, Check, Mail } from "lucide-react";
 
 type SelectFieldProps = {
   label: string;
@@ -175,7 +175,7 @@ export function Contact() {
 
           <div className="flex flex-col gap-8 max-w-[400px]">
             <div className="flex flex-col gap-4">
-              <h3 className="text-h3 font-normal text-foreground">Have a project in mind?</h3>
+              <h3 className="text-h3 font-light text-foreground">Have a project in mind?</h3>
               <p className="text-body-lg text-foreground/60 font-light">
                 Tell me about your product, the problem you're solving, and where you need design support — from early concepts to full product experiences.
               </p>
@@ -184,8 +184,11 @@ export function Contact() {
               </p>
             </div>
 
-            <a href="mailto:heindsgn@gmail.com" className="text-body-lg text-foreground/80 border-b border-foreground/40 pb-px w-fit hover:border-foreground transition-colors cursor-pointer font-light">
-              heindsgn@gmail.com
+            <a href="mailto:heindsgn@gmail.com" className="group inline-flex items-center gap-2 text-body-lg text-foreground/80 w-fit hover:text-foreground transition-colors cursor-pointer font-light">
+              <Mail className="size-[18px] shrink-0" strokeWidth={1.5} aria-hidden />
+              <span className="border-b border-foreground/40 pb-px group-hover:border-foreground transition-colors">
+                heindsgn@gmail.com
+              </span>
             </a>
           </div>
 

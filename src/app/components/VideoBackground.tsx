@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import bgVideo from "../../assets/cinematic-abstract-motion-background-no-cgi-used-2025-12-17-04-34-33-utc_v1 (1080p).mp4";
+import bgVideo from "../../assets/home/home-bg-video.mp4";
 
 const FADE_MS = 900;
 const FADE_WINDOW_S = FADE_MS / 1000;

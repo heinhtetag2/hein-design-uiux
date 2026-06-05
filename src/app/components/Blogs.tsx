@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "motion/react";
+import { FilterPills } from "./FilterPills";
 
 interface BlogPost {
   id: string;
@@ -243,44 +244,13 @@ export function Blogs({ onPostClick }: { onPostClick?: (postId: string) => void 
         transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
         className="mb-[48px] md:mb-[100px]"
       >
-        <h1 className="font-serif font-light text-display-lg">
+        <h1 className="font-serif font-light text-[clamp(56px,8vw,88px)] leading-[1] tracking-[-0.02em]">
           Thoughts &<br />insights
         </h1>
       </motion.div>
 
       {/* Filters */}
-      <div className="flex flex-wrap gap-2 mb-[50px]">
-        {CATEGORIES.map((cat) => {
-          const isAll = cat === "All";
-          const isActive = isAll ? filters.size === 0 : filters.has(cat);
-          return (
-            <button
-              key={cat}
-              onClick={() => toggleFilter(cat)}
-              aria-pressed={isActive}
-              className={`flex items-center gap-1.5 h-8 rounded-full border transition-all duration-300 text-body-sm font-normal tracking-tight cursor-pointer ${
-                isActive && !isAll
-                  ? "bg-brand text-brand-foreground border-brand pl-4 pr-2"
-                  : isActive && isAll
-                  ? "bg-foreground text-background border-foreground px-5"
-                  : "bg-foreground/10 text-foreground/60 border-transparent hover:border-foreground/20 hover:text-foreground backdrop-blur-md px-5"
-              }`}
-            >
-              <span>{cat}</span>
-              {isActive && !isAll && (
-                <span
-                  aria-hidden
-                  className="flex items-center justify-center size-4 rounded-full bg-brand-foreground/15"
-                >
-                  <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
-                    <path d="M1 1L7 7M1 7L7 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-                  </svg>
-                </span>
-              )}
-            </button>
-          );
-        })}
-      </div>
+      <FilterPills categories={CATEGORIES} selected={filters} onToggle={toggleFilter} className="mb-[50px]" />
 
       {/* Blog List */}
       <div className="flex flex-col border-t border-foreground/10">

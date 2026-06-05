@@ -1,6 +1,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "motion/react";
-import mockEduSync from "../../assets/bgbgbg.png";
+import mockEduSync from "../../assets/edu-sync/edusync-hover-mock.png";
+import mockAllWork from "../../assets/feed/windsurf-laptop.png";
 
 interface StudyContent {
   name: string;
@@ -45,6 +46,7 @@ export const caseStudyContent: Record<string, StudyContent> = {
     name: "All Work",
     tagline: "A complete archive of recent product, brand, and design explorations.",
     categories: "Selected Works",
+    image: mockAllWork,
   },
 };
 
@@ -107,7 +109,7 @@ export function CaseStudyHoverContent({ hoveredStudy }: Props) {
                     opacity: 0,
                     transition: { duration: 0.14, ease: "linear" },
                   }}
-                  className="w-[clamp(250px,24vw,400px)] h-auto object-contain rounded-[6px]"
+                  className="w-[clamp(250px,24vw,400px)] aspect-square object-cover rounded-[6px]"
                 />
               )}
             </div>

@@ -58,13 +58,13 @@ export function VisitorGallery({ onEditCard }: VisitorGalleryProps) {
         transition={{ duration: 0.7, ease: EASE }}
         className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between mb-10 sm:mb-14"
       >
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:gap-6">
+        <div className="flex flex-col gap-3">
           <h1 className="font-serif font-light text-display-sm sm:text-display-md text-foreground leading-[1.05]">
             Visitor Gallery
           </h1>
-          <div className="flex flex-col gap-1.5 sm:pb-3">
+          <div className="flex flex-col gap-1.5 pl-2">
             {totalCount > 0 && (
-              <p className="font-display text-eyebrow text-foreground/60">
+              <p className="font-display text-caption text-foreground/60">
                 {latestNo ? `You're our No. ${latestNo} guest` : `${totalCount} pass${totalCount === 1 ? "" : "es"} issued`}
               </p>
             )}
@@ -74,7 +74,7 @@ export function VisitorGallery({ onEditCard }: VisitorGalleryProps) {
                   isSupabaseConfigured ? "bg-brand animate-pulse" : "bg-foreground/30"
                 }`}
               />
-              <span className="font-display text-eyebrow text-foreground/50">
+              <span className="font-display text-caption text-foreground/50">
                 {isSupabaseConfigured
                   ? `Live · ${totalCount} guest${totalCount === 1 ? "" : "s"} worldwide`
                   : "Local preview"}

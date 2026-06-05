@@ -1,18 +1,22 @@
 import React from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "motion/react";
-import { Music } from "lucide-react";
-import svgPaths from "../../imports/svg-lb0wh4b8mk";
+import { Music, ShoppingBag, Moon, Mail } from "lucide-react";
+import { useCart } from "../shop/CartContext";
+// Site logo — light & dark variants. The theme swaps between them via the
+// [data-logo] rules in theme.css. Replacements live in src/assets/logo/.
+import logoLight from "../../assets/logo/heinlogolight.svg";
+import logoDark from "../../assets/logo/heinlogodark.svg";
 
 interface TopNavProps {
   onLogoClick?: () => void;
-  onNavigate?: (view: "home" | "edusync" | "what-i-do" | "blogs" | "about" | "contact" | "visitor-gallery") => void;
+  onNavigate?: (view: "home" | "edusync" | "what-i-do" | "blogs" | "contact" | "visitor-gallery" | "all-work" | "shop") => void;
   isMenuOpen: boolean;
   onMenuOpenChange: (open: boolean) => void;
-  currentView?: "home" | "edusync" | "what-i-do" | "blogs" | "about" | "contact" | "visitor-gallery";
+  currentView?: "home" | "edusync" | "what-i-do" | "blogs" | "contact" | "visitor-gallery" | "all-work" | "shop" | "blog-detail" | "product-detail" | "checkout";
 }
 
-function Menu({ isOpen, setIsOpen, onNavigate, currentView }: { isOpen: boolean; setIsOpen: (open: boolean) => void; onNavigate?: (view: "home" | "edusync" | "what-i-do" | "blogs" | "about" | "contact" | "visitor-gallery") => void; currentView?: "home" | "edusync" | "what-i-do" | "blogs" | "about" | "contact" | "visitor-gallery" }) {
+function Menu({ isOpen, setIsOpen, onNavigate, currentView }: { isOpen: boolean; setIsOpen: (open: boolean) => void; onNavigate?: (view: "home" | "edusync" | "what-i-do" | "blogs" | "contact" | "visitor-gallery" | "all-work" | "shop") => void; currentView?: "home" | "edusync" | "what-i-do" | "blogs" | "contact" | "visitor-gallery" | "all-work" | "shop" | "blog-detail" | "product-detail" | "checkout" }) {
   return (
     <>
       <button 
@@ -64,10 +68,9 @@ function Menu({ isOpen, setIsOpen, onNavigate, currentView }: { isOpen: boolean;
                   <nav className="flex flex-col gap-4">
                     {[
                       { label: 'My Works', view: 'home' },
-                      { label: 'What I Do', view: 'what-i-do' },
-                      { label: 'About Me', view: 'about' },
+                      { label: 'About Me', view: 'what-i-do' },
                       { label: 'My Blogs', view: 'blogs' },
-                      { label: 'Visitor Gallery', view: 'visitor-gallery' },
+                      { label: 'Shop', view: 'shop' },
                       { label: 'Get in Touch', view: 'contact' },
                     ].map((item, idx) => {
                       const isActive = currentView === item.view;
@@ -105,10 +108,26 @@ function Menu({ isOpen, setIsOpen, onNavigate, currentView }: { isOpen: boolean;
                           ))}
                         </div>
                       </div>
+                      <button
+                        onClick={() => {
+                          if (currentView !== 'visitor-gallery') onNavigate?.('visitor-gallery');
+                          setIsOpen(false);
+                        }}
+                        className={`group flex items-center justify-between gap-3 w-full text-left cursor-pointer rounded-2xl border px-4 py-3 transition-colors ${
+                          currentView === 'visitor-gallery'
+                            ? 'border-foreground/30 bg-foreground/[0.04]'
+                            : 'border-foreground/10 hover:border-foreground/30 hover:bg-foreground/[0.03]'
+                        }`}
+                      >
+                        <span className="space-y-0.5">
+                          <span className="block font-display text-eyebrow text-muted-foreground">Guestbook</span>
+                          <span className="block font-display font-light text-body-sm text-foreground">Visitor Gallery</span>
+                        </span>
+                        <span className="font-display text-body-sm text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 transition-all">→</span>
+                      </button>
                     </div>
                     
-                    <div className="mt-8 sm:mt-0">
-                      <div className="h-px w-full bg-foreground/5 mb-4" />
+                    <div className="mt-6">
                       <p className="font-display text-caption text-muted-foreground italic">
                         Intentional design since 2024
                       </p>
@@ -154,15 +173,14 @@ function TimeInfo() {
   );
 }
 
-function MoonIcon({ onClick }: { onClick: () => void }) {
+function MoonIcon({ onClick, filled }: { onClick: () => void; filled?: boolean }) {
   return (
-    <button 
+    <button
       onClick={onClick}
-      className="relative size-[20px] sm:size-[22px] shrink-0 cursor-pointer hover:opacity-70 transition-opacity"
+      aria-label={filled ? "Switch to light mode" : "Switch to dark mode"}
+      className="flex items-center justify-center size-[20px] sm:size-[22px] shrink-0 cursor-pointer hover:opacity-70 transition-opacity"
     >
-      <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 22 22">
-        <path clipRule="evenodd" d={svgPaths.p228d1600} className="fill-foreground" fillRule="evenodd" />
-      </svg>
+      <Moon className="size-[15px] text-foreground" strokeWidth={1.5} fill={filled ? "currentColor" : "none"} />
     </button>
   );
 }
@@ -171,13 +189,10 @@ function MailIcon({ onClick }: { onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="flex items-center justify-center size-[20px] sm:size-[22px] shrink-0 cursor-pointer"
+      className="flex items-center justify-center size-[20px] sm:size-[22px] shrink-0 cursor-pointer hover:opacity-70 transition-opacity"
       aria-label="Get in Touch"
     >
-      <svg className="block w-[10px] h-[8px]" fill="none" preserveAspectRatio="none" viewBox="0 0 10 8">
-        <path d={svgPaths.p2da61a00} className="stroke-foreground" />
-        <path d={svgPaths.p234cb200} className="stroke-foreground" />
-      </svg>
+      <Mail className="size-[15px] text-foreground" strokeWidth={1.5} />
     </button>
   );
 }
@@ -189,7 +204,7 @@ function MusicIcon({ isPlaying, onClick }: { isPlaying: boolean; onClick: () => 
       className="relative size-[20px] sm:size-[22px] shrink-0 cursor-pointer hover:opacity-70 transition-opacity flex items-center justify-center group"
     >
       <div className="relative flex items-center justify-center">
-        <Music className={`size-[12px] transition-all duration-300 ${isPlaying ? "text-foreground opacity-100" : "text-foreground/40 opacity-50"}`} />
+        <Music strokeWidth={1.5} className={`size-[15px] transition-all duration-300 ${isPlaying ? "text-foreground opacity-100" : "text-foreground/40 opacity-50"}`} />
         {!isPlaying && (
           <motion.div 
             initial={{ width: 0 }}
@@ -202,30 +217,33 @@ function MusicIcon({ isPlaying, onClick }: { isPlaying: boolean; onClick: () => 
   );
 }
 
+function CartButton() {
+  const { count, openCart } = useCart();
+  return (
+    <button
+      onClick={openCart}
+      aria-label={`Open cart${count > 0 ? `, ${count} item${count === 1 ? "" : "s"}` : ""}`}
+      className="relative flex size-[20px] sm:size-[22px] shrink-0 items-center justify-center cursor-pointer hover:opacity-70 transition-opacity"
+    >
+      <ShoppingBag className="size-[15px] text-foreground" strokeWidth={1.5} />
+      {count > 0 && (
+        <span className="absolute -right-2 -top-1.5 flex min-w-[14px] h-[14px] items-center justify-center rounded-full bg-brand px-1 text-[8px] font-medium leading-none text-brand-foreground tabular-nums">
+          {count}
+        </span>
+      )}
+    </button>
+  );
+}
+
 function Logo({ onClick }: { onClick?: () => void }) {
   return (
-    <button 
+    <button
       onClick={onClick}
-      className="relative lg:absolute lg:-translate-x-1/2 lg:-translate-y-1/2 flex items-end lg:left-1/2 lg:top-1/2 scale-75 sm:scale-100 cursor-pointer hover:opacity-80 transition-opacity"
+      aria-label="Home"
+      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center scale-75 sm:scale-100 cursor-pointer hover:opacity-80 transition-opacity"
     >
-      <div className="h-[18px] w-[15px]">
-        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 15.3226 18.2338">
-          <path d={svgPaths.p6e9c80} className="fill-foreground" />
-        </svg>
-      </div>
-      <div className="h-[18px] w-[15px]">
-        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 15.3226 18.2338">
-          <path d={svgPaths.p6e9c80} className="fill-foreground" />
-        </svg>
-      </div>
-      <div className="flex flex-col h-[18px] items-start justify-center relative">
-        <div className="w-[9px] h-[9px]">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 9.35484 9.20151">
-            <path d={svgPaths.p996def0} className="fill-foreground" />
-          </svg>
-        </div>
-        <div className="bg-foreground h-[9px] rounded-tr-[3px] w-[9px]" />
-      </div>
+      <img src={logoLight} alt="Heindsgn" data-logo="light" className="h-[26px] w-auto" />
+      <img src={logoDark} alt="Heindsgn" data-logo="dark" className="h-[26px] w-auto" />
     </button>
   );
 }
@@ -234,6 +252,7 @@ export function TopNav({ onLogoClick, onNavigate, isMenuOpen, onMenuOpenChange, 
   const [scrolled, setScrolled] = React.useState(false);
   const [isMusicPlaying, setIsMusicPlaying] = React.useState(false);
   const [isVisible, setIsVisible] = React.useState(false);
+  const [isDark, setIsDark] = React.useState(true);
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
   React.useEffect(() => {
@@ -273,6 +292,7 @@ export function TopNav({ onLogoClick, onNavigate, isMenuOpen, onMenuOpenChange, 
     if (!document.documentElement.classList.contains('dark') && !document.documentElement.classList.contains('light')) {
       document.documentElement.classList.add('dark');
     }
+    setIsDark(!document.documentElement.classList.contains('light'));
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -298,9 +318,11 @@ export function TopNav({ onLogoClick, onNavigate, isMenuOpen, onMenuOpenChange, 
     if (document.documentElement.classList.contains('dark')) {
       document.documentElement.classList.remove('dark');
       document.documentElement.classList.add('light');
+      setIsDark(false);
     } else {
       document.documentElement.classList.remove('light');
       document.documentElement.classList.add('dark');
+      setIsDark(true);
     }
   };
 
@@ -321,9 +343,10 @@ export function TopNav({ onLogoClick, onNavigate, isMenuOpen, onMenuOpenChange, 
       <Logo onClick={onLogoClick} />
       <div className="flex gap-2 sm:gap-[8px] items-center">
         <TimeInfo />
-        <MoonIcon onClick={toggleTheme} />
+        <MoonIcon onClick={toggleTheme} filled={isDark} />
         <MusicIcon isPlaying={isMusicPlaying} onClick={toggleMusic} />
         <MailIcon onClick={() => onNavigate("contact")} />
+        <CartButton />
       </div>
     </motion.header>
   );
