@@ -1,4 +1,5 @@
-/* Sans display + body: Clash Grotesk (Fontshare). Serif: Cormorant (Google),
-   falling back to system Georgia. Inter is intentionally not loaded. */
-@import url('https://api.fontshare.com/v2/css?f[]=clash-grotesk@200,300,400,500,600,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap');
+/* Fonts (Clash Grotesk via Fontshare, Cormorant via Google, Georgia system
+   fallback) are loaded with <link> tags in index.html — NOT via CSS @import.
+   CSS @import inside the bundled/minified production stylesheet loaded
+   unreliably on hosted builds (worked in dev, fell back to Georgia in prod),
+   so font loading lives in the HTML <head> instead. Inter is not loaded. */
