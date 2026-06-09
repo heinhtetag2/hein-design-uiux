@@ -74,10 +74,10 @@ export function Hero({ isStudyHovered = false }: HeroProps) {
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="w-fit h-fit flex items-center">
+          <div className="w-fit h-fit flex items-center font-serif" style={{ fontFamily: "var(--font-serif)" }}>
             Experience,
           </div>
-          <div className="ml-[clamp(60px,12vw,280px)] mt-[-0.1em]">
+          <div className="ml-[clamp(60px,12vw,280px)] mt-[-0.1em] font-serif" style={{ fontFamily: "var(--font-serif)" }}>
             intentionally
           </div>
         </motion.div>
