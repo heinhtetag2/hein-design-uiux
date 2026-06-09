@@ -34,7 +34,10 @@ export function Hero({ isStudyHovered = false }: HeroProps) {
         animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       >
-        <h1 className="font-serif font-light text-display-sm text-foreground tracking-tight leading-[1.05]">
+        <h1
+          className="font-serif font-light text-display-sm text-foreground tracking-tight leading-[1.05]"
+          style={{ fontFamily: "var(--font-serif)" }}
+        >
           Experience,<br />intentionally
         </h1>
         <p className="font-display font-light text-body-sm sm:text-body text-foreground/70 max-w-[300px]">
@@ -66,6 +69,7 @@ export function Hero({ isStudyHovered = false }: HeroProps) {
         {/* Experience, intentionally - Positioned below and to the left */}
         <motion.div
           className="mt-[calc(clamp(156px,18vh,236px)-4px)] ml-[calc(clamp(180px,16vw,320px)-4px)] font-serif font-light text-display-lg text-foreground whitespace-nowrap pointer-events-auto"
+          style={{ fontFamily: "var(--font-serif)" }}
           initial={{ opacity: 0, y: 20 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
