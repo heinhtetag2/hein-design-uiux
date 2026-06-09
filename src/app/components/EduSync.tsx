@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import svgPaths from "../../imports/svg-hddcdrfc75";
 import imgHero from "../../assets/edu-sync/hero.png";
 import imgVideo from "../../assets/edu-sync/video.png";
@@ -28,7 +28,7 @@ import { CaseStudyVideo } from "./CaseStudyVideo";
 import { ArrowUpRight } from "lucide-react";
 
 // EduSync interactive prototype — replace with your real Figma / live prototype URL.
-const PROTOTYPE_URL = "https://www.figma.com/proto/your-edusync-prototype";
+const PROTOTYPE_URL = "https://www.apple.com/os/macos/?version=no-hero";
 
 function Container({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return <div className={`w-full ${className}`}>{children}</div>;
@@ -215,6 +215,14 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
   const [cursorPos, setCursorPos] = React.useState({ x: 0, y: 0 });
   const [showCursor, setShowCursor] = React.useState(false);
   const [isDragging, setIsDragging] = React.useState(false);
+  const [showProtoBar, setShowProtoBar] = React.useState(false);
+
+  React.useEffect(() => {
+    const onScroll = () => setShowProtoBar(window.scrollY > 320);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   React.useEffect(() => {
     const container = scrollContainerRef.current;
@@ -260,25 +268,10 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       
       {/* 1. Header Section */}
       <Container className="pt-24 lg:pt-32 mb-2 lg:mb-20">
-        <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div className="mb-10">
           <h1 className="font-serif font-normal text-display-2xl text-foreground text-left">
             EduSync
           </h1>
-          <a
-            href={PROTOTYPE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative inline-flex w-fit cursor-pointer items-center gap-3 overflow-hidden rounded-full border border-foreground/25 py-1.5 pl-6 pr-5 lg:mb-3 lg:mr-4"
-          >
-            <span className="pointer-events-none absolute inset-0 origin-left scale-x-0 rounded-full bg-foreground transition-transform duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:scale-x-100" />
-            <span className="relative font-display font-normal text-body text-foreground transition-colors duration-500 group-hover:text-background">
-              View Prototype
-            </span>
-            <ArrowUpRight
-              className="relative h-4 w-4 text-foreground transition-all duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-background"
-              strokeWidth={1.5}
-            />
-          </a>
         </div>
         <div className="grid grid-cols-3 gap-4 lg:flex lg:flex-row lg:justify-between pb-[10px] lg:gap-8">
           <div className="flex flex-col gap-1 lg:w-[448px]">
@@ -651,6 +644,43 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
         </div>
         <div className="ml-auto text-foreground/20 font-light font-display text-body">© 2026 Hein Htet</div>
       </Container>
+
+      {/* Sticky Prototype Bar */}
+      <AnimatePresence>
+        {showProtoBar && (
+          <motion.div
+            initial={{ y: 80, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 80, opacity: 0 }}
+            transition={{ type: "spring", damping: 28, stiffness: 260 }}
+            className="fixed inset-x-0 bottom-5 lg:bottom-7 z-40 flex justify-center px-4 pointer-events-none"
+          >
+            <a
+              href={PROTOTYPE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group pointer-events-auto flex items-center gap-3 sm:gap-5 rounded-full border border-foreground/15 bg-background/70 py-2 pl-5 pr-2 backdrop-blur-xl shadow-[0_8px_40px_-12px_rgba(0,0,0,0.6)]"
+            >
+              <span className="flex items-center gap-2.5">
+                <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand)] animate-pulse" />
+                <span className="font-display font-normal text-body-sm text-foreground/80 whitespace-nowrap">
+                  <span className="hidden sm:inline text-foreground">EduSync</span>
+                  <span className="hidden sm:inline text-foreground/40"> · </span>
+                  Interactive Prototype
+                </span>
+              </span>
+              <span className="relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-foreground py-2 pl-4 pr-3.5 text-background">
+                <span className="pointer-events-none absolute inset-0 origin-left scale-x-0 bg-brand transition-transform duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:scale-x-100" />
+                <span className="relative font-display font-normal text-body-sm whitespace-nowrap transition-colors duration-500 group-hover:text-brand-foreground">View Prototype</span>
+                <ArrowUpRight
+                  className="relative h-4 w-4 text-background transition-all duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-foreground"
+                  strokeWidth={1.75}
+                />
+              </span>
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );
