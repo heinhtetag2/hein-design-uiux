@@ -50,6 +50,7 @@
   --sidebar-ring: oklch(0.708 0 0);
 
   /* Typography weights */
+  --font-weight-light: 300;
   --font-weight-normal: 400;
   --font-weight-medium: 500;
 
