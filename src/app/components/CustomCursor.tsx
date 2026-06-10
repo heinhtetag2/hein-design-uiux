@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 const INTERACTIVE_SELECTOR =
   'a, button, [role="button"], input, textarea, select, label, [data-cursor="hover"], .cursor-pointer';
 
-export function CustomCursor() {
+export const CustomCursor = React.memo(function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const [clicking, setClicking] = useState(false);
@@ -139,4 +139,4 @@ export function CustomCursor() {
       </div>
     </div>
   );
-}
+});

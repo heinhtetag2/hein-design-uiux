@@ -1,7 +1,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "motion/react";
-import mockEduSync from "../../assets/edu-sync/edusync-hover-mock.png";
-import mockAllWork from "../../assets/feed/windsurf-laptop.png";
+import mockEduSync from "../../assets/work/edusync/hover-cover.webp";
+import mockAllWork from "../../assets/feed/windsurf-laptop.webp";
 
 interface StudyContent {
   name: string;
@@ -54,7 +54,7 @@ interface Props {
   hoveredStudy: string | null;
 }
 
-export function CaseStudyHoverContent({ hoveredStudy }: Props) {
+export const CaseStudyHoverContent = React.memo(function CaseStudyHoverContent({ hoveredStudy }: Props) {
   const study = hoveredStudy ? caseStudyContent[hoveredStudy] : null;
 
   return (
@@ -118,4 +118,4 @@ export function CaseStudyHoverContent({ hoveredStudy }: Props) {
       </AnimatePresence>
     </div>
   );
-}
+});

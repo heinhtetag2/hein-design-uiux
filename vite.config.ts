@@ -32,4 +32,22 @@ export default defineConfig({
 
   // File types to support raw imports. Never add .css, .tsx, or .ts files to this.
   assetsInclude: ['**/*.svg', '**/*.csv'],
+
+  build: {
+    rollupOptions: {
+      output: {
+        // Split rarely-changing third-party libs into a long-cacheable vendor
+        // chunk so app edits don't invalidate the framework code in the browser.
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('scheduler')) return 'vendor-react'
+            if (id.includes('motion') || id.includes('framer')) return 'vendor-motion'
+            if (id.includes('lenis')) return 'vendor-lenis'
+            // Everything else (e.g. the lazily-imported Supabase client) is left
+            // to Rollup so dynamic imports keep their own deferred chunks.
+          }
+        },
+      },
+    },
+  },
 })

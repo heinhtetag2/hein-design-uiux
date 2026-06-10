@@ -2,14 +2,14 @@ import React from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { FilterPills } from "./FilterPills";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import imgEduSync from "../../assets/edu-sync/edusync-hover-mock.png";
-import imgSuno from "../../assets/suno/suno-app-mockup.png";
-import imgMidjourney from "../../assets/midjourney/chrome-abstract.png";
-import imgUber from "../../assets/uber/a-laptop.png";
-import imgUpwork from "../../assets/upwork/fearless-girl.png";
-import imgHeadspace from "../../assets/headspace/headspace-hero.png";
-import imgNike from "../../assets/nike/nike-app-showcase.png";
-import imgModular from "../../assets/modular/modular.png";
+import imgEduSync from "../../assets/work/edusync/hover-cover.webp";
+import imgSuno from "../../assets/work/suno/app-mockup.webp";
+import imgMidjourney from "../../assets/work/midjourney/chrome-abstract.webp";
+import imgUber from "../../assets/work/uber/laptop.webp";
+import imgUpwork from "../../assets/work/upwork/fearless-girl.webp";
+import imgHeadspace from "../../assets/work/headspace/cover.webp";
+import imgNike from "../../assets/work/nike/app-showcase.webp";
+import imgModular from "../../assets/work/modular/cover.webp";
 
 type WorkView = "home" | "edusync" | "what-i-do" | "blogs" | "contact" | "visitor-gallery";
 

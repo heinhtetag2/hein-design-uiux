@@ -1,29 +1,32 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
+import { motion, AnimatePresence, MotionConfig } from "motion/react";
 import Lenis from "lenis";
+// Critical "home" shell — eager so the first paint has no extra round-trip.
 import { TopNav } from "./components/TopNav";
 import { Sidebar } from "./components/Sidebar";
 import { Hero } from "./components/Hero";
-import { EduSync } from "./components/EduSync";
-import { AskAnything } from "./components/AskAnything";
 import { PageTransitionOverlay } from "./components/PageTransitionOverlay";
 import { VideoBackground } from "./components/VideoBackground";
 import { CaseStudyHoverBackground } from "./components/CaseStudyHoverBackground";
 import { CaseStudyHoverContent } from "./components/CaseStudyHoverContent";
-import { WhatIDo } from "./components/WhatIDo";
-import { AllWork } from "./components/AllWork";
-import { Blogs } from "./components/Blogs";
-import { Contact } from "./components/Contact";
-import { BlogDetail } from "./components/BlogDetail";
 import { CustomCursor } from "./components/CustomCursor";
 import { VisitorCard } from "./components/VisitorCard";
-import { VisitorGallery } from "./components/VisitorGallery";
 import { VISITOR_STORAGE_KEY, appendVisitor, type Visitor } from "./visitorStore";
-import { Shop } from "./components/Shop";
-import { ProductDetail } from "./components/ProductDetail";
-import { Checkout } from "./components/Checkout";
 import { CartProvider } from "./shop/CartContext";
 import { CartDrawer } from "./components/CartDrawer";
+
+// Non-home views — code-split. Each loads on navigation, fully covered by the
+// 800ms page-transition overlay, so there is no perceptible loading state.
+const EduSync = lazy(() => import("./components/EduSync").then((m) => ({ default: m.EduSync })));
+const WhatIDo = lazy(() => import("./components/WhatIDo").then((m) => ({ default: m.WhatIDo })));
+const AllWork = lazy(() => import("./components/AllWork").then((m) => ({ default: m.AllWork })));
+const Blogs = lazy(() => import("./components/Blogs").then((m) => ({ default: m.Blogs })));
+const Contact = lazy(() => import("./components/Contact").then((m) => ({ default: m.Contact })));
+const BlogDetail = lazy(() => import("./components/BlogDetail").then((m) => ({ default: m.BlogDetail })));
+const VisitorGallery = lazy(() => import("./components/VisitorGallery").then((m) => ({ default: m.VisitorGallery })));
+const Shop = lazy(() => import("./components/Shop").then((m) => ({ default: m.Shop })));
+const ProductDetail = lazy(() => import("./components/ProductDetail").then((m) => ({ default: m.ProductDetail })));
+const Checkout = lazy(() => import("./components/Checkout").then((m) => ({ default: m.Checkout })));
 
 // Dev flag — show the intro on every refresh. Flip to false to gate by first visit (one pass per device).
 const ALWAYS_SHOW_VISITOR_INTRO = false;
@@ -182,6 +185,7 @@ export default function App() {
   };
 
   return (
+    <MotionConfig reducedMotion="user">
     <CartProvider>
     <div
       data-page={currentView}
@@ -226,6 +230,7 @@ export default function App() {
             transition={{ duration: 0.3 }}
             className="h-full w-full"
           >
+            <Suspense fallback={null}>
             {currentView === "home" ? (
               <>
                 {/* Mobile/Tablet Content */}
@@ -278,6 +283,7 @@ export default function App() {
             ) : (
               <Contact />
             )}
+            </Suspense>
           </motion.div>
         </AnimatePresence>
       </div>
@@ -289,5 +295,6 @@ export default function App() {
         onCheckout={() => handleNavigate("checkout")}
       />
     </CartProvider>
+    </MotionConfig>
   );
 }

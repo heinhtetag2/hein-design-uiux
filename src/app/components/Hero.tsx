@@ -5,7 +5,7 @@ interface HeroProps {
   isStudyHovered?: boolean;
 }
 
-export function Hero({ isStudyHovered = false }: HeroProps) {
+export const Hero = React.memo(function Hero({ isStudyHovered = false }: HeroProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -84,4 +84,4 @@ export function Hero({ isStudyHovered = false }: HeroProps) {
       </motion.div>
     </div>
   );
-}
+});

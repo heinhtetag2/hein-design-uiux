@@ -6,7 +6,7 @@ interface PageTransitionOverlayProps {
   onTransitionComplete?: () => void;
 }
 
-export function PageTransitionOverlay({ isTransitioning, onTransitionComplete }: PageTransitionOverlayProps) {
+export const PageTransitionOverlay = React.memo(function PageTransitionOverlay({ isTransitioning, onTransitionComplete }: PageTransitionOverlayProps) {
   const [shouldRender, setShouldRender] = useState(false);
 
   useEffect(() => {
@@ -50,4 +50,4 @@ export function PageTransitionOverlay({ isTransitioning, onTransitionComplete }:
       )}
     </AnimatePresence>
   );
-}
+});

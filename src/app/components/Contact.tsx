@@ -168,7 +168,7 @@ export function Contact() {
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="font-serif font-light text-display-lg mb-16"
+            className="font-serif font-light text-[clamp(56px,8vw,88px)] leading-[1.05] tracking-[-0.02em] mb-16"
           >
             Let's talk.
           </motion.h1>

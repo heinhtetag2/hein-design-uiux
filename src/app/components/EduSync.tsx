@@ -1,34 +1,34 @@
 import React from "react";
 import { motion, AnimatePresence } from "motion/react";
 import svgPaths from "../../imports/svg-hddcdrfc75";
-import imgHero from "../../assets/edu-sync/hero.png";
-import imgVideo from "../../assets/edu-sync/video.png";
-import frame78Video from "../../assets/edu-sync/Gy4KIgdXUAAwR1D.mp4";
-import imgFrame79 from "../../assets/edu-sync/frame79.png";
-import imgFrame80 from "../../assets/edu-sync/frame80.png";
-import imgApp1 from "../../assets/edu-sync/app1.png";
-import imgApp2 from "../../assets/edu-sync/app2.png";
-import imgApp3 from "../../assets/edu-sync/app3.png";
-import imgImage1 from "../../assets/edu-sync/image1.png";
-import imgFrame81 from "../../assets/edu-sync/frame81.png";
-import imgFrame82 from "../../assets/edu-sync/frame82.png";
-import imgFrame83 from "../../assets/edu-sync/frame83.png";
-import imgImage2 from "../../assets/edu-sync/image2.png";
-import imgImage3 from "../../assets/edu-sync/image3.png";
-import imgImage6 from "../../assets/edu-sync/image6.png";
-import imgImage7 from "../../assets/edu-sync/image7.png";
-import image8Video from "../../assets/edu-sync/HIC0e5wXIAAxd49.mp4";
-import imgImage9 from "../../assets/edu-sync/image9.png";
-import imgMapImage from "../../assets/edu-sync/map-image.png";
-import eduSyncVideo from "../../assets/edu-sync/edusync-video.mp4";
-import mockNextStudy from "../../assets/suno/suno-app-mockup.png";
+import imgHero from "../../assets/work/edusync/hero.webp";
+import imgVideo from "../../assets/work/edusync/gallery-04.webp";
+import frame78Video from "../../assets/work/edusync/system-video.mp4";
+import imgFrame79 from "../../assets/work/edusync/gallery-01.webp";
+import imgFrame80 from "../../assets/work/edusync/gallery-02.webp";
+import imgApp1 from "../../assets/work/edusync/music-card-1.webp";
+import imgApp2 from "../../assets/work/edusync/music-card-2.webp";
+import imgApp3 from "../../assets/work/edusync/music-card-3.webp";
+import imgImage1 from "../../assets/work/edusync/gallery-03.webp";
+import imgFrame81 from "../../assets/work/edusync/gallery-05.webp";
+import imgFrame82 from "../../assets/work/edusync/gallery-07.webp";
+import imgFrame83 from "../../assets/work/edusync/gallery-08.webp";
+import imgImage2 from "../../assets/work/edusync/gallery-10.webp";
+import imgImage3 from "../../assets/work/edusync/gallery-06.webp";
+import imgImage6 from "../../assets/work/edusync/gallery-11.webp";
+import image8Video from "../../assets/work/edusync/think-different-video.mp4";
+import imgImage9 from "../../assets/work/edusync/gallery-09.webp";
+import eduSyncVideo from "../../assets/work/edusync/overview-video.mp4";
+import mockNextStudy from "../../assets/work/suno/app-mockup.webp";
 
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { CaseStudyVideo } from "./CaseStudyVideo";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, BookOpen } from "lucide-react";
 
 // EduSync interactive prototype — replace with your real Figma / live prototype URL.
 const PROTOTYPE_URL = "https://www.apple.com/os/macos/?version=no-hero";
+// TODO: replace with the real Notion case-study link once the deep-dive is written
+const CASE_STUDY_URL = "https://www.nike.com/";
 
 function Container({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return <div className={`w-full ${className}`}>{children}</div>;
@@ -146,9 +146,9 @@ function NextCaseStudy({
         <span className="font-display text-eyebrow uppercase tracking-[0.18em] text-foreground/40">{index}</span>
       </div>
 
-      <div className="relative flex min-h-[50vh] items-center justify-center lg:min-h-[76vh]">
+      <div className="relative flex items-center justify-center lg:min-h-[76vh]">
         {/* Horizontal marquee background text */}
-        <div className="pointer-events-none absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 flex items-start pt-[calc(1vh+6px)] lg:left-0 lg:w-full lg:translate-x-0 lg:items-center lg:pt-0 overflow-hidden">
+        <div className="pointer-events-none absolute -top-[21vw] bottom-0 lg:top-0 left-1/2 w-screen -translate-x-1/2 flex items-start pt-0 lg:left-0 lg:w-full lg:translate-x-0 lg:items-center overflow-hidden">
           <motion.div
             className="flex shrink-0 flex-nowrap"
             animate={{ x: ["0%", "-50%"] }}
@@ -581,7 +581,10 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
 
       {/* 15. Impact Stats Section */}
       <Container className="mb-6 md:mb-10 lg:mb-16">
-        <h2 className="font-display font-light text-display-sm text-foreground mb-10 md:mb-20">
+        <h2
+          className="font-display font-light text-display-sm text-foreground mb-10 md:mb-20"
+          style={{ fontSize: "clamp(32px, 5vw, 64px)", lineHeight: 1.1, letterSpacing: "-0.01em", fontWeight: 300 }}
+        >
           Immediate disruption
         </h2>
         <div className="flex flex-col lg:flex-row justify-between gap-10 pb-20">
@@ -598,8 +601,14 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
             { value: "T10", label: "Top performing apps in Education" }
           ].map((stat) => (
             <div key={stat.label} className="flex-1 py-8 md:py-10 lg:py-12 lg:px-10 flex flex-col gap-4 md:gap-6">
-              <span className="font-display font-light text-display-lg text-foreground">{stat.value}</span>
-              <span className="font-display text-h3 text-foreground/60">{stat.label}</span>
+              <span
+                className="font-display font-light text-display-lg text-foreground"
+                style={{ fontSize: "clamp(56px, 8vw, 112px)", lineHeight: 1, letterSpacing: "-0.02em", fontWeight: 300 }}
+              >{stat.value}</span>
+              <span
+                className="font-display text-h3 text-foreground/60"
+                style={{ fontSize: "clamp(20px, 2vw, 24px)", lineHeight: 1.3 }}
+              >{stat.label}</span>
             </div>
           ))}
         </div>
@@ -655,29 +664,40 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
             transition={{ type: "spring", damping: 28, stiffness: 260 }}
             className="fixed inset-x-0 bottom-5 lg:bottom-7 z-40 flex justify-center px-4 pointer-events-none"
           >
-            <a
-              href={PROTOTYPE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group pointer-events-auto flex items-center gap-3 sm:gap-5 rounded-full border border-foreground/15 bg-background/70 py-2 pl-5 pr-2 backdrop-blur-xl shadow-[0_8px_40px_-12px_rgba(0,0,0,0.6)]"
-            >
-              <span className="flex items-center gap-2.5">
+            <div className="pointer-events-auto flex items-center gap-2 sm:gap-4 rounded-full border border-foreground/15 bg-background/70 py-2 pl-5 pr-2 backdrop-blur-xl shadow-[0_8px_40px_-12px_rgba(0,0,0,0.6)]">
+              <span className="hidden sm:flex items-center gap-2.5 pr-1">
                 <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand)] animate-pulse" />
-                <span className="font-display font-normal text-body-sm text-foreground/80 whitespace-nowrap">
-                  <span className="hidden sm:inline text-foreground">EduSync</span>
-                  <span className="hidden sm:inline text-foreground/40"> · </span>
-                  Interactive Prototype
+                <span className="font-display font-normal text-body-sm text-foreground whitespace-nowrap">
+                  EduSync
                 </span>
               </span>
-              <span className="relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-foreground py-2 pl-4 pr-3.5 text-background">
+              <a
+                href={CASE_STUDY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-foreground/25 py-2 pl-4 pr-3.5 font-display font-normal text-body-sm whitespace-nowrap text-foreground/80 transition-colors duration-500 hover:border-foreground"
+              >
+                <span className="pointer-events-none absolute inset-0 origin-left scale-x-0 bg-foreground transition-transform duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:scale-x-100" />
+                <span className="relative transition-colors duration-500 group-hover:text-background">Full Case Study</span>
+                <BookOpen
+                  className="relative h-4 w-4 transition-colors duration-500 group-hover:text-background"
+                  strokeWidth={1.75}
+                />
+              </a>
+              <a
+                href={PROTOTYPE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-foreground py-2 pl-4 pr-3.5 text-background"
+              >
                 <span className="pointer-events-none absolute inset-0 origin-left scale-x-0 bg-brand transition-transform duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:scale-x-100" />
                 <span className="relative font-display font-normal text-body-sm whitespace-nowrap transition-colors duration-500 group-hover:text-brand-foreground">View Prototype</span>
                 <ArrowUpRight
                   className="relative h-4 w-4 text-background transition-all duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-foreground"
                   strokeWidth={1.75}
                 />
-              </span>
-            </a>
+              </a>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

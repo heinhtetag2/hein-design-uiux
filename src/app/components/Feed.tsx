@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import imgB649 from "../../assets/feed/windsurf-laptop.png";
-import imgP0B7 from "../../assets/feed/techcrunch-logo.png";
-import imgP4Ac from "../../assets/midjourney/chrome-abstract.png";
-import imgP2B9 from "../../assets/feed/fast-company-logo.png";
-import imgA4A8 from "../../assets/nike/nike-app-showcase.png";
+import imgB649 from "../../assets/feed/windsurf-laptop.webp";
+import imgP0B7 from "../../assets/feed/logo-techcrunch.webp";
+import imgP4Ac from "../../assets/work/midjourney/chrome-abstract.webp";
+import imgP2B9 from "../../assets/feed/logo-fast-company.webp";
+import imgA4A8 from "../../assets/work/nike/app-showcase.webp";
 
 interface CardProps {
   date?: string;

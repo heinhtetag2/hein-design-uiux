@@ -4,9 +4,9 @@ import { motion, AnimatePresence } from "motion/react";
 import { Music, ShoppingBag, Moon, Mail } from "lucide-react";
 import { useCart } from "../shop/CartContext";
 // Site logo — light & dark variants. The theme swaps between them via the
-// [data-logo] rules in theme.css. Replacements live in src/assets/logo/.
-import logoLight from "../../assets/logo/heinlogolight.svg";
-import logoDark from "../../assets/logo/heinlogodark.svg";
+// [data-logo] rules in theme.css. Replacements live in src/assets/brand/.
+import logoLight from "../../assets/brand/logo-light.svg";
+import logoDark from "../../assets/brand/logo-dark.svg";
 
 interface TopNavProps {
   onLogoClick?: () => void;

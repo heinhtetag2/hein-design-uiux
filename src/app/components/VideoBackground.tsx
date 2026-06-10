@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import bgVideo from "../../assets/home/home-bg-video.mp4";
+import bgVideo from "../../assets/home/hero-background.mp4";
 
 const FADE_MS = 900;
 const FADE_WINDOW_S = FADE_MS / 1000;
 
-export function VideoBackground() {
+export const VideoBackground = React.memo(function VideoBackground() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -77,4 +77,4 @@ export function VideoBackground() {
       <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/40 to-background/70 pointer-events-none" />
     </div>
   );
-}
+});

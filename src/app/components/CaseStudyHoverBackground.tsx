@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "motion/react";
-import bgEduSync from "../../assets/edu-sync/edusync-hover-bg.png";
-import bgAllWork from "../../assets/modular/modular.png";
+import bgEduSync from "../../assets/work/edusync/hover-background.webp";
+import bgAllWork from "../../assets/work/modular/cover.webp";
 
 export const caseStudyBackgrounds: Record<string, string> = {
   EduSync: `url('${bgEduSync}') center/cover no-repeat`,
@@ -24,7 +24,7 @@ interface Props {
   hoveredStudy: string | null;
 }
 
-export function CaseStudyHoverBackground({ hoveredStudy }: Props) {
+export const CaseStudyHoverBackground = React.memo(function CaseStudyHoverBackground({ hoveredStudy }: Props) {
   return (
     <div className="fixed inset-0 w-full h-full overflow-hidden pointer-events-none z-[1]">
       {Object.entries(caseStudyBackgrounds).map(([study, bg]) => (
@@ -48,4 +48,4 @@ export function CaseStudyHoverBackground({ hoveredStudy }: Props) {
       ))}
     </div>
   );
-}
+});

@@ -1,4 +1,7 @@
-import { isSupabaseConfigured, supabase } from "./supabase";
+// NOTE: the Supabase client (~50KB gzipped) is imported lazily inside the async
+// functions below so it never lands in the initial bundle. These calls only run
+// after a user interaction (saving a visitor card / opening the gallery), so the
+// dynamic import adds no perceptible latency and keeps first paint lean.
 
 export const VISITOR_STORAGE_KEY = "26p:visitor:v1";
 export const VISITORS_LIST_KEY = "26p:visitors:v1";
@@ -33,6 +36,7 @@ export const readVisitors = readVisitorsLocal;
 
 // Remote-aware read. Falls back to local list when Supabase isn't configured or the call fails.
 export async function fetchVisitors(): Promise<Visitor[]> {
+  const { isSupabaseConfigured, supabase } = await import("./supabase");
   if (!isSupabaseConfigured || !supabase) return readVisitorsLocal();
   try {
     const { data, error } = await supabase
@@ -68,7 +72,8 @@ export async function appendVisitor(v: Visitor): Promise<Visitor[]> {
     // ignore quota errors
   }
 
-  // Remote write — best-effort
+  // Remote write — best-effort. Client is imported on demand (see note above).
+  const { isSupabaseConfigured, supabase } = await import("./supabase");
   if (isSupabaseConfigured && supabase) {
     try {
       const { error } = await supabase.from(SUPABASE_TABLE).insert({

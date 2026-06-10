@@ -79,8 +79,8 @@ const SIZES: ProductVariant[] = [
 export const PRODUCTS: Product[] = [
   {
     id: "cap-001",
-    name: "Cap_001",
-    folder: "Cap_001",
+    name: "cap-001",
+    folder: "cap-001",
     category: "Merch",
     price: 25,
     compareAtPrice: 35,
@@ -105,8 +105,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "tee-001",
-    name: "T-Shirt_001",
-    folder: "T-Shirt_001",
+    name: "tee-001",
+    folder: "tee-001",
     category: "Merch",
     price: 30,
     compareAtPrice: 35,
@@ -129,7 +129,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "kit-aperture",
     name: "Aperture UI Kit",
-    folder: "Aperture_UI_Kit",
+    folder: "aperture-ui-kit",
     category: "UI Kits",
     kind: "digital",
     price: 48,
