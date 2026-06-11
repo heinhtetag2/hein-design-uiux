@@ -72,7 +72,12 @@ function CountUp({ to, duration = 1.6 }: { to: number; duration?: number }) {
 export function WhatIDo() {
   const targetRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
-  const fullWidthRef = useRef(0);
+  // Viewport width in state (not a ref) so the banner width recomputes on the
+  // very first paint and on resize — a ref starts at 0 and the transform would
+  // never re-run until scroll, leaving the banner at the wrong start width.
+  const [viewportWidth, setViewportWidth] = useState(() =>
+    typeof window !== "undefined" ? document.documentElement.clientWidth : 0
+  );
 
   const [expFilters, setExpFilters] = useState<Set<string>>(new Set());
   const toggleExpFilter = (cat: string) => {
@@ -92,9 +97,7 @@ export function WhatIDo() {
   // value across mixed units). Target the full visible viewport width so the
   // banner bleeds edge-to-edge past the page's side padding when expanded.
   useEffect(() => {
-    const measure = () => {
-      fullWidthRef.current = document.documentElement.clientWidth;
-    };
+    const measure = () => setViewportWidth(document.documentElement.clientWidth);
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
@@ -110,24 +113,26 @@ export function WhatIDo() {
     offset: ["start start", "end start"]
   });
 
-  // Banner grows from 460px to its container's full width over the first half
-  // of the hero scroll, eased (easeInOutCubic) for a soft landing.
+  // Banner grows to its container's full width over the first half of the hero
+  // scroll, eased (easeInOutCubic) for a soft landing.
   const BANNER_START = 460;
   const bannerWidth = useTransform(heroScroll, (p) => {
-    const full = fullWidthRef.current || BANNER_START;
-    const start = Math.min(BANNER_START, full);
+    const full = viewportWidth || BANNER_START;
+    // Desktop starts at a fixed 460px. On narrow (mobile) viewports start at ~52%
+    // of the screen so it begins as a small card and expands to full on scroll.
+    const start = full < 768 ? full * 0.52 : Math.min(BANNER_START, full);
     const t = Math.min(1, Math.max(0, p / 0.5));
     const eased = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
     return start + (full - start) * eased;
   });
   const bannerRadius = useTransform(heroScroll, [0, 0.3, 0.5], ["12px", "12px", "0px"]);
 
-  // Smooth the raw scroll progress with a spring so the horizontal strip eases
-  // instead of being rigidly locked to scroll position (which reads as janky).
+  // Overdamped spring — smooth glide with no overshoot, so the strip eases
+  // with the scroll but never springs/slides back after it stops.
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    mass: 0.35,
+    stiffness: 240,
+    damping: 50,
+    mass: 0.25,
     restDelta: 0.0005,
   });
   const x = useTransform(smoothProgress, [0, 1], ["0%", "-60%"]);
@@ -154,7 +159,7 @@ export function WhatIDo() {
               position: 'relative',
               overflow: 'hidden'
             }}
-            className="h-[clamp(380px,60vh,560px)] md:h-[794px] bg-foreground/20 relative"
+            className="h-[clamp(440px,66vh,620px)] md:h-[794px] bg-foreground/20 relative"
           >
             <CaseStudyVideo src={maxonVideo} className="w-full h-full" />
           </motion.div>
@@ -182,24 +187,24 @@ export function WhatIDo() {
             position: 'relative',
             willChange: 'transform',
           }}
-          className="flex gap-[16px] md:gap-[24px] lg:pl-[clamp(100px,20vw,260px)] min-w-max items-start relative"
+          className="flex gap-[16px] md:gap-[24px] 3xl:gap-[32px] lg:pl-[clamp(100px,20vw,260px)] min-w-max items-start relative"
         >
-          <div className="w-[236px] h-[187px] shrink-0 overflow-hidden rounded-none bg-foreground/10">
+          <div className="w-[236px] h-[187px] 3xl:w-[320px] 3xl:h-[254px] shrink-0 overflow-hidden rounded-none bg-foreground/10">
             <ImageWithFallback src={imgALaptop} className="w-full h-full object-cover" />
           </div>
-          <div className="w-[449px] h-[295px] shrink-0 overflow-hidden rounded-none bg-foreground/10">
+          <div className="w-[449px] h-[295px] 3xl:w-[608px] 3xl:h-[400px] shrink-0 overflow-hidden rounded-none bg-foreground/10">
             <ImageWithFallback src={imgStadium} className="w-full h-full object-cover" />
           </div>
-          <div className="w-[213px] h-[213px] shrink-0 overflow-hidden rounded-none bg-foreground/10">
+          <div className="w-[213px] h-[213px] 3xl:w-[288px] 3xl:h-[288px] shrink-0 overflow-hidden rounded-none bg-foreground/10">
             <ImageWithFallback src={imgWomanWatermelon} className="w-full h-full object-cover" />
           </div>
-          <div className="w-[449px] h-[317px] shrink-0 overflow-hidden rounded-none bg-foreground/10">
+          <div className="w-[449px] h-[317px] 3xl:w-[608px] 3xl:h-[430px] shrink-0 overflow-hidden rounded-none bg-foreground/10">
             <ImageWithFallback src={imgFearlessGirl} className="w-full h-full object-cover" />
           </div>
-          <div className="w-[343px] h-[351px] shrink-0 overflow-hidden rounded-none bg-foreground/10">
+          <div className="w-[343px] h-[351px] 3xl:w-[464px] 3xl:h-[475px] shrink-0 overflow-hidden rounded-none bg-foreground/10">
             <ImageWithFallback src={imgModular} className="w-full h-full object-cover" />
           </div>
-          <div className="w-[213px] h-[351px] shrink-0 overflow-hidden rounded-none bg-foreground/10">
+          <div className="w-[213px] h-[351px] 3xl:w-[288px] 3xl:h-[475px] shrink-0 overflow-hidden rounded-none bg-foreground/10">
             <ImageWithFallback src={imgHeadspace} className="w-full h-full object-cover" />
           </div>
         </motion.div>
@@ -237,7 +242,7 @@ export function WhatIDo() {
       </div>
 
       {/* Categories List */}
-      <div className="w-full py-[48px] md:py-[90px] grid grid-cols-1 md:grid-cols-3 gap-[24px] px-6">
+      <div className="w-full py-[48px] md:py-[90px] grid grid-cols-2 md:grid-cols-3 gap-x-5 gap-y-10 md:gap-[24px] px-6">
         <CategorySection
           title="Design & UX"
           items={["UI/UX Design", "Design Systems", "Interaction Design", "UX Research & Testing", "Wireframing & Prototyping"]}
@@ -254,7 +259,7 @@ export function WhatIDo() {
 
       {/* Stats Grid */}
       <div className="w-full px-6 py-[48px] md:py-[90px]">
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-[clamp(24px,3vw,64px)] gap-y-12">
           {STATS.map((stat, i) => (
             <motion.div
               key={i}
@@ -262,14 +267,15 @@ export function WhatIDo() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10%" }}
               transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="relative h-[200px] md:h-[390px] flex flex-col justify-between pl-3 md:pl-6 group"
+              className="relative h-[300px] md:h-[390px] flex flex-col justify-between pl-0 pb-6 lg:pl-6 lg:pb-0 group"
             >
-              <div className="absolute left-0 top-0 bottom-0 w-px bg-brand" />
+              {/* Divider: horizontal at the bottom on mobile, vertical on the left on desktop */}
+              <div className="absolute bottom-0 left-0 right-0 h-px lg:top-0 lg:right-auto lg:h-auto lg:w-px bg-brand" />
               <div className="flex flex-col gap-1 text-body md:text-h3 text-foreground/80 leading-tight pt-4">
                 {stat.label.map((l, j) => <span key={j}>{l}</span>)}
               </div>
               <div className="flex items-baseline gap-1 pb-4">
-                <span className="font-display text-display-md font-light leading-none tabular-nums">
+                <span className="font-display text-[120px] lg:text-[110px]! 2xl:text-[140px]! font-light leading-none tabular-nums">
                   <CountUp to={stat.val} />
                 </span>
                 {stat.suffix && (
@@ -283,20 +289,20 @@ export function WhatIDo() {
 
       {/* Career Experiences */}
       <div className="w-full px-6 py-[60px] md:py-[90px] lg:py-[120px]">
-        <div className="mx-auto max-w-[1280px] flex flex-col lg:flex-row items-start justify-between border-t border-foreground/10 pt-10 md:pt-20">
+        <div className="mx-auto max-w-[1280px] 2xl:max-w-[1560px] flex flex-col lg:flex-row items-start justify-between border-t border-foreground/10 pt-10 md:pt-20">
           <div className="lg:w-[464px]">
-            <h2 className="font-display text-h1 font-light">My Carrier —<br />Experiences</h2>
+            <h2 className="font-serif text-h1 font-light" style={{ fontFamily: "var(--font-serif)", fontSize: "clamp(32px, 5vw, 64px)", lineHeight: 1.1 }}>My Carrier —<br />Experiences</h2>
           </div>
-          <div className="lg:w-[812px] pt-4">
+          <div className="lg:w-[812px] 2xl:w-[1000px] pt-10 lg:pt-4">
             <FilterPills
               categories={["All", "UI/UX", "Visual", "Development"]}
               selected={expFilters}
               onToggle={toggleExpFilter}
-              className="mb-16"
+              className="mb-4 lg:mb-16"
             />
             <div className="space-y-0">
               {EXPERIENCES.filter(e => expFilters.size === 0 || e.categories.some(c => expFilters.has(c))).map((exp, i) => (
-                <div key={i} className="border-t border-foreground/10 py-10">
+                <div key={i} className="border-t border-foreground/10 py-6 lg:py-10">
                   <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2 md:gap-0 mb-6 text-h3 text-foreground">
                     <h3 className="font-light">{exp.role}</h3>
                     <span className="text-foreground/60 text-body font-light">{exp.company}</span>
@@ -378,6 +384,11 @@ function ServiceRow({ title, description, image }: { title: string; description:
           </h4>
         </div>
 
+        {/* Mobile image — always visible, sits between title and description */}
+        <div className="lg:hidden w-full aspect-video overflow-hidden rounded-none">
+          <ImageWithFallback src={image} className="w-full h-full object-cover" />
+        </div>
+
         {/* Center/Right Content Group */}
         <div className="flex flex-col md:flex-row items-start md:items-center gap-[40px] relative">
           {/* Animated Image Container — clip-mask reveal from the bottom */}
@@ -407,26 +418,13 @@ function ServiceRow({ title, description, image }: { title: string; description:
 
           {/* Paragraph */}
           <div className="w-full lg:w-[418px]">
-            <p className="font-display font-normal text-muted-foreground text-body-lg">
+            <p className="font-display font-normal text-muted-foreground text-body">
               {description}
             </p>
           </div>
         </div>
       </div>
 
-      {/* Mobile Image Reveal (Below content on mobile) */}
-      <motion.div
-        variants={{
-          initial: { height: 0, opacity: 0, marginTop: 0 },
-          hovered: { height: "auto", opacity: 1, marginTop: 24 }
-        }}
-        transition={{ duration: 0.4 }}
-        className="lg:hidden w-full overflow-hidden"
-      >
-        <div className="w-full aspect-video rounded-none overflow-hidden mb-6">
-          <ImageWithFallback src={image} className="w-full h-full object-cover" />
-        </div>
-      </motion.div>
     </motion.div>
   );
 }
@@ -434,13 +432,13 @@ function ServiceRow({ title, description, image }: { title: string; description:
 function CategorySection({ title, items }: { title: string; items: string[] }) {
   return (
     <div className="flex flex-col gap-[15px]">
-      <h5 className="font-display font-normal text-body text-foreground">
+      <h5 className="font-display font-normal text-body-sm md:text-body text-foreground">
         {title}
       </h5>
       <div className="w-[24px] h-[1px] bg-foreground/10" />
       <div className="flex flex-col gap-[12px]">
         {items.map((item) => (
-          <span key={item} className="font-display font-normal text-body text-foreground/80">
+          <span key={item} className="font-display font-normal text-body-sm md:text-body text-foreground/80">
             {item}
           </span>
         ))}

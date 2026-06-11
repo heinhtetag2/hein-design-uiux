@@ -332,7 +332,7 @@ export function TopNav({ onLogoClick, onNavigate, isMenuOpen, onMenuOpenChange, 
         isMenuOpen
           ? "w-[calc(100%-32px)] sm:w-[645px] h-[54px] px-[16px] sm:px-[24px] bg-transparent border-transparent backdrop-blur-none z-50"
           : scrolled 
-          ? "w-[calc(100%-32px)] sm:w-[645px] h-[54px] px-[16px] sm:px-[24px] bg-background/20 border-foreground/10 backdrop-blur-[10px] z-50" 
+          ? "w-[calc(100%-32px)] sm:w-[645px] h-[54px] px-[16px] sm:px-[24px] bg-background/20 border-foreground/10 backdrop-blur-[10px] z-50"
           : "w-[calc(100%-32px)] md:w-[calc(100%-80px)] max-w-[1880px] h-[80px] px-0 bg-transparent border-transparent backdrop-blur-none z-50"
       }`}
       initial={{ opacity: 0, y: -20 }}

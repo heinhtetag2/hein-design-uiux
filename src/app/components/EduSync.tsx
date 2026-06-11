@@ -664,7 +664,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
             transition={{ type: "spring", damping: 28, stiffness: 260 }}
             className="fixed inset-x-0 bottom-5 lg:bottom-7 z-40 flex justify-center px-4 pointer-events-none"
           >
-            <div className="pointer-events-auto flex items-center gap-2 sm:gap-4 rounded-full border border-foreground/15 bg-background/70 py-2 pl-5 pr-2 backdrop-blur-xl shadow-[0_8px_40px_-12px_rgba(0,0,0,0.6)]">
+            <div className="pointer-events-auto flex items-center gap-2 sm:gap-4 rounded-full border border-foreground/15 bg-background/70 py-2 pl-2 pr-2 sm:pl-5 backdrop-blur-xl shadow-[0_8px_40px_-12px_rgba(0,0,0,0.6)]">
               <span className="hidden sm:flex items-center gap-2.5 pr-1">
                 <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand)] animate-pulse" />
                 <span className="font-display font-normal text-body-sm text-foreground whitespace-nowrap">

@@ -184,6 +184,9 @@
 }
 
 @theme inline {
+  /* Large-monitor breakpoint (1920px-class displays). Used to scale up the
+     What I Do image strip on big screens while leaving laptops untouched. */
+  --breakpoint-3xl: 1800px;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

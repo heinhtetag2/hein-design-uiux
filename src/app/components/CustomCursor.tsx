@@ -117,7 +117,7 @@ export const CustomCursor = React.memo(function CustomCursor() {
               ? "none"
               : isLight
               ? "0 0 0 1px rgba(255,255,255,0.45)"
-              : "0 0 0 1px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.55)",
+              : "0 2px 8px rgba(0,0,0,0.55)",
             transition:
               "width 280ms cubic-bezier(0.22, 1, 0.36, 1), height 280ms cubic-bezier(0.22, 1, 0.36, 1), top 280ms cubic-bezier(0.22, 1, 0.36, 1), left 280ms cubic-bezier(0.22, 1, 0.36, 1), background 200ms ease, border 200ms ease",
           }}

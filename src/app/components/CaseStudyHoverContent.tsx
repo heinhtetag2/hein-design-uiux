@@ -72,12 +72,15 @@ export const CaseStudyHoverContent = React.memo(function CaseStudyHoverContent({
               {study.tagline}
             </motion.div>
 
-            {/* Big study name — left side, upper */}
+            {/* Big study name — left side, upper. Inline font pin mirrors the Hero
+                "Experience, intentionally" so the serif display scale holds in every
+                engine (Comet drops the custom font-serif / text-display-lg utilities). */}
             <motion.div
               initial={{ opacity: 0, x: -32 }}
               animate={{ opacity: 1, x: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }}
               exit={{ opacity: 0, transition: { duration: 0.14, ease: "linear" } }}
               className="absolute bottom-[calc(clamp(260px,32vh,420px)+24px)] left-[clamp(160px,14vw,260px)] font-serif font-light text-display-lg text-foreground whitespace-nowrap"
+              style={{ fontFamily: "var(--font-serif)", fontSize: "clamp(56px, 8vw, 112px)", lineHeight: 1, letterSpacing: "-0.02em" }}
             >
               {study.name}
             </motion.div>
