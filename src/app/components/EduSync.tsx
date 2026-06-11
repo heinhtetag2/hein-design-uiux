@@ -502,8 +502,8 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
 
       {/* 11.9 — Discovery Image Grid */}
       <div className="w-full py-12 md:py-16 lg:py-[90px]">
-        <div className="flex flex-col lg:flex-row gap-[24px] items-start w-full">
-          <div className="contents lg:flex lg:flex-col lg:gap-[24px] lg:flex-1 lg:min-w-0 lg:items-start lg:justify-center lg:self-stretch">
+        <div className="flex flex-col lg:grid lg:grid-cols-[0.92fr_1.08fr] gap-[24px] items-start lg:items-stretch w-full">
+          <div className="contents lg:flex lg:flex-col lg:gap-[24px] lg:min-w-0 lg:items-start lg:justify-center lg:self-stretch">
             <div className="order-3 lg:order-none w-full pr-6 lg:pr-0">
               <div className="flex flex-col gap-[8px] font-display font-light text-body text-foreground tracking-tight">
                 <p className="leading-relaxed">
@@ -515,7 +515,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
               <RevealImage src={imgFrame82} className="w-full h-full" />
             </div>
           </div>
-          <div className="order-2 lg:order-none shrink-0 w-full lg:w-[944px] h-[400px] md:h-[600px] lg:h-[900px] overflow-hidden">
+          <div className="order-2 lg:order-none w-full lg:min-w-0 h-[400px] md:h-[600px] lg:h-[900px] overflow-hidden">
             <RevealImage src={imgFrame83} className="w-full h-full" />
           </div>
         </div>
