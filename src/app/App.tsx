@@ -234,8 +234,8 @@ export default function App() {
             {currentView === "home" ? (
               <>
                 {/* Mobile/Tablet Content */}
-                <div className="lg:hidden flex flex-col pt-[100px] pb-40 gap-12">
-                  <div className="flex flex-col gap-[26px]">
+                <div className="lg:hidden flex flex-col min-h-[100dvh] pt-[100px] pb-[30px]">
+                  <div className="flex flex-col gap-[40px]">
                     <Hero isStudyHovered={!!hoveredCaseStudy} />
                     <div className="w-[20px] h-[1px] bg-foreground/20" />
                     <Sidebar
@@ -244,6 +244,10 @@ export default function App() {
                       activeView={currentView}
                     />
                   </div>
+                  <p className="mt-auto pt-16 font-display font-light text-body-sm sm:text-body text-foreground/70 max-w-[300px]">
+                    Since 2024, I've helped the most innovative startups and reputable
+                    brands design, build, and ship products worth talking about.
+                  </p>
                 </div>
 
                 {/* Desktop Absolute Content (lg and up) */}

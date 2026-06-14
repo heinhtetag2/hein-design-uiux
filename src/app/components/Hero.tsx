@@ -35,15 +35,11 @@ export const Hero = React.memo(function Hero({ isStudyHovered = false }: HeroPro
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       >
         <h1
-          className="font-serif font-light text-display-sm text-foreground tracking-tight leading-[1.05]"
-          style={{ fontFamily: "var(--font-serif)", fontSize: "clamp(32px, 5vw, 64px)", lineHeight: 1.05 }}
+          className="font-serif font-normal text-display-sm text-foreground tracking-tight leading-[1.05]"
+          style={{ fontFamily: "var(--font-serif)", fontSize: "clamp(44px, 12vw, 72px)", lineHeight: 1.05 }}
         >
           Experience,<br />intentionally
         </h1>
-        <p className="font-display font-light text-body-sm sm:text-body text-foreground/70 max-w-[300px]">
-          Since 2024, I've helped the most innovative startups and reputable
-          brands design, build, and ship products worth talking about.
-        </p>
       </motion.div>
 
       {/* Desktop Layout - Fluid flex-based positioning for responsiveness */}

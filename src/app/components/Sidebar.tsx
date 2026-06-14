@@ -77,7 +77,7 @@ export function Sidebar({ onCaseStudyClick, onCaseStudyHover, isMenuOpen, active
       {/* Case Studies */}
       <div className="flex flex-col gap-[8px] items-start w-full relative">
         <div className="hidden lg:block h-px w-[24px] bg-foreground/25 mb-[6px]" />
-        <div className="py-[6px] font-display text-body-sm text-muted-foreground">
+        <div className="hidden lg:block py-[6px] font-display text-body-sm text-muted-foreground">
           Case Studies
         </div>
         

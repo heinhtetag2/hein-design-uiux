@@ -192,8 +192,8 @@ export function Contact() {
             </a>
           </div>
 
-          {/* Social Links Bottom Left */}
-          <div className="mt-auto pt-16 md:pt-40 flex flex-row gap-6 text-body text-foreground font-light lowercase">
+          {/* Social Links Bottom Left — desktop only */}
+          <div className="mt-auto pt-16 md:pt-40 hidden lg:flex flex-row gap-6 text-body text-foreground font-light lowercase">
             <a href="#" className="hover:opacity-60 transition-opacity">Linkedin</a>
             <a href="#" className="hover:opacity-60 transition-opacity">Instagram</a>
             <a href="#" className="hover:opacity-60 transition-opacity">X</a>
@@ -303,17 +303,17 @@ export function Contact() {
                   />
                 </div>
 
-                <div className="md:col-span-2 flex flex-row items-center justify-between pt-8">
+                <div className="md:col-span-2 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 pt-2 md:pt-8">
                   {status === "error" && (
                     <p className="text-body-sm text-destructive font-light">
                       Something went wrong — try again or email me directly.
                     </p>
                   )}
-                  <div className="ml-auto">
+                  <div className="w-full md:w-auto md:ml-auto">
                     <button
                       type="submit"
                       disabled={!isValid || status === "sending"}
-                      className="bg-brand text-brand-foreground px-8 h-[40px] rounded-full font-light text-body-sm hover:opacity-85 transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-30 disabled:cursor-not-allowed"
+                      className="w-full md:w-auto bg-brand text-brand-foreground px-8 h-[44px] md:h-[40px] rounded-full font-light text-body-sm hover:opacity-85 transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-30 disabled:cursor-not-allowed"
                     >
                       {status === "sending" ? (
                         <>
@@ -333,6 +333,14 @@ export function Contact() {
             )}
           </AnimatePresence>
 
+        </div>
+
+        {/* Social Links Footer — mobile only */}
+        <div className="lg:hidden flex flex-row flex-wrap gap-6 pt-8 border-t border-foreground/10 text-body text-foreground font-light lowercase">
+          <a href="#" className="hover:opacity-60 transition-opacity">Linkedin</a>
+          <a href="#" className="hover:opacity-60 transition-opacity">Instagram</a>
+          <a href="#" className="hover:opacity-60 transition-opacity">X</a>
+          <a href="#" className="hover:opacity-60 transition-opacity">Medium</a>
         </div>
 
       </div>

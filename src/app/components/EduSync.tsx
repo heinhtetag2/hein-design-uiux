@@ -1,6 +1,6 @@
 import React from "react";
 import { motion, AnimatePresence } from "motion/react";
-import svgPaths from "../../imports/svg-hddcdrfc75";
+import svgPaths from "../../imports/svg-edusync";
 import imgHero from "../../assets/work/edusync/hero.webp";
 import imgVideo from "../../assets/work/edusync/gallery-04.webp";
 import frame78Video from "../../assets/work/edusync/system-video.mp4";

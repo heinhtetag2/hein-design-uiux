@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { FilterPills } from "./FilterPills";
 import { CaseStudyVideo } from "./CaseStudyVideo";
-import svgPaths from "../../imports/svg-mzksdxu5cb";
+import svgPaths from "../../imports/svg-whatido";
 import maxonVideo from "../../assets/what-i-do/maxon-video.mp4";
 import imgALaptop from "../../assets/work/uber/laptop.webp";
 import imgStadium from "../../assets/what-i-do/stadium.webp";
@@ -10,7 +10,7 @@ import imgWomanWatermelon from "../../assets/what-i-do/woman-watermelon.webp";
 import imgFearlessGirl from "../../assets/work/upwork/fearless-girl.webp";
 import imgModular from "../../assets/work/modular/cover.webp";
 import imgHeadspace from "../../assets/work/headspace/full.webp";
-import { imgVector, imgVector1 } from "../../imports/svg-qglw9";
+import { imgVector, imgVector1 } from "../../imports/svg-whatido-vec";
 import { useScroll, useTransform, useSpring, useInView, animate, motion } from "motion/react";
 
 const formatDuration = (startYear: number, startMonth: number) => {

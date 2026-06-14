@@ -282,8 +282,8 @@ export function Blogs({ onPostClick }: { onPostClick?: (postId: string) => void 
               </div>
             </div>
 
-            {/* Thumbnail - appears on hover */}
-            <div className="hidden lg:flex shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
+            {/* Thumbnail - wipes up into view on hover, matching the case-study reveal */}
+            <div className="hidden lg:flex shrink-0 origin-bottom opacity-0 scale-[0.97] [clip-path:inset(100%_0_0_0_round_12px)] group-hover:opacity-100 group-hover:scale-100 group-hover:[clip-path:inset(0%_0_0_0_round_12px)] transition-all duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform">
               <BlogThumbnail type={post.thumbnail} />
             </div>
           </motion.div>

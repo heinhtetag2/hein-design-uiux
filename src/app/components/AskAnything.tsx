@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import svgPaths from "../../imports/svg-lb0wh4b8mk";
+import svgPaths from "../../imports/svg-askanything";
 
 const HOME_SUGGESTIONS = [
   { label: "Who is he?", value: "Who is Hein Htet?" },
