@@ -5,15 +5,15 @@ import bgAllWork from "../../assets/work/modular/cover.webp";
 
 export const caseStudyBackgrounds: Record<string, string> = {
   EduSync: `url('${bgEduSync}') center/cover no-repeat`,
-  Suno:
+  TwoStay:
     "radial-gradient(ellipse 65% 70% at 30% 40%, #6b3a1e 0%, transparent 60%), radial-gradient(ellipse 70% 65% at 70% 60%, #3a1e5c 0%, transparent 65%), radial-gradient(ellipse 55% 50% at 50% 50%, #8f5a2d 0%, transparent 55%), #0a050d",
-  Uber:
+  JoanX:
     "radial-gradient(ellipse 60% 70% at 30% 30%, #2a2a2a 0%, transparent 60%), radial-gradient(ellipse 70% 60% at 70% 70%, #1a3a1e 0%, transparent 65%), radial-gradient(ellipse 50% 55% at 50% 50%, #404040 0%, transparent 55%), #050505",
-  Midjourney:
+  Goft:
     "radial-gradient(ellipse 65% 70% at 25% 40%, #3a1e6b 0%, transparent 60%), radial-gradient(ellipse 70% 65% at 75% 60%, #1e2d6b 0%, transparent 65%), radial-gradient(ellipse 55% 50% at 50% 50%, #5c2d8f 0%, transparent 55%), #050518",
-  Upwork:
+  ProBridge:
     "radial-gradient(ellipse 60% 70% at 30% 35%, #1e6b3a 0%, transparent 60%), radial-gradient(ellipse 70% 60% at 70% 65%, #0a3a1e 0%, transparent 65%), radial-gradient(ellipse 50% 55% at 50% 50%, #2d8f4a 0%, transparent 55%), #050d08",
-  Headspace:
+  Cardo:
     "radial-gradient(ellipse 65% 70% at 30% 40%, #b85c1e 0%, transparent 60%), radial-gradient(ellipse 70% 65% at 70% 60%, #6b3a1e 0%, transparent 65%), radial-gradient(ellipse 55% 50% at 50% 50%, #d97a2d 0%, transparent 55%), #1a0a05",
   "All Work": `url('${bgAllWork}') center/cover no-repeat`,
 };

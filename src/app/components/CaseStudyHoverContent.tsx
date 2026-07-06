@@ -2,6 +2,11 @@ import React from "react";
 import { motion, AnimatePresence } from "motion/react";
 import mockEduSync from "../../assets/work/edusync/hover-cover.webp";
 import mockAllWork from "../../assets/feed/windsurf-laptop.webp";
+import mockSuno from "../../assets/work/suno/app-mockup.webp";
+import mockUber from "../../assets/work/uber/laptop.webp";
+import mockMidjourney from "../../assets/work/midjourney/chrome-abstract.webp";
+import mockUpwork from "../../assets/work/upwork/fearless-girl.webp";
+import mockHeadspace from "../../assets/work/headspace/cover.webp";
 
 interface StudyContent {
   name: string;
@@ -17,30 +22,35 @@ export const caseStudyContent: Record<string, StudyContent> = {
     categories: "Product Design, Brand, Engineering",
     image: mockEduSync,
   },
-  Suno: {
-    name: "Suno",
+  TwoStay: {
+    name: "TwoStay",
     tagline: "Democratizing the music creation process with a prompt-to-song platform.",
     categories: "Product Design, Brand, Engineering",
+    image: mockSuno,
   },
-  Uber: {
-    name: "Uber",
+  JoanX: {
+    name: "JoanX",
     tagline: "Reimagining everyday rides with a faster, calmer driver experience.",
     categories: "Product Design, Research",
+    image: mockUber,
   },
-  Midjourney: {
-    name: "Midjourney",
+  Goft: {
+    name: "Goft",
     tagline: "An interface for exploring imagination at the speed of thought.",
     categories: "Product Design, Brand",
+    image: mockMidjourney,
   },
-  Upwork: {
-    name: "Upwork",
+  ProBridge: {
+    name: "ProBridge",
     tagline: "Connecting clients and talent with intent-driven matchmaking flows.",
     categories: "Product Design, UX",
+    image: mockUpwork,
   },
-  Headspace: {
-    name: "Headspace",
+  Cardo: {
+    name: "Cardo",
     tagline: "Designing calm — a meditation experience that meets you where you are.",
     categories: "Product Design, Brand",
+    image: mockHeadspace,
   },
   "All Work": {
     name: "All Work",

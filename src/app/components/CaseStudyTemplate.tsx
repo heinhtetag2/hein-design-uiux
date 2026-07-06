@@ -1,34 +1,78 @@
 import React from "react";
 import { motion, AnimatePresence } from "motion/react";
 import svgPaths from "../../imports/svg-edusync";
-import imgHero from "../../assets/work/edusync/hero.webp";
-import imgVideo from "../../assets/work/edusync/gallery-04.webp";
-import frame78Video from "../../assets/work/edusync/system-video.mp4";
-import imgFrame79 from "../../assets/work/edusync/gallery-01.webp";
-import imgFrame80 from "../../assets/work/edusync/gallery-02.webp";
-import imgApp1 from "../../assets/work/edusync/music-card-1.webp";
-import imgApp2 from "../../assets/work/edusync/music-card-2.webp";
-import imgApp3 from "../../assets/work/edusync/music-card-3.webp";
-import imgImage1 from "../../assets/work/edusync/gallery-03.webp";
-import imgFrame81 from "../../assets/work/edusync/gallery-05.webp";
-import imgFrame82 from "../../assets/work/edusync/gallery-07.webp";
-import imgFrame83 from "../../assets/work/edusync/gallery-08.webp";
-import imgImage2 from "../../assets/work/edusync/gallery-10.webp";
-import imgImage3 from "../../assets/work/edusync/gallery-06.webp";
-import imgImage6 from "../../assets/work/edusync/gallery-11.webp";
-import image8Video from "../../assets/work/edusync/think-different-video.mp4";
-import imgImage9 from "../../assets/work/edusync/gallery-09.webp";
-import eduSyncVideo from "../../assets/work/edusync/overview-video.mp4";
-import mockNextStudy from "../../assets/work/suno/app-mockup.webp";
 
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { CaseStudyVideo } from "./CaseStudyVideo";
 import { ArrowUpRight, BookOpen } from "lucide-react";
 
-// EduSync interactive prototype — replace with your real Figma / live prototype URL.
-const PROTOTYPE_URL = "https://www.apple.com/os/macos/?version=no-hero";
-// TODO: replace with the real Notion case-study link once the deep-dive is written
-const CASE_STUDY_URL = "https://www.nike.com/";
+// Shared, data-driven case-study detail layout. This is the EduSync showcase
+// structure generalized so every project (TwoStay, JoanX, Goft, …) renders the
+// exact same layout, animations and chrome — only the copy and imagery change.
+// See ./caseStudies.ts for the per-project data and ./EduSync.tsx for the
+// original hand-built page this mirrors.
+
+export interface CaseStudyStat {
+  value: string;
+  label: string;
+}
+
+export interface CaseStudyData {
+  /** App view id this study routes to (e.g. "suno"). */
+  view: string;
+  title: string;
+  /** EduSync uses a serif title; others can opt in. */
+  titleFont?: "serif" | "display";
+  /** Three header meta pairs (Project Type / Stage / Deliverables). */
+  meta: { label: string; value: string }[];
+  /**
+   * Pool of the project's own images. Every image slot in the layout pulls from
+   * this pool (cycled), so a project with a single asset simply repeats it.
+   */
+  images: string[];
+  /** Videos — reused across projects until real clips exist. */
+  posterVideo: string;
+  overviewVideo: string;
+  thinkVideo: string;
+
+  introHeading: string;
+  introText: string;
+  visionHeading: string;
+  visionText: string;
+  collabText: string;
+  mindsetHeading: string;
+  mindsetText: string;
+  postersPara: string[];
+  stripText: string;
+  courseHeading: string;
+  courseText: string;
+  mosaicText: string;
+  wideText: string;
+  discoveryText: string;
+  thinkHeading: string;
+  thinkText: string;
+  gridText: string;
+  scaleHeading: string;
+  scaleText: string;
+  scalePara: string[];
+  impactTitle: string;
+  impactLabel: string;
+  impactText: string;
+  stats: CaseStudyStat[];
+
+  prototypeUrl: string;
+  caseStudyUrl: string;
+  /** Name shown in the sticky prototype bar. */
+  protoLabel: string;
+
+  next: {
+    label: string;
+    tagline: string;
+    image: string;
+    index: string;
+    view: string;
+  };
+}
 
 function Container({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return <div className={`w-full ${className}`}>{children}</div>;
@@ -38,21 +82,19 @@ function SectionHeading({ text }: { text: string }) {
   return <div className="font-display font-normal text-h3 text-foreground mb-8">{text}</div>;
 }
 
-function LargeText({ text, size = "large" }: { text: string, size?: "large" | "medium" }) {
-  const classes = size === "large"
-    ? "text-display-sm"
-    : "text-h2";
+function LargeText({ text, size = "large" }: { text: string; size?: "large" | "medium" }) {
+  const classes = size === "large" ? "text-display-sm" : "text-h2";
   return (
-    <motion.p 
+    <motion.p
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
-      transition={{ 
+      transition={{
         duration: 0.8,
         type: "spring",
         damping: 30,
         stiffness: 80,
-        restDelta: 0.001
+        restDelta: 0.001,
       }}
       className={`font-display font-light text-foreground ${classes}`}
     >
@@ -103,14 +145,7 @@ function RevealVideo({ src, className = "" }: { src: string; className?: string 
         transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
         className="w-full h-full"
       >
-        <video
-          src={src}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="block w-full h-full object-cover"
-        />
+        <video src={src} autoPlay muted loop playsInline className="block w-full h-full object-cover" />
       </motion.div>
     </motion.div>
   );
@@ -192,30 +227,42 @@ function NextCaseStudy({
           </div>
         </button>
       </div>
-
     </section>
   );
 }
 
-const DRAG_CARDS = [
-  { src: "imgApp1", variant: "portrait" as const },
-  { src: "imgApp2", variant: "landscape" as const },
-  { src: "imgApp3", variant: "portrait" as const },
-  { src: "imgApp1", variant: "landscape" as const },
-  { src: "imgApp2", variant: "portrait" as const },
-  { src: "imgApp3", variant: "landscape" as const },
-  { src: "imgApp1", variant: "portrait" as const },
-  { src: "imgApp2", variant: "landscape" as const },
-];
 const DRAG_REPS = 3;
 
-export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void }) {
+export function CaseStudyTemplate({
+  data,
+  onNavigate,
+}: {
+  data: CaseStudyData;
+  onNavigate?: (view: string) => void;
+}) {
   const scrollContainerRef = React.useRef<HTMLDivElement>(null);
   const stripWidthRef = React.useRef(0);
   const [cursorPos, setCursorPos] = React.useState({ x: 0, y: 0 });
   const [showCursor, setShowCursor] = React.useState(false);
   const [isDragging, setIsDragging] = React.useState(false);
   const [showProtoBar, setShowProtoBar] = React.useState(false);
+
+  // Cycle the project's image pool into every slot, so a single-image project
+  // simply repeats its asset across the layout.
+  const pool = data.images.length ? data.images : [""];
+  const img = (i: number) => pool[i % pool.length];
+
+  // Drag-strip cards — eight alternating portrait/landscape frames drawn from
+  // the same pool, centered on the middle card.
+  const dragCards = React.useMemo(
+    () =>
+      Array.from({ length: 8 }).map((_, i) => ({
+        src: img(i),
+        variant: (i % 3 === 1 ? "landscape" : "portrait") as "portrait" | "landscape",
+      })),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [data.images],
+  );
 
   React.useEffect(() => {
     const onScroll = () => setShowProtoBar(window.scrollY > 320);
@@ -229,25 +276,20 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
     if (!container) return;
     const measure = () => {
       const cards = container.querySelectorAll<HTMLElement>("[data-drag-card]");
-      if (cards.length < DRAG_CARDS.length * 2) return;
-      const stripWidth = cards[DRAG_CARDS.length].offsetLeft - cards[0].offsetLeft;
+      if (cards.length < dragCards.length * 2) return;
+      const stripWidth = cards[dragCards.length].offsetLeft - cards[0].offsetLeft;
       stripWidthRef.current = stripWidth;
 
-      // Center the vinyl ("Luna's New Trick", imgApp1 portrait) card from the
-      // middle copy so it's the default focused card.
-      const midpoint = Math.floor(DRAG_CARDS.length / 2);
-      let localIdx = DRAG_CARDS.findIndex((c, i) => c.src === "imgApp1" && c.variant === "portrait" && i >= midpoint);
-      if (localIdx === -1) localIdx = DRAG_CARDS.findIndex((c) => c.src === "imgApp1" && c.variant === "portrait");
-      if (localIdx === -1) localIdx = DRAG_CARDS.findIndex((c) => c.src === "imgApp1");
-      if (localIdx === -1) localIdx = midpoint;
-      const hero = cards[DRAG_CARDS.length + localIdx];
+      // Center the middle card of the middle copy so the strip opens balanced.
+      const localIdx = Math.floor(dragCards.length / 2);
+      const hero = cards[dragCards.length + localIdx];
       const target = hero.offsetLeft - (container.offsetWidth - hero.offsetWidth) / 2;
       container.scrollLeft = target;
     };
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
-  }, []);
+  }, [dragCards.length]);
 
   const handleStripScroll = () => {
     const container = scrollContainerRef.current;
@@ -257,103 +299,85 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
     else if (container.scrollLeft < w) container.scrollLeft += w;
   };
 
-  const cardSrcMap: Record<string, string> = {
-    imgApp1,
-    imgApp2,
-    imgApp3,
-  };
+  const titleClass =
+    data.titleFont === "display"
+      ? "font-display font-normal"
+      : "font-serif font-normal";
 
   return (
-    <div style={{ position: 'relative' }} className="bg-background min-h-screen w-full flex flex-col items-center pb-20 relative">
-      
+    <div style={{ position: "relative" }} className="bg-background min-h-screen w-full flex flex-col items-center pb-20 relative">
       {/* 1. Header Section */}
       <Container className="pt-24 lg:pt-32 mb-2 lg:mb-20">
         <div className="mb-10">
-          <h1 className="font-serif font-normal text-display-2xl text-foreground text-left">
-            EduSync
-          </h1>
+          <h1 className={`${titleClass} text-display-2xl text-foreground text-left`}>{data.title}</h1>
         </div>
         <div className="grid grid-cols-3 gap-4 lg:flex lg:flex-row lg:justify-between pb-[10px] lg:gap-8">
-          <div className="flex flex-col gap-1 lg:w-[448px]">
-            <span className="font-display font-light text-body-sm lg:text-body text-foreground">Project Type</span>
-            <span className="font-display font-normal text-muted-foreground text-body-sm lg:text-body">Full Build</span>
-          </div>
-          <div className="flex flex-col gap-1 lg:w-[212px]">
-            <span className="font-display font-light text-body-sm lg:text-body text-foreground">Stage</span>
-            <span className="font-display font-normal text-muted-foreground text-body-sm lg:text-body">MVP-ready</span>
-          </div>
-          <div className="flex flex-col gap-1 lg:w-[400px]">
-            <span className="font-display font-light text-body-sm lg:text-body text-foreground">Deliverables</span>
-            <span className="font-display font-normal text-muted-foreground text-body-sm lg:text-body">UX, Dashboard, Systems</span>
-          </div>
+          {data.meta.map((m, i) => (
+            <div key={m.label} className={`flex flex-col gap-1 ${i === 0 ? "lg:w-[448px]" : i === 1 ? "lg:w-[212px]" : "lg:w-[400px]"}`}>
+              <span className="font-display font-light text-body-sm lg:text-body text-foreground">{m.label}</span>
+              <span className="font-display font-normal text-muted-foreground text-body-sm lg:text-body">{m.value}</span>
+            </div>
+          ))}
         </div>
       </Container>
 
       {/* 2. Hero Image */}
       <div className="relative w-screen mb-32">
         <div className="w-full h-[674px] lg:h-[840px] overflow-hidden">
-          <ImageWithFallback src={imgHero} className="w-full h-full object-cover" />
+          <ImageWithFallback src={img(0)} className="w-full h-full object-cover" />
         </div>
       </div>
 
       {/* 3. Introduction Sections */}
       <Container className="mb-20">
         <div className="lg:pr-[260px]">
-          <SectionHeading text="Introduction" />
-          <LargeText text="EduSync brings clarity to how schools manage learning. It connects administrators, teachers, and students through structured workflows that reduce friction and keep learning focused." />
+          <SectionHeading text={data.introHeading} />
+          <LargeText text={data.introText} />
         </div>
       </Container>
 
       <Container className="mb-12 lg:mb-28">
         <div className="lg:pl-[260px] lg:pr-[496px]">
-          <SectionHeading text="The vision" />
-          <LargeText size="medium" text="Build a system where learning flows naturally without operational noise." />
+          <SectionHeading text={data.visionHeading} />
+          <LargeText size="medium" text={data.visionText} />
         </div>
       </Container>
 
       {/* 4. Video Play Section */}
       <div className="w-full mb-16 md:mb-32 flex flex-col gap-8 md:gap-10 lg:items-end">
-        <CaseStudyVideo src={eduSyncVideo} className="w-full aspect-video lg:h-[782px]" />
+        <CaseStudyVideo src={data.overviewVideo} className="w-full aspect-video lg:h-[782px]" />
         <div className="w-full lg:max-w-[206px] lg:pr-4">
-           <p className="font-display text-body text-foreground leading-relaxed">
-             EduSync was shaped through close collaboration between design, product, and engineering. In a system with many stakeholders, clarity and speed were essential—enabled by shared ownership, clear roles, and continuous feedback.
-           </p>
+          <p className="font-display text-body text-foreground leading-relaxed">{data.collabText}</p>
         </div>
       </div>
 
       {/* 5. Mindset Section */}
       <Container className="mb-16 md:mb-28 lg:mb-40">
         <div className="lg:pl-[260px] lg:pr-[460px]">
-          <SectionHeading text="The system mindset" />
-          <LargeText size="medium" text="A structured learning platform that balances administrative control with flexibility while keeping the experience simple for those who learn and teach every day." />
+          <SectionHeading text={data.mindsetHeading} />
+          <LargeText size="medium" text={data.mindsetText} />
         </div>
       </Container>
 
       {/* 6. Image Grid (Posters) */}
       <div className="w-full mb-28 md:mb-40 lg:mb-56 flex flex-col gap-4 md:gap-6">
         <div className="w-full h-[250px] md:h-[400px] lg:h-[778px] overflow-hidden">
-          <video
-            src={frame78Video}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="block w-full h-full object-cover"
-          />
+          <video src={data.posterVideo} autoPlay muted loop playsInline className="block w-full h-full object-cover" />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
-           <div className="h-[360px] md:h-[460px] lg:h-[782px] overflow-hidden">
-             <RevealImage src={imgFrame79} className="w-full h-full" />
-           </div>
-           <div className="flex flex-col gap-6">
-              <div className="h-[200px] lg:h-[384px] overflow-hidden">
-                 <RevealImage src={imgFrame80} className="w-full h-full" />
-              </div>
-              <div className="font-display text-body text-foreground/80 space-y-4 max-w-[400px]">
-                 <p>Education systems are becoming more complex, with more tools, more data, and more stakeholders involved. EduSync was designed to bring structure to that complexity turning scattered processes into clear, connected workflows.</p>
-                 <p>To support this, I designed a flexible system that adapts across roles and scenarios, balancing control with simplicity while remaining ready for what comes next.</p>
-              </div>
-           </div>
+          <div className="h-[360px] md:h-[460px] lg:h-[782px] overflow-hidden">
+            <RevealImage src={img(1)} className="w-full h-full" />
+          </div>
+          <div className="flex flex-col gap-6">
+            <div className="h-[200px] lg:h-[384px] overflow-hidden">
+              <RevealImage src={img(2)} className="w-full h-full" />
+            </div>
+            <div className="font-display text-body text-foreground/80 space-y-4 max-w-[400px]">
+              {data.postersPara.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -367,10 +391,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
           onScroll={handleStripScroll}
           onMouseEnter={() => setShowCursor(true)}
           onMouseMove={(e) => {
-            setCursorPos({
-              x: e.clientX,
-              y: e.clientY
-            });
+            setCursorPos({ x: e.clientX, y: e.clientY });
           }}
           onMouseLeave={() => {
             setShowCursor(false);
@@ -389,16 +410,9 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
             >
               <div
                 className="flex items-center justify-center rounded-full"
-                style={{
-                  width: 88,
-                  height: 88,
-                  border: "1.25px solid var(--brand)",
-                  background: "transparent",
-                }}
+                style={{ width: 88, height: 88, border: "1.25px solid var(--brand)", background: "transparent" }}
               >
-                <span className="font-display font-light text-[13px] text-white tracking-tight leading-none">
-                  Drag
-                </span>
+                <span className="font-display font-light text-[13px] text-white tracking-tight leading-none">Drag</span>
               </div>
             </div>
           )}
@@ -430,7 +444,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
             }}
           >
             {Array.from({ length: DRAG_REPS }).flatMap((_, copy) =>
-              DRAG_CARDS.map((card, i) => (
+              dragCards.map((card, i) => (
                 <div
                   key={`${copy}-${i}`}
                   data-drag-card
@@ -440,18 +454,18 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
                       : "w-[348px] h-[280px] lg:w-[580px] lg:h-[456px] shrink-0 overflow-hidden rounded-none"
                   }
                 >
-                  <ImageWithFallback src={cardSrcMap[card.src]} className="w-full h-full object-cover" />
+                  <ImageWithFallback src={card.src} className="w-full h-full object-cover" />
                 </div>
               )),
             )}
           </div>
         </div>
-        
+
         {/* Description below cards — narrow column, left-aligned to match the gallery rhythm */}
         <div className="w-full mt-16 lg:mt-24">
           <div className="pl-6 lg:pl-[14vw]">
             <p className="font-display font-light text-body text-foreground/85 max-w-[320px] lg:mx-0 lg:text-left text-left leading-relaxed">
-              By balancing structure and flexibility, EduSync creates a system that feels both controlled and human. Administrators gain oversight, teachers gain freedom, and learning becomes accessible without unnecessary complexity.
+              {data.stripText}
             </p>
           </div>
         </div>
@@ -460,43 +474,43 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       {/* 9. Full Width Images */}
       <div className="w-full mb-32 flex flex-col gap-28 lg:gap-20">
         <div className="w-full h-[200px] lg:h-[680px] overflow-hidden">
-          <RevealImage src={imgImage1} className="w-full h-full" />
+          <RevealImage src={img(3)} className="w-full h-full" />
         </div>
         <div className="w-full h-[200px] lg:h-[590px] overflow-hidden">
-          <RevealImage src={imgVideo} className="w-full h-full" />
+          <RevealImage src={img(4)} className="w-full h-full" />
         </div>
       </div>
 
       {/* 10. Course Management Section */}
       <Container className="mb-16 md:mb-28 lg:mb-40">
         <div className="lg:pl-[260px] lg:pr-[460px]">
-          <SectionHeading text="Course Management" />
-          <LargeText size="medium" text="Structuring learning through clear roles, reviews, and workflows." />
+          <SectionHeading text={data.courseHeading} />
+          <LargeText size="medium" text={data.courseText} />
         </div>
       </Container>
 
       {/* 11. App Detail Mosaic Grid */}
       <div className="w-full mb-28 md:mb-32 flex flex-col lg:flex-row gap-6">
         <div className="contents lg:flex lg:flex-col lg:gap-6 lg:w-[424px] lg:h-[782px]">
-           <div className="order-3 lg:order-none pr-6 lg:pr-0 lg:max-w-[262px]">
-              <p className="font-display text-body text-foreground">Create a course, assign teachers, and manage lessons in one place. Content moves from draft to review to published ensuring quality without slowing down teaching.</p>
-           </div>
-           <div className="order-1 lg:order-none h-[444px] lg:flex-1 lg:min-h-0 overflow-hidden">
-              <RevealImage src={imgFrame81} className="w-full h-full" />
-           </div>
+          <div className="order-3 lg:order-none pr-6 lg:pr-0 lg:max-w-[262px]">
+            <p className="font-display text-body text-foreground">{data.mosaicText}</p>
+          </div>
+          <div className="order-1 lg:order-none h-[444px] lg:flex-1 lg:min-h-0 overflow-hidden">
+            <RevealImage src={img(5)} className="w-full h-full" />
+          </div>
         </div>
         <div className="order-2 lg:order-none h-[284px] md:h-[400px] lg:flex-1 lg:h-[782px] overflow-hidden">
-           <RevealImage src={imgApp1} className="w-full h-full" />
+          <RevealImage src={img(6)} className="w-full h-full" />
         </div>
       </div>
 
       {/* 11.5 Wide Image Grid Section */}
       <div className="w-full mb-16 md:mb-32 grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-10 h-[236px] lg:h-[748px] overflow-hidden">
-           <RevealImage src={imgImage3} className="w-full h-full" />
+          <RevealImage src={img(7)} className="w-full h-full" />
         </div>
         <div className="lg:col-span-2 flex items-start pr-6 lg:pr-0">
-           <p className="font-display text-body text-foreground w-full lg:w-auto lg:max-w-[197px]">Structuring learning through clear roles, reviews, and workflows.</p>
+          <p className="font-display text-body text-foreground w-full lg:w-auto lg:max-w-[197px]">{data.wideText}</p>
         </div>
       </div>
 
@@ -506,17 +520,15 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
           <div className="contents lg:flex lg:flex-col lg:gap-[24px] lg:min-w-0 lg:items-start lg:justify-center lg:self-stretch">
             <div className="order-3 lg:order-none w-full pr-6 lg:pr-0">
               <div className="flex flex-col gap-[8px] font-display font-light text-body text-foreground tracking-tight">
-                <p className="leading-relaxed">
-                  EduSync approaches discovery through clarity—surfacing relevant courses, lessons, and progress cues that keep students engaged over time.
-                </p>
+                <p className="leading-relaxed">{data.discoveryText}</p>
               </div>
             </div>
             <div className="order-1 lg:order-none w-full overflow-hidden h-[280px] md:h-[420px] lg:h-auto lg:flex-1 lg:min-h-px">
-              <RevealImage src={imgFrame82} className="w-full h-full" />
+              <RevealImage src={img(8)} className="w-full h-full" />
             </div>
           </div>
           <div className="order-2 lg:order-none w-full lg:min-w-0 h-[400px] md:h-[600px] lg:h-[900px] overflow-hidden">
-            <RevealImage src={imgFrame83} className="w-full h-full" />
+            <RevealImage src={img(9)} className="w-full h-full" />
           </div>
         </div>
       </div>
@@ -524,38 +536,38 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       {/* 12. Think Different Section */}
       <Container className="mt-14 lg:mt-0 mb-[60px] md:mb-[100px] lg:mb-[140px]">
         <div className="lg:pl-[260px] lg:pr-[460px]">
-          <SectionHeading text="Think Different" />
-          <LargeText size="medium" text="The ability to surface the right learning at the right time turns an LMS into a place students return to—not just log into." />
+          <SectionHeading text={data.thinkHeading} />
+          <LargeText size="medium" text={data.thinkText} />
         </div>
       </Container>
 
       {/* 12.5 Grid Layout with Text + Images */}
       <div className="w-full mb-16 md:mb-32 flex flex-col lg:flex-row gap-6">
         <div className="contents lg:flex lg:flex-col lg:gap-4 lg:w-[424px] lg:h-[782px]">
-           <div className="order-3 lg:order-none pr-6 lg:pr-0 lg:max-w-[262px]">
-              <p className="font-display text-body text-foreground">Create a course, assign teachers, and manage lessons in one place.</p>
-           </div>
-           <div className="order-1 lg:order-none h-[444px] lg:flex-1 lg:min-h-0 overflow-hidden">
-              <RevealVideo src={image8Video} className="w-full h-full" />
-           </div>
+          <div className="order-3 lg:order-none pr-6 lg:pr-0 lg:max-w-[262px]">
+            <p className="font-display text-body text-foreground">{data.gridText}</p>
+          </div>
+          <div className="order-1 lg:order-none h-[444px] lg:flex-1 lg:min-h-0 overflow-hidden">
+            <RevealVideo src={data.thinkVideo} className="w-full h-full" />
+          </div>
         </div>
         <div className="order-2 lg:order-none h-[284px] lg:flex-1 lg:h-[782px] overflow-hidden">
-           <RevealImage src={imgImage9} className="w-full h-full" />
+          <RevealImage src={img(10)} className="w-full h-full" />
         </div>
       </div>
 
       {/* 11.9c — Full Width Image */}
       <div className="w-full pt-24 pb-12 md:py-16 lg:py-[90px]">
         <div className="w-full h-[200px] lg:h-[840px] overflow-hidden">
-          <RevealImage src={imgImage2} className="w-full h-full" />
+          <RevealImage src={img(11)} className="w-full h-full" />
         </div>
       </div>
 
       {/* 11.9d — A System Designed to Scale */}
       <Container className="py-12 md:py-16 lg:py-[90px]">
         <div className="lg:pl-[260px] lg:pr-[460px]">
-          <SectionHeading text="A System Designed to Scale" />
-          <LargeText size="medium" text="Building a stable foundation that supports growth without breaking existing workflows." />
+          <SectionHeading text={data.scaleHeading} />
+          <LargeText size="medium" text={data.scaleText} />
         </div>
       </Container>
 
@@ -563,18 +575,19 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       <div className="w-full mb-32">
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="min-w-0 h-[236px] lg:flex-1 lg:h-[748px] overflow-hidden">
-            <RevealImage src={imgImage6} className="w-full h-full" />
+            <RevealImage src={img(12)} className="w-full h-full" />
           </div>
           <div className="w-full lg:w-[212px] shrink-0 flex flex-col gap-[8px] pr-6 lg:pr-0">
-            <p className="font-display font-light text-body text-foreground tracking-tight leading-relaxed lg:hidden">
-              As platforms grow, design systems matter more than screens. EduSync is built on reusable components and predictable states—reliable today, flexible for what's next.
-            </p>
-            <p className="hidden font-display font-light text-body text-foreground tracking-tight leading-relaxed lg:block">
-              As learning platforms grow, design systems become more important than individual screens. EduSync was built around reusable components, clear content structures, and predictable states—so new features can be added without rethinking the core experience.
-            </p>
-            <p className="hidden font-display font-light text-body text-foreground tracking-tight leading-relaxed lg:block">
-              By prioritizing consistency and adaptability, the system remains reliable for schools today while staying flexible for future needs.
-            </p>
+            {data.scalePara.map((p, i) => (
+              <p
+                key={i}
+                className={`font-display font-light text-body text-foreground tracking-tight leading-relaxed ${
+                  i === 0 ? "lg:hidden" : "hidden lg:block"
+                }`}
+              >
+                {p}
+              </p>
+            ))}
           </div>
         </div>
       </div>
@@ -585,30 +598,25 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
           className="font-display font-light text-display-sm text-foreground mb-10 md:mb-20"
           style={{ fontSize: "clamp(32px, 5vw, 64px)", lineHeight: 1.1, letterSpacing: "-0.01em", fontWeight: 300 }}
         >
-          Immediate disruption
+          {data.impactTitle}
         </h2>
         <div className="flex flex-col lg:flex-row justify-between gap-10 pb-20">
-          <div className="font-display font-medium text-body text-foreground">Impact</div>
-          <p className="max-w-[532px] font-display text-body text-foreground/80">
-            EduSync was designed to address real operational pain points in school environments. From early concept validation to workflow testing, the system demonstrated immediate improvements in clarity, efficiency, and confidence across roles.
-          </p>
+          <div className="font-display font-medium text-body text-foreground">{data.impactLabel}</div>
+          <p className="max-w-[532px] font-display text-body text-foreground/80">{data.impactText}</p>
         </div>
 
         <div className="flex flex-col lg:flex-row">
-          {[
-            { value: "4.9", label: "Star rating on App Store" },
-            { value: "43K", label: "Ratings on App Store" },
-            { value: "T10", label: "Top performing apps in Education" }
-          ].map((stat) => (
+          {data.stats.map((stat) => (
             <div key={stat.label} className="flex-1 py-8 md:py-10 lg:py-12 lg:px-10 flex flex-col gap-4 md:gap-6">
               <span
                 className="font-display font-light text-display-lg text-foreground"
                 style={{ fontSize: "clamp(56px, 8vw, 112px)", lineHeight: 1, letterSpacing: "-0.02em", fontWeight: 300 }}
-              >{stat.value}</span>
-              <span
-                className="font-display text-h3 text-foreground/60"
-                style={{ fontSize: "clamp(20px, 2vw, 24px)", lineHeight: 1.3 }}
-              >{stat.label}</span>
+              >
+                {stat.value}
+              </span>
+              <span className="font-display text-h3 text-foreground/60" style={{ fontSize: "clamp(20px, 2vw, 24px)", lineHeight: 1.3 }}>
+                {stat.label}
+              </span>
             </div>
           ))}
         </div>
@@ -616,11 +624,11 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
 
       {/* 16. Next Case Study */}
       <NextCaseStudy
-        label="TwoStay"
-        tagline="AI-powered music creation platform"
-        image={mockNextStudy}
-        index="02 / 06"
-        onClick={() => onNavigate?.("suno")}
+        label={data.next.label}
+        tagline={data.next.tagline}
+        image={data.next.image}
+        index={data.next.index}
+        onClick={() => onNavigate?.(data.next.view)}
       />
 
       {/* 17. Footer Help Section */}
@@ -643,13 +651,25 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       {/* 18. Final Footer Links */}
       <Container className="border-t border-foreground/10 py-10 flex flex-wrap gap-x-24 gap-y-12">
         <div className="flex flex-col gap-3">
-          {["Linkedin", "Instagram", "X", "Medium"].map(l => <span key={l} className="text-foreground/40 hover:text-foreground cursor-pointer transition-colors font-display text-body">{l}</span>)}
+          {["Linkedin", "Instagram", "X", "Medium"].map((l) => (
+            <span key={l} className="text-foreground/40 hover:text-foreground cursor-pointer transition-colors font-display text-body">
+              {l}
+            </span>
+          ))}
         </div>
         <div className="flex flex-col gap-3">
-          {["Careers", "Contact"].map(l => <span key={l} className="text-foreground/40 hover:text-foreground cursor-pointer transition-colors font-display text-body">{l}</span>)}
+          {["Careers", "Contact"].map((l) => (
+            <span key={l} className="text-foreground/40 hover:text-foreground cursor-pointer transition-colors font-display text-body">
+              {l}
+            </span>
+          ))}
         </div>
         <div className="flex flex-col gap-3">
-          {["Privacy", "Accessibility"].map(l => <span key={l} className="text-foreground/40 hover:text-foreground cursor-pointer transition-colors font-display text-body">{l}</span>)}
+          {["Privacy", "Accessibility"].map((l) => (
+            <span key={l} className="text-foreground/40 hover:text-foreground cursor-pointer transition-colors font-display text-body">
+              {l}
+            </span>
+          ))}
         </div>
         <div className="ml-auto text-foreground/20 font-light font-display text-body">© 2026 Hein Htet</div>
       </Container>
@@ -667,25 +687,20 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
             <div className="pointer-events-auto flex items-center gap-2 sm:gap-4 rounded-full border border-foreground/15 bg-background/70 py-2 pl-2 pr-2 sm:pl-5 backdrop-blur-xl shadow-[0_8px_40px_-12px_rgba(0,0,0,0.6)]">
               <span className="hidden sm:flex items-center gap-2.5 pr-1">
                 <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand)] animate-pulse" />
-                <span className="font-display font-normal text-body-sm text-foreground whitespace-nowrap">
-                  EduSync
-                </span>
+                <span className="font-display font-normal text-body-sm text-foreground whitespace-nowrap">{data.protoLabel}</span>
               </span>
               <a
-                href={CASE_STUDY_URL}
+                href={data.caseStudyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-foreground/25 py-2 pl-4 pr-3.5 font-display font-normal text-body-sm whitespace-nowrap text-foreground/80 transition-colors duration-500 hover:border-foreground"
               >
                 <span className="pointer-events-none absolute inset-0 origin-left scale-x-0 bg-foreground transition-transform duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:scale-x-100" />
                 <span className="relative transition-colors duration-500 group-hover:text-background">Full Case Study</span>
-                <BookOpen
-                  className="relative h-4 w-4 transition-colors duration-500 group-hover:text-background"
-                  strokeWidth={1.75}
-                />
+                <BookOpen className="relative h-4 w-4 transition-colors duration-500 group-hover:text-background" strokeWidth={1.75} />
               </a>
               <a
-                href={PROTOTYPE_URL}
+                href={data.prototypeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-foreground py-2 pl-4 pr-3.5 text-background"
@@ -701,7 +716,6 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
           </motion.div>
         )}
       </AnimatePresence>
-
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "motion/react";
-import { Music, ShoppingBag, Moon, Mail } from "lucide-react";
+import { Music, ShoppingBag, Moon, Mail, Download } from "lucide-react";
 import { useCart } from "../shop/CartContext";
 // Site logo — light & dark variants. The theme swaps between them via the
 // [data-logo] rules in theme.css. Replacements live in src/assets/brand/.
@@ -108,23 +108,36 @@ function Menu({ isOpen, setIsOpen, onNavigate, currentView }: { isOpen: boolean;
                           ))}
                         </div>
                       </div>
-                      <button
-                        onClick={() => {
-                          if (currentView !== 'visitor-gallery') onNavigate?.('visitor-gallery');
-                          setIsOpen(false);
-                        }}
-                        className={`group flex items-center justify-between gap-3 w-full text-left cursor-pointer rounded-2xl border px-4 py-3 transition-colors ${
-                          currentView === 'visitor-gallery'
-                            ? 'border-foreground/30 bg-foreground/[0.04]'
-                            : 'border-foreground/10 hover:border-foreground/30 hover:bg-foreground/[0.03]'
-                        }`}
-                      >
-                        <span className="space-y-0.5">
-                          <span className="block font-display text-eyebrow text-muted-foreground">Guestbook</span>
-                          <span className="block font-display font-light text-body-sm text-foreground">Visitor Gallery</span>
-                        </span>
-                        <span className="font-display text-body-sm text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 transition-all">→</span>
-                      </button>
+                      <div className="space-y-2">
+                        <button
+                          onClick={() => {
+                            if (currentView !== 'visitor-gallery') onNavigate?.('visitor-gallery');
+                            setIsOpen(false);
+                          }}
+                          className={`group flex items-center justify-between gap-3 w-full text-left cursor-pointer rounded-2xl border px-4 py-3 transition-colors ${
+                            currentView === 'visitor-gallery'
+                              ? 'border-foreground/30 bg-foreground/[0.04]'
+                              : 'border-foreground/10 hover:border-foreground/30 hover:bg-foreground/[0.03]'
+                          }`}
+                        >
+                          <span className="space-y-0.5">
+                            <span className="block font-display text-eyebrow text-muted-foreground">Guestbook</span>
+                            <span className="block font-display font-light text-body-sm text-foreground">Visitor Gallery</span>
+                          </span>
+                          <span className="font-display text-body-sm text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 transition-all">→</span>
+                        </button>
+                        <a
+                          href="/cv.pdf"
+                          download="Hein-Htet-CV.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setIsOpen(false)}
+                          className="group flex items-center justify-between gap-3 w-full text-left cursor-pointer rounded-2xl border border-foreground/10 hover:border-foreground/30 hover:bg-foreground/[0.03] px-4 py-2 transition-colors"
+                        >
+                          <span className="block font-display font-light text-body-sm text-foreground">Download CV</span>
+                          <Download className="size-4 text-muted-foreground group-hover:text-foreground transition-colors" strokeWidth={1.5} />
+                        </a>
+                      </div>
                     </div>
                     
                     <div className="mt-6">
@@ -194,6 +207,25 @@ function MailIcon({ onClick }: { onClick: () => void }) {
     >
       <Mail className="size-[15px] text-foreground" strokeWidth={1.5} />
     </button>
+  );
+}
+
+function CvButton() {
+  // Lives in /public, served at the site root. Replace public/cv.pdf with the
+  // real résumé and this keeps working — no import or rebuild needed.
+  return (
+    <a
+      href="/cv.pdf"
+      download="Hein-Htet-CV.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center gap-1 shrink-0 cursor-pointer text-foreground hover:opacity-70 transition-opacity"
+      aria-label="Download CV"
+      title="Download CV"
+    >
+      <Download className="size-[15px]" strokeWidth={1.5} />
+      <span className="font-display font-light text-caption tracking-tight leading-none">CV</span>
+    </a>
   );
 }
 
@@ -346,6 +378,7 @@ export function TopNav({ onLogoClick, onNavigate, isMenuOpen, onMenuOpenChange, 
         <MoonIcon onClick={toggleTheme} filled={isDark} />
         <MusicIcon isPlaying={isMusicPlaying} onClick={toggleMusic} />
         <MailIcon onClick={() => onNavigate("contact")} />
+        <CvButton />
         <CartButton />
       </div>
     </motion.header>

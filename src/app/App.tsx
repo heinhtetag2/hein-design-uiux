@@ -14,10 +14,12 @@ import { VisitorCard } from "./components/VisitorCard";
 import { VISITOR_STORAGE_KEY, appendVisitor, type Visitor } from "./visitorStore";
 import { CartProvider } from "./shop/CartContext";
 import { CartDrawer } from "./components/CartDrawer";
+import { caseStudies } from "./components/caseStudies";
 
 // Non-home views — code-split. Each loads on navigation, fully covered by the
 // 800ms page-transition overlay, so there is no perceptible loading state.
 const EduSync = lazy(() => import("./components/EduSync").then((m) => ({ default: m.EduSync })));
+const CaseStudyTemplate = lazy(() => import("./components/CaseStudyTemplate").then((m) => ({ default: m.CaseStudyTemplate })));
 const WhatIDo = lazy(() => import("./components/WhatIDo").then((m) => ({ default: m.WhatIDo })));
 const AllWork = lazy(() => import("./components/AllWork").then((m) => ({ default: m.AllWork })));
 const Blogs = lazy(() => import("./components/Blogs").then((m) => ({ default: m.Blogs })));
@@ -31,7 +33,7 @@ const Checkout = lazy(() => import("./components/Checkout").then((m) => ({ defau
 // Dev flag — show the intro on every refresh. Flip to false to gate by first visit (one pass per device).
 const ALWAYS_SHOW_VISITOR_INTRO = false;
 
-type View = "home" | "edusync" | "what-i-do" | "blogs" | "blog-detail" | "contact" | "visitor-gallery" | "all-work" | "shop" | "product-detail" | "checkout";
+type View = "home" | "edusync" | "suno" | "uber" | "midjourney" | "upwork" | "headspace" | "what-i-do" | "blogs" | "blog-detail" | "contact" | "visitor-gallery" | "all-work" | "shop" | "product-detail" | "checkout";
 
 // Force rebuild
 export default function App() {
@@ -267,6 +269,10 @@ export default function App() {
             ) : currentView === "edusync" ? (
               <div className="pt-[100px] relative">
                 <EduSync onNavigate={handleNavigate} />
+              </div>
+            ) : caseStudies[currentView] ? (
+              <div className="pt-[100px] relative">
+                <CaseStudyTemplate data={caseStudies[currentView]} onNavigate={handleNavigate} />
               </div>
             ) : currentView === "what-i-do" ? (
               <WhatIDo />

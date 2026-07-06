@@ -4,16 +4,29 @@ import { motion } from "motion/react";
 const navItems = ["About Me", "My Blogs", "Shop", "Get in Touch"];
 const caseStudies = [
   "EduSync",
-  "Suno",
-  "Uber",
-  "Midjourney",
-  "Upwork",
-  "Headspace",
+  "TwoStay",
+  "JoanX",
+  "Goft",
+  "ProBridge",
+  "Cardo",
   "All Work",
 ];
 
+type CaseStudyView = "home" | "edusync" | "suno" | "uber" | "midjourney" | "upwork" | "headspace" | "what-i-do" | "blogs" | "contact" | "all-work" | "shop";
+
+// Maps the sidebar label to the app view it routes to.
+const STUDY_VIEWS: Record<string, CaseStudyView> = {
+  EduSync: "edusync",
+  TwoStay: "suno",
+  JoanX: "uber",
+  Goft: "midjourney",
+  ProBridge: "upwork",
+  Cardo: "headspace",
+  "All Work": "all-work",
+};
+
 interface SidebarProps {
-  onCaseStudyClick?: (view: "home" | "edusync" | "what-i-do" | "blogs" | "contact" | "all-work" | "shop") => void;
+  onCaseStudyClick?: (view: CaseStudyView) => void;
   onCaseStudyHover?: (study: string | null) => void;
   isMenuOpen?: boolean;
   activeView?: string;
@@ -87,8 +100,8 @@ export function Sidebar({ onCaseStudyClick, onCaseStudyHover, isMenuOpen, active
               key={study}
               whileTap={{ scale: 0.95 }}
               onClick={() => {
-                if (study === "EduSync") onCaseStudyClick?.("edusync");
-                if (study === "All Work") onCaseStudyClick?.("all-work");
+                const view = STUDY_VIEWS[study];
+                if (view) onCaseStudyClick?.(view);
               }}
               onMouseEnter={() => onCaseStudyHover?.(study)}
               onMouseLeave={() => onCaseStudyHover?.(null)}
