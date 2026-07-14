@@ -459,7 +459,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
 
       {/* 9. Full Width Images */}
       <div className="w-full mb-32 flex flex-col gap-28 lg:gap-20">
-        <div className="w-full h-[200px] lg:h-[680px] overflow-hidden">
+        <div className="w-full h-[200px] lg:h-[784px] overflow-hidden">
           <RevealImage src={imgImage1} className="w-full h-full" />
         </div>
         <div className="w-full h-[200px] lg:h-[590px] overflow-hidden">
