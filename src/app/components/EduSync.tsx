@@ -9,7 +9,7 @@ import imgFrame80 from "../../assets/work/edusync/gallery-02.webp";
 import imgApp1 from "../../assets/work/edusync/music-card-1.webp";
 import imgApp2 from "../../assets/work/edusync/music-card-2.webp";
 import imgApp3 from "../../assets/work/edusync/music-card-3.webp";
-import imgImage1 from "../../assets/work/edusync/gallery-03.webp";
+import imgImage1 from "../../assets/work/edusync/gallery-00.png";
 import imgFrame81 from "../../assets/work/edusync/gallery-05.webp";
 import imgFrame82 from "../../assets/work/edusync/gallery-07.webp";
 import imgFrame83 from "../../assets/work/edusync/gallery-08.webp";
