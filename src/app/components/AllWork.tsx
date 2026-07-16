@@ -3,11 +3,11 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { FilterPills } from "./FilterPills";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import imgEduSync from "../../assets/work/edusync/hover-cover.webp";
-import imgSuno from "../../assets/work/suno/app-mockup.webp";
-import imgMidjourney from "../../assets/work/midjourney/chrome-abstract.webp";
-import imgUber from "../../assets/work/uber/laptop.webp";
-import imgUpwork from "../../assets/work/upwork/fearless-girl.webp";
-import imgHeadspace from "../../assets/work/headspace/cover.webp";
+import imgSuno from "../../assets/work/twostay/app-mockup.webp";
+import imgMidjourney from "../../assets/work/goft/chrome-abstract.webp";
+import imgUber from "../../assets/work/joanx/laptop.webp";
+import imgUpwork from "../../assets/work/probridge/fearless-girl.webp";
+import imgHeadspace from "../../assets/work/cardo/cover.webp";
 import imgNike from "../../assets/work/nike/app-showcase.webp";
 import imgModular from "../../assets/work/modular/cover.webp";
 

@@ -33,7 +33,7 @@ const Checkout = lazy(() => import("./components/Checkout").then((m) => ({ defau
 // Dev flag — show the intro on every refresh. Flip to false to gate by first visit (one pass per device).
 const ALWAYS_SHOW_VISITOR_INTRO = false;
 
-type View = "home" | "edusync" | "suno" | "uber" | "midjourney" | "upwork" | "headspace" | "what-i-do" | "blogs" | "blog-detail" | "contact" | "visitor-gallery" | "all-work" | "shop" | "product-detail" | "checkout";
+type View = "home" | "edusync" | "twostay" | "joanx" | "goft" | "probridge" | "cardo" | "what-i-do" | "blogs" | "blog-detail" | "contact" | "visitor-gallery" | "all-work" | "shop" | "product-detail" | "checkout";
 
 // Force rebuild
 export default function App() {

@@ -4,12 +4,12 @@ import { FilterPills } from "./FilterPills";
 import { CaseStudyVideo } from "./CaseStudyVideo";
 import svgPaths from "../../imports/svg-whatido";
 import maxonVideo from "../../assets/what-i-do/maxon-video.mp4";
-import imgALaptop from "../../assets/work/uber/laptop.webp";
+import imgALaptop from "../../assets/work/joanx/laptop.webp";
 import imgStadium from "../../assets/what-i-do/stadium.webp";
 import imgWomanWatermelon from "../../assets/what-i-do/woman-watermelon.webp";
-import imgFearlessGirl from "../../assets/work/upwork/fearless-girl.webp";
+import imgFearlessGirl from "../../assets/work/probridge/fearless-girl.webp";
 import imgModular from "../../assets/work/modular/cover.webp";
-import imgHeadspace from "../../assets/work/headspace/full.webp";
+import imgHeadspace from "../../assets/work/cardo/full.webp";
 import { imgVector, imgVector1 } from "../../imports/svg-whatido-vec";
 import { useScroll, useTransform, useSpring, useInView, animate, motion } from "motion/react";
 

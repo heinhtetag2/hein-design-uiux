@@ -18,7 +18,7 @@ export interface CaseStudyStat {
 }
 
 export interface CaseStudyData {
-  /** App view id this study routes to (e.g. "suno"). */
+  /** App view id this study routes to (e.g. "twostay"). */
   view: string;
   title: string;
   /** EduSync uses a serif title; others can opt in. */
@@ -30,6 +30,16 @@ export interface CaseStudyData {
    * this pool (cycled), so a project with a single asset simply repeats it.
    */
   images: string[];
+  /** Optional override for the top hero/banner image (defaults to images[0]). */
+  heroImage?: string;
+  /**
+   * Pin specific image slots to specific assets, by slot index. Any slot not
+   * listed falls back to the cycled `images` pool. Slot indices map to the
+   * layout in order: 3 = the tall full-width feature image below the drag
+   * strip, 4 = the full-width below it, 5/6 = mosaic, 7 = wide grid, 8/9 =
+   * discovery pair, 10 = think grid, 11 = full-width, 12 = scale.
+   */
+  slots?: Record<number, string>;
   /** Videos — reused across projects until real clips exist. */
   posterVideo: string;
   overviewVideo: string;
@@ -250,7 +260,7 @@ export function CaseStudyTemplate({
   // Cycle the project's image pool into every slot, so a single-image project
   // simply repeats its asset across the layout.
   const pool = data.images.length ? data.images : [""];
-  const img = (i: number) => pool[i % pool.length];
+  const img = (i: number) => data.slots?.[i] ?? pool[i % pool.length];
 
   // Drag-strip cards — eight alternating portrait/landscape frames drawn from
   // the same pool, centered on the middle card.
@@ -261,7 +271,7 @@ export function CaseStudyTemplate({
         variant: (i % 3 === 1 ? "landscape" : "portrait") as "portrait" | "landscape",
       })),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data.images],
+    [data.images, data.slots],
   );
 
   React.useEffect(() => {
@@ -324,7 +334,7 @@ export function CaseStudyTemplate({
       {/* 2. Hero Image */}
       <div className="relative w-screen mb-32">
         <div className="w-full h-[674px] lg:h-[840px] overflow-hidden">
-          <ImageWithFallback src={img(0)} className="w-full h-full object-cover" />
+          <ImageWithFallback src={data.heroImage ?? img(0)} className="w-full h-full object-cover" />
         </div>
       </div>
 
@@ -473,7 +483,7 @@ export function CaseStudyTemplate({
 
       {/* 9. Full Width Images */}
       <div className="w-full mb-32 flex flex-col gap-28 lg:gap-20">
-        <div className="w-full h-[200px] lg:h-[680px] overflow-hidden">
+        <div className="w-full h-[200px] lg:h-[784px] overflow-hidden">
           <RevealImage src={img(3)} className="w-full h-full" />
         </div>
         <div className="w-full h-[200px] lg:h-[590px] overflow-hidden">

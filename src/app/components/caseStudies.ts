@@ -6,12 +6,16 @@ import type { CaseStudyData } from "./CaseStudyTemplate";
 // EduSync clips until project-specific footage exists.
 
 // Project imagery (each project currently ships 1–2 assets).
-import imgSuno from "../../assets/work/suno/app-mockup.webp";
-import imgUber from "../../assets/work/uber/laptop.webp";
-import imgMidjourney from "../../assets/work/midjourney/chrome-abstract.webp";
-import imgUpwork from "../../assets/work/upwork/fearless-girl.webp";
-import imgHeadspaceCover from "../../assets/work/headspace/cover.webp";
-import imgHeadspaceFull from "../../assets/work/headspace/full.webp";
+import imgSuno from "../../assets/work/twostay/app-mockup.webp";
+import imgTwoStayColors from "../../assets/work/twostay/tu2staycolorpreviews.webp";
+import imgTwoStayTablet from "../../assets/work/twostay/mocktablet.webp";
+import imgTwoStayBanner from "../../assets/work/twostay/Mockbanner.webp";
+import imgUber from "../../assets/work/joanx/laptop.webp";
+import imgJoanXColors from "../../assets/work/joanx/JoanXcolorpreview.webp";
+import imgMidjourney from "../../assets/work/goft/chrome-abstract.webp";
+import imgUpwork from "../../assets/work/probridge/fearless-girl.webp";
+import imgHeadspaceCover from "../../assets/work/cardo/cover.webp";
+import imgHeadspaceFull from "../../assets/work/cardo/full.webp";
 import imgEduSync from "../../assets/work/edusync/hover-cover.webp";
 
 // Shared video slots (reused across projects for now).
@@ -26,15 +30,18 @@ const sharedVideos = {
 };
 
 export const caseStudies: Record<string, CaseStudyData> = {
-  suno: {
+  twostay: {
     ...sharedVideos,
-    view: "suno",
+    view: "twostay",
     title: "TwoStay",
     titleFont: "serif",
     protoLabel: "TwoStay",
     prototypeUrl: "https://suno.com/",
     caseStudyUrl: "https://suno.com/",
-    images: [imgSuno],
+    images: [imgSuno, imgTwoStayColors, imgTwoStayTablet, imgTwoStayBanner],
+    heroImage: imgTwoStayBanner,
+    // Pin the tall full-width feature slot to the color-preview image.
+    slots: { 3: imgTwoStayColors },
     meta: [
       { label: "Project Type", value: "Product Design" },
       { label: "Stage", value: "Scale-up" },
@@ -82,18 +89,18 @@ export const caseStudies: Record<string, CaseStudyData> = {
       { value: "12M", label: "Songs generated" },
       { value: "T5", label: "Top performing AI music apps" },
     ],
-    next: { label: "JoanX", tagline: "A calmer everyday ride experience", image: imgUber, index: "03 / 06", view: "uber" },
+    next: { label: "JoanX", tagline: "A calmer everyday ride experience", image: imgUber, index: "03 / 06", view: "joanx" },
   },
 
-  uber: {
+  joanx: {
     ...sharedVideos,
-    view: "uber",
+    view: "joanx",
     title: "JoanX",
     titleFont: "serif",
     protoLabel: "JoanX",
     prototypeUrl: "https://www.uber.com/",
     caseStudyUrl: "https://www.uber.com/",
-    images: [imgUber],
+    images: [imgUber, imgJoanXColors],
     meta: [
       { label: "Project Type", value: "Product Design" },
       { label: "Stage", value: "Enterprise" },
@@ -141,12 +148,12 @@ export const caseStudies: Record<string, CaseStudyData> = {
       { value: "28%", label: "Faster request-to-pickup" },
       { value: "T3", label: "Top rated mobility apps" },
     ],
-    next: { label: "Goft", tagline: "The original prompt-to-image interface", image: imgMidjourney, index: "04 / 06", view: "midjourney" },
+    next: { label: "Goft", tagline: "The original prompt-to-image interface", image: imgMidjourney, index: "04 / 06", view: "goft" },
   },
 
-  midjourney: {
+  goft: {
     ...sharedVideos,
-    view: "midjourney",
+    view: "goft",
     title: "Goft",
     titleFont: "serif",
     protoLabel: "Goft",
@@ -200,12 +207,12 @@ export const caseStudies: Record<string, CaseStudyData> = {
       { value: "20M", label: "Community members" },
       { value: "T1", label: "Leading prompt-to-image tools" },
     ],
-    next: { label: "ProBridge", tagline: "Intent-driven matchmaking for work", image: imgUpwork, index: "05 / 06", view: "upwork" },
+    next: { label: "ProBridge", tagline: "Intent-driven matchmaking for work", image: imgUpwork, index: "05 / 06", view: "probridge" },
   },
 
-  upwork: {
+  probridge: {
     ...sharedVideos,
-    view: "upwork",
+    view: "probridge",
     title: "ProBridge",
     titleFont: "serif",
     protoLabel: "ProBridge",
@@ -259,12 +266,12 @@ export const caseStudies: Record<string, CaseStudyData> = {
       { value: "35%", label: "Faster time-to-hire" },
       { value: "T5", label: "Top freelance platforms" },
     ],
-    next: { label: "Cardo", tagline: "A meditation experience that meets you", image: imgHeadspaceCover, index: "06 / 06", view: "headspace" },
+    next: { label: "Cardo", tagline: "A meditation experience that meets you", image: imgHeadspaceCover, index: "06 / 06", view: "cardo" },
   },
 
-  headspace: {
+  cardo: {
     ...sharedVideos,
-    view: "headspace",
+    view: "cardo",
     title: "Cardo",
     titleFont: "serif",
     protoLabel: "Cardo",

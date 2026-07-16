@@ -12,16 +12,16 @@ const caseStudies = [
   "All Work",
 ];
 
-type CaseStudyView = "home" | "edusync" | "suno" | "uber" | "midjourney" | "upwork" | "headspace" | "what-i-do" | "blogs" | "contact" | "all-work" | "shop";
+type CaseStudyView = "home" | "edusync" | "twostay" | "joanx" | "goft" | "probridge" | "cardo" | "what-i-do" | "blogs" | "contact" | "all-work" | "shop";
 
 // Maps the sidebar label to the app view it routes to.
 const STUDY_VIEWS: Record<string, CaseStudyView> = {
   EduSync: "edusync",
-  TwoStay: "suno",
-  JoanX: "uber",
-  Goft: "midjourney",
-  ProBridge: "upwork",
-  Cardo: "headspace",
+  TwoStay: "twostay",
+  JoanX: "joanx",
+  Goft: "goft",
+  ProBridge: "probridge",
+  Cardo: "cardo",
   "All Work": "all-work",
 };
 

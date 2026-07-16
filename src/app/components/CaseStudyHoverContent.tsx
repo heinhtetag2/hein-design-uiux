@@ -2,11 +2,11 @@ import React from "react";
 import { motion, AnimatePresence } from "motion/react";
 import mockEduSync from "../../assets/work/edusync/hover-cover.webp";
 import mockAllWork from "../../assets/feed/windsurf-laptop.webp";
-import mockSuno from "../../assets/work/suno/app-mockup.webp";
-import mockUber from "../../assets/work/uber/laptop.webp";
-import mockMidjourney from "../../assets/work/midjourney/chrome-abstract.webp";
-import mockUpwork from "../../assets/work/upwork/fearless-girl.webp";
-import mockHeadspace from "../../assets/work/headspace/cover.webp";
+import mockSuno from "../../assets/work/twostay/app-mockup.webp";
+import mockUber from "../../assets/work/joanx/laptop.webp";
+import mockMidjourney from "../../assets/work/goft/chrome-abstract.webp";
+import mockUpwork from "../../assets/work/probridge/fearless-girl.webp";
+import mockHeadspace from "../../assets/work/cardo/cover.webp";
 
 interface StudyContent {
   name: string;

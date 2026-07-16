@@ -19,7 +19,7 @@ import imgImage6 from "../../assets/work/edusync/gallery-11.webp";
 import image8Video from "../../assets/work/edusync/think-different-video.mp4";
 import imgImage9 from "../../assets/work/edusync/gallery-09.webp";
 import eduSyncVideo from "../../assets/work/edusync/overview-video.mp4";
-import mockNextStudy from "../../assets/work/suno/app-mockup.webp";
+import mockNextStudy from "../../assets/work/twostay/app-mockup.webp";
 
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { CaseStudyVideo } from "./CaseStudyVideo";
@@ -620,7 +620,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
         tagline="AI-powered music creation platform"
         image={mockNextStudy}
         index="02 / 06"
-        onClick={() => onNavigate?.("suno")}
+        onClick={() => onNavigate?.("twostay")}
       />
 
       {/* 17. Footer Help Section */}

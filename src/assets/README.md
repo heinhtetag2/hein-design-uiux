@@ -5,30 +5,32 @@ images for a given piece of work live together. Components import them directly
 (Vite hashes and bundles each import), e.g.:
 
 ```ts
-import imgHero from "../../assets/edu-sync/hero.png";
+import imgHero from "../../assets/work/edusync/hero.webp";
 ```
+
+Case-study folders are named after the **showcase project** they power, not
+the real brand the imagery was sourced from. The folder name matches the app
+`view` id in `caseStudies.ts` (e.g. `work/twostay` ⇄ `view: "twostay"`).
 
 ## Folders
 
 ```
 src/assets/
-  edu-sync/    EduSync case study — every image on the EduSync page
-               (hero, video stills, app/frame mockups, map) plus the
-               edusync-hover-* card previews shown in the work grid.
-  midjourney/  Midjourney work-grid card.
-  suno/        Suno work-grid card (also the "next study" preview on EduSync).
-  nike/        Nike work-grid card.
-  upwork/      Upwork work-grid card.
-  uber/        Uber work-grid card.
-  headspace/   Headspace images (work-grid card + What I Do section).
-  modular/     Modular image (work-grid card, What I Do, case-study hover bg).
-  home/        Home page background video.
-  feed/        Feed component — press logos + post images.
-  what-i-do/   "What I Do" section media.
-  logo/        Brand logo SVGs (light/dark). See TopNav.tsx.
-  shop/        Shop product photos — see shop/README.md.
-  _unused/     Not referenced anywhere in the code. Kept for reference;
-               safe to delete if you don't need them.
+  work/
+    edusync/    EduSync — every image on the EduSync page (hero, video
+                stills, app/frame mockups) plus the hover-* card previews.
+    twostay/    TwoStay work-grid card (also the "next study" preview on EduSync).
+    goft/       Goft work-grid card.
+    joanx/      JoanX work-grid card (also used in What I Do).
+    probridge/  ProBridge work-grid card (also used in What I Do).
+    cardo/      Cardo images (work-grid card + What I Do section).
+    nike/       Generic "All Work" grid card + Feed post image.
+    modular/    Generic image — All Work card, What I Do, case-study hover bg.
+  brand/        Brand logo SVGs (light/dark). See TopNav.tsx.
+  home/         Home page background video.
+  feed/         Feed component — press logos + post images.
+  what-i-do/    "What I Do" section media.
+  shop/         Shop product photos — see shop/README.md.
 ```
 
 ## Moving or adding an image
