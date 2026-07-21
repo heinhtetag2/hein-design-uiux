@@ -30,3 +30,7 @@ create policy "public update visitors"
   to anon, authenticated
   using (true)
   with check (true);
+
+-- 4. Enable realtime so the gallery updates live (no manual refresh) when anyone
+--    adds or edits a card. Safe to run more than once.
+alter publication supabase_realtime add table public.visitors;

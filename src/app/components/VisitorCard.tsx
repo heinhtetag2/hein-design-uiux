@@ -6,6 +6,8 @@ import { fetchGuestCount, readVisitors, type Visitor } from "../visitorStore";
 
 interface VisitorCardProps {
   onComplete: (visitor: Visitor) => void;
+  // Dismiss the onboarding without saving anything (only on the first-visit flow).
+  onSkip?: () => void;
   onClose?: () => void;
   initial?: Visitor | null;
 }
@@ -53,7 +55,7 @@ function newCardId() {
   return `v-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
 }
 
-export function VisitorCard({ onComplete, onClose, initial }: VisitorCardProps) {
+export function VisitorCard({ onComplete, onSkip, onClose, initial }: VisitorCardProps) {
   const isEditing = !!initial;
   const [name, setName] = useState(initial?.name && initial.name !== "Guest" ? initial.name : "");
   const [role, setRole] = useState(initial?.role ?? "");
@@ -275,7 +277,7 @@ export function VisitorCard({ onComplete, onClose, initial }: VisitorCardProps) 
           ) : (
             <button
               type="button"
-              onClick={() => onComplete({ name: "Guest", color, no, issuedAt, displayNo })}
+              onClick={() => onSkip?.()}
               className="font-display text-caption text-foreground/40 hover:text-foreground/70 transition-colors cursor-pointer"
             >
               Skip for now

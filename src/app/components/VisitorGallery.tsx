@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Pencil, Shuffle, Search, X } from "lucide-react";
 import { VisitorCardArt } from "./VisitorCardArt";
-import { fetchVisitors, readVisitorsRanked, type Visitor } from "../visitorStore";
+import { fetchVisitors, readVisitorsRanked, subscribeVisitors, type Visitor } from "../visitorStore";
 import { isSupabaseConfigured } from "../supabase";
 
 interface VisitorGalleryProps {
@@ -20,18 +20,59 @@ export function VisitorGallery({ onEditCard, refreshKey = 0 }: VisitorGalleryPro
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [query, setQuery] = useState("");
 
+  const mountedRef = useRef(true);
   useEffect(() => {
-    let cancelled = false;
-    // Seed instantly from the local list (already updated on save) so the change
-    // shows even if the remote round-trip is slow, then reconcile with the fetch.
-    setVisitors(readVisitorsRanked());
-    fetchVisitors().then((list) => {
-      if (!cancelled) setVisitors(list);
-    });
+    mountedRef.current = true;
     return () => {
-      cancelled = true;
+      mountedRef.current = false;
     };
-  }, [refreshKey]);
+  }, []);
+
+  const refetch = useCallback(() => {
+    fetchVisitors().then((list) => {
+      if (mountedRef.current) setVisitors(list);
+    });
+  }, []);
+
+  // Own saves + navigation: seed instantly from the local list (already updated on
+  // save) so the change shows even if the round-trip is slow, then reconcile.
+  useEffect(() => {
+    setVisitors(readVisitorsRanked());
+    refetch();
+  }, [refreshKey, refetch]);
+
+  // Live updates from every visitor: subscribe to the table and re-fetch the instant
+  // any card is added or edited — no manual refresh. Falls back to light polling when
+  // realtime isn't enabled on the table, and re-fetches whenever the tab regains focus.
+  useEffect(() => {
+    let disposed = false;
+    let unsub = () => {};
+    let pollId: ReturnType<typeof setInterval> | undefined;
+
+    subscribeVisitors(refetch, (status) => {
+      if (disposed) return;
+      if (status === "unavailable" && pollId === undefined) {
+        pollId = setInterval(refetch, 15000);
+      }
+    }).then((u) => {
+      if (disposed) u();
+      else unsub = u;
+    });
+
+    const onVisible = () => {
+      if (document.visibilityState === "visible") refetch();
+    };
+    window.addEventListener("focus", refetch);
+    document.addEventListener("visibilitychange", onVisible);
+
+    return () => {
+      disposed = true;
+      unsub();
+      if (pollId !== undefined) clearInterval(pollId);
+      window.removeEventListener("focus", refetch);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+  }, [refetch]);
 
   const totalCount = visitors.length;
   const latestNo = visitors[0]?.no;

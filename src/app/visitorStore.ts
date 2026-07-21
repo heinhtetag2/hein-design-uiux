@@ -5,9 +5,6 @@
 
 export const VISITOR_STORAGE_KEY = "26p:visitor:v1";
 export const VISITORS_LIST_KEY = "26p:visitors:v1";
-// Set once the onboarding intro has been shown — so it appears only on the true
-// first visit, not on every refresh when a visitor neither fills nor skips.
-export const VISITOR_INTRO_SEEN_KEY = "26p:visitor:intro-seen:v1";
 
 const MAX_VISITORS = 200;
 const SUPABASE_TABLE = "visitors";
@@ -88,6 +85,39 @@ export async function fetchVisitors(): Promise<Visitor[]> {
 export async function fetchGuestCount(): Promise<number> {
   const list = await fetchVisitors();
   return list.length;
+}
+
+export type SubscribeStatus = "live" | "unavailable";
+
+// Live updates: subscribe to inserts/edits on the visitors table and fire `onChange`
+// so the gallery can re-fetch the instant anyone's card lands — no manual refresh.
+// `onStatus("unavailable")` means realtime isn't enabled on the table (see the SQL
+// in scripts/supabase-fix-edit-card.sql); the caller falls back to polling.
+export async function subscribeVisitors(
+  onChange: () => void,
+  onStatus?: (status: SubscribeStatus) => void,
+): Promise<() => void> {
+  const { isSupabaseConfigured, supabase } = await import("./supabase");
+  if (!isSupabaseConfigured || !supabase) {
+    onStatus?.("unavailable");
+    return () => {};
+  }
+  const channel = supabase
+    .channel("visitors-live")
+    .on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: SUPABASE_TABLE },
+      () => onChange(),
+    )
+    .subscribe((status) => {
+      if (status === "SUBSCRIBED") onStatus?.("live");
+      else if (status === "CHANNEL_ERROR" || status === "TIMED_OUT" || status === "CLOSED") {
+        onStatus?.("unavailable");
+      }
+    });
+  return () => {
+    void supabase.removeChannel(channel);
+  };
 }
 
 // Outcome of the remote half of a save:
