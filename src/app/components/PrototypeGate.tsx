@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Lock, X, ArrowUpRight } from "lucide-react";
+import { Lock, X } from "lucide-react";
 
 // Passcode gate for a project's "View Prototype" button. Casual protection only:
 // the prototype URL still ships in the client bundle, so this deters normal
@@ -8,12 +8,15 @@ import { Lock, X, ArrowUpRight } from "lucide-react";
 // prototype persistently on that device (localStorage) so refreshes and repeat
 // visits don't re-prompt.
 
+const CODE_LENGTH = 4;
+
 export interface PrototypeGateState {
   open: boolean;
   code: string;
   error: boolean;
   setCode: (v: string) => void;
-  submit: () => void;
+  /** Pass the freshly-entered code to validate it without waiting for a state flush. */
+  submit: (code?: string) => void;
   close: () => void;
 }
 
@@ -55,8 +58,11 @@ export function usePrototypeGate(
     setOpen(true);
   };
 
-  const submit = () => {
-    if (code.trim() === passcode) {
+  // `value` lets the code input validate the digit just typed, before React has
+  // flushed the setCode() from the same keystroke.
+  const submit = (value?: string) => {
+    const entered = (value ?? code).trim();
+    if (entered === passcode) {
       try {
         localStorage.setItem(unlockKey, "1");
       } catch {
@@ -67,6 +73,7 @@ export function usePrototypeGate(
       window.open(prototypeUrl, "_blank", "noopener,noreferrer");
     } else {
       setError(true);
+      setCode(""); // clear the boxes so the visitor can retype
     }
   };
 
@@ -129,26 +136,19 @@ export function PrototypeGateModal({ label, state }: { label: string; state: Pro
               {label}
             </h3>
             <p className="mx-auto mt-2 max-w-[260px] font-display font-light text-body-sm text-foreground/55">
-              This prototype is private. Enter the passcode to continue.
+              This prototype is private. Enter the 4-digit passcode to continue.
             </p>
 
-            <input
-              type="password"
-              autoFocus
-              value={state.code}
-              onChange={(e) => state.setCode(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") state.submit();
-              }}
-              placeholder="Passcode"
-              className={`mt-7 w-full rounded-full border bg-transparent px-5 py-3 text-center font-display text-body-sm tracking-[0.08em] text-foreground outline-none transition-colors placeholder:tracking-normal placeholder:text-foreground/30 ${
-                state.error ? "border-[#c8456a]" : "border-foreground/20 focus:border-foreground"
-              }`}
+            <CodeInput
+              code={state.code}
+              error={state.error}
+              onChange={state.setCode}
+              onSubmit={(c) => state.submit(c)}
             />
 
             {/* Reserve the error line's height so the button doesn't jump on error */}
             <p
-              className={`mt-2 h-[16px] font-display text-caption text-[#c8456a] transition-opacity ${
+              className={`mt-3 h-[16px] font-display text-caption text-[#c8456a] transition-opacity ${
                 state.error ? "opacity-100" : "opacity-0"
               }`}
             >
@@ -157,16 +157,124 @@ export function PrototypeGateModal({ label, state }: { label: string; state: Pro
 
             <button
               type="button"
-              onClick={state.submit}
-              disabled={!state.code.trim()}
-              className="mt-3 flex h-[46px] w-full items-center justify-center gap-2 rounded-full bg-foreground font-display text-body-sm text-background transition-opacity hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+              onClick={() => state.submit()}
+              disabled={state.code.length < CODE_LENGTH}
+              className="mt-3 flex h-[46px] w-full items-center justify-center rounded-full bg-foreground font-display text-body-sm text-background transition-opacity hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
             >
               Unlock
-              <ArrowUpRight className="size-4" strokeWidth={1.75} />
             </button>
           </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
+  );
+}
+
+// Segmented 4-digit code entry. Types forward, backspaces to the previous box,
+// supports paste, and auto-submits once the last digit lands.
+function CodeInput({
+  code,
+  error,
+  onChange,
+  onSubmit,
+}: {
+  code: string;
+  error: boolean;
+  onChange: (v: string) => void;
+  onSubmit: (code: string) => void;
+}) {
+  const refs = useRef<Array<HTMLInputElement | null>>([]);
+  const digits = Array.from({ length: CODE_LENGTH }, (_, i) => code[i] ?? "");
+
+  // Focus the first box on open, and again whenever an error clears the code.
+  useEffect(() => {
+    refs.current[0]?.focus();
+  }, []);
+  useEffect(() => {
+    if (error) refs.current[0]?.focus();
+  }, [error]);
+
+  // Write digit(s) starting at `start`, advance focus, and auto-submit when full.
+  const write = (chars: string, start: number) => {
+    const clean = chars.replace(/\D/g, "");
+    if (!clean) return;
+    const next = digits.slice();
+    let i = start;
+    for (const c of clean) {
+      if (i >= CODE_LENGTH) break;
+      next[i] = c;
+      i += 1;
+    }
+    const joined = next.join("").slice(0, CODE_LENGTH);
+    onChange(joined);
+    refs.current[Math.min(i, CODE_LENGTH - 1)]?.focus();
+    if (joined.length === CODE_LENGTH) onSubmit(joined);
+  };
+
+  const handleChange = (i: number, val: string) => {
+    if (val === "") {
+      const next = digits.slice();
+      next[i] = "";
+      onChange(next.join(""));
+      return;
+    }
+    write(val, i);
+  };
+
+  const handleKeyDown = (i: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Backspace") {
+      e.preventDefault();
+      const next = digits.slice();
+      if (digits[i]) {
+        next[i] = "";
+        onChange(next.join(""));
+      } else if (i > 0) {
+        next[i - 1] = "";
+        onChange(next.join(""));
+        refs.current[i - 1]?.focus();
+      }
+    } else if (e.key === "ArrowLeft" && i > 0) {
+      e.preventDefault();
+      refs.current[i - 1]?.focus();
+    } else if (e.key === "ArrowRight" && i < CODE_LENGTH - 1) {
+      e.preventDefault();
+      refs.current[i + 1]?.focus();
+    } else if (e.key === "Enter" && code.length === CODE_LENGTH) {
+      onSubmit(code);
+    }
+  };
+
+  const handlePaste = (e: React.ClipboardEvent) => {
+    e.preventDefault();
+    write(e.clipboardData.getData("text"), 0);
+  };
+
+  return (
+    <div className="mt-7 flex justify-center gap-3" onPaste={handlePaste}>
+      {digits.map((d, i) => (
+        <input
+          key={i}
+          ref={(el) => {
+            refs.current[i] = el;
+          }}
+          type="text"
+          inputMode="numeric"
+          autoComplete="one-time-code"
+          maxLength={1}
+          value={d}
+          onChange={(e) => handleChange(i, e.target.value)}
+          onKeyDown={(e) => handleKeyDown(i, e)}
+          onFocus={(e) => e.currentTarget.select()}
+          aria-label={`Passcode digit ${i + 1}`}
+          className={`size-14 rounded-2xl border bg-transparent text-center font-serif text-h3 text-foreground outline-none transition-colors ${
+            error
+              ? "border-[#c8456a]"
+              : d
+                ? "border-foreground/60"
+                : "border-foreground/20 focus:border-foreground"
+          }`}
+        />
+      ))}
+    </div>
   );
 }
