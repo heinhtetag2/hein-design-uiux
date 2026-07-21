@@ -38,11 +38,25 @@ export function readVisitorsLocal(): Visitor[] {
 // Backwards-compatible alias (older callers).
 export const readVisitors = readVisitorsLocal;
 
+// A real card carries a unique id in `no` (uuid, or the "v-..." fallback) — anything
+// with a non-digit. Cards from the pre-fix code all share an all-numeric vanity number
+// (e.g. "3001"), so they can't be told apart and are treated as legacy: hidden on read
+// and upgraded to a real id when edited.
+export function isUniqueCardId(no: string | undefined | null): boolean {
+  return !!no && /\D/.test(no);
+}
+
+// Drop pre-fix cards (all-numeric `no`). They all collapsed onto the same number under
+// the old code, so showing them is meaningless — this gives a clean slate without a DB wipe.
+function onlyRealCards(list: Visitor[]): Visitor[] {
+  return list.filter((v) => isUniqueCardId(v.no));
+}
+
 // Local list, deduped and numbered by arrival rank — matches what fetchVisitors
 // returns, so the gallery's instant local seed shows the same numbers as the
 // remote result (no uuid flash before the network call lands).
 export function readVisitorsRanked(): Visitor[] {
-  return numberByRank(dedupeByNo(readVisitorsLocal()));
+  return numberByRank(dedupeByNo(onlyRealCards(readVisitorsLocal())));
 }
 
 // Remote-aware read. Falls back to local list when Supabase isn't configured or the call fails.
@@ -57,8 +71,9 @@ export async function fetchVisitors(): Promise<Visitor[]> {
       .limit(MAX_VISITORS);
     if (error) throw error;
     const mapped: Visitor[] = (data ?? [])
-      // Hide setup/connectivity probe rows that can't be deleted via the anon key.
-      .filter((row: any) => !TEST_ROW_NAMES.has(row.name))
+      // Hide setup/connectivity probe rows that can't be deleted via the anon key,
+      // and legacy pre-fix cards whose all-numeric `no` can't identify a real guest.
+      .filter((row: any) => !TEST_ROW_NAMES.has(row.name) && isUniqueCardId(String(row.no)))
       .map((row: any) => ({
         name: row.name,
         color: row.color,
@@ -77,7 +92,7 @@ export async function fetchVisitors(): Promise<Visitor[]> {
     return numberByRank(unique);
   } catch (err) {
     console.warn("[visitors] remote fetch failed, using local list", err);
-    return numberByRank(dedupeByNo(readVisitorsLocal()));
+    return numberByRank(dedupeByNo(onlyRealCards(readVisitorsLocal())));
   }
 }
 

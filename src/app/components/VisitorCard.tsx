@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronDown, Check, X } from "lucide-react";
 import { VisitorCardArt } from "./VisitorCardArt";
-import { fetchGuestCount, readVisitors, type Visitor } from "../visitorStore";
+import { fetchGuestCount, isUniqueCardId, readVisitors, type Visitor } from "../visitorStore";
 
 interface VisitorCardProps {
   onComplete: (visitor: Visitor) => void;
@@ -60,14 +60,19 @@ export function VisitorCard({ onComplete, onSkip, onClose, initial }: VisitorCar
   const [name, setName] = useState(initial?.name && initial.name !== "Guest" ? initial.name : "");
   const [role, setRole] = useState(initial?.role ?? "");
   const [color, setColor] = useState(initial?.color ?? COLOR_OPTIONS[0].value);
-  const [no] = useState(() => initial?.no ?? newCardId());
+  // Reuse the card's id only if it's already a real unique id. A brand-new card — or a
+  // legacy card with an all-numeric `no` — gets a fresh id so it stops colliding and
+  // becomes visible in the gallery again.
+  const [no] = useState(() => (isUniqueCardId(initial?.no) ? initial!.no : newCardId()));
   const issuedAt = useMemo(() => initial?.issuedAt ?? formatIssuedDate(new Date()), [initial]);
   const [submitted, setSubmitted] = useState(false);
-  // The number printed on the card. When editing, keep the card's own number.
-  // For a new card, show a fast local guess, then replace it with the real global
-  // count once it loads, so the pass reads "No. {realGuestCount + 1}".
+  // A card "starts fresh" when it's new or being upgraded from a legacy id — in both
+  // cases it needs a real number, so we fetch the live guest count for it.
+  const startsFresh = !isUniqueCardId(initial?.no);
+  // The number printed on the card. A real edit keeps its own number; a fresh/upgraded
+  // card shows a fast local guess, then the real global count once it loads.
   const [displayNo, setDisplayNo] = useState<number | undefined>(
-    () => initial?.displayNo ?? (initial ? undefined : readVisitors().length + 1),
+    () => initial?.displayNo ?? (startsFresh ? readVisitors().length + 1 : undefined),
   );
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -77,7 +82,7 @@ export function VisitorCard({ onComplete, onSkip, onClose, initial }: VisitorCar
   }, []);
 
   useEffect(() => {
-    if (initial) return; // editing keeps the card's existing number
+    if (!startsFresh) return; // a real edit keeps the card's existing number
     let cancelled = false;
     fetchGuestCount().then((count) => {
       if (!cancelled) setDisplayNo(count + 1);
@@ -85,7 +90,7 @@ export function VisitorCard({ onComplete, onSkip, onClose, initial }: VisitorCar
     return () => {
       cancelled = true;
     };
-  }, [initial]);
+  }, [startsFresh]);
 
   useEffect(() => {
     if (!onClose) return;
