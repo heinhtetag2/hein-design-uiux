@@ -12,7 +12,7 @@ import { CaseStudyHoverBackground } from "./components/CaseStudyHoverBackground"
 import { CaseStudyHoverContent } from "./components/CaseStudyHoverContent";
 import { CustomCursor } from "./components/CustomCursor";
 import { VisitorCard } from "./components/VisitorCard";
-import { VISITOR_STORAGE_KEY, appendVisitor, type Visitor } from "./visitorStore";
+import { VISITOR_STORAGE_KEY, appendVisitor, isUniqueCardId, type Visitor } from "./visitorStore";
 import { CartProvider } from "./shop/CartContext";
 import { CartDrawer } from "./components/CartDrawer";
 import { caseStudies } from "./components/caseStudies";
@@ -48,9 +48,16 @@ export default function App() {
   const [showVisitorCard, setShowVisitorCard] = useState<boolean>(() => {
     if (typeof window === "undefined") return false;
     if (ALWAYS_SHOW_VISITOR_INTRO) return true;
-    // Show on every visit until the visitor has actually FILLED a card. Skipping
-    // saves nothing, so the onboarding keeps reappearing on refresh until they do.
-    return !window.localStorage.getItem(VISITOR_STORAGE_KEY);
+    // Show on every visit until the visitor has FILLED a card that's actually visible
+    // in the gallery. A missing card — or a legacy card with an all-numeric id (which
+    // the gallery now hides) — re-triggers onboarding so the visitor can re-issue it.
+    const raw = window.localStorage.getItem(VISITOR_STORAGE_KEY);
+    if (!raw) return true;
+    try {
+      return !isUniqueCardId((JSON.parse(raw) as Visitor)?.no);
+    } catch {
+      return true;
+    }
   });
   const [editingVisitor, setEditingVisitor] = useState<Visitor | null>(null);
   const [saveFailed, setSaveFailed] = useState(false);
