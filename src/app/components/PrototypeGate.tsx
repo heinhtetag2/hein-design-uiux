@@ -5,10 +5,11 @@ import { Lock, X } from "lucide-react";
 // Passcode gate for a project's "View Prototype" button. Casual protection only:
 // the prototype URL still ships in the client bundle, so this deters normal
 // visitors, not someone digging through dev tools. A correct code unlocks the
-// prototype persistently on that device (localStorage) so refreshes and repeat
-// visits don't re-prompt.
+// prototype for UNLOCK_TTL_MS — surviving refreshes within that window, then
+// re-locking (live in an open tab and on the next visit) so the code is asked again.
 
 const CODE_LENGTH = 4;
+const UNLOCK_TTL_MS = 5 * 60 * 1000; // unlock lasts 5 minutes, then re-locks
 
 export interface PrototypeGateState {
   open: boolean;
@@ -23,7 +24,7 @@ export interface PrototypeGateState {
 export interface PrototypeGate {
   /** True when a passcode is configured for this project. */
   locked: boolean;
-  /** True once the visitor has entered the correct code on this device. */
+  /** True while a correct code is still within its 5-minute unlock window. */
   unlocked: boolean;
   /** Attach to the "View Prototype" link's onClick — opens the gate when locked. */
   onProtoClick: (e: React.MouseEvent) => void;
@@ -41,13 +42,42 @@ export function usePrototypeGate(
   const [open, setOpen] = React.useState(false);
   const [code, setCode] = React.useState("");
   const [error, setError] = React.useState(false);
+  const relockTimer = useRef<ReturnType<typeof setTimeout>>();
 
+  // Re-lock `remaining` ms from now (clearing any pending timer first).
+  const scheduleRelock = (remaining: number) => {
+    if (relockTimer.current) clearTimeout(relockTimer.current);
+    relockTimer.current = setTimeout(() => {
+      setUnlocked(false);
+      try {
+        localStorage.removeItem(unlockKey);
+      } catch {
+        /* ignore */
+      }
+    }, remaining);
+  };
+
+  // On mount, restore the unlock only if it hasn't expired, and schedule the
+  // re-lock for whatever time is left. An expired (or missing) stamp stays locked.
   React.useEffect(() => {
     try {
-      setUnlocked(localStorage.getItem(unlockKey) === "1");
+      const raw = localStorage.getItem(unlockKey);
+      const stamp = raw ? parseInt(raw, 10) : NaN;
+      const remaining = Number.isFinite(stamp) ? UNLOCK_TTL_MS - (Date.now() - stamp) : -1;
+      if (remaining > 0) {
+        setUnlocked(true);
+        scheduleRelock(remaining);
+      } else {
+        setUnlocked(false);
+        localStorage.removeItem(unlockKey);
+      }
     } catch {
       /* localStorage unavailable — stays locked */
     }
+    return () => {
+      if (relockTimer.current) clearTimeout(relockTimer.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [unlockKey]);
 
   const onProtoClick = (e: React.MouseEvent) => {
@@ -64,11 +94,12 @@ export function usePrototypeGate(
     const entered = (value ?? code).trim();
     if (entered === passcode) {
       try {
-        localStorage.setItem(unlockKey, "1");
+        localStorage.setItem(unlockKey, String(Date.now()));
       } catch {
         /* ignore */
       }
       setUnlocked(true);
+      scheduleRelock(UNLOCK_TTL_MS);
       setOpen(false);
       window.open(prototypeUrl, "_blank", "noopener,noreferrer");
     } else {
