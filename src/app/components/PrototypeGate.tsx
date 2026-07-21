@@ -135,7 +135,7 @@ export function PrototypeGateModal({ label, state }: { label: string; state: Pro
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
-          className="fixed inset-0 z-[9000] flex items-center justify-center px-6 bg-background/70 backdrop-blur-md"
+          className="fixed inset-0 z-[9000] flex items-center justify-center px-4 sm:px-6 bg-background/70 backdrop-blur-md"
           onClick={state.close}
         >
           <motion.div
@@ -144,7 +144,7 @@ export function PrototypeGateModal({ label, state }: { label: string; state: Pro
             exit={{ opacity: 0, y: 16, scale: 0.98 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-[380px] rounded-3xl border border-foreground/15 bg-background/90 px-8 pb-8 pt-9 text-center shadow-[0_30px_80px_-30px_rgba(0,0,0,0.7)]"
+            className="relative w-full max-w-[380px] rounded-3xl border border-foreground/15 bg-background/90 px-6 pb-7 pt-8 sm:px-8 sm:pb-8 sm:pt-9 text-center shadow-[0_30px_80px_-30px_rgba(0,0,0,0.7)]"
           >
             <button
               type="button"
@@ -281,7 +281,7 @@ function CodeInput({
   };
 
   return (
-    <div className="mt-7 flex justify-center gap-3" onPaste={handlePaste}>
+    <div className="mt-7 flex justify-center gap-2.5 sm:gap-3" onPaste={handlePaste}>
       {digits.map((d, i) => (
         <input
           key={i}
@@ -297,7 +297,7 @@ function CodeInput({
           onKeyDown={(e) => handleKeyDown(i, e)}
           onFocus={(e) => e.currentTarget.select()}
           aria-label={`Passcode digit ${i + 1}`}
-          className={`size-14 rounded-2xl border bg-transparent text-center font-serif text-h3 text-foreground outline-none transition-colors ${
+          className={`size-12 sm:size-14 rounded-2xl border bg-transparent text-center font-serif text-h2 sm:text-h3 text-foreground outline-none transition-colors ${
             error
               ? "border-[#c8456a]"
               : d
