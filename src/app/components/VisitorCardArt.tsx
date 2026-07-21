@@ -3,6 +3,9 @@ import type { Visitor } from "../visitorStore";
 
 interface VisitorCardArtProps {
   visitor: Pick<Visitor, "name" | "color" | "no" | "issuedAt" | "role">;
+  // The number to print on the card. Gallery cards already carry their rank in `no`;
+  // the editor passes the prospective number here since `no` holds a uuid identity.
+  displayNo?: number | string;
   // Compact mode shrinks paddings/text for gallery thumbnails
   compact?: boolean;
 }
@@ -10,8 +13,9 @@ interface VisitorCardArtProps {
 // Swatches light enough that we need dark text instead of white.
 const LIGHT_SWATCHES = new Set(["#b5b0ff", "#d6cfc2"]);
 
-export function VisitorCardArt({ visitor, compact = false }: VisitorCardArtProps) {
+export function VisitorCardArt({ visitor, displayNo, compact = false }: VisitorCardArtProps) {
   const { name, color, no, issuedAt, role } = visitor;
+  const shownNo = displayNo ?? no;
   const onDark = !LIGHT_SWATCHES.has(color.toLowerCase());
   const ink = onDark ? "#ffffff" : "#0b0820";
   const inkSoft = onDark ? "rgba(255,255,255,0.7)" : "rgba(11,8,32,0.65)";
@@ -83,7 +87,7 @@ export function VisitorCardArt({ visitor, compact = false }: VisitorCardArtProps
             className="font-display text-caption tracking-[0.18em] uppercase"
             style={{ color: inkSoft }}
           >
-            No. {no}
+            No. {shownNo}
           </span>
           <div className="flex items-end gap-2 min-w-0 flex-1 max-w-[180px]">
             <span className="font-display text-caption" style={{ color: inkSoft }}>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { Pencil, Shuffle, Search, X } from "lucide-react";
 import { VisitorCardArt } from "./VisitorCardArt";
-import { fetchVisitors, readVisitorsLocal, type Visitor } from "../visitorStore";
+import { fetchVisitors, readVisitorsRanked, type Visitor } from "../visitorStore";
 import { isSupabaseConfigured } from "../supabase";
 
 interface VisitorGalleryProps {
@@ -15,7 +15,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const PAGE_SIZE = 9;
 
 export function VisitorGallery({ onEditCard, refreshKey = 0 }: VisitorGalleryProps) {
-  const [visitors, setVisitors] = useState<Visitor[]>(() => readVisitorsLocal());
+  const [visitors, setVisitors] = useState<Visitor[]>(() => readVisitorsRanked());
   const [shuffleSeed, setShuffleSeed] = useState(0);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [query, setQuery] = useState("");
@@ -24,7 +24,7 @@ export function VisitorGallery({ onEditCard, refreshKey = 0 }: VisitorGalleryPro
     let cancelled = false;
     // Seed instantly from the local list (already updated on save) so the change
     // shows even if the remote round-trip is slow, then reconcile with the fetch.
-    setVisitors(readVisitorsLocal());
+    setVisitors(readVisitorsRanked());
     fetchVisitors().then((list) => {
       if (!cancelled) setVisitors(list);
     });

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronDown, Check, X } from "lucide-react";
 import { VisitorCardArt } from "./VisitorCardArt";
-import { readVisitors, type Visitor } from "../visitorStore";
+import { fetchGuestCount, readVisitors, type Visitor } from "../visitorStore";
 
 interface VisitorCardProps {
   onComplete: (visitor: Visitor) => void;
@@ -44,10 +44,13 @@ function formatIssuedDate(d: Date) {
   return `${mm}/${dd}/${yy}`;
 }
 
-// Sequential pass numbers starting at 3001 so the gallery's "you're No. X" reads honestly.
-const NO_BASE = 3000;
-function nextNo() {
-  return String(NO_BASE + readVisitors().length + 1);
+// A card's `no` is a stable, unique identity (not a display number) so two visitors
+// can never collide and get merged. The gallery derives the visible "No." from each
+// card's real arrival rank; see numberByRank in visitorStore.
+function newCardId() {
+  const c = typeof crypto !== "undefined" ? crypto : undefined;
+  if (c?.randomUUID) return c.randomUUID();
+  return `v-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
 }
 
 export function VisitorCard({ onComplete, onClose, initial }: VisitorCardProps) {
@@ -55,15 +58,32 @@ export function VisitorCard({ onComplete, onClose, initial }: VisitorCardProps) 
   const [name, setName] = useState(initial?.name && initial.name !== "Guest" ? initial.name : "");
   const [role, setRole] = useState(initial?.role ?? "");
   const [color, setColor] = useState(initial?.color ?? COLOR_OPTIONS[0].value);
-  const [no] = useState(() => initial?.no ?? nextNo());
+  const [no] = useState(() => initial?.no ?? newCardId());
   const issuedAt = useMemo(() => initial?.issuedAt ?? formatIssuedDate(new Date()), [initial]);
   const [submitted, setSubmitted] = useState(false);
+  // The number printed on the card. When editing, keep the card's own number.
+  // For a new card, show a fast local guess, then replace it with the real global
+  // count once it loads, so the pass reads "No. {realGuestCount + 1}".
+  const [displayNo, setDisplayNo] = useState<number | undefined>(
+    () => initial?.displayNo ?? (initial ? undefined : readVisitors().length + 1),
+  );
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const t = setTimeout(() => inputRef.current?.focus(), 900);
     return () => clearTimeout(t);
   }, []);
+
+  useEffect(() => {
+    if (initial) return; // editing keeps the card's existing number
+    let cancelled = false;
+    fetchGuestCount().then((count) => {
+      if (!cancelled) setDisplayNo(count + 1);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [initial]);
 
   useEffect(() => {
     if (!onClose) return;
@@ -79,7 +99,7 @@ export function VisitorCard({ onComplete, onClose, initial }: VisitorCardProps) 
   const handleSubmit = () => {
     if (!canSubmit || submitted) return;
     setSubmitted(true);
-    onComplete({ name: name.trim(), color, no, issuedAt, role: role || undefined });
+    onComplete({ name: name.trim(), color, no, issuedAt, role: role || undefined, displayNo });
   };
 
   return (
@@ -151,7 +171,7 @@ export function VisitorCard({ onComplete, onClose, initial }: VisitorCardProps) 
           transition={{ duration: 1, delay: 0.35, ease: EASE }}
           className="w-full max-w-[440px]"
         >
-          <VisitorCardArt visitor={{ name, color, no, issuedAt, role }} />
+          <VisitorCardArt visitor={{ name, color, no, issuedAt, role }} displayNo={displayNo} />
         </motion.div>
 
         {/* Name + Role — side by side on tablet+, stacked on mobile */}
@@ -255,7 +275,7 @@ export function VisitorCard({ onComplete, onClose, initial }: VisitorCardProps) 
           ) : (
             <button
               type="button"
-              onClick={() => onComplete({ name: "Guest", color, no, issuedAt })}
+              onClick={() => onComplete({ name: "Guest", color, no, issuedAt, displayNo })}
               className="font-display text-caption text-foreground/40 hover:text-foreground/70 transition-colors cursor-pointer"
             >
               Skip for now
