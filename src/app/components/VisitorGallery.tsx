@@ -7,12 +7,14 @@ import { isSupabaseConfigured } from "../supabase";
 
 interface VisitorGalleryProps {
   onEditCard: () => void;
+  // Changes whenever a card is saved elsewhere in the app; triggers a re-fetch.
+  refreshKey?: number;
 }
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const PAGE_SIZE = 9;
 
-export function VisitorGallery({ onEditCard }: VisitorGalleryProps) {
+export function VisitorGallery({ onEditCard, refreshKey = 0 }: VisitorGalleryProps) {
   const [visitors, setVisitors] = useState<Visitor[]>(() => readVisitorsLocal());
   const [shuffleSeed, setShuffleSeed] = useState(0);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
@@ -20,13 +22,16 @@ export function VisitorGallery({ onEditCard }: VisitorGalleryProps) {
 
   useEffect(() => {
     let cancelled = false;
+    // Seed instantly from the local list (already updated on save) so the change
+    // shows even if the remote round-trip is slow, then reconcile with the fetch.
+    setVisitors(readVisitorsLocal());
     fetchVisitors().then((list) => {
       if (!cancelled) setVisitors(list);
     });
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [refreshKey]);
 
   const totalCount = visitors.length;
   const latestNo = visitors[0]?.no;

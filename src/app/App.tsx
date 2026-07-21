@@ -57,6 +57,8 @@ export default function App() {
   });
   const [editingVisitor, setEditingVisitor] = useState<Visitor | null>(null);
   const [saveFailed, setSaveFailed] = useState(false);
+  // Bumped after every save so a mounted VisitorGallery re-fetches and shows the change.
+  const [visitorRefreshKey, setVisitorRefreshKey] = useState(0);
 
   const handleVisitorComplete = (visitor: Visitor) => {
     try {
@@ -68,6 +70,8 @@ export default function App() {
     // If the remote save fails (dead backend, offline), surface it instead of failing silently.
     void appendVisitor(visitor).then((res) => {
       setSaveFailed(res.remote === "failed");
+      // Refresh the gallery once the write settles so the new/edited card appears.
+      setVisitorRefreshKey((k) => k + 1);
     });
     if (editingVisitor) {
       setShowVisitorCard(false);
@@ -317,7 +321,7 @@ export default function App() {
             ) : currentView === "blogs" ? (
               <Blogs onPostClick={handleBlogPostClick} />
             ) : currentView === "visitor-gallery" ? (
-              <VisitorGallery onEditCard={openEditCard} />
+              <VisitorGallery onEditCard={openEditCard} refreshKey={visitorRefreshKey} />
             ) : (
               <Contact />
             )}
