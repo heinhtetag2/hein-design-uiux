@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "motion/react";
 import { FilterPills } from "./FilterPills";
+import { Footer } from "./Footer";
 
 interface BlogPost {
   id: string;
@@ -236,7 +237,9 @@ export function Blogs({ onPostClick }: { onPostClick?: (postId: string) => void 
     : BLOG_POSTS.filter((post) => filters.has(post.category));
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-display pt-page pb-20 max-w-[1100px] mx-auto">
+    <div className="min-h-screen bg-background text-foreground font-display pb-20">
+      {/* Content — centered column */}
+      <div className="pt-page max-w-[1100px] mx-auto">
       {/* Header */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
@@ -331,42 +334,10 @@ export function Blogs({ onPostClick }: { onPostClick?: (postId: string) => void 
           </button>
         </div>
       </motion.div>
-
-      {/* Footer Links */}
-      <div className="w-full border-t border-foreground/10 mt-auto">
-        <div className="py-[60px] flex flex-col md:flex-row justify-between items-start gap-12 relative">
-          <div className="flex gap-[48px] md:gap-[80px] flex-wrap">
-            <div className="flex flex-col gap-[8px]">
-              <FooterLink label="Linkedin" />
-              <FooterLink label="Instagram" />
-              <FooterLink label="X" />
-              <FooterLink label="Medium" />
-            </div>
-            <div className="flex flex-col gap-[8px]">
-              <FooterLink label="Careers" />
-              <FooterLink label="Contact" />
-            </div>
-            <div className="flex flex-col gap-[8px]">
-              <FooterLink label="Privacy" />
-              <FooterLink label="Accessibility" />
-            </div>
-          </div>
-          
-          <div className="md:absolute md:right-0 md:top-[60px] size-[24px] flex items-center justify-center relative opacity-40">
-             <svg className="size-full" viewBox="0 0 24 24" fill="none">
-               <path d="M12 2L14.45 9.15H22L15.9 13.57L18.35 20.72L12 16.3L5.65 20.72L8.1 13.57L2 9.15H9.55L12 2Z" fill="currentColor" />
-             </svg>
-          </div>
-        </div>
       </div>
-    </div>
-  );
-}
 
-function FooterLink({ label }: { label: string }) {
-  return (
-    <button className="font-display font-normal text-body text-foreground hover:text-foreground/60 transition-colors cursor-pointer text-left leading-normal">
-      {label}
-    </button>
+      {/* Footer — full-width, matches the system footer on every other page */}
+      <Footer />
+    </div>
   );
 }

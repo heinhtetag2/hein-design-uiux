@@ -67,7 +67,7 @@ function Menu({ isOpen, setIsOpen, onNavigate, currentView }: { isOpen: boolean;
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8">
                   <nav className="flex flex-col gap-4">
                     {[
-                      { label: 'My Works', view: 'home' },
+                      { label: 'My Works', view: 'all-work' },
                       { label: 'About Me', view: 'what-i-do' },
                       { label: 'My Blogs', view: 'blogs' },
                       { label: 'Shop', view: 'shop' },

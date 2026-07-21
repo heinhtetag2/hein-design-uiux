@@ -38,7 +38,6 @@ export const caseStudies: Record<string, CaseStudyData> = {
     protoLabel: "TwoStay",
     prototypeUrl: "https://suno.com/",
     caseStudyUrl: "https://suno.com/",
-    prototypePasscode: "1058",
     images: [imgSuno, imgTwoStayColors, imgTwoStayTablet, imgTwoStayBanner],
     heroImage: imgTwoStayBanner,
     // Pin the tall full-width feature slot to the color-preview image.
@@ -101,7 +100,6 @@ export const caseStudies: Record<string, CaseStudyData> = {
     protoLabel: "JoanX",
     prototypeUrl: "https://www.uber.com/",
     caseStudyUrl: "https://www.uber.com/",
-    prototypePasscode: "1058",
     images: [imgUber, imgJoanXColors],
     meta: [
       { label: "Project Type", value: "Product Design" },
@@ -161,7 +159,6 @@ export const caseStudies: Record<string, CaseStudyData> = {
     protoLabel: "Goft",
     prototypeUrl: "https://www.midjourney.com/",
     caseStudyUrl: "https://www.midjourney.com/",
-    prototypePasscode: "1058",
     images: [imgMidjourney],
     meta: [
       { label: "Project Type", value: "Product Design" },
@@ -221,7 +218,6 @@ export const caseStudies: Record<string, CaseStudyData> = {
     protoLabel: "ProBridge",
     prototypeUrl: "https://www.upwork.com/",
     caseStudyUrl: "https://www.upwork.com/",
-    prototypePasscode: "1058",
     images: [imgUpwork],
     meta: [
       { label: "Project Type", value: "Product Design" },
@@ -281,7 +277,6 @@ export const caseStudies: Record<string, CaseStudyData> = {
     protoLabel: "Cardo",
     prototypeUrl: "https://www.headspace.com/",
     caseStudyUrl: "https://www.headspace.com/",
-    prototypePasscode: "1058",
     images: [imgHeadspaceCover, imgHeadspaceFull],
     meta: [
       { label: "Project Type", value: "Product Design" },

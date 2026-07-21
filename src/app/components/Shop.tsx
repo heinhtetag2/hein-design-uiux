@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "motion/react";
 import { Download } from "lucide-react";
 import { FilterPills } from "./FilterPills";
+import { Footer } from "./Footer";
 import { SizeSelector } from "./SizeSelector";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import {
@@ -82,6 +83,11 @@ export function Shop({ onOpenProduct }: { onOpenProduct?: (id: string) => void }
           Nothing in that category yet.
         </p>
       )}
+
+      {/* Footer */}
+      <div className="mt-[40px] md:mt-[80px]">
+        <Footer />
+      </div>
     </div>
   );
 }

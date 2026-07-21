@@ -1,6 +1,7 @@
 import React from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { FilterPills } from "./FilterPills";
+import { Footer } from "./Footer";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import imgEduSync from "../../assets/work/edusync/hover-cover.webp";
 import imgSuno from "../../assets/work/twostay/app-mockup.webp";
@@ -196,26 +197,7 @@ export function AllWork({ onNavigate }: AllWorkProps) {
         </div>
 
         {/* Footer */}
-        <div className="w-full border-t border-foreground/10 mt-[40px] md:mt-[80px]">
-          <div className="py-[48px] md:py-[64px] flex flex-col md:flex-row justify-between items-start gap-12 relative">
-            <div className="flex gap-[48px] md:gap-[80px] flex-wrap">
-              <div className="flex flex-col gap-[8px]">
-                <FooterLink label="Linkedin" />
-                <FooterLink label="Instagram" />
-                <FooterLink label="X" />
-                <FooterLink label="Medium" />
-              </div>
-              <div className="flex flex-col gap-[8px]">
-                <FooterLink label="Careers" />
-                <FooterLink label="Contact" />
-              </div>
-              <div className="flex flex-col gap-[8px]">
-                <FooterLink label="Privacy" />
-                <FooterLink label="Accessibility" />
-              </div>
-            </div>
-          </div>
-        </div>
+        <Footer />
       </div>
     </div>
   );
@@ -299,10 +281,3 @@ function WorkRow({
   );
 }
 
-function FooterLink({ label }: { label: string }) {
-  return (
-    <button className="font-display font-normal text-body text-foreground hover:text-foreground/60 transition-colors cursor-pointer text-left leading-normal">
-      {label}
-    </button>
-  );
-}

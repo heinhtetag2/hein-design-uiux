@@ -1,11 +1,10 @@
 import React from "react";
 import { motion, AnimatePresence } from "motion/react";
-import svgPaths from "../../imports/svg-edusync";
+import { Footer } from "./Footer";
 
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { CaseStudyVideo } from "./CaseStudyVideo";
-import { ArrowUpRight, BookOpen, Lock } from "lucide-react";
-import { usePrototypeGate, PrototypeGateModal } from "./PrototypeGate";
+import { ArrowUpRight, BookOpen } from "lucide-react";
 
 // Shared, data-driven case-study detail layout. This is the EduSync showcase
 // structure generalized so every project (TwoStay, JoanX, Goft, …) renders the
@@ -75,13 +74,6 @@ export interface CaseStudyData {
   caseStudyUrl: string;
   /** Name shown in the sticky prototype bar. */
   protoLabel: string;
-  /**
-   * Optional passcode to gate "View Prototype". When set, visitors must enter this
-   * code before the prototype opens — share it with the people you want to let in.
-   * Casual protection only: the URL still ships in the client bundle for anyone who
-   * digs. Leave undefined for public prototypes.
-   */
-  prototypePasscode?: string;
 
   next: {
     label: string;
@@ -264,10 +256,6 @@ export function CaseStudyTemplate({
   const [showCursor, setShowCursor] = React.useState(false);
   const [isDragging, setIsDragging] = React.useState(false);
   const [showProtoBar, setShowProtoBar] = React.useState(false);
-
-  // Prototype passcode gate — see ./PrototypeGate. When data.prototypePasscode is set,
-  // "View Prototype" opens a passcode prompt before the prototype opens.
-  const proto = usePrototypeGate(data.view, data.prototypeUrl, data.prototypePasscode);
 
   // Cycle the project's image pool into every slot, so a single-image project
   // simply repeats its asset across the layout.
@@ -653,48 +641,8 @@ export function CaseStudyTemplate({
         onClick={() => onNavigate?.(data.next.view)}
       />
 
-      {/* 17. Footer Help Section */}
-      <Container className="pt-10 pb-16 md:py-24 lg:py-40 border-t border-foreground/10 flex flex-col lg:flex-row justify-between gap-10 md:gap-20">
-        <h2 className="font-display font-light text-display-md text-foreground">
-          How can<br />we help?
-        </h2>
-        <div className="flex flex-col w-full lg:w-[448px] divide-y divide-foreground/10">
-          {["Work together", "Join our team", "Just say hello"].map((item) => (
-            <div key={item} className="group py-8 flex items-center justify-between cursor-pointer hover:opacity-60 transition-all">
-              <span className="font-display text-h3 text-foreground font-light">{item}</span>
-              <svg className="size-4 transform group-hover:translate-x-1 transition-transform" viewBox="0 0 16 16" fill="currentColor">
-                <path d={svgPaths.p37f30840} className="text-foreground" />
-              </svg>
-            </div>
-          ))}
-        </div>
-      </Container>
-
-      {/* 18. Final Footer Links */}
-      <Container className="border-t border-foreground/10 py-10 flex flex-wrap gap-x-24 gap-y-12">
-        <div className="flex flex-col gap-3">
-          {["Linkedin", "Instagram", "X", "Medium"].map((l) => (
-            <span key={l} className="text-foreground/40 hover:text-foreground cursor-pointer transition-colors font-display text-body">
-              {l}
-            </span>
-          ))}
-        </div>
-        <div className="flex flex-col gap-3">
-          {["Careers", "Contact"].map((l) => (
-            <span key={l} className="text-foreground/40 hover:text-foreground cursor-pointer transition-colors font-display text-body">
-              {l}
-            </span>
-          ))}
-        </div>
-        <div className="flex flex-col gap-3">
-          {["Privacy", "Accessibility"].map((l) => (
-            <span key={l} className="text-foreground/40 hover:text-foreground cursor-pointer transition-colors font-display text-body">
-              {l}
-            </span>
-          ))}
-        </div>
-        <div className="ml-auto text-foreground/20 font-light font-display text-body">© 2026 Hein Htet</div>
-      </Container>
+      {/* 17. Footer */}
+      <Footer />
 
       {/* Sticky Prototype Bar */}
       <AnimatePresence>
@@ -723,32 +671,21 @@ export function CaseStudyTemplate({
               </a>
               <a
                 href={data.prototypeUrl}
-                onClick={proto.onProtoClick}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-foreground py-2 pl-4 pr-3.5 text-background"
               >
                 <span className="pointer-events-none absolute inset-0 origin-left scale-x-0 bg-brand transition-transform duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:scale-x-100" />
                 <span className="relative font-display font-normal text-body-sm whitespace-nowrap transition-colors duration-500 group-hover:text-brand-foreground">View Prototype</span>
-                {proto.locked && !proto.unlocked ? (
-                  <Lock
-                    className="relative h-3.5 w-3.5 text-background transition-colors duration-500 group-hover:text-brand-foreground"
-                    strokeWidth={1.75}
-                  />
-                ) : (
-                  <ArrowUpRight
-                    className="relative h-4 w-4 text-background transition-all duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-foreground"
-                    strokeWidth={1.75}
-                  />
-                )}
+                <ArrowUpRight
+                  className="relative h-4 w-4 text-background transition-all duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-foreground"
+                  strokeWidth={1.75}
+                />
               </a>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Prototype passcode gate */}
-      <PrototypeGateModal label={data.protoLabel} state={proto.state} />
     </div>
   );
 }

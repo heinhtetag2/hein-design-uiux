@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { FilterPills } from "./FilterPills";
 import { CaseStudyVideo } from "./CaseStudyVideo";
-import svgPaths from "../../imports/svg-whatido";
+import { Footer } from "./Footer";
 import maxonVideo from "../../assets/what-i-do/maxon-video.mp4";
 import imgALaptop from "../../assets/work/joanx/laptop.webp";
 import imgStadium from "../../assets/what-i-do/stadium.webp";
@@ -318,47 +318,8 @@ export function WhatIDo() {
         </div>
       </div>
 
-      {/* Help Section */}
-      <div className="w-full py-[60px] md:py-[100px] lg:py-[178px] px-6">
-        <div className="flex flex-col lg:flex-row justify-between items-start gap-12">
-          <h2 className="font-display font-light text-display-md text-foreground">
-            How can<br />I help?
-          </h2>
-          <div className="w-full lg:w-[448px] flex flex-col">
-            <HelpLink label="Work together" />
-            <HelpLink label="Join our team" />
-            <HelpLink label="Just say hello" />
-          </div>
-        </div>
-      </div>
-
-      {/* Footer Links */}
-      <div className="w-full border-t border-foreground/10 mt-auto px-6">
-        <div className="py-[32px] md:py-[50px] flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-12">
-          <div className="flex gap-[24px] flex-wrap">
-            <div className="flex flex-col gap-2 min-w-[120px]">
-              <FooterLink label="Linkedin" />
-              <FooterLink label="Instagram" />
-              <FooterLink label="X" />
-              <FooterLink label="Medium" />
-            </div>
-            <div className="flex flex-col gap-2 min-w-[120px]">
-              <FooterLink label="Careers" />
-              <FooterLink label="Contact" />
-            </div>
-            <div className="flex flex-col gap-2 min-w-[120px]">
-              <FooterLink label="Privacy" />
-              <FooterLink label="Accessiblity" />
-            </div>
-          </div>
-          
-          <div className="size-[24px] flex items-center justify-center relative">
-             <svg className="size-full" viewBox="0 0 24 24" fill="none">
-               <path d={svgPaths.p38850280} fill="currentColor" className="fill-foreground" />
-             </svg>
-          </div>
-        </div>
-      </div>
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
@@ -447,23 +408,3 @@ function CategorySection({ title, items }: { title: string; items: string[] }) {
   );
 }
 
-function HelpLink({ label }: { label: string }) {
-  return (
-    <button className="w-full h-[80px] border-b border-foreground/10 flex items-center justify-between group cursor-pointer text-left">
-      <span className="font-display font-light text-h3 text-foreground group-hover:opacity-60 transition-opacity">
-        {label}
-      </span>
-      <svg className="size-[16px] text-foreground group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" viewBox="0 0 16 16" fill="none">
-        <path d={svgPaths.p37f30840} fill="currentColor" />
-      </svg>
-    </button>
-  );
-}
-
-function FooterLink({ label }: { label: string }) {
-  return (
-    <button className="font-display font-normal text-body-sm md:text-body text-foreground hover:opacity-60 transition-opacity cursor-pointer text-left">
-      {label}
-    </button>
-  );
-}

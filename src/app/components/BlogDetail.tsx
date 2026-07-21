@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "motion/react";
-import { ArrowLeft, Plus } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import { Footer } from "./Footer";
 
 interface BlogDetailProps {
   postId: string;
@@ -413,40 +414,8 @@ export function BlogDetail({ postId, onBack, onPostClick }: BlogDetailProps) {
         </div>
       </div>
 
-      {/* How can we help */}
-      <section className="w-[calc(100%+32px)] md:w-[calc(100%+48px)] -ml-4 md:-ml-6 py-[180px] border-t border-foreground/10 mt-32">
-        <div className="px-6 flex flex-col lg:flex-row items-start justify-between">
-          <h2 className="font-serif text-display-md font-light">How can<br />we help?</h2>
-          <div className="w-full lg:w-[600px] flex flex-col pt-12 lg:pt-0">
-            {["Work together", "Join our team", "Ask anything"].map((item, i) => (
-              <button key={i} className="w-full flex items-center justify-between py-10 border-b border-foreground/10 group cursor-pointer first:border-t first:border-foreground/10">
-                <span className="text-h3 font-light text-foreground">{item}</span>
-                <Plus className="size-6 text-foreground group-hover:rotate-45 transition-transform" />
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Footer */}
-      <footer className="w-[calc(100%+32px)] md:w-[calc(100%+48px)] -ml-4 md:-ml-6 py-20 border-t border-foreground/10">
-        <div className="px-6 flex flex-wrap gap-x-32 gap-y-12 items-start">
-          <div className="flex flex-col gap-4">
-            <span className="text-eyebrow text-foreground/60 font-light">Social</span>
-            <div className="flex gap-6">
-              {["IG", "TW", "LI"].map(s => <a key={s} href="#" className="text-body text-foreground font-light hover:opacity-60 transition-opacity">{s}</a>)}
-            </div>
-          </div>
-          <div className="flex flex-col gap-4">
-            <span className="text-eyebrow text-foreground/60 font-light">Office</span>
-            <p className="text-body text-foreground font-light">Victoria, BC Canada</p>
-          </div>
-          <div className="flex flex-col gap-4">
-            <span className="text-eyebrow text-foreground/60 font-light">Contact</span>
-            <p className="text-body text-foreground font-light">heincise@gmail.com</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
