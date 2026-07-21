@@ -59,8 +59,19 @@ export async function fetchVisitors(): Promise<Visitor[]> {
   }
 }
 
+// Outcome of the remote half of a save:
+//   "ok"      — stored in Supabase, visible to everyone
+//   "skipped" — Supabase not configured (local-only preview)
+//   "failed"  — Supabase configured but the insert errored (dead project, RLS, offline)
+export type RemoteStatus = "ok" | "skipped" | "failed";
+
+export type AppendResult = {
+  visitors: Visitor[];
+  remote: RemoteStatus;
+};
+
 // Append to local list (always) AND remote table (if configured).
-export async function appendVisitor(v: Visitor): Promise<Visitor[]> {
+export async function appendVisitor(v: Visitor): Promise<AppendResult> {
   const stamped: Visitor = { ...v, createdAt: v.createdAt ?? Date.now() };
 
   // Local write — always
@@ -74,22 +85,24 @@ export async function appendVisitor(v: Visitor): Promise<Visitor[]> {
 
   // Remote write — best-effort. Client is imported on demand (see note above).
   const { isSupabaseConfigured, supabase } = await import("./supabase");
-  if (isSupabaseConfigured && supabase) {
-    try {
-      const { error } = await supabase.from(SUPABASE_TABLE).insert({
-        name: stamped.name,
-        color: stamped.color,
-        no: stamped.no,
-        issued_at: stamped.issuedAt,
-        role: stamped.role ?? null,
-      });
-      if (error) throw error;
-    } catch (err) {
-      console.warn("[visitors] remote insert failed", err);
-    }
+  if (!isSupabaseConfigured || !supabase) {
+    return { visitors: next, remote: "skipped" };
   }
 
-  return next;
+  try {
+    const { error } = await supabase.from(SUPABASE_TABLE).insert({
+      name: stamped.name,
+      color: stamped.color,
+      no: stamped.no,
+      issued_at: stamped.issuedAt,
+      role: stamped.role ?? null,
+    });
+    if (error) throw error;
+    return { visitors: next, remote: "ok" };
+  } catch (err) {
+    console.warn("[visitors] remote insert failed", err);
+    return { visitors: next, remote: "failed" };
+  }
 }
 
 function isVisitor(x: unknown): x is Visitor {

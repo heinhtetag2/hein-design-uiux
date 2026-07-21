@@ -98,7 +98,7 @@ function Menu({ isOpen, setIsOpen, onNavigate, currentView }: { isOpen: boolean;
                     <div className="space-y-6">
                       <div className="space-y-2">
                         <p className="font-display text-eyebrow text-muted-foreground">Contact</p>
-                        <p className="font-display text-body-sm text-foreground">heindsgn@gmail.com</p>
+                        <p className="font-display text-body-sm text-foreground">heincise@gmail.com</p>
                       </div>
                       <div className="space-y-2">
                         <p className="font-display text-eyebrow text-muted-foreground">Follow</p>

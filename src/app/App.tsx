@@ -1,5 +1,6 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { motion, AnimatePresence, MotionConfig } from "motion/react";
+import { X } from "lucide-react";
 import Lenis from "lenis";
 // Critical "home" shell — eager so the first paint has no extra round-trip.
 import { TopNav } from "./components/TopNav";
@@ -50,6 +51,7 @@ export default function App() {
     return !window.localStorage.getItem(VISITOR_STORAGE_KEY);
   });
   const [editingVisitor, setEditingVisitor] = useState<Visitor | null>(null);
+  const [saveFailed, setSaveFailed] = useState(false);
 
   const handleVisitorComplete = (visitor: Visitor) => {
     try {
@@ -57,8 +59,11 @@ export default function App() {
     } catch {
       // ignore storage failures (private mode, etc.)
     }
-    // Fire-and-forget — remote insert resolves in the background; local list updates synchronously.
-    void appendVisitor(visitor);
+    // Local list updates synchronously; the remote insert resolves in the background.
+    // If the remote save fails (dead backend, offline), surface it instead of failing silently.
+    void appendVisitor(visitor).then((res) => {
+      setSaveFailed(res.remote === "failed");
+    });
     if (editingVisitor) {
       setShowVisitorCard(false);
       setEditingVisitor(null);
@@ -71,6 +76,12 @@ export default function App() {
       setTimeout(() => setIsTransitioning(false), 100);
     }, 800);
   };
+
+  useEffect(() => {
+    if (!saveFailed) return;
+    const t = setTimeout(() => setSaveFailed(false), 6000);
+    return () => clearTimeout(t);
+  }, [saveFailed]);
 
   const openEditCard = () => {
     try {
@@ -299,6 +310,33 @@ export default function App() {
       </div>
       
       {/* <AskAnything context={currentView === "home" ? "home" : currentView === "edusync" ? "edusync" : "blogs"} isMenuOpen={isMenuOpen} /> */}
+
+      {/* Save-failure toast — visitor pass is kept locally but didn't reach the gallery. */}
+      <AnimatePresence>
+        {saveFailed && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 16 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            role="status"
+            className="fixed bottom-5 left-1/2 -translate-x-1/2 z-[9500] flex items-center gap-3 rounded-full border border-foreground/15 bg-background/80 backdrop-blur-xl px-4 py-2.5 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)]"
+          >
+            <span className="inline-block size-1.5 rounded-full bg-foreground/40" />
+            <span className="font-display text-caption text-foreground/70">
+              Saved to this device — couldn't reach the gallery.
+            </span>
+            <button
+              type="button"
+              onClick={() => setSaveFailed(false)}
+              aria-label="Dismiss"
+              className="text-foreground/40 hover:text-foreground transition-colors cursor-pointer"
+            >
+              <X className="size-3.5" />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
       <CartDrawer
         onBrowseShop={() => handleNavigate("shop")}

@@ -103,8 +103,10 @@ function SelectField({ label, name, value, onChange, options, placeholder = "Sel
   );
 }
 
-// Get your free access key at https://web3forms.com (enter heindsgn@gmail.com)
-const WEB3FORMS_KEY = "944603d9-98d2-4a2e-b037-25ed4e107fb0";
+// Web3Forms access key — delivers submissions to the inbox the key is registered to
+// (heincise@gmail.com). Set VITE_WEB3FORMS_KEY in .env (and in Vercel env vars for prod).
+// Get/regenerate a key at https://web3forms.com.
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY as string | undefined;
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -129,6 +131,12 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isValid || status === "sending") return;
+
+    if (!WEB3FORMS_KEY) {
+      console.error("[contact] VITE_WEB3FORMS_KEY is not set — cannot send message.");
+      setStatus("error");
+      return;
+    }
 
     setStatus("sending");
 
@@ -184,10 +192,10 @@ export function Contact() {
               </p>
             </div>
 
-            <a href="mailto:heindsgn@gmail.com" className="group inline-flex items-center gap-2 text-body-lg text-foreground/80 w-fit hover:text-foreground transition-colors cursor-pointer font-light">
+            <a href="mailto:heincise@gmail.com" className="group inline-flex items-center gap-2 text-body-lg text-foreground/80 w-fit hover:text-foreground transition-colors cursor-pointer font-light">
               <Mail className="size-[18px] shrink-0" strokeWidth={1.5} aria-hidden />
               <span className="border-b border-foreground/40 pb-px group-hover:border-foreground transition-colors">
-                heindsgn@gmail.com
+                heincise@gmail.com
               </span>
             </a>
           </div>

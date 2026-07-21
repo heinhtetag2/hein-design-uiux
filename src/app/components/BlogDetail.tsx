@@ -443,7 +443,7 @@ export function BlogDetail({ postId, onBack, onPostClick }: BlogDetailProps) {
           </div>
           <div className="flex flex-col gap-4">
             <span className="text-eyebrow text-foreground/60 font-light">Contact</span>
-            <p className="text-body text-foreground font-light">heindsgn@gmail.com</p>
+            <p className="text-body text-foreground font-light">heincise@gmail.com</p>
           </div>
         </div>
       </footer>
