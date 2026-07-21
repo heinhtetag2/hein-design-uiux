@@ -12,7 +12,7 @@ import { CaseStudyHoverBackground } from "./components/CaseStudyHoverBackground"
 import { CaseStudyHoverContent } from "./components/CaseStudyHoverContent";
 import { CustomCursor } from "./components/CustomCursor";
 import { VisitorCard } from "./components/VisitorCard";
-import { VISITOR_STORAGE_KEY, appendVisitor, type Visitor } from "./visitorStore";
+import { VISITOR_STORAGE_KEY, VISITOR_INTRO_SEEN_KEY, appendVisitor, type Visitor } from "./visitorStore";
 import { CartProvider } from "./shop/CartContext";
 import { CartDrawer } from "./components/CartDrawer";
 import { caseStudies } from "./components/caseStudies";
@@ -48,7 +48,12 @@ export default function App() {
   const [showVisitorCard, setShowVisitorCard] = useState<boolean>(() => {
     if (typeof window === "undefined") return false;
     if (ALWAYS_SHOW_VISITOR_INTRO) return true;
-    return !window.localStorage.getItem(VISITOR_STORAGE_KEY);
+    // Show only on the true first visit: neither seen the intro nor already
+    // saved a card. Merely having seen it once (even without filling/skipping)
+    // suppresses future nags on refresh.
+    const seen = window.localStorage.getItem(VISITOR_INTRO_SEEN_KEY);
+    const hasCard = window.localStorage.getItem(VISITOR_STORAGE_KEY);
+    return !seen && !hasCard;
   });
   const [editingVisitor, setEditingVisitor] = useState<Visitor | null>(null);
   const [saveFailed, setSaveFailed] = useState(false);
@@ -82,6 +87,18 @@ export default function App() {
     const t = setTimeout(() => setSaveFailed(false), 6000);
     return () => clearTimeout(t);
   }, [saveFailed]);
+
+  // Once the onboarding intro is on screen, mark it seen so refreshing (without
+  // filling or skipping) doesn't bring it back. The edit-card flow is exempt.
+  useEffect(() => {
+    if (showVisitorCard && !editingVisitor) {
+      try {
+        window.localStorage.setItem(VISITOR_INTRO_SEEN_KEY, "1");
+      } catch {
+        // ignore storage failures (private mode, etc.)
+      }
+    }
+  }, [showVisitorCard, editingVisitor]);
 
   const openEditCard = () => {
     try {

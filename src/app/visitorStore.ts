@@ -5,6 +5,9 @@
 
 export const VISITOR_STORAGE_KEY = "26p:visitor:v1";
 export const VISITORS_LIST_KEY = "26p:visitors:v1";
+// Set once the onboarding intro has been shown — so it appears only on the true
+// first visit, not on every refresh when a visitor neither fills nor skips.
+export const VISITOR_INTRO_SEEN_KEY = "26p:visitor:intro-seen:v1";
 
 const MAX_VISITORS = 200;
 const SUPABASE_TABLE = "visitors";
