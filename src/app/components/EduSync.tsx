@@ -23,12 +23,15 @@ import mockNextStudy from "../../assets/work/twostay/app-mockup.webp";
 
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { CaseStudyVideo } from "./CaseStudyVideo";
-import { ArrowUpRight, BookOpen } from "lucide-react";
+import { ArrowUpRight, BookOpen, Lock } from "lucide-react";
+import { usePrototypeGate, PrototypeGateModal } from "./PrototypeGate";
 
 // EduSync interactive prototype — replace with your real Figma / live prototype URL.
 const PROTOTYPE_URL = "https://www.apple.com/os/macos/?version=no-hero";
 // TODO: replace with the real Notion case-study link once the deep-dive is written
 const CASE_STUDY_URL = "https://www.nike.com/";
+// Passcode to gate EduSync's prototype. Share it with the people you want to let in.
+const PROTOTYPE_PASSCODE = "1058";
 
 function Container({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return <div className={`w-full ${className}`}>{children}</div>;
@@ -216,6 +219,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
   const [showCursor, setShowCursor] = React.useState(false);
   const [isDragging, setIsDragging] = React.useState(false);
   const [showProtoBar, setShowProtoBar] = React.useState(false);
+  const proto = usePrototypeGate("edusync", PROTOTYPE_URL, PROTOTYPE_PASSCODE);
 
   React.useEffect(() => {
     const onScroll = () => setShowProtoBar(window.scrollY > 320);
@@ -686,22 +690,31 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
               </a>
               <a
                 href={PROTOTYPE_URL}
+                onClick={proto.onProtoClick}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-foreground py-2 pl-4 pr-3.5 text-background"
               >
                 <span className="pointer-events-none absolute inset-0 origin-left scale-x-0 bg-brand transition-transform duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:scale-x-100" />
                 <span className="relative font-display font-normal text-body-sm whitespace-nowrap transition-colors duration-500 group-hover:text-brand-foreground">View Prototype</span>
-                <ArrowUpRight
-                  className="relative h-4 w-4 text-background transition-all duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-foreground"
-                  strokeWidth={1.75}
-                />
+                {proto.locked && !proto.unlocked ? (
+                  <Lock
+                    className="relative h-3.5 w-3.5 text-background transition-colors duration-500 group-hover:text-brand-foreground"
+                    strokeWidth={1.75}
+                  />
+                ) : (
+                  <ArrowUpRight
+                    className="relative h-4 w-4 text-background transition-all duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-foreground"
+                    strokeWidth={1.75}
+                  />
+                )}
               </a>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
+      <PrototypeGateModal label="EduSync" state={proto.state} />
     </div>
   );
 }
