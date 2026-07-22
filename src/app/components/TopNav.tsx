@@ -1,7 +1,7 @@
 import React from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "motion/react";
-import { Music, ShoppingBag, Moon, Mail, Download } from "lucide-react";
+import { ShoppingBag, Mail, Download } from "lucide-react";
 import { useCart } from "../shop/CartContext";
 // Site logo — light & dark variants. The theme swaps between them via the
 // [data-logo] rules in theme.css. Replacements live in src/assets/brand/.
@@ -158,43 +158,60 @@ function Menu({ isOpen, setIsOpen, onNavigate, currentView }: { isOpen: boolean;
   );
 }
 
+// World clock — rotates through these zones, home (MMR) first.
+const TIME_ZONES = [
+  { label: "MMR", tz: "Asia/Yangon" },
+  { label: "NYC", tz: "America/New_York" },
+  { label: "LON", tz: "Europe/London" },
+  { label: "TOK", tz: "Asia/Tokyo" },
+  { label: "PAR", tz: "Europe/Paris" },
+  { label: "LAX", tz: "America/Los_Angeles" },
+];
+
 function TimeInfo() {
-  const [time, setTime] = React.useState("");
+  const [idx, setIdx] = React.useState(0);
+  const [now, setNow] = React.useState(() => new Date());
 
+  // Tick the clock every second.
   React.useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      const formatter = new Intl.DateTimeFormat("en-US", {
-        timeZone: "Asia/Yangon",
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: true,
-      });
-      setTime(formatter.format(now));
-    };
-
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
+    const t = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(t);
   }, []);
 
-  return (
-    <div className="hidden sm:flex font-display font-light gap-[2px] items-center text-caption text-right text-foreground tracking-tight whitespace-nowrap">
-      <span className="leading-none uppercase">MMR</span>
-      <span className="leading-none">{time}</span>
-    </div>
-  );
-}
+  // Rotate to the next city every few seconds.
+  React.useEffect(() => {
+    const rot = setInterval(
+      () => setIdx((i) => (i + 1) % TIME_ZONES.length),
+      4000,
+    );
+    return () => clearInterval(rot);
+  }, []);
 
-function MoonIcon({ onClick, filled }: { onClick: () => void; filled?: boolean }) {
+  const zone = TIME_ZONES[idx];
+  const time = new Intl.DateTimeFormat("en-US", {
+    timeZone: zone.tz,
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  }).format(now);
+
   return (
-    <button
-      onClick={onClick}
-      aria-label={filled ? "Switch to light mode" : "Switch to dark mode"}
-      className="flex items-center justify-center size-[20px] sm:size-[22px] shrink-0 cursor-pointer hover:opacity-70 transition-opacity"
-    >
-      <Moon className="size-[15px] text-foreground" strokeWidth={1.5} fill={filled ? "currentColor" : "none"} />
-    </button>
+    <div className="hidden sm:flex font-display font-light items-center text-caption text-right text-foreground tracking-tight whitespace-nowrap overflow-hidden">
+      {/* Each city slides up as the previous one leaves */}
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={zone.label}
+          initial={{ y: 8, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -8, opacity: 0 }}
+          transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+          className="flex gap-[2px] items-center"
+        >
+          <span className="leading-none uppercase">{zone.label}</span>
+          <span className="leading-none">{time}</span>
+        </motion.div>
+      </AnimatePresence>
+    </div>
   );
 }
 
@@ -202,10 +219,18 @@ function MailIcon({ onClick }: { onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="flex items-center justify-center size-[20px] sm:size-[22px] shrink-0 cursor-pointer hover:opacity-70 transition-opacity"
+      className="group flex items-center shrink-0 h-[22px] cursor-pointer rounded-full border border-transparent hover:border-foreground hover:bg-foreground/10 pl-0 hover:pl-3 pr-0 transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]"
       aria-label="Get in Touch"
     >
-      <Mail className="size-[15px] text-foreground" strokeWidth={1.5} />
+      {/* Label unfolds out from beside the icon via a 0fr→1fr grid column */}
+      <span className="grid grid-cols-[0fr] group-hover:grid-cols-[1fr] transition-[grid-template-columns] duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]">
+        <span className="overflow-hidden whitespace-nowrap font-display font-light text-caption tracking-tight leading-none text-foreground -translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:pr-2 transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]">
+          Get in Touch
+        </span>
+      </span>
+      <span className="flex items-center justify-center size-[22px] shrink-0 rounded-full transition-colors duration-500 group-hover:bg-foreground/[0.06]">
+        <Mail className="size-[15px] text-foreground transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:-translate-y-px group-hover:translate-x-px" strokeWidth={1.5} />
+      </span>
     </button>
   );
 }
@@ -219,33 +244,20 @@ function CvButton() {
       download="Hein-Htet-CV.pdf"
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-center gap-1 shrink-0 cursor-pointer text-foreground hover:opacity-70 transition-opacity"
+      className="group flex items-center shrink-0 h-[22px] cursor-pointer rounded-full border border-transparent hover:border-foreground hover:bg-foreground/10 pl-0 hover:pl-3 pr-0 transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]"
       aria-label="Download CV"
       title="Download CV"
     >
-      <Download className="size-[15px]" strokeWidth={1.5} />
-      <span className="font-display font-light text-caption tracking-tight leading-none">CV</span>
+      {/* Label unfolds out from beside the icon via a 0fr→1fr grid column */}
+      <span className="grid grid-cols-[0fr] group-hover:grid-cols-[1fr] transition-[grid-template-columns] duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]">
+        <span className="overflow-hidden whitespace-nowrap font-display font-light text-caption tracking-tight leading-none text-foreground -translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:pr-2 transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]">
+          Download CV
+        </span>
+      </span>
+      <span className="flex items-center justify-center size-[22px] shrink-0 rounded-full transition-colors duration-300 group-hover:bg-foreground/[0.06]">
+        <Download className="size-[15px] text-foreground transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:translate-y-px" strokeWidth={1.5} />
+      </span>
     </a>
-  );
-}
-
-function MusicIcon({ isPlaying, onClick }: { isPlaying: boolean; onClick: () => void }) {
-  return (
-    <button 
-      onClick={onClick}
-      className="relative size-[20px] sm:size-[22px] shrink-0 cursor-pointer hover:opacity-70 transition-opacity flex items-center justify-center group"
-    >
-      <div className="relative flex items-center justify-center">
-        <Music strokeWidth={1.5} className={`size-[15px] transition-all duration-300 ${isPlaying ? "text-foreground opacity-100" : "text-foreground/40 opacity-50"}`} />
-        {!isPlaying && (
-          <motion.div 
-            initial={{ width: 0 }}
-            animate={{ width: "16px" }}
-            className="absolute h-[1px] bg-foreground/60 rotate-45 pointer-events-none"
-          />
-        )}
-      </div>
-    </button>
   );
 }
 
@@ -282,10 +294,7 @@ function Logo({ onClick }: { onClick?: () => void }) {
 
 export function TopNav({ onLogoClick, onNavigate, isMenuOpen, onMenuOpenChange, currentView }: TopNavProps) {
   const [scrolled, setScrolled] = React.useState(false);
-  const [isMusicPlaying, setIsMusicPlaying] = React.useState(false);
   const [isVisible, setIsVisible] = React.useState(false);
-  const [isDark, setIsDark] = React.useState(true);
-  const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
   React.useEffect(() => {
     const handleVideoLoaded = () => {
@@ -304,59 +313,15 @@ export function TopNav({ onLogoClick, onNavigate, isMenuOpen, onMenuOpenChange, 
   }, []);
 
   React.useEffect(() => {
-    // Initialize audio
-    audioRef.current = new Audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3");
-    audioRef.current.loop = true;
-    
-    // Attempt to autoplay
-    if (isMusicPlaying) {
-      audioRef.current.play().catch(e => {
-        console.log("Autoplay blocked by browser. Music will start on user interaction.");
-      });
-    }
-
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
-    
-    // Ensure dark mode is active by default on first load
-    if (!document.documentElement.classList.contains('dark') && !document.documentElement.classList.contains('light')) {
-      document.documentElement.classList.add('dark');
-    }
-    setIsDark(!document.documentElement.classList.contains('light'));
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
     };
   }, []);
-
-  const toggleMusic = () => {
-    if (audioRef.current) {
-      if (isMusicPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play().catch(e => console.error("Audio playback failed:", e));
-      }
-      setIsMusicPlaying(!isMusicPlaying);
-    }
-  };
-
-  const toggleTheme = () => {
-    if (document.documentElement.classList.contains('dark')) {
-      document.documentElement.classList.remove('dark');
-      document.documentElement.classList.add('light');
-      setIsDark(false);
-    } else {
-      document.documentElement.classList.remove('light');
-      document.documentElement.classList.add('dark');
-      setIsDark(true);
-    }
-  };
 
   return (
     <motion.header 
@@ -375,8 +340,6 @@ export function TopNav({ onLogoClick, onNavigate, isMenuOpen, onMenuOpenChange, 
       <Logo onClick={onLogoClick} />
       <div className="flex gap-2 sm:gap-[8px] items-center">
         <TimeInfo />
-        <MoonIcon onClick={toggleTheme} filled={isDark} />
-        <MusicIcon isPlaying={isMusicPlaying} onClick={toggleMusic} />
         <MailIcon onClick={() => onNavigate("contact")} />
         <CvButton />
         <CartButton />
