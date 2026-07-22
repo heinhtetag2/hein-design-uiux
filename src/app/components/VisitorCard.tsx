@@ -115,7 +115,7 @@ export function VisitorCard({ onComplete, onSkip, onClose, initial }: VisitorCar
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, ease: EASE }}
-      className="fixed inset-0 z-[9000] bg-background text-foreground overflow-hidden flex flex-col"
+      className="fixed inset-0 z-[9000] bg-background text-foreground overflow-y-auto flex flex-col"
     >
       {/* Subtle ambient dot grid for texture */}
       <div
@@ -155,7 +155,7 @@ export function VisitorCard({ onComplete, onSkip, onClose, initial }: VisitorCar
       </motion.div>
 
       {/* Main content */}
-      <div className="relative flex-1 min-h-0 flex flex-col items-center justify-center px-6 py-4">
+      <div className="relative flex-1 flex flex-col items-center justify-center px-6 py-6">
         {/* Title block */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -283,7 +283,7 @@ export function VisitorCard({ onComplete, onSkip, onClose, initial }: VisitorCar
             <button
               type="button"
               onClick={() => onSkip?.()}
-              className="font-display text-caption text-foreground/40 hover:text-foreground/70 transition-colors cursor-pointer"
+              className="font-display text-caption text-foreground/40 hover:text-foreground/70 transition-colors cursor-pointer py-2 px-3 -my-1"
             >
               Skip for now
             </button>
