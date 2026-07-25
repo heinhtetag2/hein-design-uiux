@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import bgVideo from "../../assets/home/hero-background.mp4";
+import bgPoster from "../../assets/home/hero-background-poster.jpg";
 
 const FADE_MS = 900;
 const FADE_WINDOW_S = FADE_MS / 1000;
@@ -58,9 +59,11 @@ export const VideoBackground = React.memo(function VideoBackground() {
       <video
         ref={videoRef}
         src={bgVideo}
+        poster={bgPoster}
         autoPlay
         muted
         playsInline
+        preload="auto"
         onLoadedData={() => setIsVideoLoaded(true)}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         style={{

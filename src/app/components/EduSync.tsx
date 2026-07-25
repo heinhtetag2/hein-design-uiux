@@ -9,7 +9,7 @@ import imgFrame80 from "../../assets/work/edusync/gallery-02.webp";
 import imgApp1 from "../../assets/work/edusync/music-card-1.webp";
 import imgApp2 from "../../assets/work/edusync/music-card-2.webp";
 import imgApp3 from "../../assets/work/edusync/music-card-3.webp";
-import imgImage1 from "../../assets/work/edusync/gallery-00.png";
+import imgImage1 from "../../assets/work/edusync/gallery-00.webp";
 import imgFrame81 from "../../assets/work/edusync/gallery-05.webp";
 import imgFrame82 from "../../assets/work/edusync/gallery-07.webp";
 import imgFrame83 from "../../assets/work/edusync/gallery-08.webp";
@@ -19,10 +19,13 @@ import imgImage6 from "../../assets/work/edusync/gallery-11.webp";
 import image8Video from "../../assets/work/edusync/think-different-video.mp4";
 import imgImage9 from "../../assets/work/edusync/gallery-09.webp";
 import eduSyncVideo from "../../assets/work/edusync/overview-video.mp4";
+import eduSyncPoster from "../../assets/work/edusync/overview-video-poster.jpg";
+import frame78Poster from "../../assets/work/edusync/system-video-poster.jpg";
 import mockNextStudy from "../../assets/work/twostay/app-mockup.webp";
 
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { CaseStudyVideo } from "./CaseStudyVideo";
+import { AutoVideo } from "./AutoVideo";
 import { ArrowUpRight, BookOpen } from "lucide-react";
 
 // EduSync interactive prototype — replace with your real Figma / live prototype URL.
@@ -103,14 +106,7 @@ function RevealVideo({ src, className = "" }: { src: string; className?: string 
         transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
         className="w-full h-full"
       >
-        <video
-          src={src}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="block w-full h-full object-cover"
-        />
+        <AutoVideo src={src} className="block w-full h-full object-cover" />
       </motion.div>
     </motion.div>
   );
@@ -313,7 +309,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
 
       {/* 4. Video Play Section */}
       <div className="w-full mb-16 md:mb-32 flex flex-col gap-8 md:gap-10 lg:items-end">
-        <CaseStudyVideo src={eduSyncVideo} className="w-full aspect-video lg:h-[782px]" />
+        <CaseStudyVideo src={eduSyncVideo} poster={eduSyncPoster} className="w-full aspect-video lg:h-[782px]" />
         <div className="w-full lg:max-w-[206px] lg:pr-4">
            <p className="font-display text-body text-foreground leading-relaxed">
              EduSync was shaped through close collaboration between design, product, and engineering. In a system with many stakeholders, clarity and speed were essential—enabled by shared ownership, clear roles, and continuous feedback.
@@ -332,14 +328,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       {/* 6. Image Grid (Posters) */}
       <div className="w-full mb-28 md:mb-40 lg:mb-56 flex flex-col gap-4 md:gap-6">
         <div className="w-full h-[250px] md:h-[400px] lg:h-[778px] overflow-hidden">
-          <video
-            src={frame78Video}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="block w-full h-full object-cover"
-          />
+          <AutoVideo src={frame78Video} poster={frame78Poster} className="block w-full h-full object-cover" />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
            <div className="h-[360px] md:h-[460px] lg:h-[782px] overflow-hidden">

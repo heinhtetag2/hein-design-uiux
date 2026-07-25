@@ -103,7 +103,7 @@ export function CartDrawer({
                       {/* Thumb */}
                       <div className="size-[64px] shrink-0 overflow-hidden rounded-[6px] bg-foreground/[0.06]">
                         {getProductCover(line.product) ? (
-                          <img src={getProductCover(line.product)} alt={line.product.name} className="h-full w-full object-cover" />
+                          <img src={getProductCover(line.product)} alt={line.product.name} loading="lazy" decoding="async" className="h-full w-full object-cover" />
                         ) : (
                           <div className="flex h-full w-full items-center justify-center">
                             <span className="font-display text-caption text-foreground/20">

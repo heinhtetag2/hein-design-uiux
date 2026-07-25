@@ -1,14 +1,17 @@
 import React from "react";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
+import { useInViewVideo } from "./useInViewVideo";
 
 /**
- * Autoplaying, looping, muted video with a cursor-following play/pause button
- * and a fade-in mute toggle. Click anywhere to play/pause; the mute button sits
+ * Looping, muted video that autoplays only while in view (deferring its download
+ * until the user scrolls to it) with a cursor-following play/pause button and a
+ * fade-in mute toggle. Click anywhere to play/pause; the mute button sits
  * bottom-center and appears on hover.
  */
-export function CaseStudyVideo({ src, className = "" }: { src: string; className?: string }) {
+export function CaseStudyVideo({ src, poster, className = "" }: { src: string; poster?: string; className?: string }) {
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const containerRef = React.useRef<HTMLDivElement>(null);
+  useInViewVideo(videoRef);
   const [isPlaying, setIsPlaying] = React.useState(true);
   const [isMuted, setIsMuted] = React.useState(true);
   const [hovering, setHovering] = React.useState(false);
@@ -46,10 +49,11 @@ export function CaseStudyVideo({ src, className = "" }: { src: string; className
       <video
         ref={videoRef}
         src={src}
-        autoPlay
+        poster={poster}
         muted
         loop
         playsInline
+        preload="none"
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
         className="block w-full h-full object-cover"

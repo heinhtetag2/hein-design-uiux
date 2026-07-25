@@ -4,6 +4,7 @@ import { Footer } from "./Footer";
 
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { CaseStudyVideo } from "./CaseStudyVideo";
+import { AutoVideo } from "./AutoVideo";
 import { ArrowUpRight, BookOpen } from "lucide-react";
 
 // Shared, data-driven case-study detail layout. This is the EduSync showcase
@@ -155,7 +156,7 @@ function RevealVideo({ src, className = "" }: { src: string; className?: string 
         transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
         className="w-full h-full"
       >
-        <video src={src} autoPlay muted loop playsInline className="block w-full h-full object-cover" />
+        <AutoVideo src={src} className="block w-full h-full object-cover" />
       </motion.div>
     </motion.div>
   );
@@ -372,7 +373,7 @@ export function CaseStudyTemplate({
       {/* 6. Image Grid (Posters) */}
       <div className="w-full mb-28 md:mb-40 lg:mb-56 flex flex-col gap-4 md:gap-6">
         <div className="w-full h-[250px] md:h-[400px] lg:h-[778px] overflow-hidden">
-          <video src={data.posterVideo} autoPlay muted loop playsInline className="block w-full h-full object-cover" />
+          <AutoVideo src={data.posterVideo} className="block w-full h-full object-cover" />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
           <div className="h-[360px] md:h-[460px] lg:h-[782px] overflow-hidden">

@@ -4,6 +4,7 @@ import { FilterPills } from "./FilterPills";
 import { CaseStudyVideo } from "./CaseStudyVideo";
 import { Footer } from "./Footer";
 import maxonVideo from "../../assets/what-i-do/maxon-video.mp4";
+import maxonPoster from "../../assets/what-i-do/maxon-video-poster.jpg";
 import imgALaptop from "../../assets/work/joanx/laptop.webp";
 import imgStadium from "../../assets/what-i-do/stadium.webp";
 import imgWomanWatermelon from "../../assets/what-i-do/woman-watermelon.webp";
@@ -161,7 +162,7 @@ export function WhatIDo() {
             }}
             className="h-[clamp(440px,66vh,620px)] md:h-[794px] bg-foreground/20 relative"
           >
-            <CaseStudyVideo src={maxonVideo} className="w-full h-full" />
+            <CaseStudyVideo src={maxonVideo} poster={maxonPoster} className="w-full h-full" />
           </motion.div>
         </div>
       </div>

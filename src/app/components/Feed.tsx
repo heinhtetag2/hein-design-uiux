@@ -40,7 +40,7 @@ function FeedCard({ date, title, image, type, height }: CardProps) {
         <div className="flex gap-[12px] items-start w-full">
           {type === "small" && image && (
             <div className="size-[48px] overflow-hidden flex-shrink-0 rounded-[4px]">
-              <img src={image} alt="" className="size-full object-cover" />
+              <img src={image} alt="" loading="lazy" decoding="async" className="size-full object-cover" />
             </div>
           )}
           {title && (
@@ -51,7 +51,7 @@ function FeedCard({ date, title, image, type, height }: CardProps) {
         </div>
         {type === "large" && image && (
           <div className="mt-auto h-[105px] w-full overflow-hidden rounded-[4px]">
-            <img src={image} alt="" className="size-full object-cover" />
+            <img src={image} alt="" loading="lazy" decoding="async" className="size-full object-cover" />
           </div>
         )}
       </div>

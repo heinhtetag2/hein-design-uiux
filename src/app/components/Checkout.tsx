@@ -131,7 +131,7 @@ export function Checkout({ onBack }: CheckoutProps) {
                     <div className="relative size-[60px] shrink-0">
                       <div className="size-full overflow-hidden rounded-[6px] bg-foreground/[0.06]">
                         {cover ? (
-                          <img src={cover} alt={line.product.name} className="h-full w-full object-cover" />
+                          <img src={cover} alt={line.product.name} loading="lazy" decoding="async" className="h-full w-full object-cover" />
                         ) : (
                           <div className="flex h-full w-full items-center justify-center">
                             <span className="font-display text-caption text-foreground/20">
@@ -354,7 +354,7 @@ export function Checkout({ onBack }: CheckoutProps) {
                     <div className="relative size-[60px] shrink-0">
                       <div className="size-full overflow-hidden rounded-[6px] bg-foreground/[0.06]">
                         {cover ? (
-                          <img src={cover} alt={line.product.name} className="h-full w-full object-cover" />
+                          <img src={cover} alt={line.product.name} loading="lazy" decoding="async" className="h-full w-full object-cover" />
                         ) : (
                           <div className="flex h-full w-full items-center justify-center">
                             <span className="font-display text-caption text-foreground/20">

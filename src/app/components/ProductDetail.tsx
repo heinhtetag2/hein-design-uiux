@@ -187,7 +187,7 @@ function Gallery({ name, images }: { name: string; images?: string[] }) {
               }`}
             >
               {v ? (
-                <img src={v} alt="" className="h-full w-full object-cover" />
+                <img src={v} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
               ) : (
                 <div className="flex h-full w-full items-center justify-center">
                   <span className="font-display text-micro text-foreground/20">{label}</span>
