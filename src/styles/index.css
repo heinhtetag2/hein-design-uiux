@@ -111,8 +111,8 @@
   --ring: oklch(0.708 0 0);
 
   /* Brand (single source of truth — replaces hardcoded #584dff) */
-  --brand: #584dff;
-  --brand-rgb: 88 77 255;
+  --brand: #2b4acb;
+  --brand-rgb: 43 74 203;
   --brand-foreground: #ffffff;
 
   /* Charts */

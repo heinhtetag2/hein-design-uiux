@@ -25,7 +25,7 @@ const ROLE_OPTIONS = [
 ];
 
 const COLOR_OPTIONS = [
-  { id: "brand", value: "#584dff", label: "Brand" },
+  { id: "brand", value: "#2b4acb", label: "Brand" },
   { id: "deep", value: "#2d2680", label: "Deep" },
   { id: "mist", value: "#b5b0ff", label: "Mist" },
   { id: "olive", value: "#4a5230", label: "Olive" },
