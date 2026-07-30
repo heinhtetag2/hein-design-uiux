@@ -10,7 +10,8 @@ import imgApp1 from "../../assets/work/edusync/music-card-1.webp";
 import imgApp2 from "../../assets/work/edusync/music-card-2.webp";
 import imgApp3 from "../../assets/work/edusync/music-card-3.webp";
 import imgImage1 from "../../assets/work/edusync/gallery-00.webp";
-import imgFrame81 from "../../assets/work/edusync/gallery-05.webp";
+import animoVideo from "../../assets/work/edusync/animo-orbit-bloom.mp4";
+import animoPoster from "../../assets/work/edusync/animo-orbit-bloom-poster.jpg";
 import imgFrame82 from "../../assets/work/edusync/gallery-07.webp";
 import imgFrame83 from "../../assets/work/edusync/gallery-08.webp";
 import imgImage2 from "../../assets/work/edusync/gallery-10.webp";
@@ -88,7 +89,7 @@ function RevealImage({ src, className = "" }: { src: string; className?: string 
   );
 }
 
-function RevealVideo({ src, className = "" }: { src: string; className?: string }) {
+function RevealVideo({ src, poster, className = "" }: { src: string; poster?: string; className?: string }) {
   // Same clip-mask reveal + parallax as RevealImage, but for an autoplaying,
   // looping, muted video — so a video slot reveals in step with its image siblings.
   return (
@@ -106,7 +107,7 @@ function RevealVideo({ src, className = "" }: { src: string; className?: string 
         transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
         className="w-full h-full"
       >
-        <AutoVideo src={src} className="block w-full h-full object-cover" />
+        <AutoVideo src={src} poster={poster} className="block w-full h-full object-cover" />
       </motion.div>
     </motion.div>
   );
@@ -471,7 +472,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
               <p className="font-display text-body text-foreground">Create a course, assign teachers, and manage lessons in one place. Content moves from draft to review to published ensuring quality without slowing down teaching.</p>
            </div>
            <div className="order-1 lg:order-none h-[444px] lg:flex-1 lg:min-h-0 overflow-hidden">
-              <RevealImage src={imgFrame81} className="w-full h-full" />
+              <RevealVideo src={animoVideo} poster={animoPoster} className="w-full h-full" />
            </div>
         </div>
         <div className="order-2 lg:order-none h-[284px] md:h-[400px] lg:flex-1 lg:h-[782px] overflow-hidden">

@@ -6,7 +6,6 @@ import Lenis from "lenis";
 import { TopNav } from "./components/TopNav";
 import { Sidebar } from "./components/Sidebar";
 import { Hero } from "./components/Hero";
-import { PageTransitionOverlay } from "./components/PageTransitionOverlay";
 import { VideoBackground } from "./components/VideoBackground";
 import { CaseStudyHoverBackground } from "./components/CaseStudyHoverBackground";
 import { CaseStudyHoverContent } from "./components/CaseStudyHoverContent";
@@ -17,8 +16,8 @@ import { CartProvider } from "./shop/CartContext";
 import { CartDrawer } from "./components/CartDrawer";
 import { caseStudies } from "./components/caseStudies";
 
-// Non-home views — code-split. Each loads on navigation, fully covered by the
-// 800ms page-transition overlay, so there is no perceptible loading state.
+// Non-home views — code-split. Each loads on navigation and fades in via the
+// content crossfade, so there is no perceptible loading state.
 const EduSync = lazy(() => import("./components/EduSync").then((m) => ({ default: m.EduSync })));
 const CaseStudyTemplate = lazy(() => import("./components/CaseStudyTemplate").then((m) => ({ default: m.CaseStudyTemplate })));
 const WhatIDo = lazy(() => import("./components/WhatIDo").then((m) => ({ default: m.WhatIDo })));
@@ -39,7 +38,6 @@ type View = "home" | "edusync" | "twostay" | "joanx" | "goft" | "probridge" | "c
 // Force rebuild
 export default function App() {
   const [currentView, setCurrentView] = useState<View>("home");
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
@@ -82,23 +80,15 @@ export default function App() {
       setEditingVisitor(null);
       return;
     }
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setShowVisitorCard(false);
-      setHomeMountKey((k) => k + 1);
-      setTimeout(() => setIsTransitioning(false), 100);
-    }, 800);
+    setShowVisitorCard(false);
+    setHomeMountKey((k) => k + 1);
   };
 
   // Skip = dismiss for this session only. Nothing is saved, so the onboarding
   // reappears on the next visit/refresh until the visitor actually fills a card.
   const handleVisitorSkip = () => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setShowVisitorCard(false);
-      setHomeMountKey((k) => k + 1);
-      setTimeout(() => setIsTransitioning(false), 100);
-    }, 800);
+    setShowVisitorCard(false);
+    setHomeMountKey((k) => k + 1);
   };
 
   useEffect(() => {
@@ -139,11 +129,11 @@ export default function App() {
     if (isHomeLocked) return;
 
     const lenis = new Lenis({
-      duration: 0.9,
-      easing: (t: number) => 1 - Math.pow(1 - t, 3),
+      lerp: 0.1,
       smoothWheel: true,
       wheelMultiplier: 1,
-      touchMultiplier: 1.2,
+      touchMultiplier: 1.5,
+      syncTouch: true,
     });
 
     let rafId = 0;
@@ -159,66 +149,28 @@ export default function App() {
     };
   }, [currentView]);
 
+  // Navigation just swaps the view; the content AnimatePresence crossfades the
+  // old page out and the new one in. Scroll reset happens in onExitComplete,
+  // once the outgoing page has faded, so it never yanks visible content.
   const handleBlogPostClick = (postId: string) => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setSelectedPostId(postId);
-      setCurrentView("blog-detail");
-      window.scrollTo({ top: 0, behavior: "instant" });
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 100);
-    }, 800);
+    setSelectedPostId(postId);
+    setCurrentView("blog-detail");
   };
 
   const handleBackToBlogs = () => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setSelectedPostId(null);
-      setCurrentView("blogs");
-      window.scrollTo({ top: 0, behavior: "instant" });
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 100);
-    }, 800);
+    setSelectedPostId(null);
+    setCurrentView("blogs");
   };
 
   const handleProductClick = (id: string) => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setSelectedProductId(id);
-      setCurrentView("product-detail");
-      window.scrollTo({ top: 0, behavior: "instant" });
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 100);
-    }, 800);
+    setSelectedProductId(id);
+    setCurrentView("product-detail");
   };
 
   const handleNavigate = (view: Exclude<View, "blog-detail">) => {
     if (view === currentView) return;
-
-    // Lock the case-study hover state on desktop only so the closing panels
-    // cover the hover backdrop/content (not the home Hero) when navigating
-    // from home into a study. On mobile we keep the home background instead.
-    const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
-    if (isDesktop && view === "edusync" && currentView === "home") {
-      setHoveredCaseStudy("EduSync");
-    }
-
-    setIsTransitioning(true);
-
-    // Switch content when panels meet in the middle (0.8s)
-    setTimeout(() => {
-      setCurrentView(view);
-      window.scrollTo({ top: 0, behavior: "instant" });
-      setHoveredCaseStudy(null);
-
-      // Start opening panels after a tiny delay to ensure render
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 100);
-    }, 800);
+    setHoveredCaseStudy(null);
+    setCurrentView(view);
   };
 
   return (
@@ -237,17 +189,18 @@ export default function App() {
       {currentView === "home" && <CaseStudyHoverBackground hoveredStudy={hoveredCaseStudy} />}
       {currentView === "home" && <CaseStudyHoverContent hoveredStudy={hoveredCaseStudy} />}
       
-      <PageTransitionOverlay isTransitioning={isTransitioning} />
       <CustomCursor />
 
-      {showVisitorCard && (
-        <VisitorCard
-          onComplete={handleVisitorComplete}
-          onSkip={handleVisitorSkip}
-          initial={editingVisitor}
-          onClose={editingVisitor ? closeEditCard : undefined}
-        />
-      )}
+      <AnimatePresence>
+        {showVisitorCard && (
+          <VisitorCard
+            onComplete={handleVisitorComplete}
+            onSkip={handleVisitorSkip}
+            initial={editingVisitor}
+            onClose={editingVisitor ? closeEditCard : undefined}
+          />
+        )}
+      </AnimatePresence>
 
       <div className="relative mx-auto w-full max-w-[1920px] h-full z-10 px-[14px] lg:px-6">
         <TopNav
@@ -259,13 +212,16 @@ export default function App() {
           currentView={currentView}
         />
 
-        <AnimatePresence mode="wait">
+        <AnimatePresence
+          mode="wait"
+          onExitComplete={() => window.scrollTo({ top: 0, behavior: "instant" })}
+        >
           <motion.div
             key={`${currentView}-${homeMountKey}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 12, transition: { duration: 0.34, ease: [0.4, 0, 1, 1] } }}
+            transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
             className="h-full w-full"
           >
             <Suspense fallback={null}>
@@ -293,7 +249,6 @@ export default function App() {
                   <Sidebar
                     onCaseStudyClick={handleNavigate}
                     onCaseStudyHover={(study) => {
-                      if (isTransitioning) return;
                       setHoveredCaseStudy(study);
                     }}
                     isMenuOpen={isMenuOpen}

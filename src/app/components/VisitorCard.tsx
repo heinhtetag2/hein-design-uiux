@@ -114,6 +114,7 @@ export function VisitorCard({ onComplete, onSkip, onClose, initial }: VisitorCar
       key="visitor-overlay"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
+      exit={{ opacity: 0, transition: { duration: 0.35, ease: EASE } }}
       transition={{ duration: 0.6, ease: EASE }}
       className="fixed inset-0 z-[9000] bg-background text-foreground overflow-y-auto flex flex-col"
     >
