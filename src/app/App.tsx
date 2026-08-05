@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from "react";
+import React, { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { motion, AnimatePresence, MotionConfig } from "motion/react";
 import { X } from "lucide-react";
 import Lenis from "lenis";
@@ -61,6 +61,13 @@ export default function App() {
   const [saveFailed, setSaveFailed] = useState(false);
   // Bumped after every save so a mounted VisitorGallery re-fetches and shows the change.
   const [visitorRefreshKey, setVisitorRefreshKey] = useState(0);
+
+  // Circle wipe between sections: "cover" grows a solid disc over the outgoing
+  // page from screen-center; once it fully covers, the view swaps underneath
+  // (hidden) and "reveal" shrinks the same disc back down to 0, uncovering the
+  // new page. pendingViewRef carries the destination across the two phases.
+  const [wipePhase, setWipePhase] = useState<"idle" | "cover" | "reveal">("idle");
+  const pendingViewRef = useRef<View | null>(null);
 
   const handleVisitorComplete = (visitor: Visitor) => {
     try {
@@ -168,9 +175,10 @@ export default function App() {
   };
 
   const handleNavigate = (view: Exclude<View, "blog-detail">) => {
-    if (view === currentView) return;
+    if (view === currentView || wipePhase !== "idle") return;
     setHoveredCaseStudy(null);
-    setCurrentView(view);
+    pendingViewRef.current = view;
+    setWipePhase("cover");
   };
 
   return (
@@ -190,6 +198,27 @@ export default function App() {
       {currentView === "home" && <CaseStudyHoverContent hoveredStudy={hoveredCaseStudy} />}
       
       <CustomCursor />
+
+      {wipePhase !== "idle" && (
+        <motion.div
+          key="curtain-wipe"
+          className="fixed inset-0 z-[9500] bg-background pointer-events-none"
+          initial={{ y: "100%" }}
+          animate={{ y: wipePhase === "cover" ? "0%" : "-100%" }}
+          transition={{ duration: 0.7, ease: [0.65, 0, 0.35, 1] }}
+          onAnimationComplete={() => {
+            if (wipePhase === "cover") {
+              setCurrentView(pendingViewRef.current!);
+              window.scrollTo({ top: 0, behavior: "instant" });
+              // Brief hold at full coverage so the swap reads as a deliberate
+              // beat rather than a jump-cut mid-motion.
+              window.setTimeout(() => setWipePhase("reveal"), 140);
+            } else {
+              setWipePhase("idle");
+            }
+          }}
+        />
+      )}
 
       <AnimatePresence>
         {showVisitorCard && (
@@ -218,10 +247,10 @@ export default function App() {
         >
           <motion.div
             key={`${currentView}-${homeMountKey}`}
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 12, transition: { duration: 0.34, ease: [0.4, 0, 1, 1] } }}
-            transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
+            exit={{ opacity: 0, y: 8, transition: { duration: 0.24, ease: [0.4, 0, 1, 1] } }}
+            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
             className="relative h-full w-full px-[14px] lg:px-6"
           >
             <Suspense fallback={null}>
