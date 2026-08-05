@@ -202,7 +202,7 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      <div className="relative mx-auto w-full max-w-[1920px] h-full z-10 px-[14px] lg:px-6">
+      <div className="relative mx-auto w-full max-w-[1920px] h-full z-10">
         <TopNav
           key={`topnav-${homeMountKey}`}
           onLogoClick={() => handleNavigate("home")}
@@ -222,7 +222,7 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 12, transition: { duration: 0.34, ease: [0.4, 0, 1, 1] } }}
             transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
-            className="h-full w-full"
+            className="relative h-full w-full px-[14px] lg:px-6"
           >
             <Suspense fallback={null}>
             {currentView === "home" ? (

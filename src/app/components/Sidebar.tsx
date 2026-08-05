@@ -98,7 +98,6 @@ export function Sidebar({ onCaseStudyClick, onCaseStudyHover, isMenuOpen, active
           {caseStudies.map((study) => (
             <motion.button
               key={study}
-              whileTap={{ scale: 0.95 }}
               onClick={() => {
                 const view = STUDY_VIEWS[study];
                 if (view) onCaseStudyClick?.(view);
