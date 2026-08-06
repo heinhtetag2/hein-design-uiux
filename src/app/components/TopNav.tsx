@@ -127,14 +127,14 @@ function Menu({ isOpen, setIsOpen, onNavigate, currentView }: { isOpen: boolean;
                           <span className="font-display text-body-sm text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 transition-all">→</span>
                         </button>
                         <a
-                          href="/cv.pdf"
-                          download="Hein-Htet-CV.pdf"
+                          href="/heinhtetresume.pdf"
+                          download="Hein-Htet-Resume.pdf"
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={() => setIsOpen(false)}
                           className="group flex items-center justify-between gap-3 w-full text-left cursor-pointer rounded-2xl border border-foreground/10 hover:border-foreground/30 hover:bg-foreground/[0.03] px-4 py-2 transition-colors"
                         >
-                          <span className="block font-display font-light text-body-sm text-foreground">Download CV</span>
+                          <span className="block font-display font-light text-body-sm text-foreground">Download Resume</span>
                           <Download className="size-4 text-muted-foreground group-hover:text-foreground transition-colors" strokeWidth={1.5} />
                         </a>
                       </div>
@@ -236,22 +236,22 @@ function MailIcon({ onClick }: { onClick: () => void }) {
 }
 
 function CvButton() {
-  // Lives in /public, served at the site root. Replace public/cv.pdf with the
-  // real résumé and this keeps working — no import or rebuild needed.
+  // Lives in /public, served at the site root. Replace public/heinhtetresume.pdf
+  // with the real résumé and this keeps working — no import or rebuild needed.
   return (
     <a
-      href="/cv.pdf"
-      download="Hein-Htet-CV.pdf"
+      href="/heinhtetresume.pdf"
+      download="Hein-Htet-Resume.pdf"
       target="_blank"
       rel="noopener noreferrer"
       className="group flex items-center shrink-0 h-[22px] cursor-pointer rounded-full border border-transparent hover:border-foreground hover:bg-foreground/10 pl-0 hover:pl-3 pr-0 transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]"
-      aria-label="Download CV"
-      title="Download CV"
+      aria-label="Download Resume"
+      title="Download Resume"
     >
       {/* Label unfolds out from beside the icon via a 0fr→1fr grid column */}
       <span className="grid grid-cols-[0fr] group-hover:grid-cols-[1fr] transition-[grid-template-columns] duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]">
         <span className="overflow-hidden whitespace-nowrap font-display font-light text-caption tracking-tight leading-none text-foreground -translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:pr-2 transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]">
-          Download CV
+          Download Resume
         </span>
       </span>
       <span className="flex items-center justify-center size-[22px] shrink-0 rounded-full transition-colors duration-300 group-hover:bg-foreground/[0.06]">
