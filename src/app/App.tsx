@@ -176,7 +176,6 @@ export default function App() {
 
   const handleNavigate = (view: Exclude<View, "blog-detail">) => {
     if (view === currentView || wipePhase !== "idle") return;
-    setHoveredCaseStudy(null);
     pendingViewRef.current = view;
     setWipePhase("cover");
   };
@@ -209,6 +208,7 @@ export default function App() {
           onAnimationComplete={() => {
             if (wipePhase === "cover") {
               setCurrentView(pendingViewRef.current!);
+              setHoveredCaseStudy(null);
               window.scrollTo({ top: 0, behavior: "instant" });
               // Brief hold at full coverage so the swap reads as a deliberate
               // beat rather than a jump-cut mid-motion.

@@ -34,6 +34,11 @@ interface SidebarProps {
 
 export function Sidebar({ onCaseStudyClick, onCaseStudyHover, isMenuOpen, activeView }: SidebarProps) {
   const [isVisible, setIsVisible] = useState(false);
+  // Sidebar slides in from x:-20, so its buttons pass under a stationary cursor
+  // mid-animation — that triggers a "phantom" hover (and the background swap it
+  // drives) before the user has actually moved. Block pointer events until the
+  // entrance animation has actually settled.
+  const [interactive, setInteractive] = useState(false);
 
   useEffect(() => {
     const handleVideoLoaded = () => {
@@ -41,7 +46,7 @@ export function Sidebar({ onCaseStudyClick, onCaseStudyHover, isMenuOpen, active
     };
 
     window.addEventListener('videoLoaded', handleVideoLoaded);
-    
+
     // Fallback
     const fallbackTimer = setTimeout(() => setIsVisible(true), 1700);
 
@@ -52,11 +57,14 @@ export function Sidebar({ onCaseStudyClick, onCaseStudyHover, isMenuOpen, active
   }, []);
 
   return (
-    <motion.div 
-      className="lg:absolute flex flex-col gap-[clamp(16px,3vh,32px)] items-start lg:left-[24px] lg:top-[clamp(120px,20vh,182px)] w-full lg:w-[249px]"
+    <motion.div
+      className={`lg:absolute flex flex-col gap-[clamp(16px,3vh,32px)] items-start lg:left-[24px] lg:top-[clamp(120px,20vh,182px)] w-full lg:w-[249px] ${interactive ? "" : "pointer-events-none"}`}
       initial={{ opacity: 0, x: -20 }}
       animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
       transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+      onAnimationComplete={() => {
+        if (isVisible) setInteractive(true);
+      }}
     >
       {/* Navigation Links */}
       <div className={`hidden lg:flex flex-col items-start gap-[6px] w-full transition-all duration-500 ease-in-out ${isMenuOpen ? 'opacity-0 -translate-x-4 pointer-events-none' : 'opacity-100 translate-x-0'}`}>
