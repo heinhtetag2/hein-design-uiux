@@ -8,7 +8,7 @@ const caseStudies = [
   "JoanX",
   "Goft",
   "ProBridge",
-  "Cardo",
+  // "Cardo", — hidden for now
   "All Work",
 ];
 

@@ -89,7 +89,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
       { value: "12M", label: "Songs generated" },
       { value: "T5", label: "Top performing AI music apps" },
     ],
-    next: { label: "JoanX", tagline: "A calmer everyday ride experience", image: imgUber, index: "03 / 06", view: "joanx" },
+    next: { label: "JoanX", tagline: "A calmer everyday ride experience", image: imgUber, index: "03 / 05", view: "joanx" },
   },
 
   joanx: {
@@ -148,7 +148,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
       { value: "28%", label: "Faster request-to-pickup" },
       { value: "T3", label: "Top rated mobility apps" },
     ],
-    next: { label: "Goft", tagline: "The original prompt-to-image interface", image: imgMidjourney, index: "04 / 06", view: "goft" },
+    next: { label: "Goft", tagline: "The original prompt-to-image interface", image: imgMidjourney, index: "04 / 05", view: "goft" },
   },
 
   goft: {
@@ -207,7 +207,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
       { value: "20M", label: "Community members" },
       { value: "T1", label: "Leading prompt-to-image tools" },
     ],
-    next: { label: "ProBridge", tagline: "Intent-driven matchmaking for work", image: imgUpwork, index: "05 / 06", view: "probridge" },
+    next: { label: "ProBridge", tagline: "Intent-driven matchmaking for work", image: imgUpwork, index: "05 / 05", view: "probridge" },
   },
 
   probridge: {
@@ -266,7 +266,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
       { value: "35%", label: "Faster time-to-hire" },
       { value: "T5", label: "Top freelance platforms" },
     ],
-    next: { label: "Cardo", tagline: "A meditation experience that meets you", image: imgHeadspaceCover, index: "06 / 06", view: "cardo" },
+    next: { label: "EduSync", tagline: "A unified learning workspace", image: imgEduSync, index: "01 / 05", view: "edusync" },
   },
 
   cardo: {

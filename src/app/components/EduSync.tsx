@@ -623,7 +623,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
         label="TwoStay"
         tagline="AI-powered music creation platform"
         image={mockNextStudy}
-        index="02 / 06"
+        index="02 / 05"
         onClick={() => onNavigate?.("twostay")}
       />
 

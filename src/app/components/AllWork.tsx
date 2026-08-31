@@ -61,13 +61,14 @@ const WORKS: Work[] = [
     categories: ["SaaS", "Productivity"],
     image: imgUpwork,
   },
-  {
-    name: "Cardo",
-    description: "Designing calm — a meditation experience that meets you where you are.",
-    services: ["Product Design", "Brand"],
-    categories: ["Health & Wellness"],
-    image: imgHeadspace,
-  },
+  // Cardo — hidden for now
+  // {
+  //   name: "Cardo",
+  //   description: "Designing calm — a meditation experience that meets you where you are.",
+  //   services: ["Product Design", "Brand"],
+  //   categories: ["Health & Wellness"],
+  //   image: imgHeadspace,
+  // },
   {
     name: "JoanX",
     description: "Reimagining everyday rides with a faster, calmer driver experience.",
