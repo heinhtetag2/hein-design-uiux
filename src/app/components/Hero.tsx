@@ -65,15 +65,15 @@ export const Hero = React.memo(function Hero({ isStudyHovered = false }: HeroPro
         {/* Experience, intentionally - Positioned below and to the left */}
         <motion.div
           className="mt-[calc(clamp(156px,18vh,236px)-4px)] ml-[calc(clamp(180px,16vw,320px)-4px)] font-serif font-light text-display-lg text-foreground whitespace-nowrap pointer-events-auto"
-          style={{ fontFamily: "var(--font-serif)", fontSize: "clamp(56px, 8vw, 112px)", lineHeight: 1, letterSpacing: "-0.02em" }}
+          style={{ fontFamily: "var(--font-serif)", fontSize: "clamp(52px, 7.2vw, 100px)", lineHeight: 1, letterSpacing: "-0.02em" }}
           initial={{ opacity: 0, y: 20 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="w-fit h-fit flex items-center font-serif" style={{ fontFamily: "var(--font-serif)", fontSize: "clamp(56px, 8vw, 112px)", lineHeight: 1, letterSpacing: "-0.02em" }}>
+          <div className="w-fit h-fit flex items-center font-serif" style={{ fontFamily: "var(--font-serif)", fontSize: "clamp(52px, 7.2vw, 100px)", lineHeight: 1, letterSpacing: "-0.02em" }}>
             Experience,
           </div>
-          <div className="ml-[clamp(60px,12vw,280px)] mt-[-0.1em] font-serif" style={{ fontFamily: "var(--font-serif)", fontSize: "clamp(56px, 8vw, 112px)", lineHeight: 1, letterSpacing: "-0.02em" }}>
+          <div className="ml-[clamp(60px,12vw,280px)] mt-[-0.1em] font-serif" style={{ fontFamily: "var(--font-serif)", fontSize: "clamp(52px, 7.2vw, 100px)", lineHeight: 1, letterSpacing: "-0.02em" }}>
             intentionally
           </div>
         </motion.div>

@@ -286,8 +286,8 @@ function Logo({ onClick }: { onClick?: () => void }) {
       aria-label="Home"
       className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center scale-75 sm:scale-100 cursor-pointer hover:opacity-80 transition-opacity"
     >
-      <img src={logoLight} alt="Heindsgn" data-logo="light" className="h-[26px] w-auto" />
-      <img src={logoDark} alt="Heindsgn" data-logo="dark" className="h-[26px] w-auto" />
+      <img src={logoLight} alt="Heindsgn" data-logo="light" className="h-[23px] w-auto" />
+      <img src={logoDark} alt="Heindsgn" data-logo="dark" className="h-[23px] w-auto" />
     </button>
   );
 }
