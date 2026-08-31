@@ -525,7 +525,8 @@ export function CaseStudyTemplate({
         </div>
       </div>
 
-      {/* 11.9 — Discovery Image Grid */}
+      {/* 11.9 — Discovery Image Grid (hidden for now) */}
+      {false && (
       <div className="w-full py-12 md:py-16 lg:py-[90px]">
         <div className="flex flex-col lg:grid lg:grid-cols-[0.92fr_1.08fr] gap-[24px] items-start lg:items-stretch w-full">
           <div className="contents lg:flex lg:flex-col lg:gap-[24px] lg:min-w-0 lg:items-start lg:justify-center lg:self-stretch">
@@ -543,16 +544,20 @@ export function CaseStudyTemplate({
           </div>
         </div>
       </div>
+      )}
 
-      {/* 12. Think Different Section */}
+      {/* 12. Think Different Section (hidden for now) */}
+      {false && (
       <Container className="mt-14 lg:mt-0 mb-[60px] md:mb-[100px] lg:mb-[140px]">
         <div className="lg:pl-[260px] lg:pr-[460px]">
           <SectionHeading text={data.thinkHeading} />
           <LargeText size="medium" text={data.thinkText} />
         </div>
       </Container>
+      )}
 
-      {/* 12.5 Grid Layout with Text + Images */}
+      {/* 12.5 Grid Layout with Text + Images (hidden for now) */}
+      {false && (
       <div className="w-full mb-16 md:mb-32 flex flex-col lg:flex-row gap-6">
         <div className="contents lg:flex lg:flex-col lg:gap-4 lg:w-[424px] lg:h-[782px]">
           <div className="order-3 lg:order-none pr-6 lg:pr-0 lg:max-w-[262px]">
@@ -566,23 +571,29 @@ export function CaseStudyTemplate({
           <RevealImage src={img(10)} className="w-full h-full" />
         </div>
       </div>
+      )}
 
-      {/* 11.9c — Full Width Image */}
+      {/* 11.9c — Full Width Image (hidden for now) */}
+      {false && (
       <div className="w-full pt-24 pb-12 md:py-16 lg:py-[90px]">
         <div className="w-full h-[200px] lg:h-[840px] overflow-hidden">
           <RevealImage src={img(11)} className="w-full h-full" />
         </div>
       </div>
+      )}
 
-      {/* 11.9d — A System Designed to Scale */}
+      {/* 11.9d — A System Designed to Scale (hidden for now) */}
+      {false && (
       <Container className="py-12 md:py-16 lg:py-[90px]">
         <div className="lg:pl-[260px] lg:pr-[460px]">
           <SectionHeading text={data.scaleHeading} />
           <LargeText size="medium" text={data.scaleText} />
         </div>
       </Container>
+      )}
 
-      {/* 11.9e — Scale Image Grid */}
+      {/* 11.9e — Scale Image Grid (hidden for now) */}
+      {false && (
       <div className="w-full mb-32">
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="min-w-0 h-[236px] lg:flex-1 lg:h-[748px] overflow-hidden">
@@ -602,6 +613,7 @@ export function CaseStudyTemplate({
           </div>
         </div>
       </div>
+      )}
 
       {/* 15. Impact Stats Section */}
       <Container className="mb-6 md:mb-10 lg:mb-16">
