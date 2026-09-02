@@ -216,7 +216,7 @@ function BlogThumbnail({ type }: { type: string }) {
   );
 }
 
-export function Blogs({ onPostClick }: { onPostClick?: (postId: string) => void }) {
+export function Blogs({ onPostClick, onNavigate }: { onPostClick?: (postId: string) => void; onNavigate?: (view: string) => void }) {
   const [filters, setFilters] = React.useState<Set<string>>(new Set());
 
   const toggleFilter = (cat: string) => {
@@ -337,7 +337,7 @@ export function Blogs({ onPostClick }: { onPostClick?: (postId: string) => void 
       </div>
 
       {/* Footer — full-width, matches the system footer on every other page */}
-      <Footer />
+      <Footer onNavigate={onNavigate} />
     </div>
   );
 }

@@ -616,7 +616,7 @@ export function CaseStudyTemplate({
       )}
 
       {/* 15. Impact Stats Section */}
-      <Container className="mb-10 md:mb-16 lg:mb-24 md:pl-[220px] md:pr-[146px]">
+      <Container className="mb-10 md:mb-16 lg:mb-24 md:pl-[150px] md:pr-[90px]">
         <h2
           className="font-display font-light text-display-sm text-foreground mb-10 md:mb-20"
           style={{ fontSize: "clamp(32px, 5vw, 64px)", lineHeight: 1.1, letterSpacing: "-0.01em", fontWeight: 300 }}
@@ -630,8 +630,8 @@ export function CaseStudyTemplate({
 
         <div>
           {data.stats.map((stat) => (
-            <div key={stat.label} className="border-t border-foreground/15 md:-ml-[220px] md:-mr-[146px]">
-              <div className="flex flex-col items-start gap-2 md:flex-row md:items-end md:justify-end md:gap-6 lg:gap-8 md:pl-[220px] pr-[6%] md:pr-[6%] lg:pr-[8%] py-8 md:py-10 lg:py-12">
+            <div key={stat.label} className="border-t border-foreground/15 md:-ml-[150px] md:-mr-[90px]">
+              <div className="flex flex-col items-start gap-2 md:flex-row md:items-end md:justify-end md:gap-6 lg:gap-8 md:pl-[150px] pr-[6%] md:pr-[6%] lg:pr-[8%] py-8 md:py-10 lg:py-12">
                 <span
                   className="font-serif font-light text-foreground block md:inline-block md:shrink-0 text-left md:text-right md:w-[clamp(140px,16vw,240px)]"
                   style={{ fontFamily: "var(--font-serif)", fontSize: "clamp(56px, 15vw, 96px)", lineHeight: 1, letterSpacing: "-0.02em" }}
@@ -660,7 +660,7 @@ export function CaseStudyTemplate({
       />
 
       {/* 17. Footer */}
-      <Footer />
+      <Footer onNavigate={onNavigate} />
 
       {/* Sticky Prototype Bar */}
       <AnimatePresence>

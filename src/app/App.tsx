@@ -295,19 +295,19 @@ export default function App() {
                 <CaseStudyTemplate data={caseStudies[currentView]} onNavigate={handleNavigate} />
               </div>
             ) : currentView === "what-i-do" ? (
-              <WhatIDo />
+              <WhatIDo onNavigate={handleNavigate} />
             ) : currentView === "all-work" ? (
               <AllWork onNavigate={handleNavigate} />
             ) : currentView === "shop" ? (
-              <Shop onOpenProduct={handleProductClick} />
+              <Shop onOpenProduct={handleProductClick} onNavigate={handleNavigate} />
             ) : currentView === "product-detail" && selectedProductId ? (
               <ProductDetail productId={selectedProductId} onBack={() => handleNavigate("shop")} />
             ) : currentView === "checkout" ? (
               <Checkout onBack={() => handleNavigate("shop")} />
             ) : currentView === "blog-detail" && selectedPostId ? (
-              <BlogDetail postId={selectedPostId} onBack={handleBackToBlogs} onPostClick={handleBlogPostClick} />
+              <BlogDetail postId={selectedPostId} onBack={handleBackToBlogs} onPostClick={handleBlogPostClick} onNavigate={handleNavigate} />
             ) : currentView === "blogs" ? (
-              <Blogs onPostClick={handleBlogPostClick} />
+              <Blogs onPostClick={handleBlogPostClick} onNavigate={handleNavigate} />
             ) : currentView === "visitor-gallery" ? (
               <VisitorGallery onEditCard={openEditCard} refreshKey={visitorRefreshKey} />
             ) : (

@@ -97,7 +97,7 @@ const CATEGORIES = [
 ];
 
 interface AllWorkProps {
-  onNavigate?: (view: WorkView) => void;
+  onNavigate?: (view: string) => void;
 }
 
 export function AllWork({ onNavigate }: AllWorkProps) {
@@ -198,7 +198,7 @@ export function AllWork({ onNavigate }: AllWorkProps) {
         </div>
 
         {/* Footer */}
-        <Footer />
+        <Footer onNavigate={onNavigate} />
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ import {
 } from "../shop/products";
 import { useCart } from "../shop/CartContext";
 
-export function Shop({ onOpenProduct }: { onOpenProduct?: (id: string) => void }) {
+export function Shop({ onOpenProduct, onNavigate }: { onOpenProduct?: (id: string) => void; onNavigate?: (view: string) => void }) {
   const [filters, setFilters] = React.useState<Set<string>>(new Set());
   // Pills are derived from the live product list, so a new category appears
   // automatically the moment a product uses it.
@@ -86,7 +86,7 @@ export function Shop({ onOpenProduct }: { onOpenProduct?: (id: string) => void }
 
       {/* Footer */}
       <div className="mt-[40px] md:mt-[80px]">
-        <Footer />
+        <Footer onNavigate={onNavigate} />
       </div>
     </div>
   );

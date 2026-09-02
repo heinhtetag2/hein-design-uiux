@@ -8,12 +8,22 @@ const LEGAL = ["Privacy", "Accessibility"];
 const linkClass =
   "text-foreground/40 hover:text-foreground cursor-pointer transition-colors font-display text-body";
 
+interface FooterProps {
+  onNavigate?: (view: string) => void;
+}
+
 /**
  * Shared site footer — identical across every page.
  * Sits inside the app shell's horizontal gutter (px-[14px] lg:px-6),
  * so its blocks are full-width with no extra padding of their own.
  */
-export function Footer() {
+export function Footer({ onNavigate }: FooterProps = {}) {
+  const handleHelpClick = (item: string) => {
+    if (item === "Work together") onNavigate?.("contact");
+    else if (item === "See my work") onNavigate?.("all-work");
+    else if (item === "Just say hello") window.location.href = "mailto:heincise@gmail.com";
+  };
+
   return (
     <>
       {/* Help Section */}
@@ -21,10 +31,11 @@ export function Footer() {
         <h2 className="font-display font-light text-display-md text-foreground">
           How can<br />I help?
         </h2>
-        <div className="flex flex-col w-full lg:w-[448px] divide-y divide-foreground/10">
+        <div className="flex flex-col w-full lg:w-[448px] lg:mr-[100px] divide-y divide-foreground/10">
           {HELP_LINKS.map((item) => (
             <div
               key={item}
+              onClick={() => handleHelpClick(item)}
               className="group py-8 flex items-center justify-between cursor-pointer hover:opacity-60 transition-all"
             >
               <span className="font-display text-h3 text-foreground font-light">{item}</span>

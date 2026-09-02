@@ -70,7 +70,7 @@ function CountUp({ to, duration = 1.6 }: { to: number; duration?: number }) {
   return <span ref={ref}>{display}</span>;
 }
 
-export function WhatIDo() {
+export function WhatIDo({ onNavigate }: { onNavigate?: (view: string) => void } = {}) {
   const targetRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
   // Viewport width in state (not a ref) so the banner width recomputes on the
@@ -320,7 +320,7 @@ export function WhatIDo() {
       </div>
 
       {/* Footer */}
-      <Footer />
+      <Footer onNavigate={onNavigate} />
     </div>
   );
 }

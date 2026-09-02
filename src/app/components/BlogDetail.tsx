@@ -7,6 +7,7 @@ interface BlogDetailProps {
   postId: string;
   onBack: () => void;
   onPostClick?: (postId: string) => void;
+  onNavigate?: (view: string) => void;
 }
 
 
@@ -211,7 +212,7 @@ function getArticle(postId: string): BlogArticle {
   };
 }
 
-export function BlogDetail({ postId, onBack, onPostClick }: BlogDetailProps) {
+export function BlogDetail({ postId, onBack, onPostClick, onNavigate }: BlogDetailProps) {
   const article = getArticle(postId);
 
   return (
@@ -415,7 +416,7 @@ export function BlogDetail({ postId, onBack, onPostClick }: BlogDetailProps) {
       </div>
 
       {/* Footer */}
-      <Footer />
+      <Footer onNavigate={onNavigate} />
     </div>
   );
 }
