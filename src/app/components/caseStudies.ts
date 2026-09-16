@@ -6,7 +6,7 @@ import type { CaseStudyData } from "./CaseStudyTemplate";
 // EduSync clips until project-specific footage exists.
 
 // Project imagery (each project currently ships 1–2 assets).
-import imgSuno from "../../assets/work/twostay/app-mockup.webp";
+import imgSuno from "../../assets/work/twostay/template.webp";
 import imgTwoStayColors from "../../assets/work/twostay/tu2staycolorpreviews.webp";
 import imgTwoStayTablet from "../../assets/work/twostay/mocktablet.webp";
 import imgTwoStayBanner from "../../assets/work/twostay/Mockbanner.webp";
