@@ -2,8 +2,8 @@ import type { CaseStudyData } from "./CaseStudyTemplate";
 
 // Per-project content for the shared CaseStudyTemplate. Each entry drives the
 // same layout EduSync uses — only copy and imagery differ. Image slots cycle
-// through each project's own `images` pool; the three video slots reuse the
-// EduSync clips until project-specific footage exists.
+// through each project's own `images` pool; the three shared image slots reuse
+// the EduSync stills until project-specific imagery exists.
 
 // Project imagery (each project currently ships 1–2 assets).
 import imgSuno from "../../assets/work/twostay/template.webp";
@@ -18,20 +18,20 @@ import imgHeadspaceCover from "../../assets/work/cardo/cover.webp";
 import imgHeadspaceFull from "../../assets/work/cardo/full.webp";
 import imgEduSync from "../../assets/work/edusync/hover-cover.webp";
 
-// Shared video slots (reused across projects for now).
-import overviewVideo from "../../assets/work/edusync/overview-video.mp4";
-import systemVideo from "../../assets/work/edusync/system-video.mp4";
-import thinkVideo from "../../assets/work/edusync/think-different-video.mp4";
+// Shared image slots (reused across projects for now).
+import overviewImage from "../../assets/work/edusync/overview-video-poster.jpg";
+import systemImage from "../../assets/work/edusync/system-video-poster.jpg";
+import thinkImage from "../../assets/work/edusync/think-different-video-poster.jpg";
 
-const sharedVideos = {
-  overviewVideo,
-  posterVideo: systemVideo,
-  thinkVideo,
+const sharedImages = {
+  overviewImage,
+  posterImage: systemImage,
+  thinkImage,
 };
 
 export const caseStudies: Record<string, CaseStudyData> = {
   twostay: {
-    ...sharedVideos,
+    ...sharedImages,
     view: "twostay",
     title: "TwoStay",
     titleFont: "serif",
@@ -93,7 +93,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
   },
 
   joanx: {
-    ...sharedVideos,
+    ...sharedImages,
     view: "joanx",
     title: "JoanX",
     titleFont: "serif",
@@ -152,7 +152,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
   },
 
   goft: {
-    ...sharedVideos,
+    ...sharedImages,
     view: "goft",
     title: "Goft",
     titleFont: "serif",
@@ -211,7 +211,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
   },
 
   probridge: {
-    ...sharedVideos,
+    ...sharedImages,
     view: "probridge",
     title: "ProBridge",
     titleFont: "serif",
@@ -270,7 +270,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
   },
 
   cardo: {
-    ...sharedVideos,
+    ...sharedImages,
     view: "cardo",
     title: "Cardo",
     titleFont: "serif",

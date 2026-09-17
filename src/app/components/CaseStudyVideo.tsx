@@ -11,12 +11,13 @@ import { useInViewVideo } from "./useInViewVideo";
 export function CaseStudyVideo({ src, poster, className = "" }: { src: string; poster?: string; className?: string }) {
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const containerRef = React.useRef<HTMLDivElement>(null);
+  const cursorButtonRef = React.useRef<HTMLDivElement>(null);
+  const rectRef = React.useRef<DOMRect | null>(null);
   useInViewVideo(videoRef);
   const [isPlaying, setIsPlaying] = React.useState(true);
   const [isMuted, setIsMuted] = React.useState(true);
   const [hovering, setHovering] = React.useState(false);
   const [overMute, setOverMute] = React.useState(false);
-  const [cursor, setCursor] = React.useState({ x: 0, y: 0 });
 
   const togglePlay = () => {
     const v = videoRef.current;
@@ -38,12 +39,16 @@ export function CaseStudyVideo({ src, poster, className = "" }: { src: string; p
       data-cursor-hide="true"
       className={`group relative overflow-hidden cursor-none ${className}`}
       onClick={togglePlay}
-      onMouseEnter={() => setHovering(true)}
+      onMouseEnter={() => {
+        rectRef.current = containerRef.current?.getBoundingClientRect() ?? null;
+        setHovering(true);
+      }}
       onMouseLeave={() => setHovering(false)}
       onMouseMove={(e) => {
-        const rect = containerRef.current?.getBoundingClientRect();
-        if (!rect) return;
-        setCursor({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+        const rect = rectRef.current;
+        if (!rect || !cursorButtonRef.current) return;
+        cursorButtonRef.current.style.left = `${e.clientX - rect.left}px`;
+        cursorButtonRef.current.style.top = `${e.clientY - rect.top}px`;
       }}
     >
       <video
@@ -61,8 +66,9 @@ export function CaseStudyVideo({ src, poster, className = "" }: { src: string; p
 
       {/* Play / pause button that IS the cursor — follows the pointer over the video (desktop only) */}
       <div
+        ref={cursorButtonRef}
         className="pointer-events-none absolute z-10 hidden -translate-x-1/2 -translate-y-1/2 transition-opacity duration-200 lg:block"
-        style={{ left: cursor.x, top: cursor.y, opacity: hovering && !overMute ? 1 : 0 }}
+        style={{ opacity: hovering && !overMute ? 1 : 0 }}
       >
         <div className="flex h-[88px] w-[88px] items-center justify-center rounded-full bg-white/15 text-white/90 backdrop-blur-md ring-1 ring-white/20">
           {isPlaying ? (

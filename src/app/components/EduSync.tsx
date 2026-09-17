@@ -3,30 +3,25 @@ import { motion, AnimatePresence } from "motion/react";
 import { Footer } from "./Footer";
 import imgHero from "../../assets/work/edusync/hero.webp";
 import imgVideo from "../../assets/work/edusync/gallery-04.webp";
-import frame78Video from "../../assets/work/edusync/system-video.mp4";
 import imgFrame79 from "../../assets/work/edusync/gallery-01.webp";
 import imgFrame80 from "../../assets/work/edusync/gallery-02.webp";
 import imgApp1 from "../../assets/work/edusync/music-card-1.webp";
 import imgApp2 from "../../assets/work/edusync/music-card-2.webp";
 import imgApp3 from "../../assets/work/edusync/music-card-3.webp";
 import imgImage1 from "../../assets/work/edusync/gallery-00.webp";
-import animoVideo from "../../assets/work/edusync/animo-orbit-bloom.mp4";
 import animoPoster from "../../assets/work/edusync/animo-orbit-bloom-poster.jpg";
 import imgFrame82 from "../../assets/work/edusync/gallery-07.webp";
 import imgFrame83 from "../../assets/work/edusync/gallery-08.webp";
 import imgImage2 from "../../assets/work/edusync/gallery-10.webp";
 import imgImage3 from "../../assets/work/edusync/gallery-06.webp";
 import imgImage6 from "../../assets/work/edusync/gallery-11.webp";
-import image8Video from "../../assets/work/edusync/think-different-video.mp4";
+import thinkDifferentPoster from "../../assets/work/edusync/think-different-video-poster.jpg";
 import imgImage9 from "../../assets/work/edusync/gallery-09.webp";
-import eduSyncVideo from "../../assets/work/edusync/overview-video.mp4";
 import eduSyncPoster from "../../assets/work/edusync/overview-video-poster.jpg";
 import frame78Poster from "../../assets/work/edusync/system-video-poster.jpg";
 import mockNextStudy from "../../assets/work/twostay/app-mockup.webp";
 
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { CaseStudyVideo } from "./CaseStudyVideo";
-import { AutoVideo } from "./AutoVideo";
 import { ArrowUpRight, BookOpen } from "lucide-react";
 
 // EduSync interactive prototype — replace with your real Figma / live prototype URL.
@@ -84,30 +79,6 @@ function RevealImage({ src, className = "" }: { src: string; className?: string 
         className="w-full h-full"
       >
         <ImageWithFallback src={src} className="block w-full h-full object-cover" />
-      </motion.div>
-    </motion.div>
-  );
-}
-
-function RevealVideo({ src, poster, className = "" }: { src: string; poster?: string; className?: string }) {
-  // Same clip-mask reveal + parallax as RevealImage, but for an autoplaying,
-  // looping, muted video — so a video slot reveals in step with its image siblings.
-  return (
-    <motion.div
-      initial={{ clipPath: "inset(0% 0% 100% 0%)" }}
-      whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
-      viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
-      transition={{ duration: 1.7, ease: [0.22, 1, 0.36, 1] }}
-      className={`relative overflow-hidden ${className}`}
-    >
-      <motion.div
-        initial={{ y: "-8%", scale: 1.06 }}
-        whileInView={{ y: "0%", scale: 1 }}
-        viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
-        transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
-        className="w-full h-full"
-      >
-        <AutoVideo src={src} poster={poster} className="block w-full h-full object-cover" />
       </motion.div>
     </motion.div>
   );
@@ -209,7 +180,7 @@ const DRAG_REPS = 3;
 export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void }) {
   const scrollContainerRef = React.useRef<HTMLDivElement>(null);
   const stripWidthRef = React.useRef(0);
-  const [cursorPos, setCursorPos] = React.useState({ x: 0, y: 0 });
+  const dragCursorRef = React.useRef<HTMLDivElement>(null);
   const [showCursor, setShowCursor] = React.useState(false);
   const [isDragging, setIsDragging] = React.useState(false);
   const [showProtoBar, setShowProtoBar] = React.useState(false);
@@ -310,7 +281,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
 
       {/* 4. Video Play Section */}
       <div className="w-full mb-16 md:mb-32 flex flex-col gap-8 md:gap-10 lg:items-end">
-        <CaseStudyVideo src={eduSyncVideo} poster={eduSyncPoster} className="w-full aspect-video lg:h-[782px]" />
+        <RevealImage src={eduSyncPoster} className="w-full aspect-video lg:h-[782px]" />
         <div className="w-full lg:max-w-[206px] lg:pr-4">
            <p className="font-display text-body text-foreground leading-relaxed">
              EduSync was shaped through close collaboration between design, product, and engineering. In a system with many stakeholders, clarity and speed were essential—enabled by shared ownership, clear roles, and continuous feedback.
@@ -329,7 +300,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       {/* 6. Image Grid (Posters) */}
       <div className="w-full mb-28 md:mb-40 lg:mb-56 flex flex-col gap-4 md:gap-6">
         <div className="w-full h-[250px] md:h-[400px] lg:h-[778px] overflow-hidden">
-          <AutoVideo src={frame78Video} poster={frame78Poster} className="block w-full h-full object-cover" />
+          <RevealImage src={frame78Poster} className="w-full h-full" />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
            <div className="h-[360px] md:h-[460px] lg:h-[782px] overflow-hidden">
@@ -357,10 +328,10 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
           onScroll={handleStripScroll}
           onMouseEnter={() => setShowCursor(true)}
           onMouseMove={(e) => {
-            setCursorPos({
-              x: e.clientX,
-              y: e.clientY
-            });
+            if (dragCursorRef.current) {
+              dragCursorRef.current.style.left = `${e.clientX}px`;
+              dragCursorRef.current.style.top = `${e.clientY}px`;
+            }
           }}
           onMouseLeave={() => {
             setShowCursor(false);
@@ -370,10 +341,9 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
           {/* Custom Drag Cursor */}
           {showCursor && (
             <div
+              ref={dragCursorRef}
               className="fixed pointer-events-none z-50 transition-transform duration-200 ease-out"
               style={{
-                left: `${cursorPos.x}px`,
-                top: `${cursorPos.y}px`,
                 transform: `translate(-50%, -50%) scale(${isDragging ? 0.92 : 1})`,
               }}
             >
@@ -472,7 +442,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
               <p className="font-display text-body text-foreground">Create a course, assign teachers, and manage lessons in one place. Content moves from draft to review to published ensuring quality without slowing down teaching.</p>
            </div>
            <div className="order-1 lg:order-none h-[444px] lg:flex-1 lg:min-h-0 overflow-hidden">
-              <RevealVideo src={animoVideo} poster={animoPoster} className="w-full h-full" />
+              <RevealImage src={animoPoster} className="w-full h-full" />
            </div>
         </div>
         <div className="order-2 lg:order-none h-[284px] md:h-[400px] lg:flex-1 lg:h-[782px] overflow-hidden">
@@ -531,7 +501,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
               <p className="font-display text-body text-foreground">Create a course, assign teachers, and manage lessons in one place.</p>
            </div>
            <div className="order-1 lg:order-none h-[444px] lg:flex-1 lg:min-h-0 overflow-hidden">
-              <RevealVideo src={image8Video} className="w-full h-full" />
+              <RevealImage src={thinkDifferentPoster} className="w-full h-full" />
            </div>
         </div>
         <div className="order-2 lg:order-none h-[284px] lg:flex-1 lg:h-[782px] overflow-hidden">
@@ -640,7 +610,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
             transition={{ type: "spring", damping: 28, stiffness: 260 }}
             className="fixed inset-x-0 bottom-5 lg:bottom-7 z-40 flex justify-center px-4 pointer-events-none"
           >
-            <div className="pointer-events-auto flex items-center gap-2 sm:gap-4 rounded-full border border-foreground/15 bg-background/70 py-2 pl-2 pr-2 sm:pl-5 backdrop-blur-xl shadow-[0_8px_40px_-12px_rgba(0,0,0,0.6)]">
+            <div className="pointer-events-auto flex items-center gap-2 sm:gap-4 rounded-full border border-foreground/15 bg-background/95 py-2 pl-2 pr-2 sm:pl-5 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.6)]">
               <span className="hidden sm:flex items-center gap-2.5 pr-1">
                 <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand)] animate-pulse" />
                 <span className="font-display font-normal text-body-sm text-foreground whitespace-nowrap">

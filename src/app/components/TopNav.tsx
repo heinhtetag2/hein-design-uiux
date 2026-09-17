@@ -316,7 +316,7 @@ export function TopNav({ onLogoClick, onNavigate, isMenuOpen, onMenuOpenChange, 
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);

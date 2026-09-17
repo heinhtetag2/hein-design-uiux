@@ -3,8 +3,6 @@ import { motion, AnimatePresence } from "motion/react";
 import { Footer } from "./Footer";
 
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { CaseStudyVideo } from "./CaseStudyVideo";
-import { AutoVideo } from "./AutoVideo";
 import { ArrowUpRight, BookOpen } from "lucide-react";
 
 // Shared, data-driven case-study detail layout. This is the EduSync showcase
@@ -41,10 +39,10 @@ export interface CaseStudyData {
    * discovery pair, 10 = think grid, 11 = full-width, 12 = scale.
    */
   slots?: Record<number, string>;
-  /** Videos — reused across projects until real clips exist. */
-  posterVideo: string;
-  overviewVideo: string;
-  thinkVideo: string;
+  /** Images — reused across projects until real assets exist. */
+  posterImage: string;
+  overviewImage: string;
+  thinkImage: string;
 
   introHeading: string;
   introText: string;
@@ -133,30 +131,6 @@ function RevealImage({ src, className = "" }: { src: string; className?: string 
         className="w-full h-full"
       >
         <ImageWithFallback src={src} className="block w-full h-full object-cover" />
-      </motion.div>
-    </motion.div>
-  );
-}
-
-function RevealVideo({ src, className = "" }: { src: string; className?: string }) {
-  // Same clip-mask reveal + parallax as RevealImage, but for an autoplaying,
-  // looping, muted video — so a video slot reveals in step with its image siblings.
-  return (
-    <motion.div
-      initial={{ clipPath: "inset(0% 0% 100% 0%)" }}
-      whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
-      viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
-      transition={{ duration: 1.7, ease: [0.22, 1, 0.36, 1] }}
-      className={`relative overflow-hidden ${className}`}
-    >
-      <motion.div
-        initial={{ y: "-8%", scale: 1.06 }}
-        whileInView={{ y: "0%", scale: 1 }}
-        viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
-        transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
-        className="w-full h-full"
-      >
-        <AutoVideo src={src} className="block w-full h-full object-cover" />
       </motion.div>
     </motion.div>
   );
@@ -253,7 +227,7 @@ export function CaseStudyTemplate({
 }) {
   const scrollContainerRef = React.useRef<HTMLDivElement>(null);
   const stripWidthRef = React.useRef(0);
-  const [cursorPos, setCursorPos] = React.useState({ x: 0, y: 0 });
+  const dragCursorRef = React.useRef<HTMLDivElement>(null);
   const [showCursor, setShowCursor] = React.useState(false);
   const [isDragging, setIsDragging] = React.useState(false);
   const [showProtoBar, setShowProtoBar] = React.useState(false);
@@ -356,7 +330,7 @@ export function CaseStudyTemplate({
 
       {/* 4. Video Play Section */}
       <div className="w-full mb-16 md:mb-32 flex flex-col gap-8 md:gap-10 lg:items-end">
-        <CaseStudyVideo src={data.overviewVideo} className="w-full aspect-video lg:h-[782px]" />
+        <RevealImage src={data.overviewImage} className="w-full aspect-video lg:h-[782px]" />
         <div className="w-full lg:max-w-[206px] lg:pr-4">
           <p className="font-display text-body text-foreground leading-relaxed">{data.collabText}</p>
         </div>
@@ -373,7 +347,7 @@ export function CaseStudyTemplate({
       {/* 6. Image Grid (Posters) */}
       <div className="w-full mb-28 md:mb-40 lg:mb-56 flex flex-col gap-4 md:gap-6">
         <div className="w-full h-[250px] md:h-[400px] lg:h-[778px] overflow-hidden">
-          <AutoVideo src={data.posterVideo} className="block w-full h-full object-cover" />
+          <RevealImage src={data.posterImage} className="w-full h-full" />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
           <div className="h-[360px] md:h-[460px] lg:h-[782px] overflow-hidden">
@@ -402,7 +376,10 @@ export function CaseStudyTemplate({
           onScroll={handleStripScroll}
           onMouseEnter={() => setShowCursor(true)}
           onMouseMove={(e) => {
-            setCursorPos({ x: e.clientX, y: e.clientY });
+            if (dragCursorRef.current) {
+              dragCursorRef.current.style.left = `${e.clientX}px`;
+              dragCursorRef.current.style.top = `${e.clientY}px`;
+            }
           }}
           onMouseLeave={() => {
             setShowCursor(false);
@@ -412,10 +389,9 @@ export function CaseStudyTemplate({
           {/* Custom Drag Cursor */}
           {showCursor && (
             <div
+              ref={dragCursorRef}
               className="fixed pointer-events-none z-50 transition-transform duration-200 ease-out"
               style={{
-                left: `${cursorPos.x}px`,
-                top: `${cursorPos.y}px`,
                 transform: `translate(-50%, -50%) scale(${isDragging ? 0.92 : 1})`,
               }}
             >
@@ -564,7 +540,7 @@ export function CaseStudyTemplate({
             <p className="font-display text-body text-foreground">{data.gridText}</p>
           </div>
           <div className="order-1 lg:order-none h-[444px] lg:flex-1 lg:min-h-0 overflow-hidden">
-            <RevealVideo src={data.thinkVideo} className="w-full h-full" />
+            <RevealImage src={data.thinkImage} className="w-full h-full" />
           </div>
         </div>
         <div className="order-2 lg:order-none h-[284px] lg:flex-1 lg:h-[782px] overflow-hidden">
@@ -672,7 +648,7 @@ export function CaseStudyTemplate({
             transition={{ type: "spring", damping: 28, stiffness: 260 }}
             className="fixed inset-x-0 bottom-5 lg:bottom-7 z-40 flex justify-center px-4 pointer-events-none"
           >
-            <div className="pointer-events-auto flex items-center gap-2 sm:gap-4 rounded-full border border-foreground/15 bg-background/70 py-2 pl-2 pr-2 sm:pl-5 backdrop-blur-xl shadow-[0_8px_40px_-12px_rgba(0,0,0,0.6)]">
+            <div className="pointer-events-auto flex items-center gap-2 sm:gap-4 rounded-full border border-foreground/15 bg-background/95 py-2 pl-2 pr-2 sm:pl-5 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.6)]">
               <span className="hidden sm:flex items-center gap-2.5 pr-1">
                 <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand)] animate-pulse" />
                 <span className="font-display font-normal text-body-sm text-foreground whitespace-nowrap">{data.protoLabel}</span>
