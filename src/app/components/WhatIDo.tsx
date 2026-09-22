@@ -3,8 +3,8 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { FilterPills } from "./FilterPills";
 import { CaseStudyVideo } from "./CaseStudyVideo";
 import { Footer } from "./Footer";
-import maxonVideo from "../../assets/what-i-do/maxon-video.mp4";
-import maxonPoster from "../../assets/what-i-do/maxon-video-poster.jpg";
+import maxonVideo from "../../assets/what-i-do/motion-reel.mp4";
+import maxonPoster from "../../assets/what-i-do/motion-reel-poster.jpg";
 import imgALaptop from "../../assets/work/joanx/laptop.webp";
 import imgStadium from "../../assets/what-i-do/stadium.webp";
 import imgWomanWatermelon from "../../assets/what-i-do/woman-watermelon.webp";
@@ -46,8 +46,8 @@ const EXPERIENCES = [
 
 const STATS = [
   { label: ["Years", "designing"], val: 2, suffix: "+" },
-  { label: ["Projects", "shipped"], val: 12, suffix: "+" },
-  { label: ["Happy", "clients"], val: 10, suffix: "+" },
+  { label: ["Projects", "shipped"], val: 24, suffix: "+" },
+  { label: ["Happy", "clients"], val: 20, suffix: "+" },
   { label: ["Industries", "covered"], val: 8, suffix: "" },
   { label: ["Countries", "reached"], val: 4, suffix: "" },
 ];
@@ -243,10 +243,14 @@ export function WhatIDo({ onNavigate }: { onNavigate?: (view: string) => void } 
       </div>
 
       {/* Categories List */}
-      <div className="w-full py-[48px] md:py-[90px] grid grid-cols-2 md:grid-cols-3 gap-x-5 gap-y-10 md:gap-[24px] px-6">
+      <div className="w-full py-[48px] md:py-[90px] grid grid-cols-2 md:grid-cols-4 gap-x-5 gap-y-10 md:gap-[24px] px-6">
         <CategorySection
           title="Design & UX"
           items={["UI/UX Design", "Design Systems", "Interaction Design", "UX Research & Testing", "Wireframing & Prototyping"]}
+        />
+        <CategorySection
+          title="Brand & Visual"
+          items={["3D Illustration", "Visual Direction", "Branding", "Motion Design"]}
         />
         <CategorySection
           title="AI Workflow"
