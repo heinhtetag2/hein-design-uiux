@@ -41,7 +41,7 @@ const WORKS: Work[] = [
     image: imgMidjourney,
   },
   {
-    name: "TwoStay",
+    name: "TuTuStay",
     description: "Democratizing the music creation process with a prompt-to-song platform.",
     services: ["Product Design", "Brand"],
     categories: ["AI", "Media"],

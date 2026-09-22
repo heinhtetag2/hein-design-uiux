@@ -22,8 +22,8 @@ export const caseStudyContent: Record<string, StudyContent> = {
     categories: "Product Design, Brand, Engineering",
     image: mockEduSync,
   },
-  TwoStay: {
-    name: "TwoStay",
+  TuTuStay: {
+    name: "TuTuStay",
     tagline: "Democratizing the music creation process with a prompt-to-song platform.",
     categories: "Product Design, Brand, Engineering",
     image: mockSuno,

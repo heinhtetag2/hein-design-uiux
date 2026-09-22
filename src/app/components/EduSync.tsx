@@ -590,7 +590,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
 
       {/* 16. Next Case Study */}
       <NextCaseStudy
-        label="TwoStay"
+        label="TuTuStay"
         tagline="AI-powered music creation platform"
         image={mockNextStudy}
         index="02 / 05"

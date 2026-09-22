@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 const navItems = ["About Me", "My Blogs", "Shop", "Get in Touch"];
 const caseStudies = [
   "EduSync",
-  "TwoStay",
+  "TuTuStay",
   "JoanX",
   "Goft",
   "ProBridge",
@@ -17,7 +17,7 @@ type CaseStudyView = "home" | "edusync" | "twostay" | "joanx" | "goft" | "probri
 // Maps the sidebar label to the app view it routes to.
 const STUDY_VIEWS: Record<string, CaseStudyView> = {
   EduSync: "edusync",
-  TwoStay: "twostay",
+  TuTuStay: "twostay",
   JoanX: "joanx",
   Goft: "goft",
   ProBridge: "probridge",

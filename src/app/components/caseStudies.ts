@@ -6,10 +6,17 @@ import type { CaseStudyData } from "./CaseStudyTemplate";
 // the EduSync stills until project-specific imagery exists.
 
 // Project imagery (each project currently ships 1–2 assets).
-import imgSuno from "../../assets/work/twostay/template.webp";
-import imgTwoStayColors from "../../assets/work/twostay/tu2staycolorpreviews.webp";
-import imgTwoStayTablet from "../../assets/work/twostay/mocktablet.webp";
-import imgTwoStayBanner from "../../assets/work/twostay/Mockbanner.webp";
+import imgSuno from "../../assets/work/twostay/abstract-glow.webp";
+import imgTuTuStayColors from "../../assets/work/twostay/tu2staycolorpreviews.webp";
+import imgTuTuStayBanner from "../../assets/work/twostay/Mockbanner.png";
+import imgTuTuStayRooms from "../../assets/work/twostay/rooms-overview.webp";
+import imgTuTuStayApp from "../../assets/work/twostay/app-mockup.webp";
+import imgTuTuStayPoster from "../../assets/work/twostay/macbook-hands.webp";
+import imgTuTuStayDoorHangers from "../../assets/work/twostay/door-hangers.webp";
+import imgTuTuStayAmenities from "../../assets/work/twostay/amenities-stat.webp";
+import imgTuTuStayHuman from "../../assets/work/twostay/human.webp";
+import imgTuTuStaySettlementDetail from "../../assets/work/twostay/settlement-detail.webp";
+import imgTuTuStayAdCards from "../../assets/work/twostay/ad-cards.webp";
 import imgUber from "../../assets/work/joanx/laptop.webp";
 import imgJoanXColors from "../../assets/work/joanx/JoanXcolorpreview.webp";
 import imgMidjourney from "../../assets/work/goft/chrome-abstract.webp";
@@ -32,16 +39,27 @@ const sharedImages = {
 export const caseStudies: Record<string, CaseStudyData> = {
   twostay: {
     ...sharedImages,
+    overviewImage: imgSuno,
+    posterImage: imgTuTuStayRooms,
     view: "twostay",
-    title: "TwoStay",
+    title: "TuTuStay",
     titleFont: "serif",
-    protoLabel: "TwoStay",
-    prototypeUrl: "https://suno.com/",
+    protoLabel: "TuTuStay",
+    prototypeUrl: "https://tutustay-manager-dashboard.vercel.app/",
     caseStudyUrl: "https://suno.com/",
-    images: [imgSuno, imgTwoStayColors, imgTwoStayTablet, imgTwoStayBanner],
-    heroImage: imgTwoStayBanner,
-    // Pin the tall full-width feature slot to the color-preview image.
-    slots: { 3: imgTwoStayColors },
+    images: [
+      imgTuTuStayAdCards,
+      imgTuTuStayApp,
+      imgTuTuStayPoster,
+      imgTuTuStayColors,
+      imgTuTuStayDoorHangers,
+      imgTuTuStayAmenities,
+      imgTuTuStayHuman,
+      imgTuTuStaySettlementDetail,
+    ],
+    heroImage: imgTuTuStayBanner,
+    // Pin the tall full-width feature slot to the bento-grid stats collage.
+    slots: { 3: imgTuTuStayPoster },
     meta: [
       { label: "Project Type", value: "Product Design" },
       { label: "Stage", value: "Scale-up" },
@@ -49,41 +67,41 @@ export const caseStudies: Record<string, CaseStudyData> = {
     ],
     introHeading: "Introduction",
     introText:
-      "TwoStay turns a simple idea into a finished song. It opens music creation to everyone by replacing studios and software with a single prompt — and a system that makes the result feel intentional.",
+      "TuTuStay turns a simple idea into a finished song. It opens music creation to everyone by replacing studios and software with a single prompt — and a system that makes the result feel intentional.",
     visionHeading: "The vision",
     visionText: "Make creating music as natural as describing it.",
     collabText:
-      "TwoStay was shaped through tight collaboration between design, audio research, and engineering. Turning prompts into music meant designing for delight and trust in equal measure.",
+      "TuTuStay was shaped through tight collaboration between design, audio research, and engineering. Turning prompts into music meant designing for delight and trust in equal measure.",
     mindsetHeading: "The creative mindset",
     mindsetText:
       "A prompt-to-song platform that keeps the magic up front while giving creators real control over how their music sounds, evolves, and ships.",
     postersPara: [
-      "Music creation has always carried a steep learning curve — tools, theory, and gear standing between an idea and a song. TwoStay removes that distance.",
+      "Music creation has always carried a steep learning curve — tools, theory, and gear standing between an idea and a song. TuTuStay removes that distance.",
       "The interface had to feel playful enough to invite first-timers, yet precise enough that serious creators could shape every take.",
     ],
     stripText:
-      "By balancing spontaneity and structure, TwoStay feels both effortless and deep. Anyone can start with a sentence, then stay to refine, remix, and release.",
+      "By balancing spontaneity and structure, TuTuStay feels both effortless and deep. Anyone can start with a sentence, then stay to refine, remix, and release.",
     courseHeading: "From prompt to track",
     courseText: "Describe a vibe, generate variations, and refine the take that feels right — all in one flow.",
     mosaicText:
-      "Write a prompt, choose a style, and let the system compose. Each result is editable, extendable, and ready to share without ever leaving the canvas.",
+      "Hotel operations are fragmented — bookings in one tool, rooms in another, payouts in a spreadsheet. TutuStay was designed to bring structure to that sprawl, turning scattered daily tasks into one connected workflow. To support this, I built a flexible system that adapts across roles and property sizes, balancing control with simplicity while staying ready for what comes next.",
     wideText: "Turning a sentence into a song people actually want to play.",
     discoveryText:
-      "TwoStay approaches discovery through momentum — surfacing styles, remixes, and community tracks that keep creators in flow and coming back.",
+      "TuTuStay approaches discovery through momentum — surfacing styles, remixes, and community tracks that keep creators in flow and coming back.",
     thinkHeading: "Think Different",
     thinkText:
-      "When making music feels like play, people make more of it. TwoStay turns a tool into a place creators return to — not just open once.",
+      "When making music feels like play, people make more of it. TuTuStay turns a tool into a place creators return to — not just open once.",
     gridText: "Generate, remix, and extend — every track stays editable end to end.",
     scaleHeading: "A System Designed to Scale",
     scaleText: "A foundation that grows with new models and styles without breaking the creative flow.",
     scalePara: [
-      "As the model improves, the experience has to stay simple. TwoStay is built on reusable patterns and predictable states.",
-      "As generative audio evolves, design systems matter more than screens. TwoStay was built around reusable components and predictable states — so new capabilities slot in without rethinking the core experience.",
+      "As the model improves, the experience has to stay simple. TuTuStay is built on reusable patterns and predictable states.",
+      "As generative audio evolves, design systems matter more than screens. TuTuStay was built around reusable components and predictable states — so new capabilities slot in without rethinking the core experience.",
     ],
     impactTitle: "Sound at scale",
     impactLabel: "Impact",
     impactText:
-      "TwoStay was designed to make music creation feel inevitable. From first prompt to finished track, the experience drove real gains in confidence, output, and return visits across creators.",
+      "TuTuStay was designed to make music creation feel inevitable. From first prompt to finished track, the experience drove real gains in confidence, output, and return visits across creators.",
     stats: [
       { value: "4.8", label: "Average creator rating" },
       { value: "12M", label: "Songs generated" },

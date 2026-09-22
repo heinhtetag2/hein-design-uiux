@@ -6,7 +6,7 @@ import allWorkPoster from "../../assets/home/hero-background-poster.jpg";
 
 export const caseStudyBackgrounds: Record<string, string> = {
   EduSync: `url('${bgEduSync}') center/cover no-repeat`,
-  TwoStay:
+  TuTuStay:
     "radial-gradient(ellipse 65% 70% at 30% 40%, #6b3a1e 0%, transparent 60%), radial-gradient(ellipse 70% 65% at 70% 60%, #3a1e5c 0%, transparent 65%), radial-gradient(ellipse 55% 50% at 50% 50%, #8f5a2d 0%, transparent 55%), #0a050d",
   JoanX:
     "radial-gradient(ellipse 60% 70% at 30% 30%, #2a2a2a 0%, transparent 60%), radial-gradient(ellipse 70% 60% at 70% 70%, #1a3a1e 0%, transparent 65%), radial-gradient(ellipse 50% 55% at 50% 50%, #404040 0%, transparent 55%), #050505",

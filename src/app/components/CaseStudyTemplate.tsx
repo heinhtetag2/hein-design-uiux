@@ -6,7 +6,7 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { ArrowUpRight, BookOpen } from "lucide-react";
 
 // Shared, data-driven case-study detail layout. This is the EduSync showcase
-// structure generalized so every project (TwoStay, JoanX, Goft, …) renders the
+// structure generalized so every project (TuTuStay, JoanX, Goft, …) renders the
 // exact same layout, animations and chrome — only the copy and imagery change.
 // See ./caseStudies.ts for the per-project data and ./EduSync.tsx for the
 // original hand-built page this mirrors.
@@ -237,16 +237,17 @@ export function CaseStudyTemplate({
   const pool = data.images.length ? data.images : [""];
   const img = (i: number) => data.slots?.[i] ?? pool[i % pool.length];
 
-  // Drag-strip cards — eight alternating portrait/landscape frames drawn from
-  // the same pool, centered on the middle card.
+  // Drag-strip cards — six alternating portrait/landscape frames drawn from
+  // the raw pool (bypassing slot pins, which are meant for one-off layout
+  // slots elsewhere on the page), centered on the middle card.
   const dragCards = React.useMemo(
     () =>
-      Array.from({ length: 8 }).map((_, i) => ({
-        src: img(i),
-        variant: (i % 3 === 1 ? "landscape" : "portrait") as "portrait" | "landscape",
+      Array.from({ length: 6 }).map((_, i) => ({
+        src: pool[i % pool.length],
+        variant: (i % 2 === 0 ? "landscape" : "portrait") as "portrait" | "landscape",
       })),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data.images, data.slots],
+    [data.images],
   );
 
   React.useEffect(() => {
