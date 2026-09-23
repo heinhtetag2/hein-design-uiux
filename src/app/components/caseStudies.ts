@@ -17,10 +17,14 @@ import imgTuTuStayAmenities from "../../assets/work/twostay/amenities-stat.webp"
 import imgTuTuStayHuman from "../../assets/work/twostay/human.webp";
 import imgTuTuStaySettlementDetail from "../../assets/work/twostay/settlement-detail.webp";
 import imgTuTuStayAdCards from "../../assets/work/twostay/ad-cards.webp";
+import imgTuTuStayWorkflow from "../../assets/work/twostay/workflow-plan.webp";
+import imgTuTuStayStatTiles from "../../assets/work/twostay/stat-tiles.webp";
+import imgTuTuStaySystemPoster from "../../assets/work/twostay/system-poster.webp";
+import imgTuTuStaySettlementSupport from "../../assets/work/twostay/settlement-support.webp";
+import imgTuTuStaySettlementDashboard from "../../assets/work/twostay/settlement-dashboard.webp";
 import imgUber from "../../assets/work/joanx/laptop.webp";
 import imgJoanXColors from "../../assets/work/joanx/JoanXcolorpreview.webp";
 import imgMidjourney from "../../assets/work/goft/chrome-abstract.webp";
-import imgUpwork from "../../assets/work/probridge/fearless-girl.webp";
 import imgHeadspaceCover from "../../assets/work/cardo/cover.webp";
 import imgHeadspaceFull from "../../assets/work/cardo/full.webp";
 import imgEduSync from "../../assets/work/edusync/hover-cover.webp";
@@ -49,9 +53,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
     caseStudyUrl: "https://suno.com/",
     images: [
       imgTuTuStayAdCards,
-      imgTuTuStayApp,
       imgTuTuStayPoster,
-      imgTuTuStayColors,
       imgTuTuStayDoorHangers,
       imgTuTuStayAmenities,
       imgTuTuStayHuman,
@@ -59,33 +61,42 @@ export const caseStudies: Record<string, CaseStudyData> = {
     ],
     heroImage: imgTuTuStayBanner,
     // Pin the tall full-width feature slot to the bento-grid stats collage.
-    slots: { 3: imgTuTuStayPoster },
+    slots: {
+      1: imgTuTuStayApp,
+      2: imgTuTuStaySystemPoster,
+      3: imgTuTuStayColors,
+      4: imgTuTuStayWorkflow,
+      5: imgTuTuStaySettlementSupport,
+      6: imgTuTuStayStatTiles,
+      7: imgTuTuStaySettlementDashboard,
+    },
     meta: [
       { label: "Project Type", value: "Product Design" },
       { label: "Stage", value: "Scale-up" },
       { label: "Deliverables", value: "UX, Brand, Web App" },
+      { label: "Tools", value: "Figma, FigJam, Claude" },
     ],
     introHeading: "Introduction",
     introText:
-      "TuTuStay turns a simple idea into a finished song. It opens music creation to everyone by replacing studios and software with a single prompt — and a system that makes the result feel intentional.",
+      "Running a property means juggling bookings, rooms, and payouts across a dozen disconnected tools. TuTuStay brings it all into one dashboard — giving hosts clarity and control, whether they're managing a single stay or a whole portfolio.",
     visionHeading: "The vision",
-    visionText: "Make creating music as natural as describing it.",
+    visionText: "Make managing any property feel like one calm, connected system.",
     collabText:
-      "TuTuStay was shaped through tight collaboration between design, audio research, and engineering. Turning prompts into music meant designing for delight and trust in equal measure.",
+      "TuTuStay was shaped through close collaboration between design and engineering — building a shared design system so every screen, from bookings to settlements, feels like one connected product.",
     mindsetHeading: "The creative mindset",
     mindsetText:
-      "A prompt-to-song platform that keeps the magic up front while giving creators real control over how their music sounds, evolves, and ships.",
+      "A property system that stays consistent from room to reservation to payout — one design language across every screen, so nothing feels bolted on.",
     postersPara: [
-      "Music creation has always carried a steep learning curve — tools, theory, and gear standing between an idea and a song. TuTuStay removes that distance.",
-      "The interface had to feel playful enough to invite first-timers, yet precise enough that serious creators could shape every take.",
+      "Property tools are usually stitched together from separate systems, each screen carrying its own patterns and logic. TuTuStay unifies them into one coherent system.",
+      "The interface had to scale across very different screens — dashboards, tables, detail views — without losing a shared sense of structure and trust.",
     ],
     stripText:
-      "By balancing spontaneity and structure, TuTuStay feels both effortless and deep. Anyone can start with a sentence, then stay to refine, remix, and release.",
-    courseHeading: "From prompt to track",
-    courseText: "Describe a vibe, generate variations, and refine the take that feels right — all in one flow.",
+      "By balancing structure with ease, TuTuStay stays close to the everyday details — a door hanger, a settlement, a guest on the line. Every touchpoint, physical or digital, fits into one connected system.",
+    courseHeading: "From booking to payout",
+    courseText: "See exactly how a booking becomes a payout — gross revenue, commission, and what lands in your account, laid out clearly at every step.",
     mosaicText:
-      "Hotel operations are fragmented — bookings in one tool, rooms in another, payouts in a spreadsheet. TutuStay was designed to bring structure to that sprawl, turning scattered daily tasks into one connected workflow. To support this, I built a flexible system that adapts across roles and property sizes, balancing control with simplicity while staying ready for what comes next.",
-    wideText: "Turning a sentence into a song people actually want to play.",
+      "Property operations are fragmented — bookings, rooms, and payouts scattered across separate tools. TuTuStay brings it into one connected workflow, flexible enough to adapt across roles and property sizes.",
+    wideText: "Turning scattered payouts into settlements hosts can trust.",
     discoveryText:
       "TuTuStay approaches discovery through momentum — surfacing styles, remixes, and community tracks that keep creators in flow and coming back.",
     thinkHeading: "Think Different",
@@ -98,14 +109,14 @@ export const caseStudies: Record<string, CaseStudyData> = {
       "As the model improves, the experience has to stay simple. TuTuStay is built on reusable patterns and predictable states.",
       "As generative audio evolves, design systems matter more than screens. TuTuStay was built around reusable components and predictable states — so new capabilities slot in without rethinking the core experience.",
     ],
-    impactTitle: "Sound at scale",
+    impactTitle: "Designed for scale",
     impactLabel: "Impact",
     impactText:
-      "TuTuStay was designed to make music creation feel inevitable. From first prompt to finished track, the experience drove real gains in confidence, output, and return visits across creators.",
+      "TuTuStay was designed to move fast without breaking consistency — a full property operations system, from dashboard to settlements, built on one design system so every screen shares the same logic and feel.",
     stats: [
-      { value: "4.8", label: "Average creator rating" },
-      { value: "12M", label: "Songs generated" },
-      { value: "T5", label: "Top performing AI music apps" },
+      { value: "30+", label: "Screens designed" },
+      { value: "5", label: "Connected modules" },
+      { value: "120+", label: "Design system components" },
     ],
     next: { label: "JoanX", tagline: "A calmer everyday ride experience", image: imgUber, index: "03 / 05", view: "joanx" },
   },
@@ -225,66 +236,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
       { value: "20M", label: "Community members" },
       { value: "T1", label: "Leading prompt-to-image tools" },
     ],
-    next: { label: "ProBridge", tagline: "Intent-driven matchmaking for work", image: imgUpwork, index: "05 / 05", view: "probridge" },
-  },
-
-  probridge: {
-    ...sharedImages,
-    view: "probridge",
-    title: "ProBridge",
-    titleFont: "serif",
-    protoLabel: "ProBridge",
-    prototypeUrl: "https://www.upwork.com/",
-    caseStudyUrl: "https://www.upwork.com/",
-    images: [imgUpwork],
-    meta: [
-      { label: "Project Type", value: "Product Design" },
-      { label: "Stage", value: "Growth" },
-      { label: "Deliverables", value: "UX Research, Flows, Systems" },
-    ],
-    introHeading: "Introduction",
-    introText:
-      "ProBridge connects clients and talent across the world. This work reimagined matchmaking — replacing endless searching with intent-driven flows that pair the right people, faster.",
-    visionHeading: "The vision",
-    visionText: "Match people to the right work by understanding intent.",
-    collabText:
-      "The work combined UX research, design, and engineering to model what clients and freelancers actually want — then surface it without friction.",
-    mindsetHeading: "The system mindset",
-    mindsetText:
-      "A marketplace that balances breadth with relevance — guiding both sides toward fit instead of leaving them to wade through endless listings.",
-    postersPara: [
-      "Marketplaces fail when choice becomes overwhelming — too many listings, too little signal about what actually fits.",
-      "The redesign focused matchmaking on intent, surfacing the few right matches over the many possible ones.",
-    ],
-    stripText:
-      "By designing around intent rather than search, ProBridge feels guided instead of overwhelming. Clients find fit faster, and talent reaches the work that suits them.",
-    courseHeading: "Intent-driven matching",
-    courseText: "Describe the need, see the right fits, and move to a conversation — without the endless scroll.",
-    mosaicText:
-      "Post a need, get matched to vetted talent, and start a conversation in fewer steps. Relevance is surfaced up front instead of buried in search.",
-    wideText: "Turning an endless marketplace into the right match.",
-    discoveryText:
-      "ProBridge approaches discovery through relevance — surfacing matches, signals, and next steps that move both sides toward a confident hire.",
-    thinkHeading: "Think Different",
-    thinkText:
-      "When the platform understands intent, matching stops feeling like searching. Surfacing the right fit at the right moment turns a marketplace into a partner.",
-    gridText: "Post, match, and connect — guided by intent instead of keyword search.",
-    scaleHeading: "A System Designed to Scale",
-    scaleText: "A foundation that stays relevant as categories, roles, and demand keep expanding.",
-    scalePara: [
-      "As the marketplace grows, relevance has to scale with it. ProBridge relies on reusable patterns and predictable states.",
-      "As categories and demand expand, design systems matter more than individual screens. The experience was built around reusable components and clear structures — so new flows ship without eroding relevance.",
-    ],
-    impactTitle: "Matching at scale",
-    impactLabel: "Impact",
-    impactText:
-      "The redesign targeted real friction in how work gets matched. From first brief to first message, it drove measurable gains in relevance, speed, and confidence on both sides.",
-    stats: [
-      { value: "4.7", label: "Average match satisfaction" },
-      { value: "35%", label: "Faster time-to-hire" },
-      { value: "T5", label: "Top freelance platforms" },
-    ],
-    next: { label: "EduSync", tagline: "A unified learning workspace", image: imgEduSync, index: "01 / 05", view: "edusync" },
+    next: { label: "ProBridge", tagline: "A unified learning workspace", image: imgEduSync, index: "01 / 04", view: "edusync" },
   },
 
   cardo: {
@@ -343,6 +295,6 @@ export const caseStudies: Record<string, CaseStudyData> = {
       { value: "70M", label: "Members worldwide" },
       { value: "T3", label: "Top Health & Wellness apps" },
     ],
-    next: { label: "EduSync", tagline: "A unified learning workspace", image: imgEduSync, index: "01 / 06", view: "edusync" },
+    next: { label: "ProBridge", tagline: "A unified learning workspace", image: imgEduSync, index: "01 / 04", view: "edusync" },
   },
 };

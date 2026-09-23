@@ -5,7 +5,6 @@ import mockAllWork from "../../assets/feed/windsurf-laptop.webp";
 import mockSuno from "../../assets/work/twostay/app-mockup.webp";
 import mockUber from "../../assets/work/joanx/laptop.webp";
 import mockMidjourney from "../../assets/work/goft/chrome-abstract.webp";
-import mockUpwork from "../../assets/work/probridge/fearless-girl.webp";
 import mockHeadspace from "../../assets/work/cardo/cover.webp";
 
 interface StudyContent {
@@ -16,8 +15,8 @@ interface StudyContent {
 }
 
 export const caseStudyContent: Record<string, StudyContent> = {
-  EduSync: {
-    name: "EduSync",
+  ProBridge: {
+    name: "ProBridge",
     tagline: "Bringing classrooms together through a unified learning workspace.",
     categories: "Product Design, Brand, Engineering",
     image: mockEduSync,
@@ -39,12 +38,6 @@ export const caseStudyContent: Record<string, StudyContent> = {
     tagline: "An interface for exploring imagination at the speed of thought.",
     categories: "Product Design, Brand",
     image: mockMidjourney,
-  },
-  ProBridge: {
-    name: "ProBridge",
-    tagline: "Connecting clients and talent with intent-driven matchmaking flows.",
-    categories: "Product Design, UX",
-    image: mockUpwork,
   },
   Cardo: {
     name: "Cardo",

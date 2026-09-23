@@ -10,9 +10,9 @@ const HOME_SUGGESTIONS = [
 ];
 
 const EDUSYNC_SUGGESTIONS = [
-  { label: "Goal", value: "What was the main goal of EduSync?" },
+  { label: "Goal", value: "What was the main goal of ProBridge?" },
   { label: "Role", value: "What was your role in this project?" },
-  { label: "Tech", value: "What technologies were used for EduSync?" },
+  { label: "Tech", value: "What technologies were used for ProBridge?" },
   { label: "Impact", value: "What was the impact of the redesign?" },
 ];
 
@@ -115,23 +115,23 @@ export function AskAnything({ context = "home", isMenuOpen = false }: AskAnythin
         } else if (q.includes("skill") || q.includes("tech")) {
           res = "He specializes in React, Tailwind CSS, Motion, and Figma, bridging the gap between design and engineering.";
         } else if (q.includes("work") || q.includes("project")) {
-          res = "His work ranges from educational platforms like EduSync to complex music and AI-driven interfaces.";
+          res = "His work ranges from educational platforms like ProBridge to complex music and AI-driven interfaces.";
         } else if (q.includes("personality")) {
           res = "Hein Htet is detail-oriented, collaborative, and deeply curious. He brings a blend of technical precision and creative empathy to every project, always striving for 'Experience, intentionally'.";
         }
       } else if (context === "edusync") {
-        // EduSync context
-        res = "EduSync is a comprehensive educational management platform. I can tell you more about the design system, the user research, or the technical implementation.";
+        // ProBridge context (internal view id stays "edusync")
+        res = "ProBridge is a comprehensive educational management platform. I can tell you more about the design system, the user research, or the technical implementation.";
         if (q.includes("goal")) {
-          res = "The main goal of EduSync was to streamline communication between teachers, students, and parents while providing a clear overview of academic progress.";
+          res = "The main goal of ProBridge was to streamline communication between teachers, students, and parents while providing a clear overview of academic progress.";
         } else if (q.includes("role")) {
           res = "As the Lead Product Designer, I was responsible for the end-to-end design process, from initial wireframing and user testing to building the design system in Figma.";
         } else if (q.includes("tech")) {
-          res = "For EduSync, we used a stack including React for the frontend, Node.js for the backend, and PostgreSQL for data management. The interface was styled with custom CSS modules.";
+          res = "For ProBridge, we used a stack including React for the frontend, Node.js for the backend, and PostgreSQL for data management. The interface was styled with custom CSS modules.";
         } else if (q.includes("impact")) {
           res = "The redesign led to a 40% increase in daily active users and significantly reduced the time teachers spent on administrative tasks.";
         } else if (q.includes("hi") || q.includes("hello")) {
-          res = "Hi! Interested in learning more about the EduSync case study? I'm here to help with any details!";
+          res = "Hi! Interested in learning more about the ProBridge case study? I'm here to help with any details!";
         }
       } else if (context === "blogs") {
         res = "I'm the blog assistant. I can help you find specific articles or tell you more about our writing themes like AI, Design, and Strategy.";
@@ -299,7 +299,7 @@ export function AskAnything({ context = "home", isMenuOpen = false }: AskAnythin
                     value={question}
                     onChange={(e) => setQuestion(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && handleRun()}
-                    placeholder={context === "home" ? "Ask about Hein Htet" : context === "edusync" ? "Ask about EduSync" : "Ask about blogs"}
+                    placeholder={context === "home" ? "Ask about Hein Htet" : context === "edusync" ? "Ask about ProBridge" : "Ask about blogs"}
                     className="bg-transparent border-none outline-none text-body text-foreground font-display placeholder:text-foreground/40 flex-1 min-w-0"
                   />
                   <div className="hidden sm:flex items-center gap-1 bg-foreground/5 border border-foreground/10 rounded px-1.5 py-0.5 pointer-events-none">

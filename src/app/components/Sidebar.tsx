@@ -3,24 +3,22 @@ import { motion } from "motion/react";
 
 const navItems = ["About Me", "My Blogs", "Shop", "Get in Touch"];
 const caseStudies = [
-  "EduSync",
+  "ProBridge",
   "TuTuStay",
   "JoanX",
   "Goft",
-  "ProBridge",
   // "Cardo", — hidden for now
   "All Work",
 ];
 
-type CaseStudyView = "home" | "edusync" | "twostay" | "joanx" | "goft" | "probridge" | "cardo" | "what-i-do" | "blogs" | "contact" | "all-work" | "shop";
+type CaseStudyView = "home" | "edusync" | "twostay" | "joanx" | "goft" | "cardo" | "what-i-do" | "blogs" | "contact" | "all-work" | "shop";
 
 // Maps the sidebar label to the app view it routes to.
 const STUDY_VIEWS: Record<string, CaseStudyView> = {
-  EduSync: "edusync",
+  ProBridge: "edusync",
   TuTuStay: "twostay",
   JoanX: "joanx",
   Goft: "goft",
-  ProBridge: "probridge",
   Cardo: "cardo",
   "All Work": "all-work",
 };

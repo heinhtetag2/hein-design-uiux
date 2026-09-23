@@ -238,7 +238,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       <Container className="pt-24 lg:pt-32 mb-2 lg:mb-20">
         <div className="mb-10">
           <h1 className="font-serif font-normal text-display-2xl text-foreground text-left">
-            EduSync
+            ProBridge
           </h1>
         </div>
         <div className="grid grid-cols-3 gap-4 lg:flex lg:flex-row lg:justify-between pb-[10px] lg:gap-8">
@@ -268,7 +268,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       <Container className="mb-20">
         <div className="lg:pr-[260px]">
           <SectionHeading text="Introduction" />
-          <LargeText text="EduSync brings clarity to how schools manage learning. It connects administrators, teachers, and students through structured workflows that reduce friction and keep learning focused." />
+          <LargeText text="ProBridge brings clarity to how schools manage learning. It connects administrators, teachers, and students through structured workflows that reduce friction and keep learning focused." />
         </div>
       </Container>
 
@@ -284,7 +284,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
         <RevealImage src={eduSyncPoster} className="w-full aspect-video lg:h-[782px]" />
         <div className="w-full lg:max-w-[206px] lg:pr-4">
            <p className="font-display text-body text-foreground leading-relaxed">
-             EduSync was shaped through close collaboration between design, product, and engineering. In a system with many stakeholders, clarity and speed were essential—enabled by shared ownership, clear roles, and continuous feedback.
+             ProBridge was shaped through close collaboration between design, product, and engineering. In a system with many stakeholders, clarity and speed were essential—enabled by shared ownership, clear roles, and continuous feedback.
            </p>
         </div>
       </div>
@@ -311,7 +311,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
                  <RevealImage src={imgFrame80} className="w-full h-full" />
               </div>
               <div className="font-display text-body text-foreground/80 space-y-4 max-w-[400px]">
-                 <p>Education systems are becoming more complex, with more tools, more data, and more stakeholders involved. EduSync was designed to bring structure to that complexity turning scattered processes into clear, connected workflows.</p>
+                 <p>Education systems are becoming more complex, with more tools, more data, and more stakeholders involved. ProBridge was designed to bring structure to that complexity turning scattered processes into clear, connected workflows.</p>
                  <p>To support this, I designed a flexible system that adapts across roles and scenarios, balancing control with simplicity while remaining ready for what comes next.</p>
               </div>
            </div>
@@ -411,7 +411,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
         <div className="w-full mt-16 lg:mt-24">
           <div className="pl-6 lg:pl-[14vw]">
             <p className="font-display font-light text-body text-foreground/85 max-w-[320px] lg:mx-0 lg:text-left text-left leading-relaxed">
-              By balancing structure and flexibility, EduSync creates a system that feels both controlled and human. Administrators gain oversight, teachers gain freedom, and learning becomes accessible without unnecessary complexity.
+              By balancing structure and flexibility, ProBridge creates a system that feels both controlled and human. Administrators gain oversight, teachers gain freedom, and learning becomes accessible without unnecessary complexity.
             </p>
           </div>
         </div>
@@ -468,7 +468,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
             <div className="order-3 lg:order-none w-full pr-6 lg:pr-0">
               <div className="flex flex-col gap-[8px] font-display font-light text-body text-foreground tracking-tight">
                 <p className="leading-relaxed">
-                  EduSync approaches discovery through clarity—surfacing relevant courses, lessons, and progress cues that keep students engaged over time.
+                  ProBridge approaches discovery through clarity—surfacing relevant courses, lessons, and progress cues that keep students engaged over time.
                 </p>
               </div>
             </div>
@@ -538,10 +538,10 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
           </div>
           <div className="w-full lg:w-[212px] shrink-0 flex flex-col gap-[8px] pr-6 lg:pr-0">
             <p className="font-display font-light text-body text-foreground tracking-tight leading-relaxed lg:hidden">
-              As platforms grow, design systems matter more than screens. EduSync is built on reusable components and predictable states—reliable today, flexible for what's next.
+              As platforms grow, design systems matter more than screens. ProBridge is built on reusable components and predictable states—reliable today, flexible for what's next.
             </p>
             <p className="hidden font-display font-light text-body text-foreground tracking-tight leading-relaxed lg:block">
-              As learning platforms grow, design systems become more important than individual screens. EduSync was built around reusable components, clear content structures, and predictable states—so new features can be added without rethinking the core experience.
+              As learning platforms grow, design systems become more important than individual screens. ProBridge was built around reusable components, clear content structures, and predictable states—so new features can be added without rethinking the core experience.
             </p>
             <p className="hidden font-display font-light text-body text-foreground tracking-tight leading-relaxed lg:block">
               By prioritizing consistency and adaptability, the system remains reliable for schools today while staying flexible for future needs.
@@ -562,7 +562,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
         <div className="flex flex-col lg:flex-row justify-between gap-10 pb-20">
           <div className="font-display font-medium text-body text-foreground">Impact</div>
           <p className="max-w-[532px] font-display text-body text-foreground/80">
-            EduSync was designed to address real operational pain points in school environments. From early concept validation to workflow testing, the system demonstrated immediate improvements in clarity, efficiency, and confidence across roles.
+            ProBridge was designed to address real operational pain points in school environments. From early concept validation to workflow testing, the system demonstrated immediate improvements in clarity, efficiency, and confidence across roles.
           </p>
         </div>
 
@@ -614,7 +614,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
               <span className="hidden sm:flex items-center gap-2.5 pr-1">
                 <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand)] animate-pulse" />
                 <span className="font-display font-normal text-body-sm text-foreground whitespace-nowrap">
-                  EduSync
+                  ProBridge
                 </span>
               </span>
               <a

@@ -56,7 +56,7 @@ export interface CaseStudyData {
   courseHeading: string;
   courseText: string;
   mosaicText: string;
-  wideText: string;
+  wideText?: string;
   discoveryText: string;
   thinkHeading: string;
   thinkText: string;
@@ -112,7 +112,15 @@ function LargeText({ text, size = "large" }: { text: string; size?: "large" | "m
   );
 }
 
-function RevealImage({ src, className = "" }: { src: string; className?: string }) {
+function RevealImage({
+  src,
+  className = "",
+  fit = "cover",
+}: {
+  src: string;
+  className?: string;
+  fit?: "cover" | "contain";
+}) {
   // Clip-mask reveal from the top downward + a gentle parallax drift on the
   // image — same easing as the All Work cards. Triggered as it scrolls into view.
   return (
@@ -130,7 +138,7 @@ function RevealImage({ src, className = "" }: { src: string; className?: string 
         transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
         className="w-full h-full"
       >
-        <ImageWithFallback src={src} className="block w-full h-full object-cover" />
+        <ImageWithFallback src={src} className={`block w-full h-full ${fit === "contain" ? "object-contain" : "object-cover"}`} />
       </motion.div>
     </motion.div>
   );
@@ -237,16 +245,18 @@ export function CaseStudyTemplate({
   const pool = data.images.length ? data.images : [""];
   const img = (i: number) => data.slots?.[i] ?? pool[i % pool.length];
 
-  // Drag-strip cards — eight alternating portrait/landscape frames drawn from
-  // the same pool, centered on the middle card.
+  // Drag-strip cards — six alternating portrait/landscape frames drawn from
+  // the raw pool (bypassing slot pins, which are one-off placements for other
+  // sections further down the page — the strip stays its own, unrelated set),
+  // centered on the middle card.
   const dragCards = React.useMemo(
     () =>
-      Array.from({ length: 8 }).map((_, i) => ({
-        src: img(i),
+      Array.from({ length: 6 }).map((_, i) => ({
+        src: pool[i % pool.length],
         variant: (i % 2 === 0 ? "landscape" : "portrait") as "portrait" | "landscape",
       })),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data.images, data.slots],
+    [data.images],
   );
 
   React.useEffect(() => {
@@ -296,7 +306,7 @@ export function CaseStudyTemplate({
         <div className="mb-10">
           <h1 className={`${titleClass} text-display-2xl text-foreground text-left`}>{data.title}</h1>
         </div>
-        <div className="grid grid-cols-3 gap-4 lg:flex lg:flex-row lg:justify-between pb-[10px] lg:gap-8">
+        <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row lg:justify-between pb-[10px] lg:gap-8">
           {data.meta.map((m, i) => (
             <div key={m.label} className={`flex flex-col gap-1 ${i === 0 ? "lg:w-[448px]" : i === 1 ? "lg:w-[212px]" : "lg:w-[400px]"}`}>
               <span className="font-display font-light text-body-sm lg:text-body text-foreground">{m.label}</span>
@@ -354,8 +364,8 @@ export function CaseStudyTemplate({
             <RevealImage src={img(1)} className="w-full h-full" />
           </div>
           <div className="flex flex-col gap-6">
-            <div className="h-[200px] lg:h-[384px] overflow-hidden">
-              <RevealImage src={img(2)} className="w-full h-full" />
+            <div className="w-full aspect-[2400/1366] overflow-hidden bg-black">
+              <RevealImage src={img(2)} className="w-full h-full" fit="contain" />
             </div>
             <div className="font-display text-body text-foreground/80 space-y-4 max-w-[400px]">
               {data.postersPara.map((p, i) => (
@@ -463,8 +473,8 @@ export function CaseStudyTemplate({
         <div className="w-full h-[200px] lg:h-[784px] overflow-hidden">
           <RevealImage src={img(3)} className="w-full h-full" />
         </div>
-        <div className="w-full h-[200px] lg:h-[590px] overflow-hidden">
-          <RevealImage src={img(4)} className="w-full h-full" />
+        <div className="w-full aspect-[2000/995] overflow-hidden bg-black">
+          <RevealImage src={img(4)} className="w-full h-full" fit="contain" />
         </div>
       </div>
 
@@ -482,7 +492,7 @@ export function CaseStudyTemplate({
           <div className="order-3 lg:order-none pr-6 lg:pr-0 lg:max-w-[262px]">
             <p className="font-display text-body text-foreground">{data.mosaicText}</p>
           </div>
-          <div className="order-1 lg:order-none h-[444px] lg:flex-1 lg:min-h-0 overflow-hidden">
+          <div className="order-1 lg:order-none h-[560px] md:h-[640px] lg:flex-1 lg:min-h-0 overflow-hidden">
             <RevealImage src={img(5)} className="w-full h-full" />
           </div>
         </div>
@@ -493,12 +503,14 @@ export function CaseStudyTemplate({
 
       {/* 11.5 Wide Image Grid Section */}
       <div className="w-full mb-16 md:mb-32 grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-10 h-[236px] lg:h-[748px] overflow-hidden">
+        <div className={`${data.wideText ? "lg:col-span-10" : "lg:col-span-12"} h-[236px] lg:h-[748px] overflow-hidden`}>
           <RevealImage src={img(7)} className="w-full h-full" />
         </div>
-        <div className="lg:col-span-2 flex items-start pr-6 lg:pr-0">
-          <p className="font-display text-body text-foreground w-full lg:w-auto lg:max-w-[197px]">{data.wideText}</p>
-        </div>
+        {data.wideText && (
+          <div className="lg:col-span-2 flex items-start pr-6 lg:pr-0">
+            <p className="font-display text-body text-foreground w-full lg:w-auto lg:max-w-[197px]">{data.wideText}</p>
+          </div>
+        )}
       </div>
 
       {/* 11.9 — Discovery Image Grid (hidden for now) */}
