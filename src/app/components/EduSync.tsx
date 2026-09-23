@@ -24,8 +24,8 @@ import mockNextStudy from "../../assets/work/twostay/app-mockup.webp";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { ArrowUpRight, BookOpen } from "lucide-react";
 
-// EduSync interactive prototype — replace with your real Figma / live prototype URL.
-const PROTOTYPE_URL = "https://www.apple.com/os/macos/?version=no-hero";
+// ProBridge interactive prototype.
+const PROTOTYPE_URL = "https://pro-bridge-kr.vercel.app/";
 // TODO: replace with the real Notion case-study link once the deep-dive is written
 const CASE_STUDY_URL = "https://www.nike.com/";
 
@@ -172,8 +172,6 @@ const DRAG_CARDS = [
   { src: "imgApp1", variant: "landscape" as const },
   { src: "imgApp2", variant: "portrait" as const },
   { src: "imgApp3", variant: "landscape" as const },
-  { src: "imgApp1", variant: "portrait" as const },
-  { src: "imgApp2", variant: "landscape" as const },
 ];
 const DRAG_REPS = 3;
 
@@ -241,18 +239,22 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
             ProBridge
           </h1>
         </div>
-        <div className="grid grid-cols-3 gap-4 lg:flex lg:flex-row lg:justify-between pb-[10px] lg:gap-8">
-          <div className="flex flex-col gap-1 lg:w-[448px]">
+        <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row lg:w-full lg:justify-between pb-[10px]">
+          <div className="flex flex-col gap-1">
             <span className="font-display font-light text-body-sm lg:text-body text-foreground">Project Type</span>
             <span className="font-display font-normal text-muted-foreground text-body-sm lg:text-body">Full Build</span>
           </div>
-          <div className="flex flex-col gap-1 lg:w-[212px]">
+          <div className="flex flex-col gap-1">
             <span className="font-display font-light text-body-sm lg:text-body text-foreground">Stage</span>
             <span className="font-display font-normal text-muted-foreground text-body-sm lg:text-body">MVP-ready</span>
           </div>
-          <div className="flex flex-col gap-1 lg:w-[400px]">
+          <div className="flex flex-col gap-1">
             <span className="font-display font-light text-body-sm lg:text-body text-foreground">Deliverables</span>
             <span className="font-display font-normal text-muted-foreground text-body-sm lg:text-body">UX, Dashboard, Systems</span>
+          </div>
+          <div className="flex flex-col gap-1">
+            <span className="font-display font-light text-body-sm lg:text-body text-foreground">Tools</span>
+            <span className="font-display font-normal text-muted-foreground text-body-sm lg:text-body">Claude, Higgsfield, Codex, FigJam</span>
           </div>
         </div>
       </Container>

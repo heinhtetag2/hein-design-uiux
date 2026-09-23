@@ -306,9 +306,9 @@ export function CaseStudyTemplate({
         <div className="mb-10">
           <h1 className={`${titleClass} text-display-2xl text-foreground text-left`}>{data.title}</h1>
         </div>
-        <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row lg:justify-between pb-[10px] lg:gap-8">
-          {data.meta.map((m, i) => (
-            <div key={m.label} className={`flex flex-col gap-1 ${i === 0 ? "lg:w-[448px]" : i === 1 ? "lg:w-[212px]" : "lg:w-[400px]"}`}>
+        <div className="grid grid-cols-2 gap-4 lg:flex lg:flex-row lg:w-full lg:justify-between pb-[10px]">
+          {data.meta.map((m) => (
+            <div key={m.label} className="flex flex-col gap-1">
               <span className="font-display font-light text-body-sm lg:text-body text-foreground">{m.label}</span>
               <span className="font-display font-normal text-muted-foreground text-body-sm lg:text-body">{m.value}</span>
             </div>

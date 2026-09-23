@@ -134,6 +134,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
       { label: "Project Type", value: "Product Design" },
       { label: "Stage", value: "Enterprise" },
       { label: "Deliverables", value: "UX Research, App, Systems" },
+      { label: "Tools", value: "Figma, FigJam, Claude" },
     ],
     introHeading: "Introduction",
     introText:
@@ -193,6 +194,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
       { label: "Project Type", value: "Product Design" },
       { label: "Stage", value: "0 → 1" },
       { label: "Deliverables", value: "Product Strategy, UX, Web" },
+      { label: "Tools", value: "Figma, FigJam, Claude" },
     ],
     introHeading: "Introduction",
     introText:
@@ -252,6 +254,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
       { label: "Project Type", value: "Product Design" },
       { label: "Stage", value: "Mature product" },
       { label: "Deliverables", value: "UX, Brand, Mobile" },
+      { label: "Tools", value: "Figma, FigJam, Claude" },
     ],
     introHeading: "Introduction",
     introText:
