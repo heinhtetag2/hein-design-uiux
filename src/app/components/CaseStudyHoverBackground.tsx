@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "motion/react";
 import bgEduSync from "../../assets/work/edusync/hover-background.webp";
-import bgTuTuStay from "../../assets/work/twostay/bg-2.webp";
+import bgTuTuStay from "../../assets/work/twostay/adf.webp";
 import allWorkVideo from "../../assets/home/hero-background.mp4";
 import allWorkPoster from "../../assets/home/hero-background-poster.jpg";
 

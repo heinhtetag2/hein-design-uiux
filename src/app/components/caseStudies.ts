@@ -72,8 +72,8 @@ export const caseStudies: Record<string, CaseStudyData> = {
     },
     meta: [
       { label: "Project Type", value: "Product Design" },
-      { label: "Stage", value: "Scale-up" },
-      { label: "Deliverables", value: "UX, Brand, Web App" },
+      { label: "Role", value: "Lead Product Designer" },
+      { label: "Timeline", value: "8 weeks" },
       { label: "Tools", value: "Figma, FigJam, Claude" },
     ],
     introHeading: "Introduction",
@@ -132,8 +132,8 @@ export const caseStudies: Record<string, CaseStudyData> = {
     images: [imgUber, imgJoanXColors],
     meta: [
       { label: "Project Type", value: "Product Design" },
-      { label: "Stage", value: "Enterprise" },
-      { label: "Deliverables", value: "UX Research, App, Systems" },
+      { label: "Role", value: "Lead Product Designer" },
+      { label: "Timeline", value: "12 weeks" },
       { label: "Tools", value: "Figma, FigJam, Claude" },
     ],
     introHeading: "Introduction",
@@ -192,8 +192,8 @@ export const caseStudies: Record<string, CaseStudyData> = {
     images: [imgMidjourney],
     meta: [
       { label: "Project Type", value: "Product Design" },
-      { label: "Stage", value: "0 → 1" },
-      { label: "Deliverables", value: "Product Strategy, UX, Web" },
+      { label: "Role", value: "Lead Product Designer" },
+      { label: "Timeline", value: "10 weeks" },
       { label: "Tools", value: "Figma, FigJam, Claude" },
     ],
     introHeading: "Introduction",
@@ -252,8 +252,8 @@ export const caseStudies: Record<string, CaseStudyData> = {
     images: [imgHeadspaceCover, imgHeadspaceFull],
     meta: [
       { label: "Project Type", value: "Product Design" },
-      { label: "Stage", value: "Mature product" },
-      { label: "Deliverables", value: "UX, Brand, Mobile" },
+      { label: "Role", value: "Lead Product Designer" },
+      { label: "Timeline", value: "6 weeks" },
       { label: "Tools", value: "Figma, FigJam, Claude" },
     ],
     introHeading: "Introduction",

@@ -22,7 +22,7 @@ export interface CaseStudyData {
   title: string;
   /** EduSync uses a serif title; others can opt in. */
   titleFont?: "serif" | "display";
-  /** Three header meta pairs (Project Type / Stage / Deliverables). */
+  /** Four header meta pairs (Project Type / Role / Timeline / Tools). */
   meta: { label: string; value: string }[];
   /**
    * Pool of the project's own images. Every image slot in the layout pulls from

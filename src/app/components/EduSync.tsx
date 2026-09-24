@@ -1,14 +1,14 @@
 import React from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Footer } from "./Footer";
-import imgHero from "../../assets/work/edusync/hero.webp";
+import imgHero from "../../assets/work/probridge/img1.png";
 import imgVideo from "../../assets/work/edusync/gallery-04.webp";
 import imgFrame79 from "../../assets/work/edusync/gallery-01.webp";
 import imgFrame80 from "../../assets/work/edusync/gallery-02.webp";
 import imgApp1 from "../../assets/work/edusync/music-card-1.webp";
 import imgApp2 from "../../assets/work/edusync/music-card-2.webp";
 import imgApp3 from "../../assets/work/edusync/music-card-3.webp";
-import imgImage1 from "../../assets/work/edusync/gallery-00.webp";
+import imgImage1 from "../../assets/work/probridge/coor.png";
 import animoPoster from "../../assets/work/edusync/animo-orbit-bloom-poster.jpg";
 import imgFrame82 from "../../assets/work/edusync/gallery-07.webp";
 import imgFrame83 from "../../assets/work/edusync/gallery-08.webp";
@@ -245,12 +245,12 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
             <span className="font-display font-normal text-muted-foreground text-body-sm lg:text-body">Full Build</span>
           </div>
           <div className="flex flex-col gap-1">
-            <span className="font-display font-light text-body-sm lg:text-body text-foreground">Stage</span>
-            <span className="font-display font-normal text-muted-foreground text-body-sm lg:text-body">MVP-ready</span>
+            <span className="font-display font-light text-body-sm lg:text-body text-foreground">Role</span>
+            <span className="font-display font-normal text-muted-foreground text-body-sm lg:text-body">Lead Product Designer</span>
           </div>
           <div className="flex flex-col gap-1">
-            <span className="font-display font-light text-body-sm lg:text-body text-foreground">Deliverables</span>
-            <span className="font-display font-normal text-muted-foreground text-body-sm lg:text-body">UX, Dashboard, Systems</span>
+            <span className="font-display font-light text-body-sm lg:text-body text-foreground">Timeline</span>
+            <span className="font-display font-normal text-muted-foreground text-body-sm lg:text-body">8 weeks</span>
           </div>
           <div className="flex flex-col gap-1">
             <span className="font-display font-light text-body-sm lg:text-body text-foreground">Tools</span>
@@ -262,7 +262,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       {/* 2. Hero Image */}
       <div className="relative w-screen mb-32">
         <div className="w-full h-[674px] lg:h-[840px] overflow-hidden">
-          <ImageWithFallback src={imgHero} className="w-full h-full object-cover" />
+          <ImageWithFallback src={imgHero} className="w-full h-full object-cover scale-125" />
         </div>
       </div>
 
