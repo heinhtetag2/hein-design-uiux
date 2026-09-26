@@ -1,6 +1,24 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ChevronDown, Check, Mail } from "lucide-react";
+import { ChevronDown, Check, Mail, Linkedin, Instagram, Send } from "lucide-react";
+
+// Medium has no lucide icon — approximated with its three-shape monogram (circle, oval, crescent).
+function MediumIcon({ strokeWidth = 1.5, ...props }: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <circle cx="7" cy="12" r="5.5" />
+      <ellipse cx="17" cy="12" rx="2.8" ry="5.5" />
+      <path d="M21.2 7.8c1.1 1.1 1.1 7.3 0 8.4" />
+    </svg>
+  );
+}
+
+const SOCIALS = [
+  { label: "Linkedin", href: "#", Icon: Linkedin },
+  { label: "Instagram", href: "#", Icon: Instagram },
+  { label: "Medium", href: "#", Icon: MediumIcon },
+  { label: "Telegram", href: "https://t.me/heinhtet_gloria_11", Icon: Send },
+];
 
 type SelectFieldProps = {
   label: string;
@@ -202,10 +220,18 @@ export function Contact() {
 
           {/* Social Links Bottom Left — desktop only */}
           <div className="mt-auto pt-16 md:pt-40 hidden lg:flex flex-row gap-6 text-body text-foreground font-light lowercase">
-            <a href="#" className="hover:opacity-60 transition-opacity">Linkedin</a>
-            <a href="#" className="hover:opacity-60 transition-opacity">Instagram</a>
-            <a href="#" className="hover:opacity-60 transition-opacity">X</a>
-            <a href="#" className="hover:opacity-60 transition-opacity">Medium</a>
+            {SOCIALS.map(({ label, href, Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="inline-flex items-center gap-1.5 hover:opacity-60 transition-opacity"
+              >
+                <Icon className="size-4 shrink-0" strokeWidth={1.5} aria-hidden />
+                {label}
+              </a>
+            ))}
           </div>
         </div>
 
@@ -345,10 +371,18 @@ export function Contact() {
 
         {/* Social Links Footer — mobile only */}
         <div className="lg:hidden flex flex-row flex-wrap gap-6 pt-8 border-t border-foreground/10 text-body text-foreground font-light lowercase">
-          <a href="#" className="hover:opacity-60 transition-opacity">Linkedin</a>
-          <a href="#" className="hover:opacity-60 transition-opacity">Instagram</a>
-          <a href="#" className="hover:opacity-60 transition-opacity">X</a>
-          <a href="#" className="hover:opacity-60 transition-opacity">Medium</a>
+          {SOCIALS.map(({ label, href, Icon }) => (
+            <a
+              key={label}
+              href={href}
+              target={href.startsWith("http") ? "_blank" : undefined}
+              rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+              className="inline-flex items-center gap-1.5 hover:opacity-60 transition-opacity"
+            >
+              <Icon className="size-4 shrink-0" strokeWidth={1.5} aria-hidden />
+              {label}
+            </a>
+          ))}
         </div>
 
       </div>
