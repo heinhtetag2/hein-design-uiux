@@ -595,7 +595,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
         label="TuTuStay"
         tagline="AI-powered music creation platform"
         image={mockNextStudy}
-        index="02 / 05"
+        index="02 / 03"
         onClick={() => onNavigate?.("twostay")}
       />
 

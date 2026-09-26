@@ -5,13 +5,10 @@ import { Footer } from "./Footer";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import imgEduSync from "../../assets/work/edusync/hover-cover.webp";
 import imgSuno from "../../assets/work/twostay/app-mockup.webp";
-import imgMidjourney from "../../assets/work/goft/chrome-abstract.webp";
 import imgUber from "../../assets/work/joanx/laptop.webp";
 import imgHeadspace from "../../assets/work/cardo/cover.webp";
-import imgNike from "../../assets/work/nike/app-showcase.webp";
-import imgModular from "../../assets/work/modular/cover.webp";
 
-type WorkView = "home" | "edusync" | "what-i-do" | "blogs" | "contact" | "visitor-gallery";
+type WorkView = "home" | "edusync" | "twostay" | "joanx" | "what-i-do" | "blogs" | "contact" | "visitor-gallery";
 
 interface Work {
   name: string;
@@ -33,25 +30,12 @@ const WORKS: Work[] = [
     view: "edusync",
   },
   {
-    name: "Goft",
-    description: "Crafting the original interface for the world's leading prompt-to-image AI service.",
-    services: ["Product Design", "Product Strategy"],
-    categories: ["AI", "Media"],
-    image: imgMidjourney,
-  },
-  {
     name: "TuTuStay",
     description: "Democratizing the music creation process with a prompt-to-song platform.",
     services: ["Product Design", "Brand"],
     categories: ["AI", "Media"],
     image: imgSuno,
-  },
-  {
-    name: "Nike",
-    description: "An ongoing partnership focused on high-impact product strategy and creative design.",
-    services: ["Product Design", "Product Strategy"],
-    categories: ["Ecommerce", "Media"],
-    image: imgNike,
+    view: "twostay",
   },
   // Cardo — hidden for now
   // {
@@ -67,13 +51,7 @@ const WORKS: Work[] = [
     services: ["Product Design", "UX Research"],
     categories: ["Productivity"],
     image: imgUber,
-  },
-  {
-    name: "Modular",
-    description: "A developer platform interface for the next generation of AI infrastructure.",
-    services: ["Product Design", "Engineering"],
-    categories: ["AI", "SaaS"],
-    image: imgModular,
+    view: "joanx",
   },
 ];
 

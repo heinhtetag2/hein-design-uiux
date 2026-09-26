@@ -4,7 +4,6 @@ import mockEduSync from "../../assets/work/edusync/hover-cover.webp";
 import mockAllWork from "../../assets/feed/windsurf-laptop.webp";
 import mockSuno from "../../assets/work/twostay/app-mockup.webp";
 import mockUber from "../../assets/work/joanx/laptop.webp";
-import mockMidjourney from "../../assets/work/goft/chrome-abstract.webp";
 import mockHeadspace from "../../assets/work/cardo/cover.webp";
 
 interface StudyContent {
@@ -32,12 +31,6 @@ export const caseStudyContent: Record<string, StudyContent> = {
     tagline: "Reimagining everyday rides with a faster, calmer driver experience.",
     categories: "Product Design, Research",
     image: mockUber,
-  },
-  Goft: {
-    name: "Goft",
-    tagline: "An interface for exploring imagination at the speed of thought.",
-    categories: "Product Design, Brand",
-    image: mockMidjourney,
   },
   Cardo: {
     name: "Cardo",

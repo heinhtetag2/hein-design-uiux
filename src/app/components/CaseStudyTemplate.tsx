@@ -6,7 +6,7 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { ArrowUpRight, BookOpen } from "lucide-react";
 
 // Shared, data-driven case-study detail layout. This is the EduSync showcase
-// structure generalized so every project (TuTuStay, JoanX, Goft, …) renders the
+// structure generalized so every project (TuTuStay, JoanX, …) renders the
 // exact same layout, animations and chrome — only the copy and imagery change.
 // See ./caseStudies.ts for the per-project data and ./EduSync.tsx for the
 // original hand-built page this mirrors.

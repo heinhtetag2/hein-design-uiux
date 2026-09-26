@@ -24,7 +24,6 @@ import imgTuTuStaySettlementSupport from "../../assets/work/twostay/settlement-s
 import imgTuTuStaySettlementDashboard from "../../assets/work/twostay/settlement-dashboard.webp";
 import imgUber from "../../assets/work/joanx/laptop.webp";
 import imgJoanXColors from "../../assets/work/joanx/JoanXcolorpreview.webp";
-import imgMidjourney from "../../assets/work/goft/chrome-abstract.webp";
 import imgHeadspaceCover from "../../assets/work/cardo/cover.webp";
 import imgHeadspaceFull from "../../assets/work/cardo/full.webp";
 import imgEduSync from "../../assets/work/edusync/hover-cover.webp";
@@ -118,7 +117,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
       { value: "5", label: "Connected modules" },
       { value: "120+", label: "Design system components" },
     ],
-    next: { label: "JoanX", tagline: "A calmer everyday ride experience", image: imgUber, index: "03 / 05", view: "joanx" },
+    next: { label: "JoanX", tagline: "A calmer everyday ride experience", image: imgUber, index: "03 / 03", view: "joanx" },
   },
 
   joanx: {
@@ -178,67 +177,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
       { value: "28%", label: "Faster request-to-pickup" },
       { value: "T3", label: "Top rated mobility apps" },
     ],
-    next: { label: "Goft", tagline: "The original prompt-to-image interface", image: imgMidjourney, index: "04 / 05", view: "goft" },
-  },
-
-  goft: {
-    ...sharedImages,
-    view: "goft",
-    title: "Goft",
-    titleFont: "serif",
-    protoLabel: "Goft",
-    prototypeUrl: "https://www.midjourney.com/",
-    caseStudyUrl: "https://www.midjourney.com/",
-    images: [imgMidjourney],
-    meta: [
-      { label: "Project Type", value: "Product Design" },
-      { label: "Role", value: "Lead Product Designer" },
-      { label: "Timeline", value: "10 weeks" },
-      { label: "Tools", value: "Figma, FigJam, Claude" },
-    ],
-    introHeading: "Introduction",
-    introText:
-      "Goft redefined how people make images. This work crafted the original interface for the world's leading prompt-to-image service — giving boundless creativity a structure people could navigate.",
-    visionHeading: "The vision",
-    visionText: "Give limitless image generation a home people can navigate.",
-    collabText:
-      "The interface grew alongside the model through close work between design, research, and engineering — clarity and speed mattered as the community scaled fast.",
-    mindsetHeading: "The creative mindset",
-    mindsetText:
-      "A prompt-to-image platform that keeps generation fluid while giving creators ways to organize, revisit, and refine an ever-growing body of work.",
-    postersPara: [
-      "Generative imagery produces more output than any traditional tool — the challenge shifts from making images to managing them.",
-      "The interface had to make exploration feel infinite while keeping every result findable, comparable, and easy to iterate on.",
-    ],
-    stripText:
-      "By balancing open exploration with real structure, Goft feels both boundless and organized. Creators chase ideas freely, then shape them with intent.",
-    courseHeading: "From prompt to image",
-    courseText: "Write, generate, upscale, and vary — an iterative loop designed for creative momentum.",
-    mosaicText:
-      "Type a prompt, branch into variations, and upscale the ones that land. Every image stays organized, reusable, and ready to push further.",
-    wideText: "Turning endless generation into an experience people can steer.",
-    discoveryText:
-      "Goft approaches discovery through inspiration — surfacing community creations, styles, and prompts that spark the next idea.",
-    thinkHeading: "Think Different",
-    thinkText:
-      "When exploration feels limitless yet organized, creativity compounds. The ability to find and refine the right image turns a generator into a creative home.",
-    gridText: "Generate, vary, and upscale — every result stays organized and reusable.",
-    scaleHeading: "A System Designed to Scale",
-    scaleText: "A foundation that keeps pace with rapid model leaps without losing the creators who rely on it.",
-    scalePara: [
-      "As the model evolves weekly, the experience has to stay stable. Goft leans on reusable patterns and predictable states.",
-      "As generative models advance, design systems matter more than individual screens. The interface was built around reusable components and clear structures — so new capabilities arrive without disrupting the creative flow.",
-    ],
-    impactTitle: "Imagination at scale",
-    impactLabel: "Impact",
-    impactText:
-      "Goft was designed to make image generation feel limitless yet usable. From first prompt to refined render, it drove real gains in output, retention, and creative confidence.",
-    stats: [
-      { value: "4.9", label: "Average creator rating" },
-      { value: "20M", label: "Community members" },
-      { value: "T1", label: "Leading prompt-to-image tools" },
-    ],
-    next: { label: "ProBridge", tagline: "A unified learning workspace", image: imgEduSync, index: "01 / 04", view: "edusync" },
+    next: { label: "ProBridge", tagline: "A unified learning workspace", image: imgEduSync, index: "01 / 03", view: "edusync" },
   },
 
   cardo: {

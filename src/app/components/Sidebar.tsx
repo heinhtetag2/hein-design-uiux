@@ -6,19 +6,17 @@ const caseStudies = [
   "ProBridge",
   "TuTuStay",
   "JoanX",
-  "Goft",
   // "Cardo", — hidden for now
   "All Work",
 ];
 
-type CaseStudyView = "home" | "edusync" | "twostay" | "joanx" | "goft" | "cardo" | "what-i-do" | "blogs" | "contact" | "all-work" | "shop";
+type CaseStudyView = "home" | "edusync" | "twostay" | "joanx" | "cardo" | "what-i-do" | "blogs" | "contact" | "all-work" | "shop";
 
 // Maps the sidebar label to the app view it routes to.
 const STUDY_VIEWS: Record<string, CaseStudyView> = {
   ProBridge: "edusync",
   TuTuStay: "twostay",
   JoanX: "joanx",
-  Goft: "goft",
   Cardo: "cardo",
   "All Work": "all-work",
 };
