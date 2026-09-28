@@ -6,7 +6,7 @@ import type { CaseStudyData } from "./CaseStudyTemplate";
 // the EduSync stills until project-specific imagery exists.
 
 // Project imagery (each project currently ships 1–2 assets).
-import imgSuno from "../../assets/work/twostay/abstract-glow.webp";
+import imgSuno from "../../assets/work/twostay/tufight.webp";
 import imgTuTuStayColors from "../../assets/work/twostay/tu2staycolorpreviews.webp";
 import imgTuTuStayBanner from "../../assets/work/twostay/Mockbanner.png";
 import imgTuTuStayRooms from "../../assets/work/twostay/rooms-overview.webp";
@@ -22,8 +22,16 @@ import imgTuTuStayStatTiles from "../../assets/work/twostay/stat-tiles.webp";
 import imgTuTuStaySystemPoster from "../../assets/work/twostay/system-poster.webp";
 import imgTuTuStaySettlementSupport from "../../assets/work/twostay/settlement-support.webp";
 import imgTuTuStaySettlementDashboard from "../../assets/work/twostay/settlement-dashboard.webp";
-import imgUber from "../../assets/work/joanx/laptop.webp";
-import imgJoanXColors from "../../assets/work/joanx/JoanXcolorpreview.webp";
+import imgJoanXColors from "../../assets/work/joanx/color-palette.webp";
+import imgJoanXPhones from "../../assets/work/joanx/app-screens-hero.png";
+import imgJoanXVillains from "../../assets/work/joanx/villain-grid.png";
+import imgJoanXAltar from "../../assets/work/joanx/villain-altar.png";
+import imgJoanXGrid from "../../assets/work/joanx/screens-collage.png";
+import imgJoanXHandheld from "../../assets/work/joanx/parent-dashboard-handheld.png";
+import imgJoanXPosterGrid from "../../assets/work/joanx/mascot-warning-screens.png";
+import imgJoanXChat from "../../assets/work/joanx/weekly-safety-chat.png";
+import imgJoanXKids from "../../assets/work/joanx/kids-with-villains.png";
+import imgJoanXProcess from "../../assets/work/joanx/design-process.png";
 import imgHeadspaceCover from "../../assets/work/cardo/cover.webp";
 import imgHeadspaceFull from "../../assets/work/cardo/full.webp";
 import imgEduSync from "../../assets/work/edusync/hover-cover.webp";
@@ -117,18 +125,30 @@ export const caseStudies: Record<string, CaseStudyData> = {
       { value: "5", label: "Connected modules" },
       { value: "120+", label: "Design system components" },
     ],
-    next: { label: "JoanX", tagline: "A calmer everyday ride experience", image: imgUber, index: "03 / 03", view: "joanx" },
+    next: { label: "JoanX", tagline: "A calmer everyday ride experience", image: imgJoanXPhones, index: "03 / 03", view: "joanx" },
   },
 
   joanx: {
     ...sharedImages,
+    overviewImage: imgJoanXProcess,
+    posterImage: imgJoanXPosterGrid,
     view: "joanx",
     title: "JoanX",
     titleFont: "serif",
     protoLabel: "JoanX",
     prototypeUrl: "https://www.uber.com/",
     caseStudyUrl: "https://www.uber.com/",
-    images: [imgUber, imgJoanXColors],
+    images: [imgJoanXPhones, imgJoanXVillains, imgJoanXAltar, imgJoanXColors, imgJoanXGrid, imgJoanXHandheld],
+    heroImage: imgJoanXPhones,
+    slots: {
+      1: imgJoanXChat,
+      2: imgJoanXKids,
+      3: imgJoanXGrid,
+      4: imgJoanXHandheld,
+      5: imgJoanXAltar,
+      6: imgJoanXVillains,
+      7: imgJoanXPhones,
+    },
     meta: [
       { label: "Project Type", value: "Product Design" },
       { label: "Role", value: "Lead Product Designer" },
