@@ -3,9 +3,9 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { FilterPills } from "./FilterPills";
 import { Footer } from "./Footer";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import imgEduSync from "../../assets/work/edusync/hover-cover.webp";
+import imgEduSync from "../../assets/work/probridge/Container.png";
 import imgSuno from "../../assets/work/twostay/app-mockup.webp";
-import imgUber from "../../assets/work/joanx/laptop.webp";
+import imgUber from "../../assets/work/joanx/parent-dashboard-handheld.png";
 import imgHeadspace from "../../assets/work/cardo/cover.webp";
 
 type WorkView = "home" | "edusync" | "twostay" | "joanx" | "what-i-do" | "blogs" | "contact" | "visitor-gallery";
@@ -23,17 +23,17 @@ interface Work {
 const WORKS: Work[] = [
   {
     name: "ProBridge",
-    description: "Bringing classrooms together through a unified learning workspace.",
+    description: "Connecting clients with verified freelance experts through escrow-protected transactions.",
     services: ["Product Design", "Brand", "Engineering"],
-    categories: ["Education", "SaaS", "AI"],
+    categories: ["SaaS"],
     image: imgEduSync,
     view: "edusync",
   },
   {
     name: "TuTuStay",
-    description: "Democratizing the music creation process with a prompt-to-song platform.",
+    description: "Bringing clarity to property operations — bookings, rooms, and payouts in one dashboard.",
     services: ["Product Design", "Brand"],
-    categories: ["AI", "Media"],
+    categories: ["SaaS"],
     image: imgSuno,
     view: "twostay",
   },
@@ -47,9 +47,9 @@ const WORKS: Work[] = [
   // },
   {
     name: "JoanX",
-    description: "Reimagining everyday rides with a faster, calmer driver experience.",
+    description: "A game that keeps kids looking up instead of down at their phones.",
     services: ["Product Design", "UX Research"],
-    categories: ["Productivity"],
+    categories: ["Health & Wellness"],
     image: imgUber,
     view: "joanx",
   },

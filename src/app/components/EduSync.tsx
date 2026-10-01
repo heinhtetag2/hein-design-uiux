@@ -2,23 +2,27 @@ import React from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Footer } from "./Footer";
 import imgHero from "../../assets/work/probridge/img1.png";
-import imgVideo from "../../assets/work/edusync/gallery-04.webp";
-import imgFrame79 from "../../assets/work/edusync/gallery-01.webp";
-import imgFrame80 from "../../assets/work/edusync/gallery-02.webp";
-import imgApp1 from "../../assets/work/edusync/music-card-1.webp";
-import imgApp2 from "../../assets/work/edusync/music-card-2.webp";
-import imgApp3 from "../../assets/work/edusync/music-card-3.webp";
+import imgVideo from "../../assets/work/probridge/Frame 70.png";
+import imgFrame79 from "../../assets/work/probridge/Frame 117.png";
+import imgFrame80 from "../../assets/work/probridge/Frame 77.png";
+import imgApp1 from "../../assets/work/probridge/Frame 71.png";
+import imgApp2 from "../../assets/work/probridge/Frame 68.png";
+import imgApp3 from "../../assets/work/probridge/Container.png";
+import stripLaptop from "../../assets/work/probridge/Frame 128.png";
+import stripProfile from "../../assets/work/probridge/Frame 129.png";
+import stripLogo from "../../assets/work/probridge/Frame 94.png";
+import stripLanding from "../../assets/work/probridge/Frame 127.png";
 import imgImage1 from "../../assets/work/probridge/coor.png";
-import animoPoster from "../../assets/work/edusync/animo-orbit-bloom-poster.jpg";
+import animoPoster from "../../assets/work/probridge/Frame 105.png";
 import imgFrame82 from "../../assets/work/edusync/gallery-07.webp";
 import imgFrame83 from "../../assets/work/edusync/gallery-08.webp";
 import imgImage2 from "../../assets/work/edusync/gallery-10.webp";
-import imgImage3 from "../../assets/work/edusync/gallery-06.webp";
+import imgImage3 from "../../assets/work/probridge/Frame 111.png";
 import imgImage6 from "../../assets/work/edusync/gallery-11.webp";
 import thinkDifferentPoster from "../../assets/work/edusync/think-different-video-poster.jpg";
 import imgImage9 from "../../assets/work/edusync/gallery-09.webp";
-import eduSyncPoster from "../../assets/work/edusync/overview-video-poster.jpg";
-import frame78Poster from "../../assets/work/edusync/system-video-poster.jpg";
+import eduSyncPoster from "../../assets/work/probridge/Frame 130.png";
+import frame78Poster from "../../assets/work/probridge/Frame 131.png";
 import mockNextStudy from "../../assets/work/twostay/app-mockup.webp";
 
 import { ImageWithFallback } from "./figma/ImageWithFallback";
@@ -166,12 +170,12 @@ function NextCaseStudy({
 }
 
 const DRAG_CARDS = [
-  { src: "imgApp1", variant: "portrait" as const },
-  { src: "imgApp2", variant: "landscape" as const },
-  { src: "imgApp3", variant: "portrait" as const },
-  { src: "imgApp1", variant: "landscape" as const },
+  { src: "stripLaptop", variant: "portrait" as const },
+  { src: "stripProfile", variant: "landscape" as const },
   { src: "imgApp2", variant: "portrait" as const },
   { src: "imgApp3", variant: "landscape" as const },
+  { src: "stripLogo", variant: "portrait" as const },
+  { src: "stripLanding", variant: "landscape" as const },
 ];
 const DRAG_REPS = 3;
 
@@ -199,12 +203,11 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       const stripWidth = cards[DRAG_CARDS.length].offsetLeft - cards[0].offsetLeft;
       stripWidthRef.current = stripWidth;
 
-      // Center the vinyl ("Luna's New Trick", imgApp1 portrait) card from the
-      // middle copy so it's the default focused card.
+      // Center the laptop (stripLaptop, portrait) card from the middle copy
+      // so it's the default focused card.
       const midpoint = Math.floor(DRAG_CARDS.length / 2);
-      let localIdx = DRAG_CARDS.findIndex((c, i) => c.src === "imgApp1" && c.variant === "portrait" && i >= midpoint);
-      if (localIdx === -1) localIdx = DRAG_CARDS.findIndex((c) => c.src === "imgApp1" && c.variant === "portrait");
-      if (localIdx === -1) localIdx = DRAG_CARDS.findIndex((c) => c.src === "imgApp1");
+      let localIdx = DRAG_CARDS.findIndex((c, i) => c.src === "stripLaptop" && i >= midpoint);
+      if (localIdx === -1) localIdx = DRAG_CARDS.findIndex((c) => c.src === "stripLaptop");
       if (localIdx === -1) localIdx = midpoint;
       const hero = cards[DRAG_CARDS.length + localIdx];
       const target = hero.offsetLeft - (container.offsetWidth - hero.offsetWidth) / 2;
@@ -224,9 +227,12 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
   };
 
   const cardSrcMap: Record<string, string> = {
-    imgApp1,
+    stripLaptop,
+    stripProfile,
     imgApp2,
     imgApp3,
+    stripLogo,
+    stripLanding,
   };
 
   return (
@@ -250,7 +256,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
           </div>
           <div className="flex flex-col gap-1">
             <span className="font-display font-light text-body-sm lg:text-body text-foreground">Timeline</span>
-            <span className="font-display font-normal text-muted-foreground text-body-sm lg:text-body">8 weeks</span>
+            <span className="font-display font-normal text-muted-foreground text-body-sm lg:text-body">1 week</span>
           </div>
           <div className="flex flex-col gap-1">
             <span className="font-display font-light text-body-sm lg:text-body text-foreground">Tools</span>
@@ -270,14 +276,14 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       <Container className="mb-20">
         <div className="lg:pr-[260px]">
           <SectionHeading text="Introduction" />
-          <LargeText text="ProBridge brings clarity to how schools manage learning. It connects administrators, teachers, and students through structured workflows that reduce friction and keep learning focused." />
+          <LargeText text="ProBridge connects clients with verified freelance experts — designers, developers, marketers, translators — through escrow-protected transactions. Every project stays safe from first message to final payout." />
         </div>
       </Container>
 
       <Container className="mb-12 lg:mb-28">
         <div className="lg:pl-[260px] lg:pr-[496px]">
           <SectionHeading text="The vision" />
-          <LargeText size="medium" text="Build a system where learning flows naturally without operational noise." />
+          <LargeText size="medium" text="Build a marketplace where hiring a freelancer feels as safe as walking into a storefront." />
         </div>
       </Container>
 
@@ -286,7 +292,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
         <RevealImage src={eduSyncPoster} className="w-full aspect-video lg:h-[782px]" />
         <div className="w-full lg:max-w-[206px] lg:pr-4">
            <p className="font-display text-body text-foreground leading-relaxed">
-             ProBridge was shaped through close collaboration between design, product, and engineering. In a system with many stakeholders, clarity and speed were essential—enabled by shared ownership, clear roles, and continuous feedback.
+             ProBridge was shaped through close collaboration between design, product, and engineering. With clients and freelancers depending on the same system, trust and speed had to be designed in from day one.
            </p>
         </div>
       </div>
@@ -295,7 +301,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       <Container className="mb-16 md:mb-28 lg:mb-40">
         <div className="lg:pl-[260px] lg:pr-[460px]">
           <SectionHeading text="The system mindset" />
-          <LargeText size="medium" text="A structured learning platform that balances administrative control with flexibility while keeping the experience simple for those who learn and teach every day." />
+          <LargeText size="medium" text="A marketplace that balances platform-level trust and control with the flexibility clients and freelancers need to actually get work done." />
         </div>
       </Container>
 
@@ -313,8 +319,8 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
                  <RevealImage src={imgFrame80} className="w-full h-full" />
               </div>
               <div className="font-display text-body text-foreground/80 space-y-4 max-w-[400px]">
-                 <p>Education systems are becoming more complex, with more tools, more data, and more stakeholders involved. ProBridge was designed to bring structure to that complexity turning scattered processes into clear, connected workflows.</p>
-                 <p>To support this, I designed a flexible system that adapts across roles and scenarios, balancing control with simplicity while remaining ready for what comes next.</p>
+                 <p>Hiring a freelancer usually means scattered DMs, upfront risk, and no real recourse if the work falls through. ProBridge brings search, escrow payment, and delivery into one connected flow, so neither side has to gamble on a stranger.</p>
+                 <p>To support this, I designed a flexible system that adapts across service categories — design, development, video, marketing, translation — balancing platform control with simplicity for both sides of the transaction.</p>
               </div>
            </div>
         </div>
@@ -413,7 +419,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
         <div className="w-full mt-16 lg:mt-24">
           <div className="pl-6 lg:pl-[14vw]">
             <p className="font-display font-light text-body text-foreground/85 max-w-[320px] lg:mx-0 lg:text-left text-left leading-relaxed">
-              By balancing structure and flexibility, ProBridge creates a system that feels both controlled and human. Administrators gain oversight, teachers gain freedom, and learning becomes accessible without unnecessary complexity.
+              By balancing structure and flexibility, ProBridge creates a marketplace that feels both protected and human. Clients get escrow-backed confidence, freelancers get fair and fast settlement, and finding the right expert stays simple.
             </p>
           </div>
         </div>
@@ -432,8 +438,8 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       {/* 10. Course Management Section */}
       <Container className="mb-16 md:mb-28 lg:mb-40">
         <div className="lg:pl-[260px] lg:pr-[460px]">
-          <SectionHeading text="Course Management" />
-          <LargeText size="medium" text="Structuring learning through clear roles, reviews, and workflows." />
+          <SectionHeading text="Service Discovery" />
+          <LargeText size="medium" text="Structuring how clients search, compare, and book experts through clear categories, ratings, and reviews." />
         </div>
       </Container>
 
@@ -441,7 +447,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       <div className="w-full mb-28 md:mb-32 flex flex-col lg:flex-row gap-6">
         <div className="contents lg:flex lg:flex-col lg:gap-6 lg:w-[424px] lg:h-[782px]">
            <div className="order-3 lg:order-none pr-6 lg:pr-0 lg:max-w-[262px]">
-              <p className="font-display text-body text-foreground">Create a course, assign teachers, and manage lessons in one place. Content moves from draft to review to published ensuring quality without slowing down teaching.</p>
+              <p className="font-display text-body text-foreground">Search by category, compare verified freelancers by rating and price, and book with one escrow-protected payment. Funds release only once the work is approved.</p>
            </div>
            <div className="order-1 lg:order-none h-[444px] lg:flex-1 lg:min-h-0 overflow-hidden">
               <RevealImage src={animoPoster} className="w-full h-full" />
@@ -458,7 +464,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
            <RevealImage src={imgImage3} className="w-full h-full" />
         </div>
         <div className="lg:col-span-2 flex items-start pr-6 lg:pr-0">
-           <p className="font-display text-body text-foreground w-full lg:w-auto lg:max-w-[197px]">Structuring learning through clear roles, reviews, and workflows.</p>
+           <p className="font-display text-body text-foreground w-full lg:w-auto lg:max-w-[197px]">Structuring discovery through clear categories, ratings, and reviews.</p>
         </div>
       </div>
 
@@ -470,7 +476,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
             <div className="order-3 lg:order-none w-full pr-6 lg:pr-0">
               <div className="flex flex-col gap-[8px] font-display font-light text-body text-foreground tracking-tight">
                 <p className="leading-relaxed">
-                  ProBridge approaches discovery through clarity—surfacing relevant courses, lessons, and progress cues that keep students engaged over time.
+                  ProBridge approaches discovery through clarity—surfacing relevant experts, services, and portfolio cues that keep clients confident over time.
                 </p>
               </div>
             </div>
@@ -490,7 +496,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       <Container className="mt-14 lg:mt-0 mb-[60px] md:mb-[100px] lg:mb-[140px]">
         <div className="lg:pl-[260px] lg:pr-[460px]">
           <SectionHeading text="Think Different" />
-          <LargeText size="medium" text="The ability to surface the right learning at the right time turns an LMS into a place students return to—not just log into." />
+          <LargeText size="medium" text="The ability to surface the right expert at the right time turns a marketplace into a place clients return to—not just visit once." />
         </div>
       </Container>
       )}
@@ -500,7 +506,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       <div className="w-full mb-16 md:mb-32 flex flex-col lg:flex-row gap-6">
         <div className="contents lg:flex lg:flex-col lg:gap-4 lg:w-[424px] lg:h-[782px]">
            <div className="order-3 lg:order-none pr-6 lg:pr-0 lg:max-w-[262px]">
-              <p className="font-display text-body text-foreground">Create a course, assign teachers, and manage lessons in one place.</p>
+              <p className="font-display text-body text-foreground">Post a project, review proposals from verified experts, and release payment only once the work is approved.</p>
            </div>
            <div className="order-1 lg:order-none h-[444px] lg:flex-1 lg:min-h-0 overflow-hidden">
               <RevealImage src={thinkDifferentPoster} className="w-full h-full" />
@@ -526,7 +532,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       <Container className="py-12 md:py-16 lg:py-[90px]">
         <div className="lg:pl-[260px] lg:pr-[460px]">
           <SectionHeading text="A System Designed to Scale" />
-          <LargeText size="medium" text="Building a stable foundation that supports growth without breaking existing workflows." />
+          <LargeText size="medium" text="Building a stable foundation that supports more categories and experts without breaking existing trust." />
         </div>
       </Container>
       )}
@@ -543,10 +549,10 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
               As platforms grow, design systems matter more than screens. ProBridge is built on reusable components and predictable states—reliable today, flexible for what's next.
             </p>
             <p className="hidden font-display font-light text-body text-foreground tracking-tight leading-relaxed lg:block">
-              As learning platforms grow, design systems become more important than individual screens. ProBridge was built around reusable components, clear content structures, and predictable states—so new features can be added without rethinking the core experience.
+              As the marketplace grows, design systems become more important than individual screens. ProBridge was built around reusable components, clear content structures, and predictable states—so new service categories can be added without rethinking the core experience.
             </p>
             <p className="hidden font-display font-light text-body text-foreground tracking-tight leading-relaxed lg:block">
-              By prioritizing consistency and adaptability, the system remains reliable for schools today while staying flexible for future needs.
+              By prioritizing consistency and adaptability, the system remains reliable for clients and freelancers today while staying flexible for future needs.
             </p>
           </div>
         </div>
@@ -564,15 +570,15 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
         <div className="flex flex-col lg:flex-row justify-between gap-10 pb-20">
           <div className="font-display font-medium text-body text-foreground">Impact</div>
           <p className="max-w-[532px] font-display text-body text-foreground/80">
-            ProBridge was designed to address real operational pain points in school environments. From early concept validation to workflow testing, the system demonstrated immediate improvements in clarity, efficiency, and confidence across roles.
+            ProBridge was designed to address real trust and speed pain points in freelance hiring. From early concept validation to workflow testing, the system demonstrated immediate improvements in safety, clarity, and confidence for both clients and freelancers.
           </p>
         </div>
 
         <div>
           {[
-            { value: "4.9", label: "Star rating on App Store" },
-            { value: "43K", label: "Ratings on App Store" },
-            { value: "T10", label: "Top performing apps in Education" }
+            { value: "12K+", label: "Verified experts on the platform" },
+            { value: "48K+", label: "Projects completed" },
+            { value: "100%", label: "Escrow-protected transactions" }
           ].map((stat) => (
             <div key={stat.label} className="border-t border-foreground/15 md:-ml-[150px] md:-mr-[90px]">
               <div className="flex flex-col items-start gap-2 md:flex-row md:items-end md:justify-end md:gap-6 lg:gap-8 md:pl-[150px] pr-[6%] md:pr-[6%] lg:pr-[8%] py-8 md:py-10 lg:py-12">
@@ -593,7 +599,7 @@ export function EduSync({ onNavigate }: { onNavigate?: (view: string) => void })
       {/* 16. Next Case Study */}
       <NextCaseStudy
         label="TuTuStay"
-        tagline="AI-powered music creation platform"
+        tagline="One dashboard for bookings, rooms, and payouts"
         image={mockNextStudy}
         index="02 / 03"
         onClick={() => onNavigate?.("twostay")}

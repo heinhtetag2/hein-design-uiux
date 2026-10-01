@@ -319,7 +319,10 @@ export function CaseStudyTemplate({
       {/* 2. Hero Image */}
       <div className="relative w-screen mb-32">
         <div className="w-full h-[674px] lg:h-[840px] overflow-hidden">
-          <ImageWithFallback src={data.heroImage ?? img(0)} className="w-full h-full object-cover" />
+          <ImageWithFallback
+            src={data.heroImage ?? img(0)}
+            className="w-full h-full object-cover"
+          />
         </div>
       </div>
 

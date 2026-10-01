@@ -1,9 +1,9 @@
 import React from "react";
 import { motion, AnimatePresence } from "motion/react";
-import mockEduSync from "../../assets/work/edusync/hover-cover.webp";
+import mockEduSync from "../../assets/work/probridge/Container.png";
 import mockAllWork from "../../assets/feed/windsurf-laptop.webp";
 import mockSuno from "../../assets/work/twostay/app-mockup.webp";
-import mockUber from "../../assets/work/joanx/laptop.webp";
+import mockUber from "../../assets/work/joanx/parent-dashboard-handheld.png";
 import mockHeadspace from "../../assets/work/cardo/cover.webp";
 
 interface StudyContent {
@@ -16,19 +16,19 @@ interface StudyContent {
 export const caseStudyContent: Record<string, StudyContent> = {
   ProBridge: {
     name: "ProBridge",
-    tagline: "Bringing classrooms together through a unified learning workspace.",
+    tagline: "Connecting clients with verified freelance experts through escrow-protected transactions.",
     categories: "Product Design, Brand, Engineering",
     image: mockEduSync,
   },
   TuTuStay: {
     name: "TuTuStay",
-    tagline: "Democratizing the music creation process with a prompt-to-song platform.",
+    tagline: "Bringing clarity to property operations — bookings, rooms, and payouts in one dashboard.",
     categories: "Product Design, Brand, Engineering",
     image: mockSuno,
   },
   JoanX: {
     name: "JoanX",
-    tagline: "Reimagining everyday rides with a faster, calmer driver experience.",
+    tagline: "A game that keeps kids looking up instead of down at their phones.",
     categories: "Product Design, Research",
     image: mockUber,
   },

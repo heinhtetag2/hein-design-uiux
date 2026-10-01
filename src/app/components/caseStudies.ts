@@ -23,7 +23,7 @@ import imgTuTuStaySystemPoster from "../../assets/work/twostay/system-poster.web
 import imgTuTuStaySettlementSupport from "../../assets/work/twostay/settlement-support.webp";
 import imgTuTuStaySettlementDashboard from "../../assets/work/twostay/settlement-dashboard.webp";
 import imgJoanXColors from "../../assets/work/joanx/color-palette.webp";
-import imgJoanXPhones from "../../assets/work/joanx/app-screens-hero.png";
+import imgJoanXPhones from "../../assets/work/joanx/foc.png";
 import imgJoanXVillains from "../../assets/work/joanx/villain-grid.png";
 import imgJoanXAltar from "../../assets/work/joanx/villain-altar.png";
 import imgJoanXGrid from "../../assets/work/joanx/screens-collage.png";
@@ -32,9 +32,16 @@ import imgJoanXPosterGrid from "../../assets/work/joanx/mascot-warning-screens.p
 import imgJoanXChat from "../../assets/work/joanx/weekly-safety-chat.png";
 import imgJoanXKids from "../../assets/work/joanx/kids-with-villains.png";
 import imgJoanXProcess from "../../assets/work/joanx/design-process.png";
+import imgJoanXBanner from "../../assets/work/joanx/joanbanner.png";
+import imgJoanXWalking from "../../assets/work/joanx/kids-walking-distracted.png";
+import imgJoanXEggHatch from "../../assets/work/joanx/buddy-egg-hatch.png";
+import imgJoanXTeenPhone from "../../assets/work/joanx/teen-checking-phone.png";
+import imgJoanXBadge from "../../assets/work/joanx/first-hatch-badge.png";
+import imgJoanXLockscreen from "../../assets/work/joanx/lockscreen-widget.png";
+import imgJoanXOutfit from "../../assets/work/joanx/buddy-outfit-customization.png";
 import imgHeadspaceCover from "../../assets/work/cardo/cover.webp";
 import imgHeadspaceFull from "../../assets/work/cardo/full.webp";
-import imgEduSync from "../../assets/work/edusync/hover-cover.webp";
+import imgEduSync from "../../assets/work/probridge/Container.png";
 
 // Shared image slots (reused across projects for now).
 import overviewImage from "../../assets/work/edusync/overview-video-poster.jpg";
@@ -57,7 +64,8 @@ export const caseStudies: Record<string, CaseStudyData> = {
     titleFont: "serif",
     protoLabel: "TuTuStay",
     prototypeUrl: "https://tutustay-manager-dashboard.vercel.app/",
-    caseStudyUrl: "https://suno.com/",
+    // TODO: replace with the real Notion case-study link once the deep-dive is written
+    caseStudyUrl: "https://tutustay-manager-dashboard.vercel.app/",
     images: [
       imgTuTuStayAdCards,
       imgTuTuStayPoster,
@@ -105,16 +113,16 @@ export const caseStudies: Record<string, CaseStudyData> = {
       "Property operations are fragmented — bookings, rooms, and payouts scattered across separate tools. TuTuStay brings it into one connected workflow, flexible enough to adapt across roles and property sizes.",
     wideText: "Turning scattered payouts into settlements hosts can trust.",
     discoveryText:
-      "TuTuStay approaches discovery through momentum — surfacing styles, remixes, and community tracks that keep creators in flow and coming back.",
+      "TuTuStay approaches discovery through momentum — surfacing bookings, tasks, and guest activity that keep hosts in flow and coming back.",
     thinkHeading: "Think Different",
     thinkText:
-      "When making music feels like play, people make more of it. TuTuStay turns a tool into a place creators return to — not just open once.",
-    gridText: "Generate, remix, and extend — every track stays editable end to end.",
+      "When managing a property feels effortless, hosts actually keep up with it. TuTuStay turns a dashboard into a place hosts return to — not just open once.",
+    gridText: "Book, adjust, and settle — every reservation stays editable end to end.",
     scaleHeading: "A System Designed to Scale",
-    scaleText: "A foundation that grows with new models and styles without breaking the creative flow.",
+    scaleText: "A foundation that grows with new properties and room types without breaking the operational flow.",
     scalePara: [
-      "As the model improves, the experience has to stay simple. TuTuStay is built on reusable patterns and predictable states.",
-      "As generative audio evolves, design systems matter more than screens. TuTuStay was built around reusable components and predictable states — so new capabilities slot in without rethinking the core experience.",
+      "As a host's portfolio grows, the experience has to stay simple. TuTuStay is built on reusable patterns and predictable states.",
+      "As property portfolios scale, design systems matter more than individual screens. TuTuStay was built around reusable components and predictable states — so new capabilities slot in without rethinking the core experience.",
     ],
     impactTitle: "Designed for scale",
     impactLabel: "Impact",
@@ -125,7 +133,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
       { value: "5", label: "Connected modules" },
       { value: "120+", label: "Design system components" },
     ],
-    next: { label: "JoanX", tagline: "A calmer everyday ride experience", image: imgJoanXPhones, index: "03 / 03", view: "joanx" },
+    next: { label: "JoanX", tagline: "A game that keeps kids looking up", image: imgJoanXHandheld, index: "03 / 03", view: "joanx" },
   },
 
   joanx: {
@@ -136,10 +144,10 @@ export const caseStudies: Record<string, CaseStudyData> = {
     title: "JoanX",
     titleFont: "serif",
     protoLabel: "JoanX",
-    prototypeUrl: "https://www.uber.com/",
-    caseStudyUrl: "https://www.uber.com/",
-    images: [imgJoanXPhones, imgJoanXVillains, imgJoanXAltar, imgJoanXColors, imgJoanXGrid, imgJoanXHandheld],
-    heroImage: imgJoanXPhones,
+    prototypeUrl: "https://jaonx-prototype.vercel.app/",
+    caseStudyUrl: "https://jaonx-prototype.vercel.app/",
+    images: [imgJoanXEggHatch, imgJoanXWalking, imgJoanXBadge, imgJoanXTeenPhone, imgJoanXOutfit, imgJoanXLockscreen],
+    heroImage: imgJoanXBanner,
     slots: {
       1: imgJoanXChat,
       2: imgJoanXKids,
@@ -198,7 +206,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
       { value: "46%", label: "Fewer risky moments in 2 weeks" },
       { value: "77%", label: "Warnings resolved immediately" },
     ],
-    next: { label: "ProBridge", tagline: "A unified learning workspace", image: imgEduSync, index: "01 / 03", view: "edusync" },
+    next: { label: "ProBridge", tagline: "Escrow-protected freelance marketplace", image: imgEduSync, index: "01 / 03", view: "edusync" },
   },
 
   cardo: {
@@ -258,6 +266,6 @@ export const caseStudies: Record<string, CaseStudyData> = {
       { value: "70M", label: "Members worldwide" },
       { value: "T3", label: "Top Health & Wellness apps" },
     ],
-    next: { label: "ProBridge", tagline: "A unified learning workspace", image: imgEduSync, index: "01 / 04", view: "edusync" },
+    next: { label: "ProBridge", tagline: "Escrow-protected freelance marketplace", image: imgEduSync, index: "01 / 04", view: "edusync" },
   },
 };
