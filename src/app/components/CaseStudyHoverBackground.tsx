@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "motion/react";
 import bgEduSync from "../../assets/work/edusync/hover-background.webp";
 import bgTuTuStay from "../../assets/work/twostay/tufight.webp";
-import bgJoanX from "../../assets/work/joanx/bgbggreen.png";
+import bgJoanX from "../../assets/work/joanx/bglinegreen.png";
 import allWorkVideo from "../../assets/home/hero-background.mp4";
 import allWorkPoster from "../../assets/home/hero-background-poster.jpg";
 

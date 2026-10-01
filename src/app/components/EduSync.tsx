@@ -30,8 +30,7 @@ import { ArrowUpRight, BookOpen } from "lucide-react";
 
 // ProBridge interactive prototype.
 const PROTOTYPE_URL = "https://pro-bridge-kr.vercel.app/";
-// TODO: replace with the real Notion case-study link once the deep-dive is written
-const CASE_STUDY_URL = "https://www.nike.com/";
+const CASE_STUDY_URL = "https://app.notion.com/p/ProBridge-CaseStudy-3ec467b98a5d80a8ada8f68f6b5d8f3f";
 
 function Container({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return <div className={`w-full ${className}`}>{children}</div>;

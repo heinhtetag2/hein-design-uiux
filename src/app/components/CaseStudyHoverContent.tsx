@@ -29,7 +29,7 @@ export const caseStudyContent: Record<string, StudyContent> = {
   JoanX: {
     name: "JoanX",
     tagline: "A game that keeps kids looking up instead of down at their phones.",
-    categories: "Product Design, Research",
+    categories: "Product Design, Brand, Research",
     image: mockUber,
   },
   Cardo: {

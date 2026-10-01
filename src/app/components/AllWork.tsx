@@ -48,7 +48,7 @@ const WORKS: Work[] = [
   {
     name: "JoanX",
     description: "A game that keeps kids looking up instead of down at their phones.",
-    services: ["Product Design", "UX Research"],
+    services: ["Product Design", "Brand", "UX Research"],
     categories: ["Health & Wellness"],
     image: imgUber,
     view: "joanx",
