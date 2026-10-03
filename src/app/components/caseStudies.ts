@@ -64,7 +64,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
     titleFont: "serif",
     protoLabel: "TuTuStay",
     prototypeUrl: "https://tutustay-manager-dashboard.vercel.app/",
-    caseStudyUrl: "https://app.notion.com/p/TuTuStay-CaseStudy-3ec467b98a5d80549d22e646c0e55006",
+    caseStudyUrl: "https://tutustay-manager-dashboard.vercel.app/showcase",
     images: [
       imgTuTuStayAdCards,
       imgTuTuStayPoster,
@@ -144,7 +144,7 @@ export const caseStudies: Record<string, CaseStudyData> = {
     titleFont: "serif",
     protoLabel: "JoanX",
     prototypeUrl: "https://jaonx-prototype.vercel.app/",
-    caseStudyUrl: "https://app.notion.com/p/JoanX-Case-Study-3ec467b98a5d80deb891e8fea2d288bf",
+    caseStudyUrl: "https://jaonx-prototype.vercel.app/website/ux-case-study/",
     images: [imgJoanXEggHatch, imgJoanXWalking, imgJoanXBadge, imgJoanXTeenPhone, imgJoanXOutfit, imgJoanXLockscreen],
     heroImage: imgJoanXBanner,
     slots: {

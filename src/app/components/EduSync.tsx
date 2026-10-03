@@ -30,7 +30,7 @@ import { ArrowUpRight, BookOpen } from "lucide-react";
 
 // ProBridge interactive prototype.
 const PROTOTYPE_URL = "https://pro-bridge-kr.vercel.app/";
-const CASE_STUDY_URL = "https://app.notion.com/p/ProBridge-CaseStudy-3ec467b98a5d80a8ada8f68f6b5d8f3f";
+const CASE_STUDY_URL = "https://pro-bridge-kr.vercel.app/case-study";
 
 function Container({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return <div className={`w-full ${className}`}>{children}</div>;
